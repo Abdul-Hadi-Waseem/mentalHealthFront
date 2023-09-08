@@ -1,0 +1,8 @@
+mutation programdata($Data: ProgramDataArgs!) {
+  programform(argsData: $Data) {
+    success
+    error
+    message
+    data
+  }
+}

@@ -1,0 +1,8 @@
+mutation doctorRegistration($Data: CreateUserDto!) {
+  actionsUsersRegistration(rawData: $Data) {
+    success
+    error
+    message
+    data
+  }
+}

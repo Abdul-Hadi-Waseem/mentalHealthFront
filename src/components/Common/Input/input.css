@@ -1,0 +1,40 @@
+.input-wrapper {
+  position: relative;
+}
+
+.text_input {
+  border: 1px solid rgba(58, 80, 107, 0.6);
+  border-radius: 6px;
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  padding: 0 10px;
+  margin: 10px 0px;
+  line-height: 6ex;
+  color:rgba(58, 80, 107, 0.87);
+
+}
+
+.calendar_input{
+  color:rgba(58, 80, 107, 0.87);
+  /* background-image: url("../../../assets/icons/Calendar.svg"); */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.label {
+  position: absolute;
+  top: -0.4ex;
+  z-index: 1;
+  left: 0.6em;
+  color : rgba(58, 80, 107, 0.6);
+  background-color: white;
+  padding: 0 5px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.side_w_input{
+  width: 176px;
+}

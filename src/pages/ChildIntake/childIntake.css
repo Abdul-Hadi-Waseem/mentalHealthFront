@@ -1,0 +1,187 @@
+.child_intake_container{
+    background-color: #fff;
+    padding:40px 20px;
+    border-radius: 22px;
+    height: max-content;
+    width: 756px;
+}
+.h4_child{
+    color: rgba(36, 61, 76, 1);
+    margin: 10px 0px 15px 0px;
+}
+.child_intake_container .form-check-input:checked[type=radio]{
+    background-color: white;
+    border-color: white;
+    background: linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%);
+
+}
+.sm_form_w{
+    width : 323px
+}
+.child_intake_container .form-check-input:checked[type=checkbox]{
+    background-color: white;
+    border-color: white;
+    border-radius: 50%;
+    background: linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%);
+
+}
+.form_submit_btn{
+  border: none;
+  background: linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%);
+  color: white;
+  width: 100%;
+  height: 57px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 19px 25px 19px 25px;
+  margin-top: 25px;
+}
+.form_separator{
+    width: 100%;
+    height: 1px;
+    color: rgba(81, 111, 139, 0.2);
+    border-bottom: none;
+    margin: 20px 0px;
+}
+/* symptom Check styling */
+.symptomContainer{
+    margin-top: 40px;
+    background-color: #fff;
+    padding:40px 40px;
+    border-radius: 22px;
+    height: max-content;
+    width: 756px;
+    display: flex;
+    justify-content: center;
+}
+.symptom_child_container{
+    width: 100%;
+}
+.checkboxContainer{
+    width: 260px;
+    height: 240px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.checkboxContainer .form-check-label{
+    font-size: 15px;
+    font-weight: 400;
+    color:rgba(81, 111, 139, 1);
+}
+.checkboxContainer .form-check-input{
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid rgba(81, 111, 139, 0.2);
+}
+.checkboxContainer .form-check-input:checked{
+  background: rgba(119, 172, 40, 1);
+  box-shadow: none;
+  border: none;
+  background-image: var(--bs-form-check-bg-image);
+}
+
+.back_btn{
+    border: none;
+    background-color: transparent;
+    color: black;
+    font-weight: 600;
+
+}
+.backContainer{
+    background: transparent;
+}
+.back_btn span{
+        margin-left: 10px;
+}
+
+/* Siblings Information Section  */
+.SiblingsInformationContainer{
+    margin-top: 40px;
+    height: max-content;
+    width: 756px;
+    border-radius: 22px;
+    padding: 20px 30px;
+    background-color: #fff;
+}
+.Siblings_child_container{
+    width: 100%;
+}
+.add_siblings{
+     border: none;
+  background: white;
+  border: 2px dashed #92b9dc;
+  color: rgba(55, 115, 169, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 57px;
+  border-radius: 10px;
+  padding: 19px 25px 19px 25px;
+  margin-top: 25px;
+}
+
+/* School History Styling */
+.SchoolHistoryContainer{
+    margin-top: 40px;
+    height: 990px;
+    width: 756px;
+    border-radius: 22px;
+    padding: 40px 40px;
+    background-color: #fff;
+}
+.SchoolHistory_child_container{
+    width: 100%;
+}
+.textArea{
+    width: 100%;
+    height: 226px;
+    border-radius: 12px;
+    border:  1px solid rgba(0, 0, 0, 0.38);
+    padding: 15px;
+}
+.modal-content{
+    width: 420px;
+    height: 260px;
+    border-radius: 20px;
+}
+.modal-dialog-centered{
+    justify-content: center;
+}
+.modal-body{
+    flex: 0.7 1 auto;
+}
+@media (max-width: 790px) {
+    .child_intake_container{
+        width: 100%;
+    }
+    .symptomContainer{
+        width: 100%;
+    }
+    .SiblingsInformationContainer{
+        width: 100%;
+    }
+    .SchoolHistoryContainer{
+        width: 100%;
+    }
+    .child_intake_container .fl-dr{
+        flex-direction: column;
+    }
+    .Siblings_child_container .fl-dr{
+        flex-direction: column;
+    }
+    .sm_form_w{
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .symptomContainer .fl-dr{
+        flex-direction: column;
+    }
+ 
+}

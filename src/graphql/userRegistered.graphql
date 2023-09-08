@@ -1,0 +1,7 @@
+mutation ActionsUsersRegistration($Data: CreateUserDto!) {
+  actionsUsersRegistration(rawData: $Data) {
+    data
+    success
+    error
+  }
+}
