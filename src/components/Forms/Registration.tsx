@@ -92,6 +92,8 @@ const RegistrationForm: React.FC = () => {
 
       try {
         await executeMutation({ Data: dataToSend });
+        const response = await result;
+        console.log("responseOfSignup", response)
         toast.success("Registration Successful"); // Show the success toast
         setTimeout(() => {
           navigate("/login"); // Navigate after 5 seconds

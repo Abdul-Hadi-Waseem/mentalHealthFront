@@ -1,0 +1,78 @@
+import { Modal, Form } from "react-bootstrap";
+interface AppointmentSuccessfulModalProps {
+  show: boolean;
+  onHide: () => void;
+  showprescriptionmodal: () => void;
+  currentPrescription: any
+}
+import { FaXmark } from "react-icons/fa6";
+
+export default function ViewPrescriptionModal(
+  props: AppointmentSuccessfulModalProps
+) {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      {/* <div className="d-flex w-100 justify-content-end p-0 m-0">
+        <span
+          onClick={() => {
+            props.onHide();
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          <FaXmark />
+        </span>
+      </div> */}
+      <Modal.Header
+        style={{ marginTop: 0, border: "none", paddingBottom: "0px" }}
+      >
+        <Modal.Title
+          className="d-flex w-100 flex-column p-0 m-0"
+          id="contained-modal-title-vcenter"
+        >
+          <div className="d-flex w-100 justify-content-end p-0 m-0">
+            <span
+              onClick={() => {
+                props.onHide();
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <FaXmark />
+            </span>
+          </div>
+          <div>Clinical Feedback</div>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body style={{ border: "none", paddingBottom: "0px" }}>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="create_prescription">
+            <strong>Medical Prescription</strong>
+          </Form.Label>
+          <Form.Control
+            className="rounded-3"
+            id="create_prescription"
+            as="textarea"
+            rows={5}
+            // value={
+            //   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting."
+            // }
+            value={props.currentPrescription.description}
+            readOnly
+          />
+        </Form.Group>
+        <div>
+          <strong>Medical Reports</strong>
+        </div>
+      </Modal.Body>
+      <Modal.Footer style={{ border: "none", paddingTop: "0px" }}>
+        <button onClick={()=>{props.showprescriptionmodal()}} className="form_submit_btn" style={{ marginTop: "0px" }}>
+          Edit Prescription
+        </button>
+      </Modal.Footer>
+    </Modal>
+  );
+}

@@ -14,14 +14,19 @@ import Cookies from "js-cookie";
 import { getToken } from "./../../../utils";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
 import Avatar from "react-avatar";
-import { Row, Col, Image } from "react-bootstrap";
+import { Row, Col, Image, Modal } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 function Header() {
   const [showDropDown, setShowDropDown] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Get Started");
   const token = getToken();
   const navigate = useNavigate();
+  const handleCloseModal = () => {
+    setShowModal(false);
+    // navigate("/doctor-dashboard");
+  };
 
   useEffect(() => {
     if (token) {
@@ -38,7 +43,14 @@ function Header() {
       navigate("/doctor-login");
     }
   }
-  let doctor_information = JSON.parse(localStorage.getItem("doctor_information"));
+  const goToDashBoard = () => {
+    setShowModal(false);
+    // navigate("/doctor-dashboard");
+    handleClick();
+  };
+  let doctor_information = JSON.parse(
+    localStorage.getItem("doctor_information")
+  );
 
   // const btnAvatar = (
   //   <div className="d-flex flex-row">
@@ -101,7 +113,9 @@ function Header() {
                   <div className="d-flex flex-column p-0 me-2">
                     <small className="text-light p-0">
                       {/* <strong className="text-light">Bessie Cooper</strong> */}
-                      <strong className="text-light text-capitalize">{doctor_information.name}</strong>
+                      <strong className="text-light text-capitalize">
+                        {doctor_information.name}
+                      </strong>
                     </small>
                     <small className="text-light  p-0">Psychiatrist</small>
                   </div>
@@ -131,7 +145,15 @@ function Header() {
                           style={{ width: "80%" }}
                         />
                       </div>
-                      <li onClick={handleClick}>Log out</li>
+                      <li
+                        onClick={
+                          () => {
+                            setShowModal(true);
+                          } // modal to show
+                        }
+                      >
+                        Logout
+                      </li>
                       <div className="d-flex justify-content-center w-100 text-light">
                         <hr
                           className=" d-flex border-bottom p-0 m-0"
@@ -146,6 +168,31 @@ function Header() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        className="d-flex align-items-center justify-content-center"
+      >
+        <Modal.Title className="p-4 pb-0" id="contained-modal-title-vcenter">Logout</Modal.Title>
+        <Modal.Body className="d-flex flex-column justify-content-center p-4">
+          {/* <span className="modal-title">Are you sure you want to logout?</span> */}
+          <span  >Are you sure you want to logout?</span>
+
+          <div className="d-flex mt-3 w-100 align-items-center  ">
+            <Button
+              onClick={handleCloseModal}
+              title="No"
+              variant="secondary"
+              className="p-0 py-2 me-1 w-100"
+            />
+            <Button
+              onClick={goToDashBoard}
+              title="Yes, Logout"
+              className="p-0 py-2 ms-1 w-100 border-0"
+            />
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

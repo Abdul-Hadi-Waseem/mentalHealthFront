@@ -51,7 +51,9 @@ import AppointmentScheduler  from "../pages/Schedule Appointment/ScheduleAppoitm
 import DoctorDashBoard from "../pages/DoctorDashboard/index.tsx";
 import UpcomingAppointment from "../pages/UpcomingAppointment";
 import PatientsHistory from "../pages/PatientsHistory/PatientsHistory.tsx";
-
+import PatientDetails from "../pages/PatientDetails/PatientDetails.tsx";
+import PatientDashBoard from "../pages/PatientDashboard/index.tsx";
+import PatientVisits from "../pages/PatientVisits/index.tsx";
 
 interface RouteItem {
   id: number;
@@ -278,6 +280,27 @@ export const appRoutes: RouteItem[] = [
     Component: <PatientsHistory />,
     path: "/patients-history",
     name: "Patients History",
+    visible: false,
+  },
+  {
+    id: 24,
+    Component: <PatientDetails />,
+    path: "/patient-details",
+    name: "Patient Details",
+    visible: false,
+  },
+  {
+    id: 25,
+    Component: <PatientDashBoard />,
+    path: "/patient-dashboard",
+    name: "Patient Dashboard",
+    visible: false,
+  },
+  {
+    id: 26,
+    Component: <PatientVisits />,
+    path: "/patient-myvisits",
+    name: "Patient Visits",
     visible: false,
   },
 ]

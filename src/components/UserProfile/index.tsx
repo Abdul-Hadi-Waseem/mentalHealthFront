@@ -6,7 +6,9 @@ import "./userProfile.css";
 
 
 import Input from "./../Common/Input";
+import Button from "../Common/Buttons/Button";
 import { change_date_format, change_duration_format,change_time_format } from "../../global_func";
+import { useNavigate } from "react-router-dom";
 const UserProfile = ({
   img,
   userDetails,
@@ -14,8 +16,8 @@ const UserProfile = ({
   downloadForms,
 }: any) => {
   const [isInsured, setIsInsured] = useState(false);
+  const navigate = useNavigate()
 
-  const { Date, Time, Duration } = appointmentDetails;
   const { name, treat } = userDetails;
 
   const handleSwitchChange = () => {
@@ -24,6 +26,10 @@ const UserProfile = ({
   let {details} = userDetails
   let {date, time , slot_duration} = details;
   // console.log("userDetails user", userDetails)
+
+  const handlePatientDetails = ()=>{
+    navigate("/patient-details")
+  }
   return (
     <>
       <Container fluid className="px-2" style={{ color: "#243D4C" }}>
@@ -78,6 +84,11 @@ const UserProfile = ({
               {/* <div className="fw-light text-muted py-1">{Duration}</div> */}
               {/* <div className="fw-light text-muted py-1">{slot_duration.toString().padStart(2, '0') + " hour" }</div> */}
               <div className="fw-light text-muted py-1">{change_duration_format(slot_duration)}</div>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} className="pt-2">
+              <Button variant="primary" className="w-100 py-2" onClick={handlePatientDetails} title="Patient Details"/>
             </Col>
           </Row>
         </Container>

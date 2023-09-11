@@ -49,6 +49,8 @@ function DoctorDashBoard() {
   //   currentAppointmentDuration,
   // } = currentUserDetails?.details
 
+
+
   useEffect(() => {
     try {
       const getAllPatients = async () => {
@@ -64,10 +66,11 @@ function DoctorDashBoard() {
         // setUserProfiles([{name:"fayyaz"}])
         // setUserProfiles(res.data.data);
         setUserProfiles(res?.data?.data);
-        setLoader(!loader);
+        setLoader(false);
       };
       getAllPatients();
     } catch (error) {
+      setUserProfiles([{name: "fayyaz Ansari"}]);
       console.log("error", error);
     }
   }, []);
@@ -218,7 +221,7 @@ function DoctorDashBoard() {
       <Container>
         {/* PATIENT HISTORY ROW */}
         <Row
-          className=" border mt-5 pt-4 mb-5"
+          className="mt-5 pt-4 mb-5"
           style={{
             backgroundColor: "#fff",
             borderRadius: "12px",
@@ -395,6 +398,8 @@ function DoctorDashBoard() {
           downloadForms={"Downloadable Forms"}
         />
       </Container>
+
+     
     </>
   );
 }

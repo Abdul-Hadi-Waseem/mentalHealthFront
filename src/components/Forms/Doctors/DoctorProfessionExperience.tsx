@@ -84,8 +84,8 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
     zip_code: Yup.string().required("Zip Code is required"),
     city: Yup.string().required("City is required"),
     country: Yup.string().required("Country is required"),
-    start_time: Yup.string().required("Start Time is required"),
-    end_time: Yup.string().required("End Time is required"),
+    start_time: Yup.string().nullable(),
+    end_time: Yup.string().nullable(),
     professional_bio: Yup.string().required("Professional Bio is required"),
   });
 
@@ -103,7 +103,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
 
   const formik = useFormik({
     initialValues,
-    // validationSchema,
+    validationSchema,
     onSubmit: async (values) => {
       setMergeValues({ name: "abcd" });
       // event.preventDefault();
@@ -477,7 +477,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
             <Form.Control
               type="time"
               placeholder="Start Time"
-              id="end_time"
+              id="start_time"
               name="start_time"
               value={formik.values.start_time}
               onChange={formik.handleChange}
@@ -486,9 +486,9 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
                 formik.touched.start_time && !!formik.errors.start_time
               }
             />
-            {formik.errors.end_time && (
-              <small className="text-danger">{formik.errors.end_time}</small>
-            )}
+            {/* {formik.errors.start_time && (
+              <small className="text-danger">{formik.errors.start_time}</small>
+            )} */}
             {/* {formik.touched.zip_code && formik.errors.zip_code && (
               <Form.Control.Feedback type="invalid">
                 {formik.errors.zip_code}

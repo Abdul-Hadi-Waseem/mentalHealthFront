@@ -267,7 +267,7 @@ const AcademicInformation: React.FC<MyComponentProps> = (props) => {
                 setPickYear(date);
                 formik.setFieldValue("year", Number(date.getFullYear()));
                 if(new Date().getFullYear() < date.getFullYear()){
-                  formik.setFieldError("year", "ear cannot be in the future")
+                  formik.setFieldError("year", "Year cannot be in the future")
                 }
               }}
               showYearPicker

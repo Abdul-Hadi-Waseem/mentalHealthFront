@@ -21,13 +21,16 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const headerNotVisibleRoutes = [
     "/doctor-dashboard",
     "/upcoming-apointments",
-    "/patients-history"
+    "/patients-history",
+    "/patient-details",
+    "/patient-dashboard",
+    "/patient-myvisits"
   ];
 
   const isFooterVisible = footerVisibleRoutes.includes(location.pathname);
   const isHeaderVisible = headerNotVisibleRoutes.includes(location.pathname)
   // console.log("deployment date", moment().format("DD-MM-YYYY hh:mm:ss"))
-  console.log("front_end deployment", "08-09-2023 11:49:18")
+  console.log("front_end deployment", "10-09-2023 04:14:04 pm")
   useEffect(() => {
     (async()=>{
       try {

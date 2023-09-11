@@ -146,7 +146,7 @@
 }
 .modal-content{
     width: 420px;
-    height: 260px;
+    /* height: 260px; */
     border-radius: 20px;
 }
 .modal-dialog-centered{
