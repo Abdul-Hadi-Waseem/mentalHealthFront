@@ -15,6 +15,10 @@ import { useDoctorRegistrationMutation } from "../../../gql/generated";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import doctor_heart from "./../../../assets/images/doctor_heart.png";
+import axios from "axios";
+import config from "../../../configs/config";
+
+
 import moment from "moment";
 interface FormValues {
   name: string;
@@ -88,7 +92,7 @@ const DoctorRegistrationForm: React.FC = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values, "Value");
+      console.log( "Values ",values);
       event.preventDefault();
       values.gender = Number(values.gender);
 
@@ -100,18 +104,27 @@ const DoctorRegistrationForm: React.FC = () => {
       const { confirmPassword, ...dataToSend } = values;
 
       try {
-        await executeMutation({ Data: dataToSend });
+        let {email, phone} = dataToSend;
+        // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
+        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}`)
+        console.log("isRegisteredResponse", isRegisteredResponse?.data?.isRegistered)
+        if(isRegisteredResponse?.data?.isRegistered){
+          return toast.error("Email Or Phone is already registered");
+        }else{
+          await executeMutation({ Data: dataToSend });
+        console.log("signup result", result)
         toast.success("Registration Successful"); // Show the success toast
+        
         setTimeout(() => {
           navigate("/doctor-login"); // Navigate after 5 seconds
         }, 5000);
+        }        
       } catch (error) {
         toast.error("Registration not successful");
         console.error(error);
       }
     },
   });
-
   return (
     <Container className="login__section">
       <Row className="mb-4 ">

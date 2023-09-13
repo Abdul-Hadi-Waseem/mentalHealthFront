@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useMatch, useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { appRoutes } from "./../../../constants/constants";
 import "./Header.css";
 import Container from "react-bootstrap/Container";
@@ -22,10 +22,17 @@ import { FaBell, FaChevronDown } from "react-icons/fa6";
 import Avatar from "react-avatar";
 import { Row, Col, Image } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useLocation } from "react-router-dom";
 
 function Header({ children }) {
+  let location = useLocation()
   const [showDropDown, setShowDropDown] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Get Started");
+  const [currentPatient, setCurrentPatient] = useState(
+    JSON.parse(localStorage.getItem("user_complete_information"))
+  );
+  const [currentRoute, setCurrentRoute] = useState("dashboard");
+
   const token = getToken();
   const navigate = useNavigate();
 
@@ -36,6 +43,7 @@ function Header({ children }) {
       setBtnTitle("Get Started");
     }
   }, [token]);
+
   function handleClick() {
     if (token) {
       Cookies.remove("token");
@@ -67,11 +75,11 @@ function Header({ children }) {
         <Col xs={12} xl={12}>
           <Navbar collapseOnSelect expand="xl">
             <Container className="py-3">
-              <Link to="/">
+              <div onClick={()=>{navigate("/")}}>
                 <Navbar.Brand>
                   <img alt="logo" src={logo} className="w-100" />
                 </Navbar.Brand>
-              </Link>
+              </div>
 
               <Navbar.Toggle aria-controls="responsive-navbar-nav " />
               <Navbar.Collapse id="responsive-navbar-nav ">
@@ -115,10 +123,12 @@ function Header({ children }) {
                         <small className="text-light p-0">
                           {/* <strong className="text-light">Bessie Cooper</strong> */}
                           <strong className="text-light text-capitalize">
-                            Mr Fayyaz
+                            Mr {currentPatient.name}
                           </strong>
                         </small>
-                        <small className="text-light  p-0">Psychiatrist</small>
+                        <small className="text-light  p-0">
+                          Patient Condition
+                        </small>
                       </div>
                       <div>
                         <FaChevronDown
@@ -162,58 +172,120 @@ function Header({ children }) {
             </Container>
           </Navbar>
         </Col>
-        <Col xs={12} xl={3} className="patient-navbar">
+        <Col xs={12} md={3}  xl={2} className="patient-navbar">
           <div className="patient-SideBar">
-            <Link className="patient-nav-active" to={"/patient-dashboard"}>
+            <div
+              className={
+                location.pathname === "/patient-dashboard"
+                  ? `patient-nav-active`
+                  : "patient-nav"
+              }
+              onClick={() => {
+                navigate("/patient-dashboard")
+              }}
+            >
               <div className="patient-nav-img">
                 <img src={dashboardIcon} alt="dashboardIcon" />
               </div>
-              <div className="patient-nav-text">Dashboard</div>
-            </Link>
-            <Link className="patient-nav" to={"/patient-myvisits"}>
+              <div
+              //  className={currentRoute === "dashboard" && `patient-nav-text`}
+              //  onClick={()=>{setCurrentRoute("dashboard")}}
+              >
+                Dashboard
+              </div>
+            </div>
+            <div
+              className={
+                location.pathname === "/patient-myvisits"
+                  ? `patient-nav-active`
+                  : "patient-nav"
+              }
+              onClick={() => {
+                navigate("/patient-myvisits")
+              }}
+            >
               <div className="patient-nav-img">
                 <img src={myVisitsIcon} alt="dashboardIcon" />
               </div>
               <div>My Visits</div>
-            </Link>
-            {/* <Link className="patient-nav" to={"/patient-prescriptions"}> */}
-            <div
-              className="patient-nav"
-              // to={"/patient-prescriptions"}
+            </div>
+            <div 
+                 className={
+                  location.pathname === "/schedule-appointment"
+                    ? `patient-nav-active`
+                    : "patient-nav"
+                }
+                onClick={() => {
+                  navigate("/schedule-appointment")
+                }}
+            
             >
+              <div className="patient-nav-img">
+                <img src={myVisitsIcon} alt="dashboardIcon" />
+              </div>
+              <div>Schedule</div>
+            </div>
+            <div   className={
+                  location.pathname === "/all-doctors" || location.pathname === "/doctor-details"
+                    ? `patient-nav-active`
+                    : "patient-nav"
+                }
+                onClick={() => {
+                  navigate("/all-doctors")
+                }}>
+              <div className="patient-nav-img">
+                <img src={myVisitsIcon} alt="dashboardIcon" />
+              </div>
+              <div>Doctors</div>
+            </div>
+            {/* <div className="patient-nav" onClick={"/patient-prescriptions"}> */}
+            <div
+             className={
+              location.pathname === "/patient-prescriptions"
+                ? `patient-nav-active`
+                : "patient-nav"
+            }
+            onClick={() => {
+              navigate("/patient-prescriptions")
+            }}>
               <div className="patient-nav-img">
                 <img src={prcsiptionIcon} alt="dashboardIcon" />
               </div>
               <div>Prescriptions</div>
             </div>
-            {/* </Link> */}
-            {/* <Link className="patient-nav" to={"/patient-settings"}> */}
+            {/* </div> */}
+            {/* <div className="patient-nav" onClick={"/patient-settings"}> */}
             <div
-              className="patient-nav"
-              // to={"/patient-prescriptions"}
-            >
+             className={
+              location.pathname === "/patient-settings"
+                ? `patient-nav-active`
+                : "patient-nav"
+            }
+            onClick={() => {
+              navigate("/patient-settings")
+            }}>
               <div className="patient-nav-img">
                 <img src={settingsIcon} alt="dashboardIcon" />
               </div>
               <div>Settings</div>
-              {/* </Link> */}
+              {/* </div> */}
             </div>
           </div>
           <div className="patient-SideBar">
-            {/* <Link className="patient-nav" to={"/patient-Dashboard"}> */}
+            {/* <div className="patient-nav" onClick={"/patient-Dashboard"}> */}
             <div
               className="patient-nav"
-              // to={"/patient-prescriptions"}
+              // onClick={"/patient-prescriptions"}
             >
               <div className="patient-nav-img">
                 <img src={logoutIcon} alt="dashboardIcon" />
               </div>
               <div className="patient-nav-text">Logout</div>
-              {/* </Link> */}
+              {/* </div> */}
             </div>
           </div>
         </Col>
-        <Col xs={12} xl={9}>
+        <Col xs={12}  md={9} xl={10}>
           {children}
         </Col>
       </Row>

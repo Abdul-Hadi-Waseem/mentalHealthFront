@@ -21,6 +21,8 @@ function PatientDashBoard() {
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [currentUserInformation, setCurrentUserInformation] = useState(JSON.parse(localStorage.getItem("user_complete_information")));
+  
   const [userProfiles, setUserProfiles] = useState([
     {
       name: "Dr. Bessie Copper",
@@ -155,6 +157,28 @@ function PatientDashBoard() {
   //   }
   //   return () => {};
   // }, [elementRef?.current?.scrollWidth, elementRef?.current?.offsetWidth]);
+useEffect(() => {
+  (async()=>{
+    try {
+      // const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/11`)
+      const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`)
+      console.log("get_patient_upcoming_appointment res", response)
+      setUserProfiles(response.data.data)
+      
+    } catch (error) {
+      console.log("get_patient_upcoming_appointment", error.message)
+    }
+
+
+  })()
+
+ 
+}, [])
+
+
+
+
+
   return (
     <>
       <Header>
@@ -167,7 +191,7 @@ function PatientDashBoard() {
             >
               <p className="text-muted py-2">Good Morning</p>
               {/* <h4>Welcome Dr. Bessie Cooper</h4> */}
-              <h4 className="text-capitalize">Welcome Barly Vallendito</h4>
+              <h4 className="text-capitalize">Welcome {currentUserInformation.name}</h4>
             </Col>
             <Col
               className="d-flex justify-content-end align-items-center"
@@ -348,7 +372,7 @@ function PatientDashBoard() {
                           }}
                           userDetails={{
                             name: item.name,
-                            treat: "Patient Condition",
+                            treat: "Doctor Details",
                           }}
 
                           // userDetails={{

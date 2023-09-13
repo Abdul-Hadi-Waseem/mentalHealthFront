@@ -16,6 +16,8 @@ const Doctordetail = () => {
     );
     const [appointmentDetails, setAppointmentDetails] = useState({})
 
+    const [appointmentDisable, setAppointmentDisable] = useState(false)
+
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => setShowOffCanvas(true);
@@ -36,6 +38,9 @@ const Doctordetail = () => {
   }
 
   const bookAppointment = async ()=>{
+    // setAppointmentDisable(false);
+
+
     try {
       // http://localhost:5000/patient/create_appointment
       const res = await axios.post(
@@ -92,6 +97,7 @@ const Doctordetail = () => {
               <button className="detail_btn" 
               // onClick={handleShowOffCanvas}
               onClick={bookAppointment}
+              disabled = {appointmentDisable}
               >
                 Book Appointment
               </button>

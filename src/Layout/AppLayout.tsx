@@ -24,7 +24,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     "/patients-history",
     "/patient-details",
     "/patient-dashboard",
-    "/patient-myvisits"
+    "/patient-myvisits",
+    "/all-doctors",
+    "/doctor-details",
+    "/set-schedule",
   ];
 
   const isFooterVisible = footerVisibleRoutes.includes(location.pathname);

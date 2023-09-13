@@ -68,11 +68,10 @@ const LoginForm = () => {
       setFormSubmitted(true);
     },
   });
-
   useEffect(() => {
     (async () => {
       try {
-        console.log("result", result);
+        // console.log("result", result);
         if (formSubmitted) {
           // Check the result only if the form has been submitted
           if (result?.data?.login?.data?.token) {
@@ -90,22 +89,26 @@ const LoginForm = () => {
             if (token) {
               const res = await axios.post(
                 `${config.base_url}/patient/psc_test_check`,
-                { uid: uid }
+                { uid, name}
                 // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
                 // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
               );
+              console.log("resOfPatient Check ", res.data)
+              localStorage.setItem("user_complete_information", JSON.stringify(res.data.data));
+
               if (res?.data?.program_data_uid) {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
                 setTimeout(() => {
-                  navigate("/schedule-appointment"); // Navigate after 5 seconds
-                }, 5000);
+                  // navigate("/schedule-appointment"); // Navigate after 5 seconds
+                  navigate("/patient-dashboard"); // Navigate after 5 seconds
+                }, 3000);
               } else {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
                 setTimeout(() => {
                   navigate("/psc-test"); // Navigate after 5 seconds
-                }, 5000);
+                }, 3000);
               }
             }
             setFormSubmitted(false);

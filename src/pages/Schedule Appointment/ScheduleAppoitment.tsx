@@ -98,7 +98,7 @@ const AppointmentScheduler = () => {
     <Container>
       <div className="m-3">
         <Row className="flex-nowrap align-items-center my-4">
-          <BackButton />
+          <BackButton onClick={()=>{navigate(-1)}} />
           <span className="vl"></span>
           <h5>Schedule Appointment</h5>
         </Row>

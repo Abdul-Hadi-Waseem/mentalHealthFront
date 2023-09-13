@@ -1,93 +1,218 @@
-.doctor-name {
-  font-size: 34px;
-  font-weight: 500;
-  line-height: 51px;
-  font-family: "Poppins";
+.select_doctorContainer{
+  width: 1280px;
+  height: max-content;
+  background-color: white;
+  padding: 30px;
+  margin-top: 20px;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 276px); /* Creates 4 equal-width columns */
+  gap: 30px;
+  justify-content: center;
 }
-.viewProfile-btn {
-  background: #5e9cd3;
-  border-radius: 10px;
-  padding: 19px 35px 19px 35px;
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 19px;
-  color: #ffff;
-  border: none;
-  letter-spacing: 0em;
-  text-align: center;
+.select_doctor_card{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 276px;
+    height: 347px;
+    padding: 30px 15px;
+    border-radius: 17px;
+    border: 1px solid rgba(174, 176, 208, 0.5);
 }
-.doctor-about h3 {
-  font-family: Poppins;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 20px;
-  letter-spacing: 0.002em;
-  text-align: left;
-}
-
-.doctor-about p {
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0px;
-  text-align: left;
-}
-.visitCard {
+.doctor_img{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
-  border-radius: 6.7px;
-  border: 1.5px solid #aeb0d0;
-  padding: 20px 10px;
 }
-.visitDate {
+.info_container{
   display: flex;
-  justify-content: end;
-  /* padding: 20px 5px; */
-}
-.visitCardImg {
-  display: flex;
-  justify-content: center;
-  padding: 20px 0px;
-}
-.visitCardInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
-.visitCardInfo h6 {
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0em;
-  color: #516f8b;
-  text-align: left;
+.doctor_name{
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(36, 61, 76, 1);
+    margin-bottom: 10px;
 }
-.visitCardInfo p {
-  font-family: "Poppins";
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #516f8b;
+.doctor_designation{
+    font-size: 16px;
+    font-weight: 400;
+   color : rgba(81, 111, 139, 0.7);
 }
-.form_separator {
-  width: 100%;
-  height: 1px;
-  color: rgba(81, 111, 139, 0.2);
-  border-bottom: none;
-  margin: 20px 0px;
-}
-
-.visitCardInfo_btn{
+.doctor_card_btn{
     width: 100%;
     border: none;
-    background: #ffff;
-    color: #3773A9;
+    background-color: #fff;
+    color: rgba(55, 115, 169, 1);
     border-radius: 12px;
-    border: 1px solid #3773A9;
-    padding: 12px 35px;
+    border: 1px solid rgba(55, 115, 169, 1);
+    padding: 18px 35px;
+}
+/* Doctor details */
+.doctor_detail_container{
+    height: max-content;
+    width: 1280px;
+    padding: 30px;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 24px;
+}
+.doc_detail_img{
+  margin-right: 40px;
+}
+.header_2nd{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.header_section_1{
+    display: flex;
+    justify-content: space-between;
+}
+.header_section_2{
+    display: flex;
+    gap: 20px;
+}
+.detail_btn{
+    background: linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%);
+   padding: 19px 25px;
+   color: white;
+   border: none;
+   border-radius: 10px;
+}
+.header_card{
+    height: 81px;
+    border-radius: 10px;
+    box-shadow: 0px -24.75px 48.375px 0px rgba(154, 178, 194, 0.06);
+    background: rgba(36, 61, 76, 0.2);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
+.b_text{
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(36, 61, 76, 1);
+}
+.n_text{
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(36, 61, 76, 1);
+}
+.detail_info{
+    display: flex;
+    gap: 40px;
+}
+.box_heading{
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(36, 61, 76, 1);
+}
+.info_img{
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+   background: rgba(55, 115, 169, 0.1);
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.light_text{
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(36, 61, 76, 0.3);
+}
+.certificate_box{
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+.cer_img{
+    height: 126px;
+    width: 160px;
+    border-radius: 15px;
+}
+/* payment Method */
+.offcanvas{
+    height: 90%;
+    width: 400px !important;
+    border-radius: 24px;
+    top: 20px;
+    overflow-y: auto;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.offcanvas.offcanvas-end{
+    top: 30px;
+    right: 30px;
+}
+.offcanvas-header{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.offcanvas-body{
+    padding-top: 0px;
+}
+.checkout_card{
+    background-color: rgba(246, 247, 249, 1);
+    border-radius: 8px;
+    padding: 16px;
+    flex-wrap: wrap;
+}
+@media (max-width: 1296px) {
+  .select_doctorContainer{
+    grid-template-columns: repeat(3, 276px); 
+  }
+  .doctor_detail_container{
+    width: 100%;
+  }
+}
+@media (max-width: 930px) {
+  .select_doctorContainer{
+    grid-template-columns: repeat(2, 276px); 
+  }
+}
+@media (max-width: 630px) {
+  .select_doctorContainer{
+    grid-template-columns: repeat(1, 276px); 
+  }
+}
+@media (max-width: 800px ) {
+    .doc_detail_img{
+      margin: 0px;
+    }
+  .detail_header{
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+@media (max-width: 550px ) {
+ .header_section_1{
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+ }
+ .header_section_2{
+    display: flex;
+    justify-content: center;
+ }
+ .detail_info{
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+ }
+ ._hr{
+    justify-content: flex-start !important;
+ }
 }

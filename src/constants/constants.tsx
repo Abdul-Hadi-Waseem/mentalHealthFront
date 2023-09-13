@@ -34,6 +34,7 @@ import ChildIntakeSteper from "../pages/ChildIntake/ChildIntakeSteper.tsx";
 import SelectDoctor from "../pages/SelectDoctor/SelectDoctor.tsx";
 import DoctorDetails from "../pages/SelectDoctor/DoctorDetails.tsx";
 
+
 import SelectUser from "../pages/SelectUser/SelectUser";
 import User1 from "../assets/images/User1.png";
 import User2 from "../assets/images/User2.png";
@@ -44,6 +45,7 @@ import AcademicInformation from "../components/Forms/Doctors/AcademicInformation
 import PSC_Test_Quiz from "../pages/PSC Test/Psctestquiz.tsx";
 import HeroSection from "../pages/PSC Test/PSC-Test-Main.tsx";
 import AppointmentScheduler  from "../pages/Schedule Appointment/ScheduleAppoitment.tsx";
+import ScheduleByDoctorDetails from "../pages/ScheduleByDoctor/ScheduleByDoctorDetails.tsx"
 
 
 
@@ -53,7 +55,9 @@ import UpcomingAppointment from "../pages/UpcomingAppointment";
 import PatientsHistory from "../pages/PatientsHistory/PatientsHistory.tsx";
 import PatientDetails from "../pages/PatientDetails/PatientDetails.tsx";
 import PatientDashBoard from "../pages/PatientDashboard/index.tsx";
-import PatientVisits from "../pages/PatientVisits/index.tsx";
+import PatientVisits from "../pages/PatientVisits/PatientVisits.tsx";
+import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
+import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
 
 interface RouteItem {
   id: number;
@@ -301,6 +305,27 @@ export const appRoutes: RouteItem[] = [
     Component: <PatientVisits />,
     path: "/patient-myvisits",
     name: "Patient Visits",
+    visible: false,
+  },
+  {
+    id: 27,
+    Component: <ShowAllDoctors />,
+    path: "/all-doctors",
+    name: "All Doctors",
+    visible: false,
+  },
+  {
+    id: 28,
+    Component: <ScheduleByDoctorDetails />,
+    path: "/doctor-details",
+    name: "Doctor Details",
+    visible: false,
+  },
+  {
+    id: 28,
+    Component: <AppoinmentByDoctor />,
+    path: "/set-schedule",
+    name: "Schedule Calendar",
     visible: false,
   },
 ]

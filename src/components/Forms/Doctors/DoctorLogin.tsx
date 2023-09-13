@@ -99,8 +99,20 @@ const DoctorLoginForm = () => {
               const res = await axios.get(
                 `${config.base_url}/doctor/is_doctor_registered/${name}/${uid}`
               );
+              const updateUser = {age, name, uid, ...res.data.data}
               console.log("is_registered_respose", res);
-              localStorage.setItem("doctor_information", user);
+              localStorage.setItem("doctor_information", JSON.stringify(updateUser));
+              localStorage.setItem("user_complete_information", JSON.stringify(updateUser));
+
+
+              // const email = formik.values.email.trim()
+              // console.log("resOfUserLogin", email);
+              // const resOfUserLogin = await axios.get(
+              //   `${config.base_url}/user/get_user_information/${email}`
+              // );
+              // console.log("resOfUserLogin", resOfUserLogin);
+              // localStorage.setItem("user_complete_information", JSON.stringify(resOfUserLogin.data.data));
+
 
               // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
               // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
