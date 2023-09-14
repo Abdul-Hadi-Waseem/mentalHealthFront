@@ -106,7 +106,7 @@ const DoctorRegistrationForm: React.FC = () => {
       try {
         let {email, phone} = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
-        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}`)
+        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}/11`)
         console.log("isRegisteredResponse", isRegisteredResponse?.data?.isRegistered)
         if(isRegisteredResponse?.data?.isRegistered){
           return toast.error("Email Or Phone is already registered");

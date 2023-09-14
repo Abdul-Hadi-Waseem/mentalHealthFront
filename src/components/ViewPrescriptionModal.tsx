@@ -2,8 +2,9 @@ import { Modal, Form } from "react-bootstrap";
 interface AppointmentSuccessfulModalProps {
   show: boolean;
   onHide: () => void;
+  view: string;
   showprescriptionmodal: () => void;
-  currentPrescription: any
+  currentprescription: any;
 }
 import { FaXmark } from "react-icons/fa6";
 
@@ -60,19 +61,29 @@ export default function ViewPrescriptionModal(
             // value={
             //   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting."
             // }
-            value={props.currentPrescription.description}
+            value={props.currentprescription.description}
             readOnly
           />
         </Form.Group>
-        <div>
-          <strong>Medical Reports</strong>
-        </div>
+        {props.view === "doctor" && (
+          <div>
+            <strong>Medical Reports</strong>
+          </div>
+        )}
       </Modal.Body>
-      <Modal.Footer style={{ border: "none", paddingTop: "0px" }}>
-        <button onClick={()=>{props.showprescriptionmodal()}} className="form_submit_btn" style={{ marginTop: "0px" }}>
-          Edit Prescription
-        </button>
-      </Modal.Footer>
+      {props.view === "doctor" && (
+        <Modal.Footer style={{ border: "none", paddingTop: "0px" }}>
+          <button
+            onClick={() => {
+              props.showprescriptionmodal();
+            }}
+            className="form_submit_btn"
+            style={{ marginTop: "0px" }}
+          >
+            Edit Prescription
+          </button>
+        </Modal.Footer>
+      )}
     </Modal>
   );
 }

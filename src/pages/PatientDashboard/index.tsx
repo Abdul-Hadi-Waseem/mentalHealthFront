@@ -16,73 +16,28 @@ import Spinner from "react-bootstrap/Spinner";
 import config from "./../../configs/config";
 
 function PatientDashBoard() {
-  // const token = getToken();
-  // const [btnTitle, setBtnTitle] = useState("Login / Register");
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
-  const [showOffCanvas, setShowOffCanvas] = useState(false);
-  const [currentUserInformation, setCurrentUserInformation] = useState(JSON.parse(localStorage.getItem("user_complete_information")));
-  
-  const [userProfiles, setUserProfiles] = useState([
-    {
-      name: "Dr. Bessie Copper",
-    },
-    {
-      name: "Dr. Arlene McCoy",
-    },
-    {
-      name: "Dr. Darlena Roberston",
-    },
-    {
-      name: "Dr. Bessie Copper",
-    },
-  ]);
-  // console.log("userprofiles", userProfiles)
+  const [currentUserInformation, setCurrentUserInformation] = useState(
+    JSON.parse(localStorage.getItem("user_complete_information"))
+  );
+  const [doctorsProfile, setDoctorsProfile] = useState([]);
+  // const [doctorsProfile, setDoctorsProfile] = useState([
+  //   {
+  //     name: "Dr. Bessie Copper",
+  //   },
+  //   {
+  //     name: "Dr. Arlene McCoy",
+  //   },
+  //   {
+  //     name: "Dr. Darlena Roberston",
+  //   },
+  //   {
+  //     name: "Dr. Bessie Copper",
+  //   },
+  // ]);
   const [loader, setLoader] = useState(false);
 
-  const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
-  console.log("currentUser", currentUserDetails);
-  const doctor_information = JSON.parse(
-    localStorage.getItem("doctor_information")
-  );
-  // const {
-  //   currentAppointmentDate,
-  //   currentAppointmentTime,
-  //   currentAppointmentDuration,
-  // } = currentUserDetails?.details
-
-  // useEffect(() => {
-  //   try {
-  //     const getAllPatients = async () => {
-  //       // const res = await axios.get(
-  //       //   `${config.base_url}/doctor/get_all_users`
-  //       // );
-  //       const res = await axios.get(
-  //         `${config.base_url}/doctor/get_upcomming_appointments/${name}/${uid}`
-  //       );
-  //       console.log("res", res?.data?.data);
-  //       localStorage.setItem("patients", JSON.stringify(res?.data?.data));
-  //       // Array.isArray(res.data);
-  //       // setUserProfiles([{name:"fayyaz"}])
-  //       // setUserProfiles(res.data.data);
-  //       setUserProfiles(res?.data?.data);
-  //       setLoader(!loader);
-  //     };
-  //     getAllPatients();
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // }, []);
-
-  const handleCloseOffCanvas = () => setShowOffCanvas(false);
-  // const handleShowOffCanvas = ({ name, treat, details }: any) => {
-  const handleShowOffCanvas = (item: any) => {
-    console.log("function");
-    setShowOffCanvas(true);
-    // setCurrentUserDetails({ name, treat, details });
-    setCurrentUserDetails(item);
-    localStorage.setItem("user", JSON.stringify(item));
-  };
   const elementRef = useRef(null);
   const navigate = useNavigate();
 
@@ -101,16 +56,6 @@ function PatientDashBoard() {
     } else {
       setscrolEnd(false);
     }
-
-    // let whereScroll = leftArroDisable;
-    // let minusScroll = leftArroDisable;
-    //  whereScroll += step;
-    // setLeftArroDisable(whereScroll)
-    // if(leftArroDisable  >= 0){
-    //   element.scrollRight += whereScroll;
-    // }else{
-    //   element.scrollLeft += whereScroll;
-    // }
   };
 
   //This will check scroll event and checks for scroll end
@@ -127,57 +72,27 @@ function PatientDashBoard() {
     }
   };
 
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (token) {
-  //     setBtnTitle("Logout");
-  //   } else {
-  //     setBtnTitle("Login / Register");
-  //   }
-  // }, [token]);
-  // function handleClick() {
-  //   if (token) {
-  //     Cookies.remove("token");
-  //     navigate("/login");
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   //Check width of the scollings
-  //   if (
-  //     elementRef.current &&
-  //     elementRef?.current?.scrollWidth === elementRef?.current?.offsetWidth
-  //   ) {
-  //     setscrolEnd(true);
-  //   } else {
-  //     setscrolEnd(false);
-  //   }
-  //   return () => {};
-  // }, [elementRef?.current?.scrollWidth, elementRef?.current?.offsetWidth]);
-useEffect(() => {
-  (async()=>{
-    try {
-      // const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/11`)
-      const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`)
-      console.log("get_patient_upcoming_appointment res", response)
-      setUserProfiles(response.data.data)
-      
-    } catch (error) {
-      console.log("get_patient_upcoming_appointment", error.message)
-    }
-
-
-  })()
-
- 
-}, [])
-
-
-
-
+  useEffect(() => {
+    (async () => {
+      try {
+        // const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/11`)
+        // const response = await axios.get(
+        //   `${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`
+        // );
+        const res = await axios.get(
+          `${config.base_url}/doctor/get_all_doctors`
+        );
+        console.log("get_all_doctors_response", res.data.data);
+        if (res?.data?.data) {
+          setDoctorsProfile(res?.data?.data);
+          // setDoctorProfiles([{name: "fayyaz", treat: "anxiety"}]);
+          setLoader(false);
+        }
+      } catch (error) {
+        console.log("get_patient_upcoming_appointment", error.message);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -191,7 +106,9 @@ useEffect(() => {
             >
               <p className="text-muted py-2">Good Morning</p>
               {/* <h4>Welcome Dr. Bessie Cooper</h4> */}
-              <h4 className="text-capitalize">Welcome {currentUserInformation.name}</h4>
+              <h4 className="text-capitalize">
+                Welcome {currentUserInformation.name}
+              </h4>
             </Col>
             <Col
               className="d-flex justify-content-end align-items-center"
@@ -271,11 +188,13 @@ useEffect(() => {
                 >
                   <div>
                     <p>
-                      <strong>Patients History</strong>
+                      {/* <strong>Patients History</strong> */}
+                      <strong>All Doctors</strong>
                     </p>
                     <Link
                       style={{ cursor: "pointer", color: "#3874AB" }}
-                      to={"/patients-history"}
+                      // to={"/patients-history"}
+                      to={"/all-doctors"}
                     >
                       See All <FaArrowRight style={{ color: "#3874AB" }} />
                     </Link>
@@ -345,12 +264,12 @@ useEffect(() => {
                       <span className="visually-hidden">Loading...</span>
                     </Spinner>
                   </div>
-                ) : userProfiles.length == 0 ? (
+                ) : doctorsProfile.length == 0 ? (
                   <div className="d-flex  justify-content-center">
                     No Patients found
                   </div>
                 ) : (
-                  userProfiles.map((item, index) => {
+                  doctorsProfile.map((item, index) => {
                     return (
                       <Col
                         key={item.name + index}
@@ -363,12 +282,11 @@ useEffect(() => {
                         <UserCard
                           img={doctor_img}
                           handleUserProfile={() => {
-                            // handleShowOffCanvas({
-                            //   name: item.name,
-                            //   treat: "Patient Condition",
-                            //   details: item,
-                            // });
-                            handleShowOffCanvas(item);
+                            localStorage.setItem(
+                              "current_doctor_details",
+                              JSON.stringify(item)
+                            );
+                            navigate("/doctor-details");
                           }}
                           userDetails={{
                             name: item.name,
@@ -387,34 +305,6 @@ useEffect(() => {
               </Row>
             </Col>
           </Row>
-          <DoctorSideBar
-            placement={"end"}
-            name={"end"}
-            show={showOffCanvas}
-            onHide={handleCloseOffCanvas}
-            img={doctor_img}
-            // userDetails={{
-            //   name: "John Smith",
-            //   treat: "Mild Anxiety",
-            // }}
-            userDetails={{
-              // name: "John Smith",
-              // treat: "Mild Anxiety",
-              name: currentUserDetails.name,
-              treat: "Patient condition",
-              details: currentUserDetails,
-            }}
-            // userDetails={currentUserDetails}
-            appointmentDetails={{
-              Date: "Jan 1 2022",
-              Time: "02:00 pm",
-              Duration: "01 hour",
-              // Date: currentAppointmentDate,
-              // Time: currentAppointmentTime,
-              // Duration: currentAppointmentDuration,
-            }}
-            downloadForms={"Downloadable Forms"}
-          />
         </Container>
       </Header>
     </>

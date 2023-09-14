@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Selectdoctor from "../../components/Selectdoctor";
 import "./PatientVisits.css";
@@ -11,23 +11,41 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "../../configs/config";
 import Header from "../PatientDashboard/Header/Header";
+import PatientSideBarModal from "../../components/PatientSideBarModal";
 
 function PatientVisits() {
   const location = useLocation();
   const navigate = useNavigate();
   let currentLocation = location.pathname.split("/").slice(-1).toString();
   const [doctorProfiles, setDoctorProfiles] = useState([]);
-  const [loader, setLoader] = useState(true);
-  // console.log("userProfile", doctorProfiles[0]); 
-  const goBack = () => {
-    navigate(-1);
+  const [currentDoctorDetails, setCurrentDoctorDeatils] = useState<any>();
+  const [showOffCanvas, setShowOffCanvas] = useState(false);
+  // console.log("currentDoctorDetails", currentDoctorDetails)
+  // console.log(" setShowOffCanvas",  showOffCanvas)
+
+  const handleCloseOffCanvas = () => setShowOffCanvas(false);
+  const handleShowOffCanvas = (item: any) => {
+    setShowOffCanvas(true);
+    setCurrentDoctorDeatils(item);
+    localStorage.setItem("current_doctor_details", JSON.stringify(item));
   };
+
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/${JSON.parse(localStorage.getItem("user_complete_information")).id}`)
-        console.log("get_patient_upcoming_appointment res", res)
+        const res = await axios.get(
+          `${config.base_url}/patient/get_patient_upcoming_appointment/${
+            JSON.parse(localStorage.getItem("user_complete_information")).id
+          }`
+        );
+        console.log("get_patient_upcoming_appointment res", res);
         if (res?.data?.data) {
+          localStorage.setItem(
+            "current_doctor_details",
+            JSON.stringify(res?.data?.data[0])
+          );
           setDoctorProfiles(res?.data?.data);
           // setDoctorProfiles([{name: "fayyaz", treat: "anxiety"}]);
           setLoader(!loader);
@@ -37,6 +55,7 @@ function PatientVisits() {
       }
     })();
   }, []);
+
   //   <Container>
   //   <Row className="d-flex justify-content-between align-items-center pt-3">
   //     <Col
@@ -133,18 +152,17 @@ function PatientVisits() {
         <div className="d-flex justify-content-center m-0">
           {/* <Selectdoctor /> */}
           <div className="d-flex flex-wrap justify-content-start select_doctorContainer">
-          {/* select_doctorContainer */}
+            {/* select_doctorContainer */}
             {loader ? (
-               <div className="d-flex align-items-center justify-content-center h-100 w-100 ">
-               <Spinner
-                animation="border"
-                role="status"
-                style={{ color: "#5E9CD3" }}
-              >
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-             </div>
-             
+              <div className="d-flex align-items-center justify-content-center h-100 w-100 ">
+                <Spinner
+                  animation="border"
+                  role="status"
+                  style={{ color: "#5E9CD3" }}
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
             ) : doctorProfiles.length == 0 ? (
               <div className="d-flex align-items-center justify-content-center h-100 w-100 ">
                 <span>No Data Found</span>
@@ -153,15 +171,12 @@ function PatientVisits() {
               doctorProfiles.map((item, index) => {
                 return (
                   <UserCard
+                  key={"abcd"+index.toString()}
                     img={doctor_img}
                     // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
                     userDetails={{ ...item, treat: "Ortho" }}
                     handleUserProfile={() => {
-                      localStorage.setItem(
-                        "current_doctor_details",
-                        JSON.stringify(item)
-                      );
-                      navigate("/doctor-details");
+                      handleShowOffCanvas(item);
                     }}
                   />
                 );
@@ -169,6 +184,35 @@ function PatientVisits() {
             )}
           </div>
         </div>
+
+        {currentDoctorDetails && (
+          <PatientSideBarModal
+            placement={"end"}
+            name={"end"}
+            show={showOffCanvas}
+            onHide={handleCloseOffCanvas}
+            img={doctor_img}
+            // userDetails={{
+            //   name: "John Smith",
+            //   treat: "Mild Anxiety",
+            // }}
+            doctorDetails={{
+              name: currentDoctorDetails.name,
+              specialities: "Doctor Specialities",
+              details: currentDoctorDetails,
+            }}
+            // userDetails={currentUserDetails}
+            appointmentDetails={{
+              Date: "Jan 1 2022",
+              Time: "02:00 pm",
+              Duration: "01 hour",
+              // Date: currentAppointmentDate,
+              // Time: currentAppointmentTime,
+              // Duration: currentAppointmentDuration,
+            }}
+            downloadForms={"Downloadable Forms"}
+          />
+        )}
       </div>
     </Header>
   );

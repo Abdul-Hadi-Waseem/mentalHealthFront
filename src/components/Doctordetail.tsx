@@ -50,6 +50,7 @@ const Doctordetail = () => {
         }
       );
       toast.success("Appointment Successfully created");
+      navigate("/patient-dashboard")
       console.log("res", res.data);
       // setAppointmentDetails()
       // setLoader(!loader);

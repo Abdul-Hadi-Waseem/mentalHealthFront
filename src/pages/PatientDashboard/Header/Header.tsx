@@ -176,9 +176,9 @@ function Header({ children }) {
           <div className="patient-SideBar">
             <div
               className={
-                location.pathname === "/patient-dashboard"
+               ` ${location.pathname === "/patient-dashboard"
                   ? `patient-nav-active`
-                  : "patient-nav"
+                  : "patient-nav"} cursor-pointer`
               }
               onClick={() => {
                 navigate("/patient-dashboard")
@@ -187,18 +187,15 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={dashboardIcon} alt="dashboardIcon" />
               </div>
-              <div
-              //  className={currentRoute === "dashboard" && `patient-nav-text`}
-              //  onClick={()=>{setCurrentRoute("dashboard")}}
-              >
+              <div>
                 Dashboard
               </div>
             </div>
             <div
               className={
-                location.pathname === "/patient-myvisits"
+               `${ location.pathname === "/patient-myvisits"
                   ? `patient-nav-active`
-                  : "patient-nav"
+                  : "patient-nav"} cursor-pointer`
               }
               onClick={() => {
                 navigate("/patient-myvisits")
@@ -211,9 +208,9 @@ function Header({ children }) {
             </div>
             <div 
                  className={
-                  location.pathname === "/schedule-appointment"
+                 `${location.pathname === "/schedule-appointment"
                     ? `patient-nav-active`
-                    : "patient-nav"
+                    : "patient-nav"} cursor-pointer`
                 }
                 onClick={() => {
                   navigate("/schedule-appointment")
@@ -226,9 +223,9 @@ function Header({ children }) {
               <div>Schedule</div>
             </div>
             <div   className={
-                  location.pathname === "/all-doctors" || location.pathname === "/doctor-details"
+                  `${location.pathname === "/all-doctors" || location.pathname === "/doctor-details"
                     ? `patient-nav-active`
-                    : "patient-nav"
+                    : "patient-nav"} cursor-pointer`
                 }
                 onClick={() => {
                   navigate("/all-doctors")
@@ -236,14 +233,15 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={myVisitsIcon} alt="dashboardIcon" />
               </div>
-              <div>Doctors</div>
+              <div 
+              >Doctors</div>
             </div>
             {/* <div className="patient-nav" onClick={"/patient-prescriptions"}> */}
             <div
              className={
-              location.pathname === "/patient-prescriptions"
+              `${location.pathname === "/patient-prescriptions"
                 ? `patient-nav-active`
-                : "patient-nav"
+                : "patient-nav"} cursor-pointer`
             }
             onClick={() => {
               navigate("/patient-prescriptions")
@@ -253,17 +251,16 @@ function Header({ children }) {
               </div>
               <div>Prescriptions</div>
             </div>
-            {/* </div> */}
-            {/* <div className="patient-nav" onClick={"/patient-settings"}> */}
             <div
              className={
-              location.pathname === "/patient-settings"
+             `cursor-pointer ${ location.pathname === "/patient-settings"
                 ? `patient-nav-active`
-                : "patient-nav"
+                : "patient-nav"}`
             }
             onClick={() => {
-              navigate("/patient-settings")
-            }}>
+              // navigate("/patient-settings")
+            }}
+            >
               <div className="patient-nav-img">
                 <img src={settingsIcon} alt="dashboardIcon" />
               </div>

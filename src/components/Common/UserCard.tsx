@@ -9,8 +9,6 @@ const UserCard = ({ img,handleUserProfile, userDetails}: any) => {
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   let {name, treat} = userDetails;
   const handleClick = () => {
-    // navigate("/doctor-detail");
-    console.log("handleclick")
     handleUserProfile()
   };
   return (

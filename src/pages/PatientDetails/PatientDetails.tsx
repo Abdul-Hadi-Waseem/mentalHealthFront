@@ -216,7 +216,8 @@ const PatientDetails = () => {
           <ViewPrescriptionModal
             show={viewModal}
             onHide={() => setViewModal(false)}
-            currentPrescription={currentPrescription}
+            view="doctor"
+            currentprescription={currentPrescription}
             showprescriptionmodal={() => {
               setViewModal(false);
               setEditPrescModal(true);

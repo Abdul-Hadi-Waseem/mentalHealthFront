@@ -34,7 +34,6 @@ import ChildIntakeSteper from "../pages/ChildIntake/ChildIntakeSteper.tsx";
 import SelectDoctor from "../pages/SelectDoctor/SelectDoctor.tsx";
 import DoctorDetails from "../pages/SelectDoctor/DoctorDetails.tsx";
 
-
 import SelectUser from "../pages/SelectUser/SelectUser";
 import User1 from "../assets/images/User1.png";
 import User2 from "../assets/images/User2.png";
@@ -44,20 +43,21 @@ import Account from "../pages/Account/Account";
 import AcademicInformation from "../components/Forms/Doctors/AcademicInformation.tsx";
 import PSC_Test_Quiz from "../pages/PSC Test/Psctestquiz.tsx";
 import HeroSection from "../pages/PSC Test/PSC-Test-Main.tsx";
-import AppointmentScheduler  from "../pages/Schedule Appointment/ScheduleAppoitment.tsx";
-import ScheduleByDoctorDetails from "../pages/ScheduleByDoctor/ScheduleByDoctorDetails.tsx"
-
-
+import AppointmentScheduler from "../pages/Schedule Appointment/ScheduleAppoitment.tsx";
+import ScheduleByDoctorDetails from "../pages/ScheduleByDoctor/ScheduleByDoctorDetails.tsx";
 
 // Doctor
 import DoctorDashBoard from "../pages/DoctorDashboard/index.tsx";
 import UpcomingAppointment from "../pages/UpcomingAppointment";
 import PatientsHistory from "../pages/PatientsHistory/PatientsHistory.tsx";
 import PatientDetails from "../pages/PatientDetails/PatientDetails.tsx";
+
+// Patient
 import PatientDashBoard from "../pages/PatientDashboard/index.tsx";
 import PatientVisits from "../pages/PatientVisits/PatientVisits.tsx";
 import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
+import PatientPrescriptions from "../pages/PatientPrescriptions/PatientPrescriptions.tsx";
 
 interface RouteItem {
   id: number;
@@ -322,13 +322,20 @@ export const appRoutes: RouteItem[] = [
     visible: false,
   },
   {
-    id: 28,
+    id: 29,
     Component: <AppoinmentByDoctor />,
     path: "/set-schedule",
     name: "Schedule Calendar",
     visible: false,
   },
-]
+  {
+    id: 30,
+    Component: <PatientPrescriptions />,
+    path: "/patient-prescriptions",
+    name: "Patient Prescriptions",
+    visible: false,
+  },
+];
 
 export const socialIcons: IsocialIcons[] = [
   {
@@ -688,6 +695,6 @@ export const users: IUser[] = [
     id: 4,
     heading: "Clinicians",
     image: User4,
-    path: "/doctor-login"
+    path: "/doctor-login",
   },
 ];

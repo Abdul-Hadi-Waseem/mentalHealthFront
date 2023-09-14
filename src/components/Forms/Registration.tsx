@@ -14,6 +14,10 @@ import { usePatientRegistrationMutation } from "../../gql/generated";
 // import Tooltips from "../Common/Tooltips";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import config from "../../configs/config";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../store/slices/UserSlice";
 
 interface FormValues {
   name: string;
@@ -32,6 +36,7 @@ interface FormValues {
 }
 
 const RegistrationForm: React.FC = () => {
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [result, executeMutation] = usePatientRegistrationMutation();
@@ -89,19 +94,47 @@ const RegistrationForm: React.FC = () => {
 
       const { confirmPassword, ...dataToSend } = values;
       console.log("dataToSend", dataToSend);
-
       try {
-        await executeMutation({ Data: dataToSend });
-        const response = await result;
-        console.log("responseOfSignup", response)
-        toast.success("Registration Successful"); // Show the success toast
-        setTimeout(() => {
-          navigate("/login"); // Navigate after 5 seconds
-        }, 5000);
+        let { email, phone } = dataToSend;
+        // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
+        const isRegisteredResponse = await axios.get(
+          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/13`
+        );
+        console.log(
+          "isRegisteredResponse",
+          isRegisteredResponse?.data?.isRegistered
+        );
+        if (isRegisteredResponse?.data?.isRegistered) {
+          return toast.error("Email Or Phone is already registered");
+        } else {
+          await executeMutation({ Data: dataToSend });
+          console.log("signup result", result);
+          toast.success("Registration Successful"); // Show the success toast
+
+          await executeMutation({ Data: dataToSend });
+          console.log("responseOfSignup", result);
+          toast.success("Registration Successful"); // Show the success toast
+          setTimeout(() => {
+            navigate("/login"); // Navigate after 5 seconds
+          }, 3000);
+        }
       } catch (error) {
         toast.error("Registration not successful");
         console.error(error);
       }
+
+      // try {
+      //   await executeMutation({ Data: dataToSend });
+      //   const response = await result;
+      //   console.log("responseOfSignup", response)
+      //   toast.success("Registration Successful"); // Show the success toast
+      //   setTimeout(() => {
+      //     navigate("/login"); // Navigate after 5 seconds
+      //   }, 5000);
+      // } catch (error) {
+      //   toast.error("Registration not successful");
+      //   console.error(error);
+      // }
     },
   });
 
@@ -174,9 +207,12 @@ const RegistrationForm: React.FC = () => {
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} lg={6} sm={12}>
-
-            <InputGroup className="customDatePickerWidth" >
-              <input style={{ width: "100%", border: "1px solid rgba(0, 0, 0, 0.1)" }}
+            <InputGroup className="customDatePickerWidth">
+              <input
+                style={{
+                  width: "100%",
+                  border: "1px solid rgba(0, 0, 0, 0.1)",
+                }}
                 type="date"
                 value={formik.values.dob} // Make sure to use the correct value from your formik state
                 onChange={(event) =>
@@ -379,6 +415,7 @@ const RegistrationForm: React.FC = () => {
           type="submit"
           disabled={formik.isSubmitting}
         />
+
         <Row className="text-center">
           <span style={{ fontSize: "14px" }}>
             Have an account?{" "}
@@ -388,9 +425,40 @@ const RegistrationForm: React.FC = () => {
           </span>
         </Row>
       </Form>
+    
       <ToastContainer />
     </Container>
-  )
+  );
 };
 
 export default RegistrationForm;
+
+// ////////////////////////////// dispatch and selector store in a variable
+// import { useDispatch, useSelector } from "react-redux";
+// import { addUser } from "../../store/slices/UserSlice";
+
+
+
+// ////////////////////////////// dispatch and selector store in a variable
+// const dispatch = useDispatch();
+// const userState = useSelector(
+//   (state: { user: { users: Array<Object> } }) => state.user.users[0]
+// );
+// console.log("userState", userState);
+
+
+
+// ////////////////////////////// Dispatch call a function and change the state using a button
+// <Row>
+// <Col>
+//   <button
+//     type="button"
+//     onClick={() => {
+//       dispatch(addUser([{ name: "fayyaz ansar" }]));
+//     }}
+//   >
+//     click
+//   </button>
+// </Col>
+// </Row>
+

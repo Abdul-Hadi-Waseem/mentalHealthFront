@@ -6,7 +6,6 @@ import moment from "moment";
 import axios, { Axios } from "axios";
 import config from "../configs/config";
 
-
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
@@ -28,23 +27,26 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     "/all-doctors",
     "/doctor-details",
     "/set-schedule",
+    "/patient-prescriptions",
   ];
 
   const isFooterVisible = footerVisibleRoutes.includes(location.pathname);
-  const isHeaderVisible = headerNotVisibleRoutes.includes(location.pathname)
+  const isHeaderVisible = headerNotVisibleRoutes.includes(location.pathname);
   // console.log("deployment date", moment().format("DD-MM-YYYY hh:mm:ss"))
-  console.log("front_end deployment", "10-09-2023 04:14:04 pm")
+  console.log("front_end deployment", "13-09-2023 05:43:56");
+
   useEffect(() => {
-    (async()=>{
+    (async () => {
       try {
-        const res_connection = await axios.get(`${config.base_url}/check_connection`)
-        console.log("check_connection new backend", res_connection.data.date)        
+        const res_connection = await axios.get(
+          `${config.base_url}/check_connection`
+        );
+        console.log("check_connection new backend", res_connection.data.date);
       } catch (e) {
-        console.log("check_connection new backend error", e.message)
+        console.log("check_connection new backend error", e.message);
       }
-    })()   
-  }, [])
-  
+    })();
+  }, []);
 
   return (
     <>
@@ -52,7 +54,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       {children}
       {isFooterVisible && <Footer />}
     </>
-  )
-}
+  );
+};
 
-export default AppLayout
+export default AppLayout;

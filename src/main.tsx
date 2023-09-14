@@ -1,14 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { Provider } from "urql"
-import  {client}  from "./lib/graphql.ts"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { Provider as UrqlProvider } from "urql";
+import { client } from "./lib/graphql.ts";
+import { Provider } from "react-redux";
+import store from "./store/store.tsx";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Provider value={client}>
-    <App />
+    <Provider store={store}>
+      <UrqlProvider value={client}>
+        <App />
+      </UrqlProvider>
     </Provider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
