@@ -258,7 +258,7 @@ function Header({ children }) {
                 : "patient-nav"}`
             }
             onClick={() => {
-              // navigate("/patient-settings")
+              navigate("/patient-profile")
             }}
             >
               <div className="patient-nav-img">
@@ -282,7 +282,7 @@ function Header({ children }) {
             </div>
           </div>
         </Col>
-        <Col xs={12}  md={9} xl={10}>
+        <Col xs={12}  md={9} xl={10} className="pe-4">
           {children}
         </Col>
       </Row>

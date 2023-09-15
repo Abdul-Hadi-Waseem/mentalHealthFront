@@ -130,43 +130,42 @@ function ShowAllDoctors() {
           </Col>
         </Row>
       </Container>
-      <div>
-        <div className="d-flex justify-content-center m-0">
-          {/* <Selectdoctor /> */}
-          <div className="d-flex flex-wrap select_doctorContainer">
-            {loader ? (
-              <Spinner
-                animation="border"
-                role="status"
-                style={{ color: "#5E9CD3" }}
-              >
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            ) : doctorProfiles.length == 0 ? (
-              <div className="d-flex align-items-center justify-content-center h-100 w-100 align-items-center">
-                <span>No Data Found</span>
-              </div>
-            ) : (
-              doctorProfiles.map((item, index) => {
-                return (
-                  <UserCard
-                  key={"abcd"+index.toString()}
-                    img={doctor_img}
-                    // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
-                    userDetails={{ ...item, treat: "Ortho" }}
-                    handleUserProfile={() => {
-                      localStorage.setItem(
-                        "current_doctor_details",
-                        JSON.stringify(item)
-                      );
-                      navigate("/doctor-details");
-                    }}
-                  />
-                );
-              })
-            )}
+      <div className="d-flex justify-content-center m-0">
+        {loader ? (
+          <Spinner
+            animation="border"
+            role="status"
+            style={{ color: "#5E9CD3" }}
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : doctorProfiles.length == 0 ? (
+          <div className="d-flex align-items-center justify-content-center h-100 w-100 align-items-center">
+            <span>No Data Found</span>
           </div>
-        </div>
+        ) : (
+          <div className="select_doctorContainer">
+            
+            {doctorProfiles.map((item, index) => {
+              return (
+                <UserCard
+                  btnTitle="View Profile"
+                  key={"abcd" + index.toString()}
+                  img={doctor_img}
+                  // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
+                  userDetails={{ ...item, treat: "Ortho" }}
+                  handleUserProfile={() => {
+                    localStorage.setItem(
+                      "current_doctor_details",
+                      JSON.stringify(item)
+                    );
+                    navigate("/doctor-details");
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </Header>
   );

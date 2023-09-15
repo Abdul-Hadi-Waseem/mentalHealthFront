@@ -280,6 +280,7 @@ function PatientDashBoard() {
                         className="pe-2"
                       >
                         <UserCard
+                          btnTitle="View Profile"
                           img={doctor_img}
                           handleUserProfile={() => {
                             localStorage.setItem(

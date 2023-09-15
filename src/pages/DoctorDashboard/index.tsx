@@ -49,8 +49,6 @@ function DoctorDashBoard() {
   //   currentAppointmentDuration,
   // } = currentUserDetails?.details
 
-
-
   useEffect(() => {
     try {
       const getAllPatients = async () => {
@@ -70,7 +68,7 @@ function DoctorDashBoard() {
       };
       getAllPatients();
     } catch (error) {
-      setUserProfiles([{name: "fayyaz Ansari"}]);
+      setUserProfiles([{ name: "fayyaz Ansari" }]);
       console.log("error", error);
     }
   }, []);
@@ -170,7 +168,10 @@ function DoctorDashBoard() {
           >
             <p className="text-muted py-2">Good Morning</p>
             {/* <h4>Welcome Dr. Bessie Cooper</h4> */}
-            <h4 className="text-capitalize">Welcome Dr. {JSON.parse(localStorage.getItem("doctor_information")).name}</h4>
+            <h4 className="text-capitalize">
+              Welcome Dr.{" "}
+              {JSON.parse(localStorage.getItem("doctor_information")).name}
+            </h4>
           </Col>
           <Col
             className="d-flex justify-content-end align-items-center"
@@ -324,7 +325,14 @@ function DoctorDashBoard() {
               ) : (
                 userProfiles.map((item, index) => {
                   return (
-                    <Col key={item.name+index} sm={12} md={6} lg={4} xl={3} className="pe-2">
+                    <Col
+                      key={item.name + index}
+                      sm={12}
+                      md={6}
+                      lg={4}
+                      xl={3}
+                      className="pe-2"
+                    >
                       {/* <Card
                       style={{ width: "18rem" , }}
                       key={"card_id" + index.toString()}
@@ -343,6 +351,7 @@ function DoctorDashBoard() {
                       </Card.Body>
                     </Card> */}
                       <UserCard
+                        btnTitle="View Profile"
                         img={doctor_img}
                         handleUserProfile={() => {
                           // handleShowOffCanvas({
@@ -398,8 +407,6 @@ function DoctorDashBoard() {
           downloadForms={"Downloadable Forms"}
         />
       </Container>
-
-     
     </>
   );
 }

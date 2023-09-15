@@ -101,7 +101,7 @@ function PatientPrescriptions() {
       <div>
         <div className="d-flex justify-content-center m-0">
           {/* <Selectdoctor /> */}
-          <div className="d-flex flex-wrap select_doctorContainer">
+          {/* select_doctorContainer"> */}
             {loader ? (
               <Spinner
                 animation="border"
@@ -115,26 +115,31 @@ function PatientPrescriptions() {
                 <span>No Data Found</span>
               </div>
             ) : showPrescriptions ? (
+              <div className="d-flex flex-wrap" >
               <Prescriptions />
+              </div>
             ) : (
-              doctorProfiles.map((item, index) => {
-                return (
-                  <UserCard
-                    key={item.name + index.toString()}
-                    img={doctor_img}
-                    userDetails={{ ...item, treat: "Ortho" }}
-                    handleUserProfile={() => {
-                      setShowPrescriptions(true);
-                      localStorage.setItem(
-                        "current_doctor_prescriptions",
-                        JSON.stringify(item)
-                      );
-                    }}
-                  />
-                );
-              })
+              <div className="select_doctorContainer">
+                {doctorProfiles.map((item, index) => {
+                  return (
+                    <UserCard
+                      btnTitle="View Details"
+                      key={item.name + index.toString()}
+                      img={doctor_img}
+                      userDetails={{ ...item, treat: "Ortho" }}
+                      handleUserProfile={() => {
+                        setShowPrescriptions(true);
+                        localStorage.setItem(
+                          "current_doctor_prescriptions",
+                          JSON.stringify(item)
+                        );
+                      }}
+                    />
+                  );
+                })}
+              </div>
             )}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </Header>

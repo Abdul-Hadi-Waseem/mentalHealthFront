@@ -37,7 +37,7 @@ console.log("currentPrescription",currentPrescription)
       <Container>
         {/* PATIENT HISTORY ROW */}
         <Row
-          className=" border pt-4 mb-1"
+          className="flex flex-wrap justify-content-start w-100 border pt-4 mb-1"
           style={{
             backgroundColor: "#fff",
             borderRadius: "12px",
@@ -56,18 +56,18 @@ console.log("currentPrescription",currentPrescription)
               <Row className="mx-2">
                 <Col xs={12} md={9}>
                   {/* <h3 className="doctor-name">Richard Muldoone</h3> */}
-                  <h3 className="doctor-name">{currentPrescription?.name}</h3>
+                  <h3 className="doctor-name">{current_doctor_prescriptions?.name}</h3>
                   <p>Speciality: Heart Surgen</p>
                 </Col>
                 <Col xs={12} md={3}>
-                  <button
+                  {/* <button
                     onClick={() => {
                       // navigate("p")
                     }}
                     className="viewProfile-btn"
                   >
                     View Profile
-                  </button>
+                  </button> */}
                 </Col>
                 <Col xs={12} md={12}>
                   <hr style={{ width: "100%" }} />

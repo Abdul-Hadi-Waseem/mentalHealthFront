@@ -134,7 +134,7 @@ function ShowAllDoctors() {
       <div>
         <div className="d-flex justify-content-center m-0">
           {/* <Selectdoctor /> */}
-          <div className="d-flex flex-wrap select_doctorContainer">
+          <div className="select_doctorContainer">
             {loader ? (
               <Spinner
                 animation="border"
@@ -151,6 +151,7 @@ function ShowAllDoctors() {
               doctorProfiles.map((item, index) => {
                 return (
                   <UserCard
+                    btnTitle="View Profile"
                     img={doctor_img}
                     // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
                     userDetails={{ ...item, treat: "Ortho" }}

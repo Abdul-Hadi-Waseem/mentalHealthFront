@@ -58,6 +58,7 @@ import PatientVisits from "../pages/PatientVisits/PatientVisits.tsx";
 import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
 import PatientPrescriptions from "../pages/PatientPrescriptions/PatientPrescriptions.tsx";
+import PatientProfile from "../pages/Settings/ProfilesPages/PatientProfile.tsx";
 
 interface RouteItem {
   id: number;
@@ -333,6 +334,13 @@ export const appRoutes: RouteItem[] = [
     Component: <PatientPrescriptions />,
     path: "/patient-prescriptions",
     name: "Patient Prescriptions",
+    visible: false,
+  },
+  {
+    id: 31,
+    Component: <PatientProfile />,
+    path: "/patient-profile",
+    name: "Patient Profile",
     visible: false,
   },
 ];

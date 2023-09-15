@@ -106,6 +106,7 @@ const PatientsHistory = () => {
               {userProfiles.map((item, index) => {
                 return (
                   <UserCard
+                  btnTitle="View Details"
                     img={doctor_img}
                     userDetails={{ name: item.name, treat: "Mild Anxiety" }}
                     handleUserProfile={() => {
