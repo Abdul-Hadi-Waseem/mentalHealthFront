@@ -173,7 +173,7 @@ function PatientVisits() {
                     key={"abcd" + index.toString()}
                     img={doctor_img}
                     // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
-                    userDetails={{ ...item, treat: "Ortho" }}
+                    userDetails={{ ...item, treat: "Psychiatrist" }}
                     handleUserProfile={() => {
                       handleShowOffCanvas(item);
                     }}

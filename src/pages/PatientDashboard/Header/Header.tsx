@@ -257,9 +257,9 @@ function Header({ children }) {
                 ? `patient-nav-active`
                 : "patient-nav"}`
             }
-            onClick={() => {
-              navigate("/patient-profile")
-            }}
+            // onClick={() => {
+            //   navigate("/patient-profile")
+            // }}
             >
               <div className="patient-nav-img">
                 <img src={settingsIcon} alt="dashboardIcon" />
