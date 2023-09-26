@@ -17,6 +17,7 @@ import doctor_heart from "./../../assets/images/doctor_heart.png";
 import doctor_login from "./../../assets/images/doctor_login.png";
 import academic_information from "./../../assets/images/academic_information.png";
 import professional_experience from "./../../assets/images/professional_experience.png";
+import InstituteLoginForm from "../../components/Forms/Institutes/InstituteLogin";
 
 interface FormValues {
   college_name: string;
@@ -47,28 +48,27 @@ interface FormValues {
 // }
 
 function Account() {
-  const [doctorRegisterInformation, setDoctorInformation] = useState<FormValues>({
-    college_name: "",
-    course: "",
-    year: "",
-    certificates: [],
-    // clinic_name: "",
-    // clinic_experience: "",
-    // specialities: "",
-    // clinic_address: "",
-    // state: "",
-    // zip_code: "",
-    // city: "",
-    // country: "",
-    // clinic_schedule: "",
-    // start_time: "",
-    // end_time: "",
-    // professional_bio: "",
-  });
+  const [doctorRegisterInformation, setDoctorInformation] =
+    useState<FormValues>({
+      college_name: "",
+      course: "",
+      year: "",
+      certificates: [],
+      // clinic_name: "",
+      // clinic_experience: "",
+      // specialities: "",
+      // clinic_address: "",
+      // state: "",
+      // zip_code: "",
+      // city: "",
+      // country: "",
+      // clinic_schedule: "",
+      // start_time: "",
+      // end_time: "",
+      // professional_bio: "",
+    });
 
-
-
-  const handleDoctorAcademicInformation = (values:FormValues) => {
+  const handleDoctorAcademicInformation = (values: FormValues) => {
     setDoctorInformation(values);
     // console.log("value of academic information on account", values)
   };
@@ -80,7 +80,6 @@ function Account() {
   //   setDoctorInformation({...doctorRegisterInformation, values});
   // };
 
-
   const goToPage = (path: string) => {
     switch (path) {
       case "/login":
@@ -90,11 +89,28 @@ function Account() {
       case "/doctor-registration":
         return <DoctorRegistrationForm />;
       case "/academic-information":
-        return <AcademicInformation  handleAcademicInformation={handleDoctorAcademicInformation} />;
+        return (
+          <AcademicInformation
+            handleAcademicInformation={handleDoctorAcademicInformation}
+          />
+        );
       case "/professional-experience":
-        return <DoctorProfessionExperience academicInformation={doctorRegisterInformation} />;
-        // return <DoctorProfessionExperience />;
-        // return <DoctorProfessionExperience handleProfessionExperience={handleDoctorProfessionExperience} />;
+        return (
+          <DoctorProfessionExperience
+            academicInformation={doctorRegisterInformation}
+          />
+        );
+      case "/doctor-login":
+        return <DoctorLoginForm />;
+      case "/doctor-registration":
+        return <DoctorRegistrationForm />;
+
+      case "/institute-login":
+        return <InstituteLoginForm />;
+      case "/institute-registration":
+        return <DoctorRegistrationForm />;
+      // return <DoctorProfessionExperience />;
+      // return <DoctorProfessionExperience handleProfessionExperience={handleDoctorProfessionExperience} />;
       default:
         return <Registration />;
     }
@@ -112,6 +128,8 @@ function Account() {
         return academic_information;
       case "/professional-experience":
         return professional_experience;
+      case "/institute-login":
+        return Login_Bg;
       default:
         return Register_Bg;
     }

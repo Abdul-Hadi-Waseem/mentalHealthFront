@@ -59,6 +59,7 @@ import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
 import PatientPrescriptions from "../pages/PatientPrescriptions/PatientPrescriptions.tsx";
 import PatientProfile from "../pages/Settings/ProfilesPages/PatientProfile.tsx";
+import InstituteLoginForm from "../components/Forms/Institutes/InstituteLogin.tsx";
 
 interface RouteItem {
   id: number;
@@ -341,6 +342,13 @@ export const appRoutes: RouteItem[] = [
     Component: <PatientProfile />,
     path: "/patient-profile",
     name: "Patient Profile",
+    visible: false,
+  },
+  {
+    id: 32,
+    Component: <InstituteLoginForm />,
+    path: "/institute-login",
+    name: "Institute Login",
     visible: false,
   },
 ];
@@ -698,6 +706,7 @@ export const users: IUser[] = [
     id: 3,
     heading: "Educational institutions",
     image: User3,
+    path: "/institute-login",
   },
   {
     id: 4,
@@ -706,3 +715,5 @@ export const users: IUser[] = [
     path: "/doctor-login",
   },
 ];
+
+export const baseUrl = "http://localhost:5000";
