@@ -39,18 +39,7 @@ const InstituteLoginForm = () => {
     password: Yup.string()
       .min(8, "Password must be at least 8 characters long")
       .required("Password is required"),
-    level: Yup.number().required("level is Required"),
   });
-  // const [result, reExecuteQuery] = useActionLoginQuery({
-  //   variables: {
-  //     Data: {
-  //       email: Email,
-  //       password: Password,
-  //       level: 11,
-  //     },
-  //   },
-  //   pause: true,
-  // });
 
   // useEffect(() => {
   //   if (Email !== "" && Password !== "") {
@@ -71,23 +60,32 @@ const InstituteLoginForm = () => {
     },
   });
 
-  const { refetch } = useQuery(
-    "institute-login",
-    () => instituteLogin(formik.values.email, formik.values.password),
-
-    {
-      enabled: false,
-      onSuccess: (res) => {
-        toast.success("Login Successful");
-        Cookies.set("token", res?.data?.accessToken);
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      },
-      onError: (err: any) =>
-        toast.error(err?.response?.data?.data || "An Error Occured, Try Again"),
+  const LoginPostRequest = (email: string, password: string) => {
+    try {
+      instituteLogin(email, password).then((res) => {
+        console.log(res, "dedit");
+        if (res?.data?.status === 200) {
+          toast.success("Login Successful", {
+            hideProgressBar: true,
+          });
+          localStorage.setItem(
+            "institute_information",
+            JSON.stringify(res?.data?.data)
+          );
+          setTimeout(() => {
+            navigate("/institute-dashboard");
+          }, 3000);
+        }
+        if (res?.data?.status !== 200) {
+          toast.error(res?.data?.message, {
+            hideProgressBar: true,
+          });
+        }
+      });
+    } catch (error) {
+      toast.error(error);
     }
-  );
+  };
 
   // useEffect(() => {
   //   (async () => {
@@ -190,6 +188,7 @@ const InstituteLoginForm = () => {
   //   // }
   // }, [formSubmitted, navigate, result]);
 
+  const responseHandler = () => {};
   return (
     <Container className="login__section">
       <Row className="mb-3 ">
@@ -258,14 +257,18 @@ const InstituteLoginForm = () => {
               title="Login"
               className="w-100"
               type="submit"
-              onClick={() => refetch()}
+              onClick={() => {
+                console.log(Object.keys(formik.errors), "dedit");
+                Object.keys(formik.errors).length === 0 &&
+                  LoginPostRequest(formik.values.email, formik.values.password);
+              }}
             />
           </Col>
         </Row>
         <Row className="text-center">
           <span style={{ fontSize: "14px" }}>
             Don’t have an account yet?{" "}
-            <Link to="/doctor-registration" className="account__link">
+            <Link to="/institute-registration" className="account__link">
               Register
             </Link>
           </span>

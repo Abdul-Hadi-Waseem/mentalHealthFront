@@ -18,6 +18,8 @@ import doctor_login from "./../../assets/images/doctor_login.png";
 import academic_information from "./../../assets/images/academic_information.png";
 import professional_experience from "./../../assets/images/professional_experience.png";
 import InstituteLoginForm from "../../components/Forms/Institutes/InstituteLogin";
+import InstituteRegistrationForm from "../../components/Forms/Institutes/InstituteRegistration";
+import InstituteDashBoard from "../InstituteDashboard";
 
 interface FormValues {
   college_name: string;
@@ -108,7 +110,9 @@ function Account() {
       case "/institute-login":
         return <InstituteLoginForm />;
       case "/institute-registration":
-        return <DoctorRegistrationForm />;
+        return <InstituteRegistrationForm />;
+      case "/institute-dashboard":
+        return <InstituteDashBoard />;
       // return <DoctorProfessionExperience />;
       // return <DoctorProfessionExperience handleProfessionExperience={handleDoctorProfessionExperience} />;
       default:

@@ -60,6 +60,8 @@ import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx
 import PatientPrescriptions from "../pages/PatientPrescriptions/PatientPrescriptions.tsx";
 import PatientProfile from "../pages/Settings/ProfilesPages/PatientProfile.tsx";
 import InstituteLoginForm from "../components/Forms/Institutes/InstituteLogin.tsx";
+import InstituteRegistrationForm from "../components/Forms/Institutes/InstituteRegistration.tsx";
+import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
 
 interface RouteItem {
   id: number;
@@ -349,6 +351,20 @@ export const appRoutes: RouteItem[] = [
     Component: <InstituteLoginForm />,
     path: "/institute-login",
     name: "Institute Login",
+    visible: false,
+  },
+  {
+    id: 32,
+    Component: <InstituteRegistrationForm />,
+    path: "/institute-registration",
+    name: "Institute Registration",
+    visible: false,
+  },
+  {
+    id: 33,
+    Component: <InstituteDashBoard />,
+    path: "/institute-dashboard",
+    name: "Institute Dashboard",
     visible: false,
   },
 ];
