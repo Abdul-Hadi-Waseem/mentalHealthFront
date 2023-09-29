@@ -20,7 +20,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 function InstituteHeader() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [btnTitle, setBtnTitle] = useState("Get Started");
+  // const [btnTitle, setBtnTitle] = useState("Get Started");
   const token = getToken();
   const navigate = useNavigate();
   const handleCloseModal = () => {
@@ -28,19 +28,21 @@ function InstituteHeader() {
     // navigate("/doctor-dashboard");
   };
 
-  useEffect(() => {
-    if (token) {
-      setBtnTitle("Logout");
-    } else {
-      setBtnTitle("Get Started");
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     setBtnTitle("Logout");
+  //   } else {
+  //     setBtnTitle("Get Started");
+  //   }
+  // }, [token]);
   function handleClick() {
     if (token) {
       Cookies.remove("token");
-      navigate("/doctor-login");
+      localStorage.removeItem("institute_information");
+      navigate("/institute-login");
     } else {
-      navigate("/doctor-login");
+      localStorage.removeItem("institute_information");
+      navigate("/institute-login");
     }
   }
   const goToDashBoard = () => {
@@ -115,9 +117,10 @@ function InstituteHeader() {
                       {/* <strong className="text-light">Bessie Cooper</strong> */}
                       <strong className="text-light text-capitalize">
                         {institute_information.name}
+                        <br />
                       </strong>
                     </small>
-                    <small className="text-light  p-0">Psychiatrist</small>
+                    {/* <small className="text-light  p-0">Psychiatrist</small> */}
                   </div>
                   <div>
                     <FaChevronDown

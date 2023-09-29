@@ -11,7 +11,7 @@ import Image from "react-bootstrap/Image";
 import d_db_female from "../../assets/images/d_db_female.png";
 import d_db_male from "../../assets/images/d_db_male.png";
 import doctor_img from "../../assets/images/doctor.svg";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 // // import Button from "../Common/Buttons/Button";
 // import Button from "./../../components/Common/Buttons/Button";
@@ -26,6 +26,7 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "./../../configs/config";
 import InstituteHeader from "./Header/Header";
+import Button from "../../components/Common/Buttons/Button";
 
 function InstituteDashBoard() {
   // const token = getToken();
@@ -159,7 +160,7 @@ function InstituteDashBoard() {
   }, [elementRef?.current?.scrollWidth, elementRef?.current?.offsetWidth]);
   return (
     <>
-      {/* <InstituteHeader /> */}
+      <InstituteHeader />
       <Container>
         <Row className="d-flex flex-row flex-nowrap">
           <Col
@@ -167,23 +168,27 @@ function InstituteDashBoard() {
             xs={12}
             md={6}
           >
-            <p className="text-muted py-2">Good Morning</p>
-            {/* <h4>Welcome Dr. Bessie Cooper</h4> */}
-            <h4 className="text-capitalize">{name}</h4>
+            <h4 className="text-capitalize">Dashboard</h4>
           </Col>
           <Col
             className="d-flex justify-content-end align-items-center"
             xs={12}
             md={6}
           >
-            <button className="d-flex flex-column p-2 pm-green-btn border-0">
-              <small className="text-xs text-light">Upcoming Appointment</small>
-              <small className="text-xs text-light">8:00 AM - 4:00 PM</small>
-            </button>
+            <div>
+              <Button
+                variant="primary"
+                title="Invite Teacher"
+                className="px-5 py-3"
+                onClick={() => {
+                  // setCreatePrescModal(true);
+                }}
+              />
+            </div>
           </Col>
         </Row>
         <Row className="d-flex justify-content-between">
-          <Col xs={12} xl={6} className="pe-md-3 ">
+          <Col xs={12} xl={6} className="pe-md-3">
             <div
               className="d-flex w-100 h-100 justify-content-between px-2 align-items-end  upcomming-appointments"
               style={{ borderRadius: "12px", cursor: "pointer" }}
@@ -215,195 +220,6 @@ function InstituteDashBoard() {
             </div>
           </Col>
         </Row>
-      </Container>
-
-      <Container>
-        {/* PATIENT HISTORY ROW */}
-        <Row
-          className="mt-5 pt-4 mb-5"
-          style={{
-            backgroundColor: "#fff",
-            borderRadius: "12px",
-            marginRight: "0px",
-            marginLeft: "0px",
-          }}
-        >
-          <Col xs={12}>
-            <Row
-              className="ps-2 pe-3"
-              style={{
-                borderRadius: "12px",
-              }}
-            >
-              <Col
-                className="d-flex justify-content-between align-items-end"
-                style={{ color: "#3874AB" }}
-                xs={12}
-              >
-                <div>
-                  <p>
-                    <strong>Patients History</strong>
-                  </p>
-                  <Link
-                    style={{ cursor: "pointer", color: "#3874AB" }}
-                    to={"/patients-history"}
-                  >
-                    See All <FaArrowRight style={{ color: "#3874AB" }} />
-                  </Link>
-                </div>
-                <div className="d-flex">
-                  <span className="pe-2">
-                    <button
-                      className="border-0"
-                      style={{ backgroundColor: "#fff", color: "#243D4C" }}
-                      onClick={() => {
-                        handleHorizantalScroll(
-                          elementRef.current,
-                          25,
-                          100,
-                          -300
-                        );
-                      }}
-                      // disabled={arrowDisable }
-                      disabled={scrollX == 0}
-                    >
-                      <FaArrowLeft />
-                    </button>
-                  </span>
-                  <span className="ps-2">
-                    <button
-                      className="border-0"
-                      style={{ backgroundColor: "#fff", color: "#243D4C" }}
-                      disabled={scrolEnd}
-                      onClick={() => {
-                        handleHorizantalScroll(
-                          elementRef.current,
-                          25,
-                          100,
-                          300
-                        );
-                      }}
-                    >
-                      <FaArrowRight />
-                    </button>
-                  </span>
-                </div>
-              </Col>
-            </Row>
-            <Row
-              className={"d-flex flex-nowrap ps-2 pt-3 mb-4"}
-              style={{
-                overflowX: "scroll",
-                scrollBehavior: "smooth",
-              }}
-              ref={elementRef}
-              onScroll={scrollCheck}
-            >
-              {loader ? (
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    height: "auto",
-                    width: "100%",
-                  }}
-                >
-                  {" "}
-                  <Spinner
-                    animation="border"
-                    role="status"
-                    style={{ color: "#5E9CD3" }}
-                  >
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                </div>
-              ) : userProfiles.length == 0 ? (
-                <div className="d-flex  justify-content-center">
-                  No Patients found
-                </div>
-              ) : (
-                userProfiles.map((item, index) => {
-                  return (
-                    <Col
-                      key={item.name + index}
-                      sm={12}
-                      md={6}
-                      lg={4}
-                      xl={3}
-                      className="pe-2"
-                    >
-                      {/* <Card
-                      style={{ width: "18rem" , }}
-                      key={"card_id" + index.toString()}
-                    >
-                      <div className="d-flex flex-column justify-content-center align-items-center pt-5">
-                          <Image style={{height: "5rem", width: "5rem"}} src={d_db_male} roundedCircle />
-                             <div className="d-flex align-items-center  flex-column">
-                             <Card.Text className="mt-2">{item + "fayyaz"}</Card.Text>
-                            <small className="mt-2 text-muted">{item + "fayyaz"}</small>
-                          </div>
-                          <hr   />
-                      </div>
-                      <Card.Body className="d-flex justify-content-center">
-                        
-                        <Button variant="primary">Go somewhere</Button>
-                      </Card.Body>
-                    </Card> */}
-                      <UserCard
-                        btnTitle="View Profile"
-                        img={doctor_img}
-                        handleUserProfile={() => {
-                          // handleShowOffCanvas({
-                          //   name: item.name,
-                          //   treat: "Patient Condition",
-                          //   details: item,
-                          // });
-                          handleShowOffCanvas(item);
-                        }}
-                        userDetails={{
-                          name: item.name,
-                          treat: "Patient Condition",
-                        }}
-
-                        // userDetails={{
-                        //   name: "John Smith",
-                        //   treat: "Mild Anxiety",
-                        // }}
-                      />
-                    </Col>
-                  );
-                })
-              )}
-            </Row>
-          </Col>
-        </Row>
-        <DoctorSideBar
-          placement={"end"}
-          name={"end"}
-          show={showOffCanvas}
-          onHide={handleCloseOffCanvas}
-          img={doctor_img}
-          // userDetails={{
-          //   name: "John Smith",
-          //   treat: "Mild Anxiety",
-          // }}
-          userDetails={{
-            // name: "John Smith",
-            // treat: "Mild Anxiety",
-            name: currentUserDetails.name,
-            treat: "Patient condition",
-            details: currentUserDetails,
-          }}
-          // userDetails={currentUserDetails}
-          appointmentDetails={{
-            Date: "Jan 1 2022",
-            Time: "02:00 pm",
-            Duration: "01 hour",
-            // Date: currentAppointmentDate,
-            // Time: currentAppointmentTime,
-            // Duration: currentAppointmentDuration,
-          }}
-          downloadForms={"Downloadable Forms"}
-        />
       </Container>
     </>
   );
