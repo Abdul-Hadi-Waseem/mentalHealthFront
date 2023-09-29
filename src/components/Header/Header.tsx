@@ -35,11 +35,21 @@ function Header() {
   }, [token]);
   function handleClick() {
     if (token) {
+      // Clear all keys from Local Storage
+      localStorage.clear();
+
+      // Clear all keys from Session Storage
+      sessionStorage.clear();
+
       Cookies.remove("token");
+
       // nav_to_dc_lg ? navigate("/doctor-login") : navigate("/login");
-      nav_to_dc_lg ? navigate("/select-user") : navigate("/select-user");
+      // nav_to_dc_lg ? navigate("/select-user") : navigate("/select-user");
+      // navigate("/select-user");
+      navigate("/login");
     } else {
-      nav_to_dc_lg ? navigate("/select-user") : navigate("/select-user");
+      // nav_to_dc_lg ? navigate("/select-user") : navigate("/select-user");
+      navigate("/select-user");
 
       // navigate("/login");
     }

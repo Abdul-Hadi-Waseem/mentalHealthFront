@@ -20,16 +20,23 @@ import Cookies from "js-cookie";
 import { getToken } from "./../../../utils";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
 import Avatar from "react-avatar";
-import { Row, Col, Image } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, setUserInformation } from "./../../../store/slices/UserSlice";
+import { Row, Col, Image, Modal } from "react-bootstrap";
 
 function Header({ children }) {
-  let location = useLocation()
+  let location = useLocation();
   const [showDropDown, setShowDropDown] = useState(false);
   const [btnTitle, setBtnTitle] = useState("Get Started");
+  const [showModal, setShowModal] = useState(false);
+
   const [currentPatient, setCurrentPatient] = useState(
     JSON.parse(localStorage.getItem("user_complete_information"))
+  );
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
   );
   const [currentRoute, setCurrentRoute] = useState("dashboard");
 
@@ -43,13 +50,24 @@ function Header({ children }) {
       setBtnTitle("Get Started");
     }
   }, [token]);
+  const handleCloseModal = () => {
+    setShowModal(false);
+    // navigate("/doctor-dashboard");
+  };
 
   function handleClick() {
     if (token) {
+      // Clear all keys from Local Storage
+      localStorage.clear();
+
+      // Clear all keys from Session Storage
+      sessionStorage.clear();
       Cookies.remove("token");
-      navigate("/doctor-login");
+      // navigate("/doctor-login");
+      navigate("/login");
     } else {
-      navigate("/doctor-login");
+      // navigate("/doctor-login");
+      navigate("/login");
     }
   }
   let doctor_information = JSON.parse(
@@ -69,13 +87,23 @@ function Header({ children }) {
       </div>
     </div>
   );
+
+  const goToDashBoard = () => {
+    setShowModal(false);
+    // navigate("/doctor-dashboard");
+    handleClick();
+  };
   return (
     <>
       <Row>
         <Col xs={12} xl={12}>
           <Navbar collapseOnSelect expand="xl">
             <Container className="py-3">
-              <div onClick={()=>{navigate("/")}}>
+              <div
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
                 <Navbar.Brand>
                   <img alt="logo" src={logo} className="w-100" />
                 </Navbar.Brand>
@@ -126,9 +154,13 @@ function Header({ children }) {
                             Mr {currentPatient.name}
                           </strong>
                         </small>
-                        <small className="text-light  p-0">
+                        {/* <small className="text-light  p-0">
                           Patient Condition
-                        </small>
+                        </small> */}
+                        {/* <small className="text-light  p-0">
+                         {reduxUserState?.psc_test_result?.condition?.replace(/[()]/g, '')}
+                         
+                        </small> */}
                       </div>
                       <div>
                         <FaChevronDown
@@ -146,7 +178,14 @@ function Header({ children }) {
                         style={{ top: "60px", right: "0px", zIndex: 10 }}
                       >
                         <ul className="shadow border">
-                          <li className="my_account_li ">My Account</li>
+                          <li
+                            className="my_account_li "
+                            onClick={() => {
+                              navigate("/profile");
+                            }}
+                          >
+                            My Account
+                          </li>
                           <div
                             className="d-flex justify-content-center w-100"
                             style={{ color: "GrayText" }}
@@ -156,7 +195,15 @@ function Header({ children }) {
                               style={{ width: "80%" }}
                             />
                           </div>
-                          <li onClick={handleClick}>Log out</li>
+                          <li
+                            onClick={
+                              () => {
+                                setShowModal(true);
+                              } // modal to show
+                            }
+                          >
+                            Logout
+                          </li>
                           <div className="d-flex justify-content-center w-100 text-light">
                             <hr
                               className=" d-flex border-bottom p-0 m-0"
@@ -172,33 +219,31 @@ function Header({ children }) {
             </Container>
           </Navbar>
         </Col>
-        <Col xs={12} md={3}  xl={2} className="patient-navbar">
+        <Col xs={12} md={3} xl={2} className="patient-navbar">
           <div className="patient-SideBar">
             <div
-              className={
-               ` ${location.pathname === "/patient-dashboard"
+              className={` ${
+                location.pathname === "/patient-dashboard"
                   ? `patient-nav-active`
-                  : "patient-nav"} cursor-pointer`
-              }
+                  : "patient-nav"
+              } cursor-pointer`}
               onClick={() => {
-                navigate("/patient-dashboard")
+                navigate("/patient-dashboard");
               }}
             >
               <div className="patient-nav-img">
                 <img src={dashboardIcon} alt="dashboardIcon" />
               </div>
-              <div>
-                Dashboard
-              </div>
+              <div>Dashboard</div>
             </div>
             <div
-              className={
-               `${ location.pathname === "/patient-myvisits"
+              className={`${
+                location.pathname === "/patient-myvisits"
                   ? `patient-nav-active`
-                  : "patient-nav"} cursor-pointer`
-              }
+                  : "patient-nav"
+              } cursor-pointer`}
               onClick={() => {
-                navigate("/patient-myvisits")
+                navigate("/patient-myvisits");
               }}
             >
               <div className="patient-nav-img">
@@ -206,60 +251,64 @@ function Header({ children }) {
               </div>
               <div>My Visits</div>
             </div>
-            <div 
-                 className={
-                 `${location.pathname === "/schedule-appointment"
-                    ? `patient-nav-active`
-                    : "patient-nav"} cursor-pointer`
-                }
-                onClick={() => {
-                  navigate("/schedule-appointment")
-                }}
-            
+            <div
+              className={`${
+                location.pathname === "/schedule-appointment" ||
+                location.pathname === "/select-doctor" ||
+                location.pathname === "/doctor-detail"
+                  ? `patient-nav-active`
+                  : "patient-nav"
+              } cursor-pointer`}
+              onClick={() => {
+                navigate("/schedule-appointment");
+              }}
             >
               <div className="patient-nav-img">
                 <img src={myVisitsIcon} alt="dashboardIcon" />
               </div>
               <div>Schedule</div>
             </div>
-            <div   className={
-                  `${location.pathname === "/all-doctors" || location.pathname === "/doctor-details"
-                    ? `patient-nav-active`
-                    : "patient-nav"} cursor-pointer`
-                }
-                onClick={() => {
-                  navigate("/all-doctors")
-                }}>
+            <div
+              className={`${
+                location.pathname === "/all-doctors" ||
+                location.pathname === "/doctor-details"
+                  ? `patient-nav-active`
+                  : "patient-nav"
+              } cursor-pointer`}
+              onClick={() => {
+                navigate("/all-doctors");
+              }}
+            >
               <div className="patient-nav-img">
                 <img src={myVisitsIcon} alt="dashboardIcon" />
               </div>
-              <div 
-              >Doctors</div>
+              <div>Doctors</div>
             </div>
             {/* <div className="patient-nav" onClick={"/patient-prescriptions"}> */}
             <div
-             className={
-              `${location.pathname === "/patient-prescriptions"
-                ? `patient-nav-active`
-                : "patient-nav"} cursor-pointer`
-            }
-            onClick={() => {
-              navigate("/patient-prescriptions")
-            }}>
+              className={`${
+                location.pathname === "/patient-prescriptions"
+                  ? `patient-nav-active`
+                  : "patient-nav"
+              } cursor-pointer`}
+              onClick={() => {
+                navigate("/patient-prescriptions");
+              }}
+            >
               <div className="patient-nav-img">
                 <img src={prcsiptionIcon} alt="dashboardIcon" />
               </div>
               <div>Prescriptions</div>
             </div>
             <div
-             className={
-             `cursor-pointer ${ location.pathname === "/patient-settings"
-                ? `patient-nav-active`
-                : "patient-nav"}`
-            }
-            // onClick={() => {
-            //   navigate("/patient-profile")
-            // }}
+              className={`cursor-pointer ${
+                location.pathname === "/profile"
+                  ? `patient-nav-active`
+                  : "patient-nav"
+              }`}
+              onClick={() => {
+                navigate("/profile");
+              }}
             >
               <div className="patient-nav-img">
                 <img src={settingsIcon} alt="dashboardIcon" />
@@ -277,15 +326,48 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={logoutIcon} alt="dashboardIcon" />
               </div>
-              <div className="patient-nav-text">Logout</div>
+              <div className="patient-nav-text cursor-pointer"
+              onClick={
+                () => {
+                  setShowModal(true);
+                } // modal to show
+              }
+              >Logout</div>
               {/* </div> */}
             </div>
           </div>
         </Col>
-        <Col xs={12}  md={9} xl={10} className="pe-4">
+        <Col xs={12} md={9} xl={10} className="pe-4">
           {children}
         </Col>
       </Row>
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        className="d-flex align-items-center justify-content-center"
+      >
+        <Modal.Title className="p-4 pb-0" id="contained-modal-title-vcenter">
+          Logout
+        </Modal.Title>
+        <Modal.Body className="d-flex flex-column justify-content-center p-4">
+          {/* <span className="modal-title">Are you sure you want to logout?</span> */}
+          <span>Are you sure you want to logout?</span>
+
+          <div className="d-flex mt-3 w-100 align-items-center  ">
+            <Button
+              onClick={handleCloseModal}
+              title="No"
+              variant="secondary"
+              className="p-0 py-2 me-1 w-100"
+            />
+            <Button
+              onClick={goToDashBoard}
+              title="Yes, Logout"
+              className="p-0 py-2 ms-1 w-100 border-0"
+            />
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

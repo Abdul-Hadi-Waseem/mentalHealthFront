@@ -6,6 +6,7 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "../configs/config";
 import { Col, Row, Container } from "react-bootstrap";
+import { getToken } from "../utils";
 const Selectdoctor = () => {
   // const [doctorProfiles, setdoctorProfiles] = useState([
   //   { name: "Bessie Cooper", designation: "Psychiatrist" },
@@ -31,6 +32,11 @@ const Selectdoctor = () => {
           `${config.base_url}/doctor/get_doctors_for_appointment`,
           {
             data,
+          },
+          {
+            headers: {
+              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+            }
           }
         );
         // console.log("res", res.data.data[0]);
@@ -69,6 +75,7 @@ const Selectdoctor = () => {
           {doctorProfiles.map((item, index) => {
             return (
               <DoctorCard
+              key={"item"+ index.toString()}
                 doctor_details={{ ...item }}
                 img={doctor_img}
               />

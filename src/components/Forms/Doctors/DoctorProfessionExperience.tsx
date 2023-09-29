@@ -22,6 +22,9 @@ import "./doctor.css";
 import axios from "axios";
 import config from "../../../configs/config";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { getToken } from "../../../utils";
+import { addUser, setUserInformation } from "./../../../store/slices/UserSlice";
 
 interface FormValues {
   clinic_name: string;
@@ -54,10 +57,73 @@ interface MyComponentProps {
   // handleProfessionExperience: (value: FormValues) => void;
 }
 
+interface ClinicSchedule {
+  day: string;
+  start_time: string;
+  end_time: string;
+}
+
+interface ProfessionalExperience {
+  city: string;
+  clinic_address: string;
+  clinic_experience: string;
+  clinic_name: string;
+  country: string;
+  day: string;
+  end_time: string;
+  professional_bio: string;
+  specialities: string;
+  start_time: string;
+  state: string;
+  zip_code: string;
+}
+
+interface User {
+  added_in_db: string;
+  address: string | null;
+  age: number;
+  city: string | null;
+  country: string | null;
+  dob: string;
+  email: string;
+  gender: number;
+  id: number;
+  institute_uid: string | null;
+  level: number;
+  name: string;
+  password: string;
+  phone: string;
+  picture: string | null;
+  reference_id: string | null;
+  relationship_level: string | null;
+  salt: string;
+  state: string | null;
+  status: number;
+  token: string;
+  uid: string;
+  updated_at: string | null;
+  updated_by: string | null;
+  zip_code: string | null;
+}
+
+interface FormDataObject {
+  user: User;
+  clinic_schedule: ClinicSchedule[];
+  college_name: string;
+  course: string;
+  professional_experience: ProfessionalExperience;
+  year: string;
+  certificates: File[];
+}
+
 const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
   const [result, executeMutation] = usePatientRegistrationMutation();
   const [mergeValues, setMergeValues] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
+  );
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const initialValues: FormValues = {
@@ -114,11 +180,6 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
       let certificatesArr = [];
       console.log("academic", props.academicInformation);
 
-      // certificates.array.forEach(element => {
-      //   certificatesArr.push(element)
-      // });
-
-      // certificates = JSON.stringify(certificates);
       let user = JSON.parse(localStorage.getItem("doctor_information"));
       delete user.dictionary;
       delete user.assessment;
@@ -130,38 +191,6 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
         user,
       };
       console.log("dataTosend", dataToSend);
-
-      // for (let i=0;i< dataToSend.certificates.length;i++) {
-      //   formData.append(`certificates${i}`, dataToSend["certificates"][i]);
-      // }
-      // dataToSend.clinic_schedule
-      // dataToSend.college_name
-      // dataToSend.course
-      // dataToSend.professional_experience
-      // dataToSend.year
-      // // dataToSend.certificates
-
-      // let clinic_scheduleToSend = JSON.stringify(dataToSend['clinic_schedule']);
-      // let professional_experienceToSend = JSON.stringify(dataToSend['professional_experience']);
-
-      // formData.append("clinic_schedule", clinic_scheduleToSend );
-      // formData.append("college_name", dataToSend["college_name"])
-      // formData.append('course', "abcd")
-      // formData.append("professional_experience", professional_experienceToSend)
-      // formData.append("year", dataToSend["year"]);
-      // formData.append("course", dataToSend["course"])
-
-      // For FormData
-      // formData.append("name", "osama");
-      // let headers = {
-      //   "Content-Type": "multipart/form-data"
-      // }
-      // let body = {
-      //   "name": "osama"
-      // }
-      // console.log("header",headers);
-      // console.log("dataToSend",dataToSend);
-      // const response = await axios.post('http://localhost:5000/doctor/create_profile', formData, {headers});
       try {
         let updated_clinic_schedule = [...clinic_schedule];
         let formattedClinicSchedule = [];
@@ -186,13 +215,39 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
         console.log("formattedClinicSchedule", formattedClinicSchedule);
 
         dataToSend.clinic_schedule = formattedClinicSchedule;
+        const updatedDataToSend = await handleFormData(dataToSend);
         const response = await axios.post(
           `${config.base_url}/doctor/create_profile`,
-          dataToSend
+          updatedDataToSend,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
+          }
         );
+
+        // dataToSend,
+        // {
+        //   headers: {
+        //     'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+        //   }
+        // }
+
         if (response?.data?.data) {
           localStorage.setItem("user", response.data.data);
         }
+        let myObj = {
+          ...response?.data?.data,
+          ...user,
+          doctor_details: { ...academicInformation, certificates },
+          professional_experience: {
+            ...professional_experience,
+            description: professional_experience?.professional_bio,
+          },
+          schedule: [...clinic_schedule],
+        };
+        dispatch(setUserInformation(myObj));
         toast.success("Registration Successful"); // Show the success toast
         setShowModal(true); // modal to show
         console.log("response", response);
@@ -251,6 +306,89 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
       // }
     },
   });
+  // const handleFormData = async (formDataKeysAndValues) => {
+  const handleFormData = async (formDataObject: FormDataObject) => {
+    console.log("formDataObject formik certificates", formDataObject);
+
+    const formData = new FormData();
+
+    // formDataObject.clinic_schedule.forEach((schedule, index) => {
+    //   const scheduleKey = `clinic_schedule[${index}]`;
+    //   formData.append(`${scheduleKey}[day]`, schedule.day);
+    //   formData.append(`${scheduleKey}[start_time]`, schedule.start_time);
+    //   formData.append(`${scheduleKey}[end_time]`, schedule.end_time);
+    // });
+
+    formData.append(
+      "clinic_schedule",
+      JSON.stringify(formDataObject.clinic_schedule)
+    );
+    formData.append(
+      "professional_experience",
+      JSON.stringify(formDataObject.professional_experience)
+    );
+
+    // formData.append('certificates', file, `certificate_${index}`);
+    // formDataObject.certificates.forEach((file, index) => {
+    //   formData.append('files', file,);
+    // });
+
+    for (let i = 0; i < formDataObject?.certificates?.length; i++) {
+      formData.append("files", formDataObject?.certificates[i]);
+    }
+
+    // formData.append('user', formDataObject.user);
+    formData.append("user", JSON.stringify(formDataObject.user));
+    formData.append("year", formDataObject.year.toString());
+    formData.append("college_name", formDataObject.college_name);
+    formData.append("course", formDataObject.course);
+
+    return formData;
+
+    // const formData = new FormData();
+    // let [file] = [formDataKeysAndValues?.certificates];
+    // console.log("imagePreviews formik certificates", file);
+    // formData.append("name", "John sdfasd");
+    // formData.append("email", "johndoe@example.com");
+    // // const file = formik.values.certificates[0];
+    // // file = file[0]
+    // //   const blob = new Blob([file], { type: file.type });
+    // //   formData.append("files", blob, file.name);
+    // for (let i = 0; i < file.length; i++) {
+    //   formData.append("files", file[i]);
+    // }
+
+    // formData.append("files", file[0]);
+
+    // try {
+    //   // const isProfileUploadResponse = await axios.post(
+    //   //   `${config.base_url}/user/upload_picture`,
+    //   //   formData,
+    //   //   {
+    //   //     headers: {
+    //   //       "Content-Type": "multipart/form-data",
+    //   //       Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+    //   //     },
+    //   //   }
+    //   // );
+    //   // console.log("isProfileUploadResponse", isProfileUploadResponse);
+    // } catch (error) {
+    //   console.error("Error uploading picture", error);
+    // }
+
+    // const file = formik.values.certificates[0];
+    // const blob = new Blob([file], { type: file.type });
+    // formData.append('profile', blob, file.name);
+    // const isProfileUploadResponse = await axios.post(
+    //   `${config.base_url}/user/upload_picture`,
+    //   formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   }
+    // );
+    // console.log("isProfileUploadResponse" ,  isProfileUploadResponse)
+  };
 
   // useEffect(()=> {
   //   let formData = new FormData();
@@ -582,7 +720,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
                       : item.start_time.slice(0, 2) == "00"
                       ? "12" + item.start_time.slice(2, 6) + "AM "
                       : item.start_time + "AM "} */}
-                    to{" "}
+                    &nbsp;to&nbsp;
                     {
                       <span>
                         {moment(item.end_time, "HH:mm").format("hh:mm A")}

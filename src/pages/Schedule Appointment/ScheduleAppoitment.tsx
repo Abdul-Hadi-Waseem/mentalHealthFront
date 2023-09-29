@@ -11,18 +11,17 @@ import BackButton from "../../components/Common/Buttons/BackButton";
 import SideBar from "../../components/SideBar";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-
+import Header from "../PatientDashboard/Header/Header";
 const AppointmentScheduler = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null >(null);
-  const [selectedMedia, setSelectedMedia] = useState<string | null >(null);
-  const [selectedTime, setSelectedTime] = useState<string | null >(null);
-  console.log("selectedDate >>",  selectedDate)
-  console.log("selectedMedia >>",  selectedMedia)
-  console.log("selectedTime >>",  selectedTime)
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  console.log("selectedDate >>", selectedDate);
+  console.log("selectedMedia >>", selectedMedia);
+  console.log("selectedTime >>", selectedTime);
   const navigate = useNavigate();
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   // let start_time = moment(selectedTime).format()
-
 
   // const date = moment(selectedTime);
   // const updatedDate = date.add(1, 'hour');
@@ -42,17 +41,24 @@ const AppointmentScheduler = () => {
   const parsedDate = moment(selectDate, dateFormat);
 
   // Combine the parsed date and time to create start_time and end_time
-  const startTime = parsedDate.clone().set({
+  const startTime = parsedDate
+    .clone()
+    .set({
       hour: parsedTime.hour(),
       minute: parsedTime.minute(),
       second: 0,
-    }).toISOString();
+    })
+    .toISOString();
 
-  const endTime = parsedDate.clone().set({
+  const endTime = parsedDate
+    .clone()
+    .set({
       hour: parsedTime.hour(),
       minute: parsedTime.minute(),
       second: 0,
-    }).add(1, "hour").toISOString(); // Assuming 1 hour duration
+    })
+    .add(1, "hour")
+    .toISOString(); // Assuming 1 hour duration
 
   // Extract the day from the selectDate
   const day = parsedDate.format("dddd");
@@ -61,10 +67,14 @@ const AppointmentScheduler = () => {
   let formattedStartTime = moment(startTime).format("HH:mm:ss ZZ");
   // let formattedStartTime = moment.utc(startTime, "HH:mm:ss ZZ").format("HH:mm:ss ZZ");
   let formattedEndTime = moment(endTime).format("HH:mm:ss ZZ");
-  let formattedDate =moment(selectedDate).format("YYYY-MM-DDTHH:mm:ss");
-  formattedStartTime = moment.utc(formattedStartTime, "HH:mm:ss Z").format("HH:mm:ss ZZ");
-  formattedEndTime = moment.utc(formattedEndTime, "HH:mm:ss Z").format("HH:mm:ss ZZ");
-  
+  let formattedDate = moment(selectedDate).format("YYYY-MM-DDTHH:mm:ss");
+  formattedStartTime = moment
+    .utc(formattedStartTime, "HH:mm:ss Z")
+    .format("HH:mm:ss ZZ");
+  formattedEndTime = moment
+    .utc(formattedEndTime, "HH:mm:ss Z")
+    .format("HH:mm:ss ZZ");
+
   localStorage.setItem(
     "appointment_date",
     JSON.stringify({
@@ -74,7 +84,7 @@ const AppointmentScheduler = () => {
       // end_time: formattedEndTime,
       end_time: formattedEndTime,
       // selectDate: selectDate
-      selectDate: formattedDate
+      selectDate: formattedDate,
     })
   );
 
@@ -95,47 +105,53 @@ const AppointmentScheduler = () => {
   };
 
   return (
-    <Container>
-      <div className="m-3">
-        <Row className="flex-nowrap align-items-center my-4">
-          <BackButton onClick={()=>{navigate(-1)}} />
-          <span className="vl"></span>
-          <h5>Schedule Appointment</h5>
+    <Header>
+      <Container>
+        <div className="m-3">
+          <Row className="flex-nowrap align-items-center my-4">
+            <BackButton
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
+            <span className="vl"></span>
+            <h5>Schedule Appointment</h5>
+          </Row>
+        </div>
+        <Row className="">
+          <Col md={12} lg={6} sm={12}>
+            <CalendarComponent onDateChange={handleDateChange} />
+          </Col>
+          <Col
+            md={12}
+            lg={6}
+            sm={12}
+            className="bg-white py-4 px-4"
+            style={{ borderRadius: "24px" }}
+          >
+            {/* <MediaTypeSelection onMediaChange={handleMediaChange} /> */}
+            <TimeSelection onTimeChange={handleTimeChange} />
+            <Confirmation
+              selectedDate={selectedDate}
+              selectedMedia={selectedMedia}
+              selectedTime={selectedTime}
+            />
+          </Col>
         </Row>
-      </div>
-      <Row className="">
-        <Col md={12} lg={6} sm={12}>
-          <CalendarComponent onDateChange={handleDateChange} />
-        </Col>
-        <Col
-          md={12}
-          lg={6}
-          sm={12}
-          className="bg-white py-4 px-4"
-          style={{ borderRadius: "24px" }}
-        >
-          {/* <MediaTypeSelection onMediaChange={handleMediaChange} /> */}
-          <TimeSelection onTimeChange={handleTimeChange} />
-          <Confirmation
-            selectedDate={selectedDate}
-            selectedMedia={selectedMedia}
-            selectedTime={selectedTime}
-          />
-        </Col>
-      </Row>
 
-      <div className="mt-4">
-        <Row className="text-end justify-content-end">
-          <Button
-            variant="primary"
-            className="schedule-btn"
-            title="Schedule Appointment"
-            onClick={handleClick}
-            disabled={(selectedDate == null) || (selectedTime == null)}
-          />
-        </Row>
-      </div>
-    </Container>
+        <div className="mt-4">
+          <Row className="text-end justify-content-end">
+            <Button
+              variant="primary"
+              className="schedule-btn"
+              title="Schedule Appointment"
+              onClick={handleClick}
+              disabled={selectedDate == null || selectedTime == null}
+            />
+          </Row>
+        </div>
+      </Container>
+    </Header>
   );
 };
 

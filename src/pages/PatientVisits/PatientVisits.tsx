@@ -12,16 +12,22 @@ import Spinner from "react-bootstrap/Spinner";
 import config from "../../configs/config";
 import Header from "../PatientDashboard/Header/Header";
 import PatientSideBarModal from "../../components/PatientSideBarModal";
+import { getToken } from "../../utils";
 
 function PatientVisits() {
   const location = useLocation();
   const navigate = useNavigate();
   let currentLocation = location.pathname.split("/").slice(-1).toString();
   const [doctorProfiles, setDoctorProfiles] = useState([]);
+  const [bookedAppointments, setBookedAppointments] = useState([]);
+  const [conductedAppointments, setConductedAppointments] = useState([]);
   const [currentDoctorDetails, setCurrentDoctorDeatils] = useState<any>();
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   // console.log("currentDoctorDetails", currentDoctorDetails)
   // console.log(" setShowOffCanvas",  showOffCanvas)
+
+  console.log("conductedAppointments bookedAppointments", bookedAppointments);
+  console.log("conductedAppointments booked", conductedAppointments);
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = (item: any) => {
@@ -29,8 +35,34 @@ function PatientVisits() {
     setCurrentDoctorDeatils(item);
     localStorage.setItem("current_doctor_details", JSON.stringify(item));
   };
-
   const [loader, setLoader] = useState(true);
+  let booked = [];
+  let conducted = [];
+  const handleBookedAndConducted = (profiles: any) => {
+    let data = [...profiles];
+    data.forEach((item, index) => {
+      let { schedule, ...res } = item;
+      let conductedObj = { ...res, schedule: [] };
+      let bookedObj = { ...res, schedule: [] };
+      schedule.forEach((item, index) => {
+        return item.appointment_status === "conducted"
+          ? conductedObj.schedule.push(item)
+          : bookedObj.schedule.push(item);
+      });
+      if (conductedObj.schedule.length > 0) {
+        conducted.push(conductedObj);
+      }
+      if (bookedObj.schedule.length > 0) {
+        booked.push(bookedObj);
+      }
+    });
+    setBookedAppointments(booked);
+    setConductedAppointments(conducted);
+
+    console.log("conducted", conducted);
+    console.log("conducted booked", booked);
+    console.log("data", data);
+  };
 
   useEffect(() => {
     (async () => {
@@ -38,7 +70,12 @@ function PatientVisits() {
         const res = await axios.get(
           `${config.base_url}/patient/get_patient_upcoming_appointment/${
             JSON.parse(localStorage.getItem("user_complete_information")).id
-          }`
+          }`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
+          }
         );
         console.log("get_patient_upcoming_appointment res", res);
         if (res?.data?.data) {
@@ -55,6 +92,9 @@ function PatientVisits() {
       }
     })();
   }, []);
+  useEffect(() => {
+    handleBookedAndConducted(doctorProfiles);
+  }, [doctorProfiles]);
 
   //   <Container>
   //   <Row className="d-flex justify-content-between align-items-center pt-3">
@@ -165,25 +205,68 @@ function PatientVisits() {
               <span>No Data Found</span>
             </div>
           ) : (
-            <div className="select_doctorContainer">
-              {doctorProfiles.map((item, index) => {
-                return (
-                  <UserCard
-                    btnTitle="View Details"
-                    key={"abcd" + index.toString()}
-                    img={doctor_img}
-                    // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
-                    userDetails={{ ...item, treat: "Psychiatrist" }}
-                    handleUserProfile={() => {
-                      handleShowOffCanvas(item);
-                    }}
-                  />
-                );
-              })}
-            </div>
+            // className="select_doctorContainer"
+            <Container
+              className="p-4 my-3"
+              style={{ background: "#fff", borderRadius: "20px" }}
+            >
+              {bookedAppointments.length > 0 && (
+                <Row>
+                  <Col xs={12} className="py-2">
+                    <h5>Upcomming Appoinments</h5>
+                  </Col>
+                  {bookedAppointments.map((item, index) => {
+                    return (
+                      <Col
+                        key={"item" + index.toString()}
+                        xs={12}
+                        sm={12}
+                        md={6}
+                        lg={3}
+                        className="py-2"
+                      >
+                        <UserCard
+                          btnTitle="View Details"
+                          key={"abcd" + index.toString()}
+                          img={doctor_img}
+                          // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
+                          // userDetails={{ ...item, treat: "Psychiatrist" }}
+                          userDetails={{ ...item, treat: item?.schedule[0]?.specialities }}
+                          handleUserProfile={() => {
+                            handleShowOffCanvas(item);
+                          }}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              )}
+              {conductedAppointments.length > 0 && (
+                <Row>
+                  <Col xs={12} className="py-2">
+                    <h5>Conducted Appoinments</h5>
+                  </Col>
+                  {conductedAppointments.map((item, index) => {
+                    return (
+                      <Col xs={12} sm={12} md={6} lg={3} className="py-2">
+                        <UserCard
+                          btnTitle="View Details"
+                          key={"abcd" + index.toString()}
+                          img={doctor_img}
+                          // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
+                          userDetails={{ ...item, treat: "Psychiatrist" }}
+                          handleUserProfile={() => {
+                            handleShowOffCanvas(item);
+                          }}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              )}
+            </Container>
           )}
         </div>
-
         {currentDoctorDetails && (
           <PatientSideBarModal
             placement={"end"}
@@ -195,6 +278,7 @@ function PatientVisits() {
             //   name: "John Smith",
             //   treat: "Mild Anxiety",
             // }}
+            heading={currentDoctorDetails?.schedule[0]?.appointment_status}
             doctorDetails={{
               name: currentDoctorDetails.name,
               specialities: "Doctor Specialities",

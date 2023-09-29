@@ -58,7 +58,20 @@ import PatientVisits from "../pages/PatientVisits/PatientVisits.tsx";
 import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
 import PatientPrescriptions from "../pages/PatientPrescriptions/PatientPrescriptions.tsx";
-import PatientProfile from "../pages/Settings/ProfilesPages/PatientProfile.tsx";
+
+
+// Settings Pages
+import Profile from "../pages/Settings/ProfilesPages/Profile.tsx";
+import ChangePassword from "../pages/Settings/ProfilesPages/ChangePassword.tsx";
+import TermsAndConditions from "../pages/Settings/ProfilesPages/TermsAndConditions.tsx";
+import PrivacyPolicy from "../pages/Settings/ProfilesPages/PrivacyPolicy.tsx";
+
+
+
+
+
+
+
 
 interface RouteItem {
   id: number;
@@ -276,8 +289,15 @@ export const appRoutes: RouteItem[] = [
   {
     id: 22,
     Component: <UpcomingAppointment />,
-    path: "/upcoming-apointments",
+    path: "/upcoming-appointments",
     name: "Upcoming Appointments",
+    visible: false,
+  },
+  {
+    id: 22,
+    Component: <UpcomingAppointment />,
+    path: "/conducted-appointments",
+    name: "Conducted Appointments",
     visible: false,
   },
   {
@@ -338,9 +358,30 @@ export const appRoutes: RouteItem[] = [
   },
   {
     id: 31,
-    Component: <PatientProfile />,
-    path: "/patient-profile",
+    Component: <Profile />,
+    path: "/profile",
     name: "Patient Profile",
+    visible: false,
+  },
+  {
+    id: 32,
+    Component: <ChangePassword />,
+    path: "/change-password",
+    name: "Patient Change Password",
+    visible: false,
+  },
+  {
+    id: 33,
+    Component: <PrivacyPolicy />,
+    path: "/privacy-policy",
+    name: "Patient Profile",
+    visible: false,
+  },
+  {
+    id: 34,
+    Component: <TermsAndConditions />,
+    path: "/terms-conditions",
+    name: "Terms and Conditions",
     visible: false,
   },
 ];
@@ -703,6 +744,7 @@ export const users: IUser[] = [
     id: 4,
     heading: "Clinicians",
     image: User4,
-    path: "/doctor-login",
+    // path: "/doctor-login",
+    path: "/doctor-registration",
   },
 ];

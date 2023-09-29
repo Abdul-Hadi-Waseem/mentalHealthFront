@@ -302,7 +302,7 @@ const AcademicInformation: React.FC<MyComponentProps> = (props) => {
             className="d-flex justify-content-center"
           >
             <Form.Label
-              className="files-input-label py-4"
+              className="files-input-label cursor-pointer py-4"
               htmlFor="certificates"
             >
               <div className="fs-1">

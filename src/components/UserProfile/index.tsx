@@ -14,6 +14,7 @@ const UserProfile = ({
   userDetails,
   appointmentDetails,
   downloadForms,
+  heading
 }: any) => {
   const [isInsured, setIsInsured] = useState(false);
   const navigate = useNavigate()
@@ -35,7 +36,9 @@ const UserProfile = ({
       <Container fluid className="px-2" style={{ color: "#243D4C" }}>
         <Row>
           <Col xs={12}>
-            <h4 className="h4_child">Upcomming Appointments</h4>
+            {/* <h4 className="h4_child">Upcomming Appointments</h4> */}
+            <h4 className="h4_child">{heading}</h4>
+
           </Col>
         </Row>
         <Row className="mb-4  m-0 p-0">

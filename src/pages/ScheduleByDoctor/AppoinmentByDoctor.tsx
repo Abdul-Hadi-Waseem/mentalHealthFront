@@ -15,6 +15,7 @@ import Header from "../PatientDashboard/Header/Header";
 import axios from "axios";
 import config from "../../configs/config";
 import { toast, ToastContainer } from "react-toastify";
+import { getToken } from "../../utils";
 
 const AppoinmentByDoctor = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -106,6 +107,11 @@ const AppoinmentByDoctor = () => {
         `${config.base_url}/patient/create_appointment`,
         {
           data: dataToSend,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+          }
         }
       );
       toast.success("Appointment Created Successfully");

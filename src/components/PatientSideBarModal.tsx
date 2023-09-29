@@ -14,6 +14,7 @@ interface DoctorSideBarProps {
   doctorDetails: any;
   appointmentDetails: any;
   downloadForms: any;
+  heading: string
 }
 
 const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
@@ -24,6 +25,7 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
   doctorDetails,
   appointmentDetails,
   downloadForms,
+  heading
 }) => {
   const [secondForm, setSecondForm] = useState(false);
 
@@ -56,6 +58,8 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
             doctorDetails={JSON.parse(localStorage.getItem("current_doctor_details"))}
             appointmentDetails={appointmentDetails}
             downloadForms={downloadForms}
+            heading={heading}
+
           />
 
           {/* <UserDetailBar 

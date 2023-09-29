@@ -20,6 +20,7 @@ import CreatePrescriptionModal from "../../components/CreatePrescriptionModal";
 import EditPrescriptionModal from "../../components/EditPrescriptionModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getToken } from "../../utils";
 
 const PatientDetails = () => {
   const location = useLocation();
@@ -35,7 +36,7 @@ const PatientDetails = () => {
   const [loader, setLoader] = useState(true);
   const [reLoad, setreLoad] = useState(false);
   const [prescriptions, setUserPrescriptions] = useState([]);
-  const [currentPrescription, setCurrentPrescription] = useState({id: ""});
+  const [currentPrescription, setCurrentPrescription] = useState({ id: "" });
 
   // console.log("userProfile", userProfiles[0].name);
   // console.log("currentPrescription",currentPrescription);
@@ -43,20 +44,24 @@ const PatientDetails = () => {
   const goBack = () => {
     navigate(-1);
   };
-  const modalToShow = (current_prescription : any) => {
+  const modalToShow = (current_prescription: any) => {
     setViewModal(true);
-    setCurrentPrescription(current_prescription)
+    setCurrentPrescription(current_prescription);
   };
-  const handleReload = ()=>{
-    setreLoad(!reLoad)
-  }
+  const handleReload = () => {
+    setreLoad(!reLoad);
+  };
 
   useEffect(() => {
     (async () => {
       try {
         const { patient_id, doctor_id, id } = current_patient;
         const response = await axios.get(
-          `${config.base_url}/doctor/get_prescriptions/${doctor_id}/${patient_id}/${id}`
+          `${config.base_url}/doctor/get_prescriptions/${doctor_id}/${patient_id}/${id}`, {
+            headers: {
+              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+            }
+          }
         );
         console.log("get_prescriptionsResponse", response);
         if (response?.data?.data) {
@@ -71,16 +76,16 @@ const PatientDetails = () => {
       }
     })();
   }, [reLoad]);
-    useEffect(()=>{
-      if(currentPrescription?.id)
-    localStorage.setItem("current_prescription", JSON.stringify(currentPrescription))
-  },[currentPrescription])
-
+  useEffect(() => {
+    if (currentPrescription?.id)
+      localStorage.setItem(
+        "current_prescription",
+        JSON.stringify(currentPrescription)
+      );
+  }, [currentPrescription]);
 
   return (
-    <>
-      <Header />
-
+    <Header>
       <div>
         <Container>
           <Row className="d-flex justify-content-between align-items-center pt-5">
@@ -140,12 +145,12 @@ const PatientDetails = () => {
               sm={12}
               md={8}
               lg={10}
-               className="d-flex ps-3 align-items-start  p-0"
+              className="d-flex ps-3 align-items-start  p-0"
             >
               <div className="d-flex  w-100 pb-3 justify-content-between align-items-center border-bottom">
                 <div className="d-flex flex-column">
                   <span
-                  className="text-capitalize"
+                    className="text-capitalize"
                     style={{
                       fontWeight: 500,
                       fontSize: 34,
@@ -157,7 +162,7 @@ const PatientDetails = () => {
                   </span>
                   <small className="text-muted">Patient Condition</small>
                 </div>
-                <div >
+                <div>
                   <Button
                     variant="primary"
                     title="Create Prescription"
@@ -232,7 +237,7 @@ const PatientDetails = () => {
         </Container>
         <ToastContainer />
       </div>
-    </>
+    </Header>
   );
 };
 

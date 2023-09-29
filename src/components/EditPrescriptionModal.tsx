@@ -9,6 +9,7 @@ import config from "../configs/config";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getToken } from "../utils";
 interface AppointmentSuccessfulModalProps {
   show: boolean;
   onHide: () => void;
@@ -75,7 +76,11 @@ export default function EditPrescriptionModal(
         try {
           const response = await axios.put(
             `${config.base_url}/doctor/update_prescription`,
-            { data: updatPrescriptionDataToSend }
+            { data: updatPrescriptionDataToSend }, {
+              headers: {
+                'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+              }
+            }
           );
 
           //  Prescription has been created successfully

@@ -11,6 +11,13 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "../../configs/config";
 import Header from "../PatientDashboard/Header/Header";
+import { useDispatch } from "react-redux";
+import {
+  addUser,
+  setUserInformation,
+  setcurrent_doctor_details,
+} from "../../store/slices/UserSlice";
+import { getToken } from "../../utils";
 
 function ShowAllDoctors() {
   const location = useLocation();
@@ -18,6 +25,8 @@ function ShowAllDoctors() {
   let currentLocation = location.pathname.split("/").slice(-1).toString();
   const [doctorProfiles, setDoctorProfiles] = useState([]);
   const [loader, setLoader] = useState(true);
+  const dispatch = useDispatch();
+
   const goBack = () => {
     navigate(-1);
   };
@@ -25,9 +34,14 @@ function ShowAllDoctors() {
     (async () => {
       try {
         const res = await axios.get(
-          `${config.base_url}/doctor/get_all_doctors`
+          `${config.base_url}/doctor/get_all_doctors`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
+          }
         );
-        console.log("get_all_doctors_response", res.data.data);
+        console.log("get_all_doctors_response", res?.data?.data);
         if (res?.data?.data) {
           setDoctorProfiles(res?.data?.data);
           // setDoctorProfiles([{name: "fayyaz", treat: "anxiety"}]);
@@ -145,7 +159,6 @@ function ShowAllDoctors() {
           </div>
         ) : (
           <div className="select_doctorContainer">
-            
             {doctorProfiles.map((item, index) => {
               return (
                 <UserCard
@@ -153,12 +166,14 @@ function ShowAllDoctors() {
                   key={"abcd" + index.toString()}
                   img={doctor_img}
                   // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
-                  userDetails={{ ...item, treat: "Ortho" }}
+                  // userDetails={{ ...item, treat: "Ortho" }}
+                  userDetails={{ ...item, treat: item?.specialities }}
                   handleUserProfile={() => {
                     localStorage.setItem(
                       "current_doctor_details",
                       JSON.stringify(item)
                     );
+                    dispatch(setcurrent_doctor_details(item));
                     navigate("/doctor-details");
                   }}
                 />

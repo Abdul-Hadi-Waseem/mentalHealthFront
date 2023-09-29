@@ -15,6 +15,9 @@ const formatted_Date = (item:any)=>{
 const date_formatted = (item: any)=>{
   return moment(item).format("DD-MM-YYYY")
 }
+const formatted_Date_In_Date_Type = (item: any)=>{
+  return moment(item).format("YYYY-MM-DD")
+}
 
 
 export{
@@ -23,4 +26,5 @@ export{
   change_duration_format,
   formatted_Date,
   date_formatted,
+  formatted_Date_In_Date_Type
 }

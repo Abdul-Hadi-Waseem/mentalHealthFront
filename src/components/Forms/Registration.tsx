@@ -18,6 +18,7 @@ import axios from "axios";
 import config from "../../configs/config";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../store/slices/UserSlice";
+import { getToken } from "../../utils";
 
 interface FormValues {
   name: string;
@@ -36,7 +37,6 @@ interface FormValues {
 }
 
 const RegistrationForm: React.FC = () => {
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [result, executeMutation] = usePatientRegistrationMutation();
@@ -98,7 +98,12 @@ const RegistrationForm: React.FC = () => {
         let { email, phone } = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
         const isRegisteredResponse = await axios.get(
-          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/13`
+          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
+          }
         );
         console.log(
           "isRegisteredResponse",
@@ -425,7 +430,7 @@ const RegistrationForm: React.FC = () => {
           </span>
         </Row>
       </Form>
-    
+
       <ToastContainer />
     </Container>
   );
@@ -437,16 +442,12 @@ export default RegistrationForm;
 // import { useDispatch, useSelector } from "react-redux";
 // import { addUser } from "../../store/slices/UserSlice";
 
-
-
 // ////////////////////////////// dispatch and selector store in a variable
 // const dispatch = useDispatch();
 // const userState = useSelector(
 //   (state: { user: { users: Array<Object> } }) => state.user.users[0]
 // );
 // console.log("userState", userState);
-
-
 
 // ////////////////////////////// Dispatch call a function and change the state using a button
 // <Row>
@@ -461,4 +462,3 @@ export default RegistrationForm;
 //   </button>
 // </Col>
 // </Row>
-

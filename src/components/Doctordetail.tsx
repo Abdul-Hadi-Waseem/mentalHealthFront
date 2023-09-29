@@ -7,17 +7,22 @@ import SideBar from "./SideBar";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import config from "../configs/config";
-import { toast ,ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { getToken } from "../utils";
+import { useSelector } from "react-redux";
+
 const Doctordetail = () => {
   const navigate = useNavigate();
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [doctorDetails, setDoctorDetails] = useState(
     JSON.parse(sessionStorage.getItem("currentDoctorDetails"))
-    );
-    const [appointmentDetails, setAppointmentDetails] = useState({})
+  );
+  const reduxcurrent_doctor_details = useSelector(
+    (state: any) => state.patient.current_doctor_details
+  );
+  const [appointmentDetails, setAppointmentDetails] = useState({});
 
-    const [appointmentDisable, setAppointmentDisable] = useState(false)
-
+  const [appointmentDisable, setAppointmentDisable] = useState(false);
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => setShowOffCanvas(true);
@@ -30,34 +35,61 @@ const Doctordetail = () => {
     setDoctorDetails(doctorProfile);
   }, []);
 
-  const { name, specialities, clinic_experience, description } = doctorDetails;
+  // const { name, specialities, clinic_experience, description } = doctorDetails;
+  const {
+    city,
+    clinic_address,
+    clinic_experience,
+    clinic_name,
+    country,
+    created_date,
+    day,
+    description,
+    doctor_id,
+    end_time,
+    name,
+    specialities,
+    start_time,
+    state,
+    uid,
+    updated_date,
+    zip_code,
+    phone,
+    certificates,
+  } = doctorDetails;
   const dataToSend = {
     appointment_date: JSON.parse(localStorage.getItem("appointment_date")),
     patient: JSON.parse(localStorage.getItem("user_information")),
     doctor_details: JSON.parse(sessionStorage.getItem("currentDoctorDetails")),
-  }
+  };
 
-  const bookAppointment = async ()=>{
-    // setAppointmentDisable(false);
-
+  const bookAppointment = async () => {
+    setAppointmentDisable(true);
 
     try {
       // http://localhost:5000/patient/create_appointment
       const res = await axios.post(
         `${config.base_url}/patient/create_appointment`,
         {
-          data: dataToSend
+          data: dataToSend,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+          },
         }
       );
       toast.success("Appointment Successfully created");
-      navigate("/patient-dashboard")
+      setTimeout(() => {
+        navigate("/patient-dashboard"); // Navigate after 5 seconds
+      }, 2000);
+
       console.log("res", res.data);
       // setAppointmentDetails()
       // setLoader(!loader);
     } catch (error) {
       console.log("error", error);
     }
-
 
     // useEffect(() => {
     //   (async () => {
@@ -66,7 +98,12 @@ const Doctordetail = () => {
     //         `${config.base_url}/doctor/get_doctors_for_appointment`,
     //         {
     //           data,
-    //         }
+    //         },
+    // {
+    //   headers: {
+    //     'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+    //   }
+    // }
     //       );
     //       // console.log("res", res.data.data[0]);
     //       setdoctorProfiles(res.data.data);
@@ -76,13 +113,16 @@ const Doctordetail = () => {
     //     }
     //   })();
     // }, []);
-
-  }
+  };
 
   return (
     <>
-      <div className="doctor_detail_container">
-        <div className="detail_header d-flex ">
+      <div
+      //  className="doctor_detail_container"
+      >
+        <div
+        // className="detail_header d-flex "
+        >
           <img src={doc_img} alt="" className="doc_detail_img" />
           <div className="header_2nd">
             <div className="header_section_1">
@@ -95,10 +135,11 @@ const Doctordetail = () => {
                 {/* <span>Speciality : {JSON.parse(sessionStorage.getItem('currentDoctorDetails')).designation} </span> */}
                 <span>Speciality : {specialities} </span>
               </div>
-              <button className="detail_btn" 
-              // onClick={handleShowOffCanvas}
-              onClick={bookAppointment}
-              disabled = {appointmentDisable}
+              <button
+                className="detail_btn"
+                // onClick={handleShowOffCanvas}
+                onClick={bookAppointment}
+                disabled={appointmentDisable}
               >
                 Book Appointment
               </button>
@@ -144,7 +185,9 @@ const Doctordetail = () => {
               <img src={call} alt="" className="info_img" />
               <div>
                 <p style={{ fontWeight: "500" }}>Contact Us</p>
-                <span className="light_text">+0123456789</span>
+                {/* <span className="light_text">+0123456789</span> */}
+                {/* <span className="light_text">{current_doctor_details?.phone}</span> */}
+                <span className="light_text">{phone}</span>
               </div>
             </div>
           </div>
@@ -156,10 +199,22 @@ const Doctordetail = () => {
             >
               <img src={location} alt="" className="info_img" />
               <div>
-                <p style={{ fontWeight: "500" }}>Lotus Medical Center</p>
+                {/* <p style={{ fontWeight: "500" }}>Lotus Medical Center</p> */}
+                <p style={{ fontWeight: "500" }}>{clinic_name}</p>
                 <span className="light_text">
-                  4517 Washington Ave. Manchester, Kentucky 39495
+                  {clinic_address +
+                    " " +
+                    city +
+                    " " +
+                    state +
+                    " " +
+                    zip_code +
+                    " " +
+                    country}
                 </span>
+                {/* <span className="light_text">
+                  4517 Washington Ave. Manchester, Kentucky 39495
+                </span> */}
               </div>
             </div>
           </div>
@@ -168,12 +223,30 @@ const Doctordetail = () => {
         <div className="detail_certificate">
           <p className="box_heading">Certificates</p>
           <div className="certificate_box">
+            {certificates?.length > 0 ? (
+              certificates.map((imageName, index) => {
+                // Change 'image_name' to the column name in your table that stores the image names
+                // const imageUrl = `http://your-domain/certificates/${imageName}`;
+                // const imageUrl = `http://${process.env.DOMAIN}/certificates/${imageName}`;
+                // const imageName = 
+                const imageUrl = `${config.base_url}/certificates/${imageName}`;
+                // console.log("imageUrl", imageUrl)
+                // certificatesURL.push(imageUrl);
+                // return imageUrl;
+                return <img src={imageUrl} alt="" className="cer_img" />;
+              })
+            ) : (
+              <div className="d-flex justify-content-center py-2 w-100">
+                No certificate found
+              </div>
+            )}
+
+            {/* <img src={Certificate} alt="" className="cer_img" />
             <img src={Certificate} alt="" className="cer_img" />
             <img src={Certificate} alt="" className="cer_img" />
             <img src={Certificate} alt="" className="cer_img" />
             <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" />
+            <img src={Certificate} alt="" className="cer_img" /> */}
           </div>
         </div>
       </div>
@@ -183,7 +256,7 @@ const Doctordetail = () => {
         show={showOffCanvas}
         onHide={handleCloseOffCanvas}
       />
-       <ToastContainer />
+      <ToastContainer />
     </>
   );
 };

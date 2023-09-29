@@ -9,7 +9,12 @@ const App = () => {
       <AppLayout>
         <Routes>
           {appRoutes.map((route) => {
-            if ([7, 9, 10, 11, 14, 15, 16].includes(route.id)) {
+            if (
+              [
+                7, 9, 10, 11, 14, 15, 16, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+                30, 31, 32, 33, 34,
+              ].includes(route.id)
+            ) {
               // Check if the route is protected
               return (
                 <Route

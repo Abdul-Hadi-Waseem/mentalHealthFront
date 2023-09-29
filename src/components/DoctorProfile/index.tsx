@@ -17,6 +17,7 @@ const DoctorProfile = ({
   doctorDetails,
   appointmentDetails,
   downloadForms,
+  heading
 }: any) => {
   const [isInsured, setIsInsured] = useState(false);
   const navigate = useNavigate();
@@ -38,7 +39,8 @@ const DoctorProfile = ({
       <Container fluid className="px-2" style={{ color: "#243D4C" }}>
         <Row>
           <Col xs={12}>
-            <h4 className="h4_child">Upcomming Appointments</h4>
+            {/* <h4 className="h4_child">Upcomming Appointments</h4> */}
+            <h4 className="h4_child text-capitalize">{heading} Appointments</h4>
           </Col>
         </Row>
         <Row className="mb-4  m-0 p-0">
@@ -49,7 +51,7 @@ const DoctorProfile = ({
           </Col>
           <Col xs={7}>
             <div className="d-flex flex-column h-100 justify-content-center p-2">
-              <span className="py-1 fs-5" style={{ fontWeight: 600 }}>
+              <span className="py-1 fs-5 text-capitalize" style={{ fontWeight: 600 }}>
                 {name}
                 {/* fayyaz */}
               </span>
@@ -57,7 +59,7 @@ const DoctorProfile = ({
                 className="py-1 fw-light fs-6 text-muted"
                 style={{ fontWeight: 400 }}
               >
-                Doctor Speciality
+               Doctor Speciality
                 {/* {treat} */}
               </small>
             </div>

@@ -20,6 +20,7 @@ import config from "../../../configs/config";
 
 
 import moment from "moment";
+import { getToken } from "../../../utils";
 interface FormValues {
   name: string;
   phone: string;
@@ -106,7 +107,11 @@ const DoctorRegistrationForm: React.FC = () => {
       try {
         let {email, phone} = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
-        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}/11`)
+        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}`, {
+          headers: {
+            'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+          }
+        })
         console.log("isRegisteredResponse", isRegisteredResponse?.data?.isRegistered)
         if(isRegisteredResponse?.data?.isRegistered){
           return toast.error("Email Or Phone is already registered");
@@ -116,7 +121,8 @@ const DoctorRegistrationForm: React.FC = () => {
         toast.success("Registration Successful"); // Show the success toast
         
         setTimeout(() => {
-          navigate("/doctor-login"); // Navigate after 5 seconds
+          // navigate("/doctor-login"); // Navigate after 5 seconds
+          navigate("/login"); // Navigate after 5 seconds
         }, 5000);
         }        
       } catch (error) {
@@ -413,7 +419,8 @@ const DoctorRegistrationForm: React.FC = () => {
         <Row className="text-center">
           <span style={{ fontSize: "14px" }}>
             Have an account?{" "}
-            <Link to="/doctor-login" className="account__link">
+            {/* <Link to="/doctor-login" className="account__link"> */}
+            <Link to="/login" className="account__link">
               Login
             </Link>
           </span>
