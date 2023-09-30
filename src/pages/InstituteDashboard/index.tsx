@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { appRoutes } from "./../../constants/constants";
 import { Container, Row, Col } from "react-bootstrap";
@@ -22,11 +23,18 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 import UserCard from "../../components/Common/UserCard";
 // import "./dashboard.css";
 import DoctorSideBar from "../../components/DoctorSideBar";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "./../../configs/config";
 import InstituteHeader from "./Header/Header";
 import Button from "../../components/Common/Buttons/Button";
+import TeacherInvitation from "../../components/TeacherInvitation";
+import DoctorCard from "../../components/Common/DoctorCard";
+import TeacherCard from "../../components/Common/TeacherCard";
+import SearchComponent from "../../components/Search";
+import TeacherDisplayComponent from "../../components/TeacherDisplayComponent";
+import { useQuery } from "react-query";
+import { getAllTeachers } from "../../components/Forms/Institutes/InstituteAPIs";
 
 function InstituteDashBoard() {
   // const token = getToken();
@@ -39,12 +47,21 @@ function InstituteDashBoard() {
   const [loader, setLoader] = useState(true);
 
   const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
-  console.log("currentUser", currentUserDetails);
   const institute_information = JSON.parse(
     localStorage.getItem("institute_information")
   );
-  console.log(institute_information, "dedit inst data");
-  const { name, id } = institute_information;
+
+  const { data, isLoading, isRefetching } = useQuery(
+    "getAllTeachersInInstitute",
+    () => getAllTeachers(),
+    {
+      refetchOnWindowFocus: false,
+      onError: (err: AxiosError) => {
+        if (err?.response?.status)
+          toast.error("An error occured fetching Teachers. Please try again");
+      },
+    }
+  );
   // const {
   //   currentAppointmentDate,
   //   currentAppointmentTime,
@@ -77,56 +94,56 @@ function InstituteDashBoard() {
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   // const handleShowOffCanvas = ({ name, treat, details }: any) => {
-  const handleShowOffCanvas = (item: any) => {
+  const handleShowOffCanvas = () => {
     console.log("function");
     setShowOffCanvas(true);
     // setCurrentUserDetails({ name, treat, details });
-    setCurrentUserDetails(item);
-    localStorage.setItem("user", JSON.stringify(item));
+    // setCurrentUserDetails(item);
+    // localStorage.setItem("user", JSON.stringify(item));
   };
-  const elementRef = useRef(null);
+  // const elementRef = useRef(null);
   const navigate = useNavigate();
 
-  const handleHorizantalScroll = (element, speed, distance, step) => {
-    element.scrollLeft += step;
-    setscrollX(scrollX + step);
-    console.log("scroll", element.scrollLeft);
+  // const handleHorizantalScroll = (element, speed, distance, step) => {
+  //   element.scrollLeft += step;
+  //   setscrollX(scrollX + step);
+  //   console.log("scroll", element.scrollLeft);
 
-    //For checking if the scroll has ended
-    if (
-      Math.floor(
-        elementRef.current.scrollWidth - elementRef.current.scrollLeft
-      ) <= elementRef.current.offsetWidth
-    ) {
-      setscrolEnd(true);
-    } else {
-      setscrolEnd(false);
-    }
+  //   //For checking if the scroll has ended
+  //   if (
+  //     Math.floor(
+  //       elementRef.current.scrollWidth - elementRef.current.scrollLeft
+  //     ) <= elementRef.current.offsetWidth
+  //   ) {
+  //     setscrolEnd(true);
+  //   } else {
+  //     setscrolEnd(false);
+  //   }
 
-    // let whereScroll = leftArroDisable;
-    // let minusScroll = leftArroDisable;
-    //  whereScroll += step;
-    // setLeftArroDisable(whereScroll)
-    // if(leftArroDisable  >= 0){
-    //   element.scrollRight += whereScroll;
-    // }else{
-    //   element.scrollLeft += whereScroll;
-    // }
-  };
+  // let whereScroll = leftArroDisable;
+  // let minusScroll = leftArroDisable;
+  //  whereScroll += step;
+  // setLeftArroDisable(whereScroll)
+  // if(leftArroDisable  >= 0){
+  //   element.scrollRight += whereScroll;
+  // }else{
+  //   element.scrollLeft += whereScroll;
+  // }
+  // };
 
   //This will check scroll event and checks for scroll end
-  const scrollCheck = () => {
-    setscrollX(elementRef.current.scrollLeft);
-    if (
-      Math.floor(
-        elementRef.current.scrollWidth - elementRef.current.scrollLeft
-      ) <= elementRef.current.offsetWidth
-    ) {
-      setscrolEnd(true);
-    } else {
-      setscrolEnd(false);
-    }
-  };
+  // const scrollCheck = () => {
+  //   setscrollX(elementRef.current.scrollLeft);
+  //   if (
+  //     Math.floor(
+  //       elementRef.current.scrollWidth - elementRef.current.scrollLeft
+  //     ) <= elementRef.current.offsetWidth
+  //   ) {
+  //     setscrolEnd(true);
+  //   } else {
+  //     setscrolEnd(false);
+  //   }
+  // };
 
   // const navigate = useNavigate();
 
@@ -146,18 +163,18 @@ function InstituteDashBoard() {
   //   }
   // }
 
-  useEffect(() => {
-    //Check width of the scollings
-    if (
-      elementRef.current &&
-      elementRef?.current?.scrollWidth === elementRef?.current?.offsetWidth
-    ) {
-      setscrolEnd(true);
-    } else {
-      setscrolEnd(false);
-    }
-    return () => {};
-  }, [elementRef?.current?.scrollWidth, elementRef?.current?.offsetWidth]);
+  // useEffect(() => {
+  //   //Check width of the scollings
+  //   if (
+  //     elementRef.current &&
+  //     elementRef?.current?.scrollWidth === elementRef?.current?.offsetWidth
+  //   ) {
+  //     setscrolEnd(true);
+  //   } else {
+  //     setscrolEnd(false);
+  //   }
+  //   return () => {};
+  // }, [elementRef?.current?.scrollWidth, elementRef?.current?.offsetWidth]);
   return (
     <>
       <InstituteHeader />
@@ -180,47 +197,25 @@ function InstituteDashBoard() {
                 variant="primary"
                 title="Invite Teacher"
                 className="px-5 py-3"
-                onClick={() => {
-                  // setCreatePrescModal(true);
-                }}
+                onClick={() => handleShowOffCanvas()}
               />
             </div>
           </Col>
         </Row>
+        <TeacherDisplayComponent teachers={data?.data?.data} />
         <Row className="d-flex justify-content-between">
-          <Col xs={12} xl={6} className="pe-md-3">
-            <div
-              className="d-flex w-100 h-100 justify-content-between px-2 align-items-end  upcomming-appointments"
-              style={{ borderRadius: "12px", cursor: "pointer" }}
-              onClick={() => {
-                navigate("/upcoming-apointments");
-              }}
-            >
-              <div className="text-light ps-5">
-                <h3 className="text-light mb-4 text-break">
-                  Upcoming Appointment
-                </h3>
-              </div>
-              <div className="pe-4">
-                <img src={d_db_female} />
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} xl={6} className="ps-md-3 ">
-            <div
-              className="d-flex  mt-sm-4 m-xl-0  w-100 h-100 justify-content-between px-2 align-items-end  chats-section-heading"
-              style={{ borderRadius: "12px", cursor: "pointer" }}
-            >
-              <div className="text-light ps-5">
-                <h3 className="text-light mb-4 ">Chats</h3>
-              </div>
-              <div className="pe-4">
-                <img src={d_db_male} />
-              </div>
-            </div>
-          </Col>
+          {isLoading || isRefetching ? (
+            <p>Loading...</p>
+          ) : (
+            <TeacherInvitation
+              onHide={handleCloseOffCanvas}
+              show={showOffCanvas}
+              placement="end"
+            />
+          )}
         </Row>
       </Container>
+      <ToastContainer />
     </>
   );
 }

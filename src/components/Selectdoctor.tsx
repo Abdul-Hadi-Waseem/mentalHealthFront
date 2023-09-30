@@ -67,12 +67,7 @@ const Selectdoctor = () => {
       ) : (
         <div className="select_doctorContainer">
           {doctorProfiles.map((item, index) => {
-            return (
-              <DoctorCard
-                doctor_details={{ ...item }}
-                img={doctor_img}
-              />
-            );
+            return <DoctorCard doctor_details={{ ...item }} img={doctor_img} />;
           })}
         </div>
       )}

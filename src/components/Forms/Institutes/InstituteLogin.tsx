@@ -65,9 +65,8 @@ const InstituteLoginForm = () => {
       instituteLogin(email, password).then((res) => {
         console.log(res, "dedit");
         if (res?.data?.status === 200) {
-          toast.success("Login Successful", {
-            hideProgressBar: true,
-          });
+          toast.success("Login Successful");
+          Cookies.set("token", res?.data?.accessToken);
           localStorage.setItem(
             "institute_information",
             JSON.stringify(res?.data?.data)

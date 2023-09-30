@@ -4,10 +4,13 @@ import Form from "react-bootstrap/Form";
 import { Container, Row, Col } from "react-bootstrap";
 import "./userProfile.css";
 
-
 import Input from "./../Common/Input";
 import Button from "../Common/Buttons/Button";
-import { change_date_format, change_duration_format,change_time_format } from "../../global_func";
+import {
+  change_date_format,
+  change_duration_format,
+  change_time_format,
+} from "../../global_func";
 import { useNavigate } from "react-router-dom";
 const UserProfile = ({
   img,
@@ -16,20 +19,20 @@ const UserProfile = ({
   downloadForms,
 }: any) => {
   const [isInsured, setIsInsured] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { name, treat } = userDetails;
 
   const handleSwitchChange = () => {
     setIsInsured(!isInsured);
   };
-  let {details} = userDetails
-  let {date, time , slot_duration} = details;
+  let { details } = userDetails;
+  let { date, time, slot_duration } = details;
   // console.log("userDetails user", userDetails)
 
-  const handlePatientDetails = ()=>{
-    navigate("/patient-details")
-  }
+  const handlePatientDetails = () => {
+    navigate("/patient-details");
+  };
   return (
     <>
       <Container fluid className="px-2" style={{ color: "#243D4C" }}>
@@ -58,10 +61,16 @@ const UserProfile = ({
             </div>
           </Col>
         </Row>
-        <Container fluid className="bg-light p-2" style={{borderRadius: "6px"}}>
+        <Container
+          fluid
+          className="bg-light p-2"
+          style={{ borderRadius: "6px" }}
+        >
           <Row className="px-3 mb-2">
-            <Col xs={12} className="py-2 p-0 m-0 border-bottom border-2"
-            style={{fontSize: "16px", fontWeight: 600}}
+            <Col
+              xs={12}
+              className="py-2 p-0 m-0 border-bottom border-2"
+              style={{ fontSize: "16px", fontWeight: 600 }}
             >
               Appointment Details
             </Col>
@@ -71,24 +80,35 @@ const UserProfile = ({
               <div className="pt-1">Date</div>
               {/* <div className="fw-light text-muted py-1">{Date}</div> */}
               {/* <div className="fw-light text-muted py-1">{moment(date).format("MMM D YYYY")}</div> */}
-              <div className="fw-light text-muted py-1">{change_date_format(date)}</div>
+              <div className="fw-light text-muted py-1">
+                {change_date_format(date)}
+              </div>
             </Col>
             <Col xs={4}>
               <div className="pt-1">Time</div>
               {/* <div className="fw-light text-muted py-1">{Time}</div> */}
               {/* <div className="fw-light text-muted py-1">{moment(time, "HH:mm:ssZ").format("hh:mm a")}</div> */}
-              <div className="fw-light text-muted py-1">{change_time_format(time)}</div>
+              <div className="fw-light text-muted py-1">
+                {change_time_format(time)}
+              </div>
             </Col>
             <Col xs={4}>
               <div className="pt-1">Duration</div>
               {/* <div className="fw-light text-muted py-1">{Duration}</div> */}
               {/* <div className="fw-light text-muted py-1">{slot_duration.toString().padStart(2, '0') + " hour" }</div> */}
-              <div className="fw-light text-muted py-1">{change_duration_format(slot_duration)}</div>
+              <div className="fw-light text-muted py-1">
+                {change_duration_format(slot_duration)}
+              </div>
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="pt-2">
-              <Button variant="primary" className="w-100 py-2" onClick={handlePatientDetails} title="Patient Details"/>
+              <Button
+                variant="primary"
+                className="w-100 py-2"
+                onClick={handlePatientDetails}
+                title="Patient Details"
+              />
             </Col>
           </Row>
         </Container>

@@ -137,8 +137,9 @@ span.input-group-text {
   background: #fff;
   border: none;
   position: absolute;
-  right: 5%;
+  right: 1%;
   top: 25%;
+  bottom: 25%;
   z-index: 11;
 }
 .search__box {

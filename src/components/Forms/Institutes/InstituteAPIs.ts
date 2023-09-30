@@ -1,12 +1,13 @@
-import axios from "axios";
+import axios from "../../../configs/axios";
 import { baseUrl } from "../../../constants/constants";
 import { FormValues } from "./InstituteRegistration";
+import Cookies from "js-cookie";
 
 export const instituteLogin = async (email: string, password: string) => {
   try {
     return await axios.post(`${baseUrl}/institute/login`, { email, password });
   } catch (error) {
-    return error?.response
+    return error?.response;
   }
 };
 
@@ -16,4 +17,22 @@ export const registerInstitute = async (values: FormValues) => {
   } catch (error) {
     return error?.response;
   }
+};
+
+export const getAllTeachers = async () => {
+  const token = Cookies.get("token");
+  return await axios.get(`${baseUrl}/institute/teachers/get`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getTeacherDetail = async (id: number | string) => {
+  const token = Cookies.get("token");
+  return await axios.get(`${baseUrl}/institute/teacher/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

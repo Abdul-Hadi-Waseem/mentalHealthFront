@@ -19,6 +19,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   ];
   const headerNotVisibleRoutes = [
     "/institute-dashboard",
+    "/teacher/detail/:id",
     "/doctor-dashboard",
     "/doctor-details",
     "/upcoming-apointments",
@@ -33,7 +34,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   const isFooterVisible = footerVisibleRoutes.includes(location.pathname);
-  const isHeaderVisible = headerNotVisibleRoutes.includes(location.pathname);
+  // const isHeaderVisible = headerNotVisibleRoutes.includes(location.pathname);
+
+  const isHeaderVisible =
+    headerNotVisibleRoutes.some((route) => location.pathname.includes(route)) ||
+    location.pathname.startsWith("/teacher/detail/");
+
   console.log("deployment date", moment().format("DD-MM-YYYY hh:mm:ss"));
   // console.log("front_end deployment", "15-09-2023 01:51:24");
 

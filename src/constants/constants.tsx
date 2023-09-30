@@ -62,6 +62,7 @@ import PatientProfile from "../pages/Settings/ProfilesPages/PatientProfile.tsx";
 import InstituteLoginForm from "../components/Forms/Institutes/InstituteLogin.tsx";
 import InstituteRegistrationForm from "../components/Forms/Institutes/InstituteRegistration.tsx";
 import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
+import TeacherDetail from "../components/TeacherDetail.tsx";
 
 interface RouteItem {
   id: number;
@@ -365,6 +366,13 @@ export const appRoutes: RouteItem[] = [
     Component: <InstituteDashBoard />,
     path: "/institute-dashboard",
     name: "Institute Dashboard",
+    visible: false,
+  },
+  {
+    id: 33,
+    Component: <TeacherDetail />,
+    path: "/teacher/detail/:id",
+    name: "Teacher Detail",
     visible: false,
   },
 ];
