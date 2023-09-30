@@ -54,7 +54,7 @@ const TeacherDisplayComponent = ({ teachers }: TeachersPropsType) => {
             <FaSearch />
           </InputGroup.Text>
           <Form.Control
-            className="rounded-right rounded-left"
+            className="rounded"
             type="text"
             aria-label="Small"
             placeholder="Search any teacher..."
@@ -64,7 +64,7 @@ const TeacherDisplayComponent = ({ teachers }: TeachersPropsType) => {
         </InputGroup>
       </Form>
       <Row xs={1} md={2} lg={3} xl={3} xxl={4}>
-        {teachersList &&
+        {teachersList?.length > 0 ? (
           teachersList?.map((each: SingleTeacherType) => (
             <Col
               key={each.email}
@@ -77,7 +77,14 @@ const TeacherDisplayComponent = ({ teachers }: TeachersPropsType) => {
                 handleUserProfile={() => navigate(`/teacher/detail/${each.id}`)}
               />
             </Col>
-          ))}
+          ))
+        ) : searchQuery !== "" && teachersList?.length === 0 ? (
+          <h5 className="my-3 d-flex justify-content-center align-items-center w-100">
+            No Teachers Found ):
+          </h5>
+        ) : (
+          <></>
+        )}
       </Row>
     </div>
   );

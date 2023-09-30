@@ -36,3 +36,22 @@ export const getTeacherDetail = async (id: number | string) => {
     },
   });
 };
+
+export const getStudentsOfATeacher = async (teacherId: number | string) => {
+  const token = Cookies.get("token");
+  return await axios.get(`${baseUrl}/institute/teacher/${teacherId}/students`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const removeTeacherAccount = async (teacherId: number | string) => {
+  const token = Cookies.get("token");
+  return await axios.delete(`${baseUrl}/institute/teacher/remove/${teacherId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+

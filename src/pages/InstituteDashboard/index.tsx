@@ -179,24 +179,21 @@ function InstituteDashBoard() {
     <>
       <InstituteHeader />
       <Container>
-        <Row className="d-flex flex-row flex-nowrap">
+        <Row className="d-flex flex-row">
           <Col
             className="d-flex flex-column justify-content-start py-5"
             xs={12}
-            md={6}
+            sm={8}
+            md={9}
           >
             <h4 className="text-capitalize">Dashboard</h4>
           </Col>
-          <Col
-            className="d-flex justify-content-end align-items-center"
-            xs={12}
-            md={6}
-          >
+          <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
             <div>
               <Button
                 variant="primary"
                 title="Invite Teacher"
-                className="px-5 py-3"
+                className="px-5 py-3 mb-3"
                 onClick={() => handleShowOffCanvas()}
               />
             </div>

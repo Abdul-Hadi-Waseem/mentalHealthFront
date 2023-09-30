@@ -36,9 +36,10 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
       show={show}
       onHide={onHide}
       placement={placement}
-      style={{ maxWidth: "280px" }}
-      sm={{ style: { maxWidth: "350px" } }}
-      //   responsive="sm"
+      style={{
+        width: "280px",
+        maxWidth: "83%",
+      }}
     >
       <Offcanvas.Header closeButton>
         <Offcanvas.Title
