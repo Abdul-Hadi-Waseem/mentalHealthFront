@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Row, Col, InputGroup, Container } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Button from "../../Common/Buttons/Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getInstitutes, registerTeacher } from "./TeachersAPIs";
@@ -32,13 +37,22 @@ export interface FormValues {
 const TeachersRegistrationForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const mailFromUrl = queryParams.get("email");
   const navigate = useNavigate();
+
+  if (!mailFromUrl) {
+    window.history.replaceState({}, document.title, "/");
+    navigate("/");
+  }
+  window.history.replaceState({}, document.title, "/" + "teacher-registration");
 
   const initialValues: FormValues = {
     name: "",
     institute: "",
     phone: "",
-    email: "",
+    email: mailFromUrl,
     dob: "",
     gender: null,
     state: "",
@@ -127,6 +141,10 @@ const TeachersRegistrationForm: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const email = queryParams.get("email");
+  }, []);
+
   return (
     <Container className="login__section">
       <Row className="mb-4">
@@ -199,6 +217,7 @@ const TeachersRegistrationForm: React.FC = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={formik.touched.email && !!formik.errors.email}
+                  disabled
                 />
                 {formik.touched.email && formik.errors.email && (
                   <small className="text-danger">{formik.errors.email}</small>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Col, Container, Offcanvas, Row } from "react-bootstrap";
 import Button from "./Common/Buttons/Button";
+import { sendTeacherInvitation } from "./Forms/Institutes/InstituteAPIs";
+import { toast } from "react-toastify";
 
 interface TeacherInvitationProps {
   show: boolean;
@@ -15,6 +17,9 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
   show,
   onHide,
 }) => {
+  const [btnTitle, setBtnTitle] = useState<"Register" | "Sending Mail">(
+    "Register"
+  );
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string()
@@ -23,12 +28,23 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
   });
 
   const handleSubmit = (values, { resetForm }) => {
+    setBtnTitle("Sending Mail");
     // Handle form submission here, e.g., send data to the server
     console.log("Form submitted with values dedit:", values);
-    // Reset the form after submission
-    resetForm();
-    // Close the offcanvas if needed
-    // onHide();
+    sendTeacherInvitation(values.name, values.email).then((res) => {
+      console.log(res);
+      if (res?.status === 200) {
+        setBtnTitle("Register");
+        toast.success(res?.data?.message);
+        resetForm();
+        onHide();
+      } else if (res?.status !== 200) {
+        setBtnTitle("Register");
+        toast.error(res?.data?.message);
+        resetForm();
+        onHide();
+      }
+    });
   };
 
   return (
@@ -64,7 +80,7 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
                   type="text"
                   id="name"
                   name="name"
-                  //   className="form-control"
+                  disabled={btnTitle === "Sending Mail"}
                   className={`form-control ${
                     /* Check if the field has an error and apply a CSS class accordingly */
                     errors.name && touched.name ? "is-invalid" : ""
@@ -84,7 +100,7 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
                   type="email"
                   id="email"
                   name="email"
-                  //   className="form-control"
+                  disabled={btnTitle === "Sending Mail"}
                   className={`form-control ${
                     /* Check if the field has an error and apply a CSS class accordingly */
                     errors.email && touched.email ? "is-invalid" : ""
@@ -99,7 +115,7 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
               <div>
                 <Button
                   variant="primary"
-                  title="Register"
+                  title={btnTitle}
                   className="px-5 py-3"
                   type="submit"
                   disabled={isSubmitting}

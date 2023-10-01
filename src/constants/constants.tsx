@@ -381,7 +381,7 @@ export const appRoutes: RouteItem[] = [
   {
     id: 34,
     Component: <TeachersRegistrationForm />,
-    path: "/teacher-registration",
+    path: "/teacher-registration/",
     name: "Teacher Registration",
     visible: false,
   },

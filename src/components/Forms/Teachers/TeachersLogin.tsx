@@ -264,14 +264,14 @@ const TeacherLoginForm = () => {
             />
           </Col>
         </Row>
-        <Row className="text-center">
+        {/* <Row className="text-center">
           <span style={{ fontSize: "14px" }}>
             Don’t have an account yet?{" "}
             <Link to="/teacher-registration" className="account__link">
               Register
             </Link>
           </span>
-        </Row>
+        </Row> */}
       </Form>
       <ToastContainer />
     </Container>
