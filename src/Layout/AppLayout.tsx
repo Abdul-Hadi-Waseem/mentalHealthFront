@@ -19,6 +19,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   ];
   const headerNotVisibleRoutes = [
     "/institute-dashboard",
+    "/teacher-dashboard",
     "/teacher/detail/:id",
     "/doctor-dashboard",
     "/doctor-details",

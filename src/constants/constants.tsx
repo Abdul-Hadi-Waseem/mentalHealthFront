@@ -63,6 +63,9 @@ import InstituteLoginForm from "../components/Forms/Institutes/InstituteLogin.ts
 import InstituteRegistrationForm from "../components/Forms/Institutes/InstituteRegistration.tsx";
 import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
 import TeacherDetail from "../components/TeacherDetail.tsx";
+import TeachersRegistrationForm from "../components/Forms/Teachers/TeachersRegistration.tsx";
+import TeacherLoginForm from "../components/Forms/Teachers/TeachersLogin.tsx";
+import TeacherDashboard from "../pages/TeacherDashboard/index.tsx";
 
 interface RouteItem {
   id: number;
@@ -373,6 +376,27 @@ export const appRoutes: RouteItem[] = [
     Component: <TeacherDetail />,
     path: "/teacher/detail/:id",
     name: "Teacher Detail",
+    visible: false,
+  },
+  {
+    id: 34,
+    Component: <TeachersRegistrationForm />,
+    path: "/teacher-registration",
+    name: "Teacher Registration",
+    visible: false,
+  },
+  {
+    id: 34,
+    Component: <TeacherLoginForm />,
+    path: "/teacher-login",
+    name: "Teacher Login",
+    visible: false,
+  },
+  {
+    id: 34,
+    Component: <TeacherDashboard />,
+    path: "/teacher-dashboard",
+    name: "Teacher Dashboard",
     visible: false,
   },
 ];

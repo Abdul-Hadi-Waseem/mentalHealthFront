@@ -20,6 +20,7 @@ import professional_experience from "./../../assets/images/professional_experien
 import InstituteLoginForm from "../../components/Forms/Institutes/InstituteLogin";
 import InstituteRegistrationForm from "../../components/Forms/Institutes/InstituteRegistration";
 import InstituteDashBoard from "../InstituteDashboard";
+import TeachersRegistrationForm from "../../components/Forms/Teachers/TeachersRegistration";
 
 interface FormValues {
   college_name: string;
@@ -113,6 +114,10 @@ function Account() {
         return <InstituteRegistrationForm />;
       case "/institute-dashboard":
         return <InstituteDashBoard />;
+      case "/teacher-registration":
+        return <TeachersRegistrationForm />;
+      // case "/institute-dashboard":
+      //   return <InstituteDashBoard />;
       // return <DoctorProfessionExperience />;
       // return <DoctorProfessionExperience handleProfessionExperience={handleDoctorProfessionExperience} />;
       default:
