@@ -57,6 +57,8 @@ interface FormValues {
 
 const ProfileOfDoctor: React.FC = () => {
   const [disableSaveBtn, setDisableSaveBtn] = useState(true);
+  const [loader, setLoader] = useState(false);
+
 
   const [pickYear, setPickYear] = useState(new Date());
   const [file, setFile] = useState(null);
@@ -96,26 +98,27 @@ const ProfileOfDoctor: React.FC = () => {
     gender,
     level,
 
-    college_name: reduxUserState.doctor_details.college_name,
-    course: reduxUserState.doctor_details.course,
-    year: moment(reduxUserState.doctor_details.year).format("YYYY"),
-    certificates: reduxUserState.doctor_details.certificates,
+    college_name: reduxUserState?.doctor_details?.college_name,
+    course: reduxUserState?.doctor_details?.course,
+    year: moment(reduxUserState?.doctor_details?.year).format("YYYY"),
+    certificates: reduxUserState?.doctor_details?.certificates,
 
-    clinic_name: reduxUserState.professional_experience.clinic_name,
-    clinic_experience: reduxUserState.professional_experience.clinic_experience,
-    specialities: reduxUserState.professional_experience.specialities,
-    clinic_address: reduxUserState.professional_experience.clinic_address,
-    state: reduxUserState.professional_experience.state,
-    zip_code: reduxUserState.professional_experience.zip_code,
-    city: reduxUserState.professional_experience.city,
-    country: reduxUserState.professional_experience.country,
-    clinic_schedule: reduxUserState.schedule,
+    clinic_name: reduxUserState?.professional_experience?.clinic_name,
+    clinic_experience: reduxUserState?.professional_experience?.clinic_experience,
+    specialities: reduxUserState?.professional_experience?.specialities,
+    clinic_address: reduxUserState?.professional_experience?.clinic_address,
+    state: reduxUserState?.professional_experience?.state,
+    zip_code: reduxUserState?.professional_experience?.zip_code,
+    city: reduxUserState?.professional_experience?.city,
+    country: reduxUserState?.professional_experience?.country,
+    clinic_schedule: reduxUserState?.schedule,
     // clinic_schedule: [{ day: "", start_time: "", end_time: "" }],
 
     day: "Tuesday",
     start_time: "",
     end_time: "",
-    professional_bio: reduxUserState.professional_experience.description,
+    professional_bio: reduxUserState?.professional_experience?.description,
+    // professional_bio: reduxUserState?.professional_bio,
   };
   function isValidFileType(files: []) {
     for (let i = 0; i < files.length; i++) {
@@ -194,10 +197,41 @@ const ProfileOfDoctor: React.FC = () => {
       values.dob = formattedDob;
 
       const dataToSend = { ...values };
+      console.log("dataToSend dataToSend", dataToSend);
+      let { college_name,course,year,certificates,
+        clinic_name,
+        clinic_experience,
+        specialities,
+        clinic_address,
+        state,
+        zip_code,
+        city,
+        country,
+        clinic_schedule,
+       professional_bio,
+      //   description:professional_bio,
+      } = dataToSend
+      let doctor_details = {
+        college_name,course,year: year+"-01-01",certificates
+      }
+      let professional_experience = {
+        clinic_name,
+        clinic_experience,
+        specialities,
+        clinic_address,
+        state,
+        zip_code,
+        city,
+        country,
+        clinic_schedule,
+        description:professional_bio
+      }
 
       const updatedData = {
         ...reduxUserState,
         ...dataToSend,
+        doctor_details,
+        professional_experience,
         updated_at: new Date().getTime(),
         updated_by: reduxUserState.id,
       };
@@ -239,7 +273,6 @@ const ProfileOfDoctor: React.FC = () => {
           toast.error("Email Or Phone is already registered");
           setDisableSaveBtn(false);
         } else {
-
           console.log("updateDoctorProfile send", updatedData);
           const formData = await handleFormData(updatedData);
           setDisableSaveBtn(true);
@@ -253,9 +286,24 @@ const ProfileOfDoctor: React.FC = () => {
             }
           );
           console.log("update_doctor_profile res", update_doctor_profile.data);
-
-          dispatch(setUserInformation(updatedData));
+          let certificatesURL = [];
+      
+          for (let i = 0; i < updatedData.doctor_details.certificates.length; i++) {
+            const imageName = updatedData[i]?.name;
+            // Change 'image_name' to the column name in your table that stores the image names
+            // const imageUrl = `http://your-domain/certificates/${imageName}`;
+            const imageUrl = `${config.base_url}/certificates/${imageName}`;
+            certificatesURL.push(imageUrl);
+          }
+          const reduxObj = {
+            ...updatedData,
+            doctor_details: 
+            {...updatedData.doctor_details, certificates: certificatesURL}
+          }
+          
+          dispatch(setUserInformation(reduxObj));
           toast.success("Profile Updated");
+          setLoader(!loader)
           // navigate("/patient-dashboard")
         }
       } catch (error) {
@@ -343,7 +391,7 @@ const ProfileOfDoctor: React.FC = () => {
     );
     formData.append(
       "doctor_details",
-      
+
       JSON.stringify(formDataObject.doctor_details)
     );
     for (let i = 0; i < formDataObject?.certificates?.length; i++) {
@@ -356,6 +404,7 @@ const ProfileOfDoctor: React.FC = () => {
     // formData.append("course", formDataObject.course);
 
     formData.append("id", formDataObject.id);
+    formData.append("uid", formDataObject.uid);
     formData.append("name", formDataObject.name);
     formData.append("phone", formDataObject.phone);
     formData.append("email", formDataObject.email);
@@ -401,15 +450,35 @@ const ProfileOfDoctor: React.FC = () => {
   }, []);
   useEffect(() => {
     if (
+      // initialValues.name != formik.values.name ||
+      // initialValues.phone != formik.values.phone ||
+      // initialValues.email != formik.values.email ||
+      // initialValues.dob != formik.values.dob ||
+      // initialValues.gender != formik.values.gender ||
+      // initialValues.state != formik.values.state ||
+      // initialValues.zip_code != formik.values.zip_code ||
+      // initialValues.city != formik.values.city ||
+      // initialValues.country != formik.values.country
       initialValues.name != formik.values.name ||
       initialValues.phone != formik.values.phone ||
       initialValues.email != formik.values.email ||
       initialValues.dob != formik.values.dob ||
       initialValues.gender != formik.values.gender ||
+      initialValues.level != formik.values.level ||
+      initialValues.college_name != formik.values.college_name ||
+      initialValues.course != formik.values.course ||
+      initialValues.year != formik.values.year ||
+      initialValues.certificates != formik.values.certificates ||
+      initialValues.clinic_name != formik.values.clinic_name ||
+      initialValues.clinic_experience != formik.values.clinic_experience ||
+      initialValues.specialities != formik.values.specialities ||
+      initialValues.clinic_address != formik.values.clinic_address ||
       initialValues.state != formik.values.state ||
       initialValues.zip_code != formik.values.zip_code ||
       initialValues.city != formik.values.city ||
-      initialValues.country != formik.values.country
+      initialValues.country != formik.values.country ||
+      initialValues.clinic_schedule != formik.values.clinic_schedule ||
+      initialValues.professional_bio != formik.values.professional_bio
     ) {
       setDisableSaveBtn(false);
     } else {
@@ -535,7 +604,7 @@ const ProfileOfDoctor: React.FC = () => {
       </Row>
       <Row className="mb-3">
         <Col xs={12}>
-          <h6>Academic Information</h6>
+          <h6>Academic Information<small className="text-danger">*</small></h6>
         </Col>
       </Row>
       {/* College Name */}
@@ -611,7 +680,7 @@ const ProfileOfDoctor: React.FC = () => {
         /> */}
 
       <Row className="mb-3">
-        <strong>Upload Certificates</strong>
+        <h6>Upload Certificates<small className="text-danger">*</small></h6>
       </Row>
       <Row className="mb-3">
         <Form.Group as={Col} sm={12} className="d-flex justify-content-center">
@@ -674,8 +743,10 @@ const ProfileOfDoctor: React.FC = () => {
                 </div>
               </Col>
             ))
-          : reduxUserState?.doctor_details?.certificates?.length && !formik.errors.certificates && imagePreviews &&
-            reduxUserState?.doctor_details?.certificates.map(
+          : reduxUserState?.doctor_details?.certificates?.length &&
+            !formik.errors.certificates &&
+            imagePreviews &&
+            reduxUserState?.doctor_details?.certificates?.map(
               (previewUrl, index) => (
                 <Col key={index} className="p-2">
                   <div className="d-flex h-100 w-100 border border-secondary">
@@ -692,7 +763,7 @@ const ProfileOfDoctor: React.FC = () => {
 
       <Row className="mb-3">
         <Col xs={12}>
-          <h6>Professional Experience</h6>
+          <h6>Professional Experience<small className="text-danger">*</small></h6>
         </Col>
       </Row>
       {/* clinic_name */}

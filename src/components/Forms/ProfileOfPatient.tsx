@@ -104,7 +104,7 @@ const ProfileOfPatient: React.FC = () => {
         const isRegisteredResponse = await axios.get(
           `${config.base_url}/user/isAlreadyRegister/${email}/${phone}`, {
             headers: {
-              'Authorization': `Bearer ${getToken}` // Add the authorization token here with the "Bearer" prefix
+              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
             }
           }
         );

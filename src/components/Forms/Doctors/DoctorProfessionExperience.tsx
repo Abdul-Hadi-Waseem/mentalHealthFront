@@ -233,14 +233,15 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
         //     'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
         //   }
         // }
-
+        // sendCertificatesToFrontend
         if (response?.data?.data) {
           localStorage.setItem("user", response.data.data);
         }
         let myObj = {
           ...response?.data?.data,
           ...user,
-          doctor_details: { ...academicInformation, certificates },
+          // doctor_details: { ...academicInformation, certificates },
+          doctor_details: { ...academicInformation, certificates: response?.data?.data?.certificates },
           professional_experience: {
             ...professional_experience,
             description: professional_experience?.professional_bio,
