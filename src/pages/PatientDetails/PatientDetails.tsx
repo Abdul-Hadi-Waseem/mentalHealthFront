@@ -39,7 +39,7 @@ const PatientDetails = () => {
   const [currentPrescription, setCurrentPrescription] = useState({ id: "" });
 
   // console.log("userProfile", userProfiles[0].name);
-  // console.log("currentPrescription",currentPrescription);
+  console.log("currentPrescription",currentPrescription);
 
   const goBack = () => {
     navigate(-1);

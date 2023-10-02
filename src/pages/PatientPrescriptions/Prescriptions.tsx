@@ -74,11 +74,14 @@ console.log("currentPrescription",currentPrescription)
                 </Col>
                 <Col xs={12} md={12} className="doctor-about">
                   <h3>About Doctor</h3>
-                  <p>
+                  {/* <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Eius dolore quia saepe deleniti. Reprehenderit ab, ad cumque
                     sint itaque distinctio impedit consequatur voluptatibus.
                     Molestias, aliquid provident expedita consequuntur ea quia!
+                  </p> */}
+                  <p>
+                    {currentPrescription?.description}
                   </p>
                 </Col>
               </Row>

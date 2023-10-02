@@ -37,6 +37,7 @@ const Doctordetail = () => {
 
   // const { name, specialities, clinic_experience, description } = doctorDetails;
   const {
+    appointment_fees,
     city,
     clinic_address,
     clinic_experience,
@@ -149,7 +150,8 @@ const Doctordetail = () => {
             </div>
             <div className="header_section_2">
               <div className="header_card">
-                <p className="b_text">$250</p>
+                {/* <p className="b_text">$250</p> */}
+                <p className="b_text">${appointment_fees}</p>
                 <span className="n_text">Appointment Fee</span>
               </div>
               <div className="header_card">

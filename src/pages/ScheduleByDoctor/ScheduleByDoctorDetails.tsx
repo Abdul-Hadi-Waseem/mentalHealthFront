@@ -26,6 +26,7 @@ function ScheduleByDoctorDetails() {
     reduxcurrent_doctor_details
   );
   const [doctor_complete_details, setdoctor_complete_details] = useState({
+    doctor_details: { appointment_fees: 232 },
     professional_experience: {
       description: "",
       specialities: "",
@@ -115,10 +116,11 @@ function ScheduleByDoctorDetails() {
     (async () => {
       try {
         const getDoctorCompleteProfileRes = await axios.get(
-          `${config.base_url}/doctor/get_doctor_complete_profile/${current_doctor_details.doctor_id}/${current_doctor_details.uid}`, {
+          `${config.base_url}/doctor/get_doctor_complete_profile/${current_doctor_details.doctor_id}/${current_doctor_details.uid}`,
+          {
             headers: {
-              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
-            }
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
           }
         );
         console.log(
@@ -154,7 +156,6 @@ function ScheduleByDoctorDetails() {
                   {
                     doctor_complete_details?.professional_experience
                       ?.specialities
-                   
                   }{" "}
                 </span>
                 {/* <span>Speciality : {JSON.parse(sessionStorage.getItem('currentDoctorDetails')).designation} </span> */}
@@ -176,14 +177,20 @@ function ScheduleByDoctorDetails() {
             </div>
             <div className="header_section_2">
               <div className="header_card">
-                <p className="b_text">$250</p>
+                {/* <p className="b_text">$250</p> */}
+                <p className="b_text">
+                  ${doctor_complete_details?.doctor_details?.appointment_fees}
+                </p>
                 <span className="n_text">Appointment Fee</span>
               </div>
               <div className="header_card">
                 {/* <p className="b_text">10+</p> */}
                 <p className="b_text">
-                  {  doctor_complete_details?.professional_experience
-                      ?.clinic_experience.replace(" years", "")}+
+                  {doctor_complete_details?.professional_experience?.clinic_experience.replace(
+                    " years",
+                    ""
+                  )}
+                  +
                 </p>
                 {/* <p className="b_text">
                   {clinic_experience.replace(" years", "")}+
@@ -256,7 +263,9 @@ function ScheduleByDoctorDetails() {
               <div>
                 <p style={{ fontWeight: "500" }}>Contact Us</p>
                 {/* <span className="light_text">+0123456789</span> */}
-                <span className="light_text">{current_doctor_details?.phone}</span>
+                <span className="light_text">
+                  {current_doctor_details?.phone}
+                </span>
               </div>
             </div>
           </div>
@@ -269,21 +278,26 @@ function ScheduleByDoctorDetails() {
               <img src={location} alt="" className="info_img" />
               <div>
                 {/* <p style={{ fontWeight: "500" }}>Lotus Medical Center</p> */}
-                <p style={{ fontWeight: "500" }}>{ doctor_complete_details?.professional_experience
-                      ?.clinic_name}</p>
+                <p style={{ fontWeight: "500" }}>
+                  {
+                    doctor_complete_details?.professional_experience
+                      ?.clinic_name
+                  }
+                </p>
                 {/* <span className="light_text">
                   4517 Washington Ave. Manchester, Kentucky 39495
                 </span> */}
                 <span className="light_text">
-                {doctor_complete_details?.professional_experience
-                      ?.clinic_address + " " + doctor_complete_details?.professional_experience
-                      ?.city + " "
-                      + doctor_complete_details?.professional_experience
-                      ?.state+ " "+
-                      doctor_complete_details?.professional_experience
-                      ?.zip_code+ " " + 
-                      doctor_complete_details?.professional_experience
-                      ?.country}
+                  {doctor_complete_details?.professional_experience
+                    ?.clinic_address +
+                    " " +
+                    doctor_complete_details?.professional_experience?.city +
+                    " " +
+                    doctor_complete_details?.professional_experience?.state +
+                    " " +
+                    doctor_complete_details?.professional_experience?.zip_code +
+                    " " +
+                    doctor_complete_details?.professional_experience?.country}
                 </span>
               </div>
             </div>
