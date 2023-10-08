@@ -20,8 +20,9 @@ const PSC_Test_Quiz: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [result, executeMutation] = useProgramdataMutation()
+  const [result, executeMutation] = useProgramdataMutation();
   const [score, setScore] = useState("");
+  const navigate = useNavigate();
 
   const loadQuestions = useCallback(async (age: string | null) => {
     let questionSet;
@@ -99,7 +100,7 @@ const PSC_Test_Quiz: React.FC = () => {
         (ans) => ans.question === questions.questions[currentQuestion].question
       );
       setSelectedAnswer(previousAnswer?.answer || null);
-    }
+    } else if (currentQuestion === 0) navigate(-1);
   };
 
   const dataSubmit = () => {

@@ -41,8 +41,6 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
       } else if (res?.status !== 200) {
         setBtnTitle("Register");
         toast.error(res?.data?.message);
-        resetForm();
-        onHide();
       }
     });
   };

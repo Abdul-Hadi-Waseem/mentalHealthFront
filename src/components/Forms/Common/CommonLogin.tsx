@@ -13,25 +13,17 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import config from "../../../configs/config";
 import { useQuery } from "react-query";
-import { instituteLogin } from "./InstituteAPIs";
+import { commonLogin } from "./CommonAPIs";
 
 interface FormValues {
   email: string;
   password: string;
 }
 
-const InstituteLoginForm = () => {
+const CommonLoginForm = () => {
   const navigate = useNavigate();
-  // const handleClick = useCallback(() => {
-  //   navigate("/psc-test");
-  // }, [navigate]);
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [Email, setEmail] = useState("");
-  // const [Password, setPassword] = useState("");
-  // const [formSubmitted, setFormSubmitted] = useState(false);
-
-  // .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
@@ -40,14 +32,6 @@ const InstituteLoginForm = () => {
       .min(8, "Password must be at least 8 characters long")
       .required("Password is required"),
   });
-
-  // useEffect(() => {
-  //   if (Email !== "" && Password !== "") {
-  //     reExecuteQuery({
-  //       requestPolicy: "network-only",
-  //     });
-  //   }
-  // }, [Email, Password, reExecuteQuery]);
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -62,18 +46,36 @@ const InstituteLoginForm = () => {
 
   const LoginPostRequest = (email: string, password: string) => {
     try {
-      instituteLogin(email, password).then((res) => {
+      commonLogin(email, password).then((res) => {
         console.log(res, "dedit");
         if (res?.data?.status === 200) {
           toast.success("Login Successful");
           Cookies.set("token", res?.data?.accessToken);
-          localStorage.setItem(
-            "institute_information",
-            JSON.stringify(res?.data?.data)
-          );
-          setTimeout(() => {
-            navigate("/institute-dashboard");
-          }, 3000);
+          if (res?.data?.data?.role === "teacher") {
+            localStorage.setItem(
+              "teacher_information",
+              JSON.stringify({
+                email: res?.data?.data?.email,
+                id: res?.data?.data?.id,
+                name: res?.data?.data?.name,
+              })
+            );
+            setTimeout(() => {
+              navigate("/teacher-dashboard");
+            }, 3000);
+          } else if (res?.data?.data?.role === "institute") {
+            localStorage.setItem(
+              "institute_information",
+              JSON.stringify({
+                email: res?.data?.data?.email,
+                id: res?.data?.data?.id,
+                name: res?.data?.data?.name,
+              })
+            );
+            setTimeout(() => {
+              navigate("/institute-dashboard");
+            }, 3000);
+          }
         }
         if (res?.data?.status !== 200) {
           toast.error(res?.data?.message, {
@@ -175,4 +177,4 @@ const InstituteLoginForm = () => {
   );
 };
 
-export default InstituteLoginForm;
+export default CommonLoginForm;

@@ -115,7 +115,7 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
                   className="text-danger"
                 />
               </div>
-              <div>
+              <div className="d-flex justify-content-center">
                 <Button
                   variant="primary"
                   title="Start PSC Test"

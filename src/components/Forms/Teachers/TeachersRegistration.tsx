@@ -127,7 +127,7 @@ const TeachersRegistrationForm: React.FC = () => {
             hideProgressBar: true,
           });
           setTimeout(() => {
-            navigate("/teacher-login");
+            navigate("/sign-in");
           }, 3000);
         }
         if (res?.data?.status !== 200) {
@@ -436,7 +436,7 @@ const TeachersRegistrationForm: React.FC = () => {
             <Row className="text-center">
               <span style={{ fontSize: "14px" }}>
                 Have an account?
-                <Link to="/teacher-login" className="account__link">
+                <Link to="/sign-in" className="account__link">
                   Login
                 </Link>
               </span>

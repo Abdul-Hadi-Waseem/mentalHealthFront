@@ -350,16 +350,16 @@ export const appRoutes: RouteItem[] = [
     name: "Patient Profile",
     visible: false,
   },
+  // {
+  //   id: 32,
+  //   Component: <Account />,
+  //   path: "/institute-login",
+  //   name: "Institute Login",
+  //   visible: false,
+  // },
   {
     id: 32,
-    Component: <InstituteLoginForm />,
-    path: "/institute-login",
-    name: "Institute Login",
-    visible: false,
-  },
-  {
-    id: 32,
-    Component: <InstituteRegistrationForm />,
+    Component: <Account />,
     path: "/institute-registration",
     name: "Institute Registration",
     visible: false,
@@ -380,16 +380,16 @@ export const appRoutes: RouteItem[] = [
   },
   {
     id: 34,
-    Component: <TeachersRegistrationForm />,
-    path: "/teacher-registration/",
+    Component: <Account />,
+    path: "/teacher-registration",
     name: "Teacher Registration",
     visible: false,
   },
   {
     id: 34,
-    Component: <TeacherLoginForm />,
-    path: "/teacher-login",
-    name: "Teacher Login",
+    Component: <Account />,
+    path: "/sign-in",
+    name: "Teacher / Institute Login",
     visible: false,
   },
   {
@@ -754,7 +754,7 @@ export const users: IUser[] = [
     id: 3,
     heading: "Educational institutions",
     image: User3,
-    path: "/institute-login",
+    path: "/sign-in",
   },
   {
     id: 4,
@@ -764,4 +764,5 @@ export const users: IUser[] = [
   },
 ];
 
-export const baseUrl = "http://localhost:5000";
+// export const baseUrl = "http://localhost:5000";
+export const baseUrl = "http://139.99.28.47:5000";

@@ -39,10 +39,10 @@ function InstituteHeader() {
     if (token) {
       Cookies.remove("token");
       localStorage.removeItem("institute_information");
-      navigate("/institute-login");
+      navigate("/sign-in");
     } else {
       localStorage.removeItem("institute_information");
-      navigate("/institute-login");
+      navigate("/sign-in");
     }
   }
   const goToDashBoard = () => {

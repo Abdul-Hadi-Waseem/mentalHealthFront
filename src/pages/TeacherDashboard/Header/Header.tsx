@@ -38,10 +38,10 @@ function TeacherHeader() {
     if (token) {
       Cookies.remove("token");
       localStorage.removeItem("teacher_information");
-      navigate("/teacher-login");
+      navigate("/sign-in");
     } else {
       localStorage.removeItem("teacher_information");
-      navigate("/teacher-login");
+      navigate("/sign-in");
     }
   }
   const goToDashBoard = () => {

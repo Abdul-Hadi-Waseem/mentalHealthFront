@@ -21,6 +21,8 @@ import InstituteLoginForm from "../../components/Forms/Institutes/InstituteLogin
 import InstituteRegistrationForm from "../../components/Forms/Institutes/InstituteRegistration";
 import InstituteDashBoard from "../InstituteDashboard";
 import TeachersRegistrationForm from "../../components/Forms/Teachers/TeachersRegistration";
+import TeacherLoginForm from "../../components/Forms/Teachers/TeachersLogin";
+import CommonLoginForm from "../../components/Forms/Common/CommonLogin";
 
 interface FormValues {
   college_name: string;
@@ -107,15 +109,18 @@ function Account() {
         return <DoctorLoginForm />;
       case "/doctor-registration":
         return <DoctorRegistrationForm />;
-
       case "/institute-login":
         return <InstituteLoginForm />;
       case "/institute-registration":
         return <InstituteRegistrationForm />;
       case "/institute-dashboard":
         return <InstituteDashBoard />;
+      case "/teacher-login":
+        return <TeacherLoginForm />;
       case "/teacher-registration":
         return <TeachersRegistrationForm />;
+      case "/sign-in":
+        return <CommonLoginForm />;
       // case "/institute-dashboard":
       //   return <InstituteDashBoard />;
       // return <DoctorProfessionExperience />;
@@ -137,12 +142,14 @@ function Account() {
         return academic_information;
       case "/professional-experience":
         return professional_experience;
-      case "/institute-login":
+      case "/sign-in":
         return Login_Bg;
       default:
         return Register_Bg;
     }
   };
+
+  console.log(location.pathname, "url");
   return (
     <Row className="account__section g-0">
       <Col className="account__section__left" sm={12} lg={6}>
