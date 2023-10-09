@@ -8,6 +8,7 @@ import img from "../assets/images/team-1.png";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCalendarAlt, FaCreditCard } from "react-icons/fa";
 import { FaCakeCandles, FaCalendarDays, FaComputer } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 interface StudentDetailPropsType {
   show: boolean;
@@ -23,6 +24,8 @@ type SingleStudentType = {
   age: string;
   class: string;
   teacher_id: number;
+  psc_score: number;
+  psc_result: string;
 };
 
 // const {data} = useQuery("GetSingleStudentDetail", ()=>)
@@ -34,6 +37,7 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
   studentData,
   teacherName,
 }) => {
+  const navigate = useNavigate();
   return (
     <Offcanvas
       show={show}
@@ -111,58 +115,75 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
           }}
           className="p-3 rounded"
         >
-          <div>
-            <h6 className="text-white">PSC Test</h6>
-          </div>
-          <div>
+          {studentData?.psc_result === null ? (
+            <div className="d-flex justify-content-center">
+              <Button
+                variant="success"
+                title="Start PSC Test"
+                className="px-5 py-3"
+                type="submit"
+                onClick={() => navigate("/psc-test-node")}
+              />
+            </div>
+          ) : (
             <div>
-              <span className="text-white" style={{ fontSize: "14px" }}>
-                Score: 5-9
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "space-between",
-              }}
-            >
               <div>
-                <span
-                  className="text-white"
-                  style={{
-                    fontSize: "14px",
-                    // marginTop: "-8px",
-                  }}
-                >
-                  Mild Anxiety
-                </span>
+                <h6 className="text-white">PSC Test</h6>
               </div>
-              <div
-                style={{
-                  display: "inline-flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "-6px",
-                }}
-              >
-                <span
-                  className="text-white "
+              <div>
+                <div>
+                  <span className="text-white" style={{ fontSize: "14px" }}>
+                    Score: {studentData?.psc_score}
+                  </span>
+                </div>
+                <div
                   style={{
-                    fontSize: "14px",
-                    marginTop: "-6px",
-                    fontWeight: "300",
-                    cursor: "pointer",
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between",
                   }}
                 >
-                  Share with Administration
-                </span>
-                <p className="text-white px-2" style={{ marginTop: "-6px" }}>
-                  <BsArrowRight />
-                </p>
+                  <div>
+                    <span
+                      className="text-white"
+                      style={{
+                        fontSize: "14px",
+                        // marginTop: "-8px",
+                      }}
+                    >
+                      {studentData?.psc_result}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: "-6px",
+                    }}
+                  >
+                    <span
+                      className="text-white "
+                      style={{
+                        fontSize: "14px",
+                        marginTop: "-6px",
+                        fontWeight: "300",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Share with Administration
+                    </span>
+                    <p
+                      className="text-white px-2"
+                      style={{ marginTop: "-6px" }}
+                    >
+                      <BsArrowRight />
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Third Row */}

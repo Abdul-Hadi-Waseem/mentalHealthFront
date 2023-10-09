@@ -74,6 +74,31 @@ export const sendTeacherInvitation = async (name: string, toEmail: string) => {
       }
     );
   } catch (error) {
-    return error.response
+    return error.response;
+  }
+};
+
+export const inviteStudent = async (
+  name: string,
+  age: string,
+  className: string
+) => {
+  try {
+    const token = Cookies.get("token");
+    return await axios.post(
+      `${baseUrl}/teacher/student/add`,
+      {
+        name,
+        age,
+        className,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    return error.response;
   }
 };

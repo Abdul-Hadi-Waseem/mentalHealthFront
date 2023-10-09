@@ -3,6 +3,12 @@ import { baseUrl } from "../../../constants/constants";
 import { FormValues } from "./TeachersRegistration";
 import Cookies from "js-cookie";
 
+export interface AnswersType {
+  question: string;
+  answer: string;
+}
+
+
 export const teacherLogin = async (email: string, password: string) => {
   try {
     return await axios.post(`${baseUrl}/teacher/login`, { email, password });
@@ -69,11 +75,15 @@ export const getStudentsOfATeacher = async () => {
   });
 };
 
-// export const removeTeacherAccount = async (teacherId: number | string) => {
-//   const token = Cookies.get("token");
-//   return await axios.delete(`${baseUrl}/institute/teacher/remove/${teacherId}`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
+export const submitPSCTest = async (answers: AnswersType[], id:number) => {
+  try {
+    const token = Cookies.get("token");
+    return await axios.post(`${baseUrl}/teacher/student/test/psc/${id}`, answers, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });    
+  } catch (error) {
+    return error?.response
+  }
+};

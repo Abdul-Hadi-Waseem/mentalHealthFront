@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Col, Container, Offcanvas, Row } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 import Button from "./Common/Buttons/Button";
+import { useQuery } from "react-query";
+import { inviteStudent } from "./Forms/Institutes/InstituteAPIs";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface StudentInvitationProps {
   show: boolean;
@@ -15,19 +19,79 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
   show,
   onHide,
 }) => {
+  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
-    age: Yup.string().required("Age is required"),
-    class: Yup.string().required("Class is required"),
+    age: Yup.string()
+      .required("Age is required")
+      .matches(/^\d{1,2}$/, "Age must be a one or two-digit number"),
+    class: Yup.string()
+      .required("Class is required")
+      .matches(/^\d{1,2}$/, "Class must be a one or two-digit number"),
   });
 
-  const handleSubmit = (values, { resetForm }) => {
+  // const [inputData, setInputData] = useState<{
+  //   name: string;
+  //   class: string;
+  //   age: string;
+  // }>({
+  //   name: "",
+  //   class: "",
+  //   age: "",
+  // });
+
+  const inputValues = useRef<{
+    name: string;
+    class: string;
+    age: string;
+  }>({
+    name: "",
+    class: "",
+    age: "",
+  });
+
+  const { isLoading, isRefetching, refetch } = useQuery(
+    "inviteNewStudent",
+    () =>
+      inviteStudent(
+        inputValues.current.name,
+        inputValues.current.age,
+        inputValues.current.class
+      ),
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const handleSubmit = (
+    values: {
+      name: string;
+      class: string;
+      age: string;
+    },
+    { resetForm }
+  ) => {
     // Handle form submission here, e.g., send data to the server
     console.log("Form submitted with values dedit:", values);
-    // Reset the form after submission
-    resetForm();
-    // Close the offcanvas if needed
-    // onHide();
+    // setInputData(values);
+    inputValues.current = values;
+    refetch().then((res) => {
+      if (res?.data?.data?.status === 200) {
+        toast.success(`${res?.data?.data?.message}. Redirecting to PSC Test`);
+        localStorage.setItem("age", values?.age);
+        resetForm();
+        onHide();
+        setTimeout(() => {
+          navigate("/psc-test-node");
+        }, 3000);
+      }
+      if (res?.data?.data?.status !== 200) {
+        toast.error(res?.data?.data?.message, {
+          hideProgressBar: true,
+        });
+      }
+    });
   };
 
   return (
@@ -121,7 +185,7 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
                   title="Start PSC Test"
                   className="px-5 py-3"
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isLoading || isRefetching}
                 />
               </div>
             </Form>

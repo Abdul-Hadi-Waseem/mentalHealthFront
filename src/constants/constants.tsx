@@ -66,6 +66,8 @@ import TeacherDetail from "../components/TeacherDetail.tsx";
 import TeachersRegistrationForm from "../components/Forms/Teachers/TeachersRegistration.tsx";
 import TeacherLoginForm from "../components/Forms/Teachers/TeachersLogin.tsx";
 import TeacherDashboard from "../pages/TeacherDashboard/index.tsx";
+import PSC_Test_Quiz_NodeJs from "../pages/PSC Test NodeJs/Psctestquiz.tsx";
+import HeroSectionNodeJs from "../pages/PSC Test NodeJs/PSC-Test-Main.tsx";
 
 interface RouteItem {
   id: number;
@@ -397,6 +399,20 @@ export const appRoutes: RouteItem[] = [
     Component: <TeacherDashboard />,
     path: "/teacher-dashboard",
     name: "Teacher Dashboard",
+    visible: false,
+  },
+  {
+    id: 35,
+    Component: <PSC_Test_Quiz_NodeJs />,
+    path: "/psc-test-quiz-node",
+    name: "PSC Test Quiz Node",
+    visible: false,
+  },
+  {
+    id: 36,
+    Component: <HeroSectionNodeJs />,
+    path: "/psc-test-node",
+    name: "PSC Test Node",
     visible: false,
   },
 ];
@@ -764,5 +780,5 @@ export const users: IUser[] = [
   },
 ];
 
-// export const baseUrl = "http://localhost:5000";
-export const baseUrl = "http://139.99.28.47:5000";
+export const baseUrl = "http://localhost:5000";
+// export const baseUrl = "http://139.99.28.47:5000";

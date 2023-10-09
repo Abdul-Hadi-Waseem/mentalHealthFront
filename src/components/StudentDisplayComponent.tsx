@@ -13,6 +13,8 @@ type SingleStudentType = {
   age: string;
   class: string;
   teacher_id: number;
+  psc_score: number;
+  psc_result: string;
 };
 
 type StudentsPropsType = {
@@ -85,6 +87,8 @@ const StudentDisplayComponent = ({
                 img={team_1}
                 handleUserProfile={() => {
                   handleShowOffCanvas();
+                  localStorage.setItem("student", JSON.stringify(each));
+                  localStorage.setItem("age", JSON.stringify(each?.age));
                   setSelectedStudent(each);
                 }}
               />
