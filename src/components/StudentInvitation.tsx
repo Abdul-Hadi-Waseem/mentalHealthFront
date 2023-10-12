@@ -78,8 +78,10 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
     inputValues.current = values;
     refetch().then((res) => {
       if (res?.data?.data?.status === 200) {
-        toast.success(`${res?.data?.data?.message}. Redirecting to PSC Test`);
+        console.log("dedit result register", res);
         localStorage.setItem("age", values?.age);
+        localStorage.setItem("student", JSON.stringify(values));
+        toast.success(`${res?.data?.data?.message}. Redirecting to PSC Test`);
         resetForm();
         onHide();
         setTimeout(() => {
