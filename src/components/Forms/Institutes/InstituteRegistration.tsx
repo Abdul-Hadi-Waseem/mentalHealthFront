@@ -84,7 +84,7 @@ const InstituteRegistrationForm: React.FC = () => {
             hideProgressBar: true,
           });
           setTimeout(() => {
-            navigate("/sign-login");
+            navigate("/sign-in");
           }, 3000);
         }
         if (res?.data?.status !== 200) {
