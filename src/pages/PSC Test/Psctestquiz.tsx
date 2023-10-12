@@ -35,7 +35,6 @@ const PSC_Test_Quiz: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [result, executeMutation] = useProgramdataMutation();
   const [score, setScore] = useState("");
-  const navigate = useNavigate();
 
   const loadQuestions = useCallback(async (age: string | null) => {
     let questionSet;
@@ -88,10 +87,11 @@ const PSC_Test_Quiz: React.FC = () => {
     setAnswers((prev) => [...prev, newAnswer]);
     if (currentQuestion < questions.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer(null); // clear the selected answer for the next question
-    } else if (score?.score) {
-      // setShowModal(true); // show modal when form is submitted
+      setSelectedAnswer(null);
     }
+    // } else if (score?.score) {
+    //   // setShowModal(true); // show modal when form is submitted
+    // }
   };
 
   const handleCloseModal = () => {
@@ -203,7 +203,7 @@ const PSC_Test_Quiz: React.FC = () => {
           <span className="modal-title">PSC Test</span>
           <span className="modal-text py-3">
             Based on your answers <br />
-            {score?.result}
+            {/* {score?.result} */}
             {/* {score?.score} */}
           </span>
           <div className="d-flex justify-content-center ">

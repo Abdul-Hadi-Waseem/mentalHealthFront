@@ -34,7 +34,6 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     "/set-schedule",
     "/patient-prescriptions",
     "/profile",
-    ,
     "/change-password",
     "/privacy-policy",
     "/terms-conditions",
