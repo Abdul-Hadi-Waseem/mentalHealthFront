@@ -3,16 +3,30 @@ import { useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { FiUpload } from "react-icons/fi";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { useFormik, FormikErrors } from "formik";
 import axios from "axios";
 import config from "../configs/config";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getToken } from "../utils";
 interface AppointmentSuccessfulModalProps {
   show: boolean;
   onHide: () => void;
   handleReload: any;
+}
+interface FormDataObject {
+  doctor_id: number;
+  patient_id: number;
+  appointment_id: number;
+  updated_date: string;
+  description: string;
+  attachments: File[] | Blob[] | null;
+}
+
+interface initialValues {
+  medicalPrescription: string;
+  medicalReports: File[] | Blob[] | null;
 }
 
 export default function CreatePrescriptionModal(
@@ -23,19 +37,41 @@ export default function CreatePrescriptionModal(
     JSON.parse(localStorage.getItem("user"))
   );
   console.log("current", current_patient);
+  const handleFormData = async (formDataObject: FormDataObject) => {
+    console.log("formDataObject formik certificates", formDataObject);
+
+    const formData = new FormData();
+
+    formData.append("patient_id", formDataObject.patient_id.toString());
+    formData.append("doctor_id", formDataObject.doctor_id.toString());
+    formData.append("appointment_id", formDataObject.appointment_id.toString());
+    formData.append("description", formDataObject.description);
+    formData.append("updated_date", formDataObject.updated_date);
+
+    for (let i = 0; i < formDataObject?.attachments?.length; i++) {
+      // formData.append("files", formDataObject?.attachments[i]);
+      formData.append("files", formDataObject?.attachments[i]);
+    }
+
+    return formData;
+  };
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB in bytes
   const supportedFormats = ["image/png", "image/jpg", "application/pdf"];
 
-  const initialValues = {
+  const initialValues: initialValues = {
     medicalPrescription: "",
-    medicalReports: "",
+    medicalReports: null,
   };
+  // const errors: FormikErrors<initialValues> = {
+  //   medicalPrescription: "", // Error message for medicalPrescription field
+  //   medicalReports: null, // Error message for medicalReports field
+  // };
+
   const validationSchema = Yup.object({
     medicalPrescription: Yup.string().required(""),
     medicalReports: Yup.mixed()
-      .required("Certificates are required")
-
+      .required("Attachments are required")
       .test("FILE_FORMAT", "Not a valid image type", (values: []) =>
         isValidFileType(values)
       )
@@ -54,7 +90,7 @@ export default function CreatePrescriptionModal(
 
       const updated_date = moment().format("YYYY-MM-DD HH:mm:ss Z");
 
-      const prescriptionDataToSend = {
+      const prescriptionDataToSend: FormDataObject = {
         doctor_id,
         patient_id,
         appointment_id: id,
@@ -62,20 +98,31 @@ export default function CreatePrescriptionModal(
         attachments: medicalReports,
         updated_date,
       };
+
       console.log("prescriptionDataToSend", prescriptionDataToSend);
       (async () => {
         try {
+          const updatedDataToSend = await handleFormData(
+            prescriptionDataToSend
+          );
+
+          // { data: prescriptionDataToSend },
           const response = await axios.post(
             `${config.base_url}/doctor/create_prescription`,
-            { data: prescriptionDataToSend }
+            updatedDataToSend,
+            {
+              headers: {
+                Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+              },
+            }
           );
 
           //  Prescription has been created successfully
           toast.success(response?.data?.message); // Show the success toast
           formik.resetForm();
-          formik.setSubmitting(false)
+          formik.setSubmitting(false);
           props.onHide();
-          props.handleReload()
+          props.handleReload();
           console.log("response", response);
         } catch (error) {
           toast.error("Prescription creation not successful");
@@ -106,6 +153,7 @@ export default function CreatePrescriptionModal(
       }
     }
   }
+  console.log("formik_errors", formik.errors);
   return (
     <>
       <Modal
@@ -213,11 +261,22 @@ export default function CreatePrescriptionModal(
                   />
                 </Form.Group>
                 <div>
-                  {formik.errors.medicalReports && (
+                  {Array.isArray(formik.errors.medicalReports) ? (
+                    formik.errors.medicalReports.map((error, index) => (
+                      <div key={index} className="text-danger">
+                        {error}
+                      </div>
+                    ))
+                  ) : (
                     <small className="text-danger">
                       {formik.errors.medicalReports}
                     </small>
                   )}
+                  {/* {formik.errors.medicalReports && (
+                    <small className="text-danger">
+                      {formik.errors.medicalReports}
+                    </small>
+                  )} */}
                 </div>
               </Row>
               <Row className="mb-3 pe-3" xs={2} md={4}>

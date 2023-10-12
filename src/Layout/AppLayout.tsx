@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import moment from "moment";
 import axios, { Axios } from "axios";
 import config from "../configs/config";
+import { getToken } from "../utils";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -23,7 +24,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     "/teacher/detail/:id",
     "/doctor-dashboard",
     "/doctor-details",
-    "/upcoming-apointments",
+    "/upcoming-appointments",
+    "/conducted-appointments",
     "/patients-history",
     "/patient-details",
     "/patient-dashboard",
@@ -31,7 +33,13 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     "/all-doctors",
     "/set-schedule",
     "/patient-prescriptions",
-    "/patient-profile",
+    "/profile",
+    ,
+    "/change-password",
+    "/privacy-policy",
+    "/terms-conditions",
+    "/select-doctor",
+    "/doctor-detail",
   ];
 
   const isFooterVisible = footerVisibleRoutes.includes(location.pathname);
@@ -41,8 +49,14 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     headerNotVisibleRoutes.some((route) => location.pathname.includes(route)) ||
     location.pathname.startsWith("/teacher/detail/");
 
-  console.log("deployment date", moment().format("DD-MM-YYYY hh:mm:ss"));
-  // console.log("front_end deployment", "15-09-2023 01:51:24");
+  // console.log("deployment date", moment().format("DD-MM-YYYY hh:mm:ss"));
+  // console.log("front_end deployment", "26-09-2023 11:21:50");
+  // console.log("front_end deployment", "26-09-2023 04:14:59");
+  // console.log("front_end deployment", "28-09-2023 04:21:17");
+  // console.log("front_end deployment", "29-09-2023 01:59:47");
+  // console.log("front_end deployment", "29-09-2023 07:24:50");
+  // console.log("front_end deployment", "30-09-2023 09:09:54");
+  console.log("front_end deployment", "02-10-2023 05:39:42");
 
   useEffect(() => {
     (async () => {

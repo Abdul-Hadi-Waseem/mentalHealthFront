@@ -4,8 +4,15 @@ import "./psctestquiz.css";
 import Button from "../../components/Common/Buttons/Button";
 import BackButton from "../../components/Common/Buttons/BackButton";
 import Copyright from "../../components/Footer/Copyright";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useProgramdataMutation } from "../../gql/generated";
+import axios from "axios";
+import { getToken } from "../../utils";
+import { useSelector, useDispatch } from "react-redux";
+import config from "../../configs/config";
+import { ToastContainer, toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
+import { setUserInformation } from "../../store/slices/UserSlice";
 
 interface QuizAnswer {
   question: string;
@@ -13,8 +20,14 @@ interface QuizAnswer {
 }
 
 const PSC_Test_Quiz: React.FC = () => {
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
+  );
+  const dispatch = useDispatch();
   const [formId, setFormId] = useState(0);
-  const history = useNavigate();
+  const navigate = useNavigate();
+
+  const [loader, setLoader] = useState<Boolean>(false);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -43,7 +56,6 @@ const PSC_Test_Quiz: React.FC = () => {
 
   useEffect(() => {
     const age = localStorage.getItem("age");
-
     loadQuestions(age);
   }, []);
 
@@ -77,19 +89,20 @@ const PSC_Test_Quiz: React.FC = () => {
     if (currentQuestion < questions.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null); // clear the selected answer for the next question
-    } else if (score) {
-      setShowModal(true); // show modal when form is submittedx
+    } else if (score?.score) {
+      // setShowModal(true); // show modal when form is submitted
     }
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    history("/"); // navigate to /home when "Exit" button is clicked
+    // navigate("/"); // navigate to /home when "Exit" button is clicked
+    navigate("/patient-dashboard"); // navigate to /dashboard when "Exit" button is clicked
   };
 
   const handleConsult = () => {
     console.log(answers); // print answers when "Consult" button is clicked
-    history("/schedule-appointment");
+    navigate("/schedule-appointment");
     setShowModal(false);
   };
 
@@ -114,7 +127,19 @@ const PSC_Test_Quiz: React.FC = () => {
     });
   };
 
-  return (
+  return loader ? (
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{
+        height: "90vh",
+        width: "100%",
+      }}
+    >
+      <Spinner animation="border" role="status" style={{ color: "#5E9CD3" }}>
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    </div>
+  ) : (
     <div className="main-container">
       <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
         <Form
@@ -177,8 +202,9 @@ const PSC_Test_Quiz: React.FC = () => {
         <Modal.Body className="d-flex flex-column justify-content-center py-3 px-4">
           <span className="modal-title">PSC Test</span>
           <span className="modal-text py-3">
-            Based on your answers,
-            <br /> {score}
+            Based on your answers <br />
+            {score?.result}
+            {/* {score?.score} */}
           </span>
           <div className="d-flex justify-content-center ">
             <Button
@@ -191,8 +217,22 @@ const PSC_Test_Quiz: React.FC = () => {
           </div>
         </Modal.Body>
       </Modal>
+      <ToastContainer />
     </div>
   );
 };
 
 export default PSC_Test_Quiz;
+// {
+
+//   loader ?
+
+//   <Spinner
+//   animation="border"
+//   role="status"
+//   style={{ color: "#5E9CD3" }}
+// >
+//   <span className="visually-hidden">Loading...</span>
+// </Spinner>
+
+// }

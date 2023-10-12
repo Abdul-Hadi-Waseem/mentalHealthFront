@@ -11,6 +11,7 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "../../configs/config";
 import Header from "../PatientDashboard/Header/Header";
+import { getToken } from "../../utils";
 
 function ShowAllDoctors() {
   const location = useLocation();
@@ -26,7 +27,11 @@ function ShowAllDoctors() {
     (async () => {
       try {
         const res = await axios.get(
-          `${config.base_url}/doctor/get_all_doctors`
+          `${config.base_url}/doctor/get_all_doctors`, {
+            headers: {
+              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+            }
+          }
         );
         console.log("get_all_doctors_response", res.data.data);
         if (res?.data?.data) {

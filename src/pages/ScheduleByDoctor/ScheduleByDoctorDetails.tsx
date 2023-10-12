@@ -14,12 +14,32 @@ import {
   formatted_Date,
   change_time_format,
 } from "../../global_func";
+import { useSelector } from "react-redux";
+import { getToken } from "../../utils";
 
 function ScheduleByDoctorDetails() {
-  const [current_doctor_details, setcurrent_doctor_details] = useState(
-    JSON.parse(localStorage.getItem("current_doctor_details"))
+  const reduxcurrent_doctor_details = useSelector(
+    (state: any) => state.patient.current_doctor_details
   );
-  const navigate = useNavigate()
+  // JSON.parse(localStorage.getItem("current_doctor_details"))
+  const [current_doctor_details, setcurrent_doctor_details] = useState(
+    reduxcurrent_doctor_details
+  );
+  const [doctor_complete_details, setdoctor_complete_details] = useState({
+    doctor_details: { appointment_fees: 232 },
+    professional_experience: {
+      description: "",
+      specialities: "",
+      city: "",
+      clinic_address: "",
+      clinic_experience: "",
+      clinic_name: "",
+      country: "",
+      state: "",
+      zip_code: "",
+    },
+  });
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const doctorProfile = JSON.parse(
   //     sessionStorage.getItem("currentDoctorDetails")
@@ -92,6 +112,31 @@ function ScheduleByDoctorDetails() {
   //   // setcurrent_doctor_details(updateSchedule)
   // }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const getDoctorCompleteProfileRes = await axios.get(
+          `${config.base_url}/doctor/get_doctor_complete_profile/${current_doctor_details.doctor_id}/${current_doctor_details.uid}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
+          }
+        );
+        console.log(
+          "getDoctorCompleteProfileRes",
+          getDoctorCompleteProfileRes?.data?.data
+        );
+        if (getDoctorCompleteProfileRes?.data?.data?.length > 0) {
+          setdoctor_complete_details(
+            getDoctorCompleteProfileRes?.data?.data[0]
+          );
+        }
+      } catch (e) {
+        console.log("error in /doctor-details", e.message);
+      }
+    })();
+  }, []);
 
   return (
     <Header>
@@ -105,7 +150,14 @@ function ScheduleByDoctorDetails() {
                   {/* Richard Muldoone */}
                   {current_doctor_details.name}
                 </h4>
-                <span>Speciality : Heart Surgeon </span>
+                {/* <span>Speciality : Heart Surgeon </span> */}
+                <span>
+                  Speciality :{" "}
+                  {
+                    doctor_complete_details?.professional_experience
+                      ?.specialities
+                  }{" "}
+                </span>
                 {/* <span>Speciality : {JSON.parse(sessionStorage.getItem('currentDoctorDetails')).designation} </span> */}
               </div>
               <button
@@ -113,7 +165,9 @@ function ScheduleByDoctorDetails() {
                 // onClick={handleShowOffCanvas}
                 // onClick={bookAppointment}
                 // disabled = {appointmentDisable}
-                onClick={()=>{navigate("/set-schedule")}}
+                onClick={() => {
+                  navigate("/set-schedule");
+                }}
               >
                 Schedule Appointment
               </button>
@@ -123,11 +177,21 @@ function ScheduleByDoctorDetails() {
             </div>
             <div className="header_section_2">
               <div className="header_card">
-                <p className="b_text">$250</p>
+                {/* <p className="b_text">$250</p> */}
+                <p className="b_text">
+                  ${doctor_complete_details?.doctor_details?.appointment_fees}
+                </p>
                 <span className="n_text">Appointment Fee</span>
               </div>
               <div className="header_card">
-                <p className="b_text">10+</p>
+                {/* <p className="b_text">10+</p> */}
+                <p className="b_text">
+                  {doctor_complete_details?.professional_experience?.clinic_experience.replace(
+                    " years",
+                    ""
+                  )}
+                  +
+                </p>
                 {/* <p className="b_text">
                   {clinic_experience.replace(" years", "")}+
                 </p> */}
@@ -139,14 +203,14 @@ function ScheduleByDoctorDetails() {
         <hr className="form_separator" />
         <div className="detail_about">
           <h4 className="box_heading">About Doctor</h4>
-          <p>
+          {/* <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book. It has survived not
             only five centuries, but also the leap into electronic typesetting.
-          </p>
-          {/* <p>{description}</p> */}
+          </p> */}
+          <p>{doctor_complete_details?.professional_experience?.description}</p>
         </div>
 
         <hr className="form_separator" />
@@ -164,8 +228,8 @@ function ScheduleByDoctorDetails() {
             <Col xs={4}>Start Time</Col>
             <Col xs={4}>End Time</Col>
           </Row>
-          {current_doctor_details.clinic_schedule.length != 0 ? (
-            current_doctor_details.clinic_schedule.map(
+          {current_doctor_details?.clinic_schedule?.length != 0 ? (
+            current_doctor_details?.clinic_schedule?.map(
               (item: any, index: any) => {
                 let { day, start_time, end_time } = item;
                 return (
@@ -198,7 +262,10 @@ function ScheduleByDoctorDetails() {
               <img src={call} alt="" className="info_img" />
               <div>
                 <p style={{ fontWeight: "500" }}>Contact Us</p>
-                <span className="light_text">+0123456789</span>
+                {/* <span className="light_text">+0123456789</span> */}
+                <span className="light_text">
+                  {current_doctor_details?.phone}
+                </span>
               </div>
             </div>
           </div>
@@ -210,9 +277,27 @@ function ScheduleByDoctorDetails() {
             >
               <img src={location} alt="" className="info_img" />
               <div>
-                <p style={{ fontWeight: "500" }}>Lotus Medical Center</p>
-                <span className="light_text">
+                {/* <p style={{ fontWeight: "500" }}>Lotus Medical Center</p> */}
+                <p style={{ fontWeight: "500" }}>
+                  {
+                    doctor_complete_details?.professional_experience
+                      ?.clinic_name
+                  }
+                </p>
+                {/* <span className="light_text">
                   4517 Washington Ave. Manchester, Kentucky 39495
+                </span> */}
+                <span className="light_text">
+                  {doctor_complete_details?.professional_experience
+                    ?.clinic_address +
+                    " " +
+                    doctor_complete_details?.professional_experience?.city +
+                    " " +
+                    doctor_complete_details?.professional_experience?.state +
+                    " " +
+                    doctor_complete_details?.professional_experience?.zip_code +
+                    " " +
+                    doctor_complete_details?.professional_experience?.country}
                 </span>
               </div>
             </div>

@@ -14,6 +14,9 @@ import DoctorSideBar from "../../components/DoctorSideBar";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "./../../configs/config";
+import { getToken } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, setUserInformation } from "./../../store/slices/UserSlice";
 
 function PatientDashBoard() {
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
@@ -57,6 +60,9 @@ function PatientDashBoard() {
       setscrolEnd(false);
     }
   };
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
+  );
 
   //This will check scroll event and checks for scroll end
   const scrollCheck = () => {
@@ -80,7 +86,12 @@ function PatientDashBoard() {
         //   `${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`
         // );
         const res = await axios.get(
-          `${config.base_url}/doctor/get_all_doctors`
+          `${config.base_url}/doctor/get_all_doctors`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
+          }
         );
         console.log("get_all_doctors_response", res.data.data);
         if (res?.data?.data) {
@@ -131,13 +142,26 @@ function PatientDashBoard() {
                 </div>
                 <div className="info_container">
                   {/* <p className="doctor_name">Dr. Bessie Cooper</p> */}
-                  <p className="single_doctor_card_name">Dr Bessie Copper</p>
-                  <p className="single_doctor_card_designation">Psychiatrist</p>
+                  {/* <p className="single_doctor_card_name">Dr Bessie Copper</p> */}
+                  <p className="single_doctor_card_name">
+                    Mr &nbsp;
+                    {reduxUserState?.name}
+                  </p>
+
+                  {/* <p className="single_doctor_card_designation">Psychiatrist</p> */}
+                  {/* <p className="single_doctor_card_designation">
+                    {reduxUserState?.psc_test_result?.condition.replace(
+                      /[()]/g,
+                      ""
+                    )}
+                  </p> */}
                 </div>
                 <hr className="form_separator" style={{ margin: "10px 0px" }} />
                 <button
                   className="single_doctor_card_btn text-center"
-                  // onClick={handleClick}
+                  onClick={()=>{
+                    navigate("/profile")
+                  }}
                 >
                   {" "}
                   View Profile{" "}
@@ -147,14 +171,21 @@ function PatientDashBoard() {
             <Col xs={12} xl={8} className="ps-md-3 ">
               <div
                 className="d-flex  mt-sm-4 m-xl-0  w-100 h-100 justify-content-between px-2 align-items-end  upcomming-appointments"
-                style={{ borderRadius: "12px", cursor: "pointer" }}
+                style={{ borderRadius: "12px", }}
               >
                 <div className="text-light ps-5">
                   <h3 style={{ fontSize: "34px" }} className="text-light mb-2">
                     PSC Test
                   </h3>
-                  <p className="text-light">Score 5-9</p>
-                  <p className="text-light mb-4">Mild Anxiety</p>
+                  {/* <p className="text-light">Score 5-9</p> */}
+                  <p className="text-light">Score &nbsp; {reduxUserState?.psc_test_result?.score}</p>
+                  {/* <p className="text-light mb-4">Mild Anxiety</p> */}
+                  <p className="text-light mb-4">
+                  {reduxUserState?.psc_test_result?.condition?.replace(
+                      /[()]/g,
+                      ""
+                    )}
+                  </p>
                 </div>
                 <div className="pe-4">
                   <img src={d_db_male} />
@@ -266,7 +297,7 @@ function PatientDashBoard() {
                   </div>
                 ) : doctorsProfile.length == 0 ? (
                   <div className="d-flex  justify-content-center">
-                    No Patients found
+                    No Doctors found
                   </div>
                 ) : (
                   doctorsProfile.map((item, index) => {
@@ -288,6 +319,7 @@ function PatientDashBoard() {
                               JSON.stringify(item)
                             );
                             navigate("/doctor-details");
+                            // navigate("/all-doctors");
                           }}
                           userDetails={{
                             name: item.name,

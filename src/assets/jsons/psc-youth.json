@@ -1,0 +1,16 @@
+{
+  "questions": [
+    {
+      "questions": "Complain of aches or pains",
+      "options": ["Never", "Sometimes", "Often"]
+    },
+    {
+      "questions": "Spend more time alone",
+      "options": ["Never", "Sometimes", "Often"]
+    },
+    {
+      "questions": "Tire easily, little energy",
+      "options": ["Never", "Sometimes", "Often"]
+    }
+  ]
+}

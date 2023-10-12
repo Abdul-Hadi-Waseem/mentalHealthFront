@@ -6,6 +6,7 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "../configs/config";
 import { Col, Row, Container } from "react-bootstrap";
+import { getToken } from "../utils";
 const Selectdoctor = () => {
   // const [doctorProfiles, setdoctorProfiles] = useState([
   //   { name: "Bessie Cooper", designation: "Psychiatrist" },
@@ -67,7 +68,13 @@ const Selectdoctor = () => {
       ) : (
         <div className="select_doctorContainer">
           {doctorProfiles.map((item, index) => {
-            return <DoctorCard doctor_details={{ ...item }} img={doctor_img} />;
+            return (
+              <DoctorCard
+                key={"item" + index.toString()}
+                doctor_details={{ ...item }}
+                img={doctor_img}
+              />
+            );
           })}
         </div>
       )}

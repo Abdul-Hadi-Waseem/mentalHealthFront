@@ -12,6 +12,9 @@ import Spinner from "react-bootstrap/Spinner";
 import config from "../../configs/config";
 import Header from "../PatientDashboard/Header/Header";
 import Prescriptions from "./Prescriptions";
+import { useDispatch, useSelector } from "react-redux";
+import { getToken } from "../../utils";
+
 
 function PatientPrescriptions() {
   const location = useLocation();
@@ -19,6 +22,10 @@ function PatientPrescriptions() {
   let currentLocation = location.pathname.split("/").slice(-1).toString();
   const [doctorProfiles, setDoctorProfiles] = useState([]);
   const [showPrescriptions, setShowPrescriptions] = useState(false);
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
+  );
+  
 
   const [loader, setLoader] = useState(true);
   const goBack = () => {
@@ -36,7 +43,11 @@ function PatientPrescriptions() {
         // );
         // http://localhost:5000/
         const res = await axios.get(
-          `${config.base_url}/patient/get_patient_prescription/11`
+          `${config.base_url}/patient/get_patient_prescription/${reduxUserState?.id}`, {
+            headers: {
+              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+            }
+          }
         );
         console.log("get_all_doctors_response", res.data.data);
         if (res?.data?.data) {

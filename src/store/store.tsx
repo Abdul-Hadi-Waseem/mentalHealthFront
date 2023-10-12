@@ -1,22 +1,30 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userSlice from './slices/UserSlice';
-// import dateTimeSlice from './slices/dateTimeSlice';
-// import chartDownloadSlice from './slices/chartDownloadSlice';
-// import userSlice from './slices/userSlice';
-// import windowScrollSlice from './slices/windowScrollSlice';
-// import inputDataSlice from './slices/inputDataSlice';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
-export default configureStore({
-  reducer: {
-    user: userSlice
-    // dateTime: dateTimeSlice,   
-    // chartName: chartDownloadSlice,
-    // userSlice: userSlice,
-    // windowScroll: windowScrollSlice,
-    // inputData: inputDataSlice
-  },
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, userSlice)
+
+
+
+
+
+export const store = configureStore({
+  // reducer: {
+    //   user: userSlice
+    // },
+    reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 });
+
+
+export const persistor = persistStore(store);

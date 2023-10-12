@@ -13,6 +13,7 @@ interface DoctorSideBarProps {
   userDetails: any;
   appointmentDetails: any;
   downloadForms: any;
+  heading: string
 }
 
 const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
@@ -23,6 +24,7 @@ const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
   userDetails,
   appointmentDetails,
   downloadForms,
+  heading
 }) => {
   const [secondForm, setSecondForm] = useState(false);
 
@@ -55,9 +57,9 @@ const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
             userDetails={{
               name: userDetails.name,
               treat: userDetails.treat,
-              details: userDetails.details
-              
+              details: userDetails.details              
             }}
+            heading={heading}
             appointmentDetails={appointmentDetails}
             downloadForms={downloadForms}
           />

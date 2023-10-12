@@ -4,8 +4,17 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     users: [{ name: "ansari" }],
+    currentUserInformation: {},
+    patient:{current_doctor_details: {}},
+    doctor:{}
   },
   reducers: {
+    setUserInformation(state, action) {
+      state.currentUserInformation = action.payload;
+    },
+    setcurrent_doctor_details(state, action) {
+      state.patient.current_doctor_details = action.payload;
+    },
     addUser(state, action) {
       state.users = action.payload;
     },
@@ -14,5 +23,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { addUser, removeUser, deleteUsers } = userSlice.actions;
+export const { setUserInformation,setcurrent_doctor_details, addUser, removeUser, deleteUsers } =
+  userSlice.actions;
 export default userSlice.reducer;

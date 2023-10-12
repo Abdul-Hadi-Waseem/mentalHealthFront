@@ -35,7 +35,7 @@ const UserCard = ({ img,handleUserProfile, userDetails,btnTitle}: any) => {
       </div>
       <div className="info_container">
         {/* <p className="doctor_name">Dr. Bessie Cooper</p> */}
-        <p className="doctor_name">{name.length > 15 ? name.slice(0,15)+ "...": name}</p>
+        <p className="doctor_name text-capitalize">{name.length > 15 ? name.slice(0,15)+ "...": name}</p>
         <p className="doctor_designation">{treat}</p>
       </div>
       <hr className="form_separator" style={{ margin: "10px 0px" }} />

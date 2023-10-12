@@ -5,13 +5,26 @@ import { getToken } from "../../utils";
 import config from "../../configs/config";
 import { formatted_Date } from "../../global_func";
 import Header from "../PatientDashboard/Header/Header";
+import DoctorHeader from "../DoctorDashboard/Header/Header";
 import BackButton from "../../components/Common/Buttons/BackButton";
 import "./setting.css";
-import termsAndCondition from "./../../assets/icons/termsAndCondition.svg"
+import editProfile from "./../../assets/icons/editProfile.svg";
+import privacyPolicy from "./../../assets/icons/privacyPolicy.svg";
+import termsAndCondition from "./../../assets/icons/termsAndCondition.svg";
+import changePassword from "./../../assets/icons/changePassword.svg";
+import { FaChevronRight } from "react-icons/fa6";
+import Button from "../../components/Common/Buttons/Button";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 function Setting({ children }) {
   const navigate = useNavigate();
-  // let location = useLocation()
+  let location = useLocation();
+  let currentLocation = location.pathname;
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
+  );
   // const [showDropDown, setShowDropDown] = useState(false);
   // const [btnTitle, setBtnTitle] = useState("Get Started");
   // const [currentPatient, setCurrentPatient] = useState(
@@ -59,7 +72,20 @@ function Setting({ children }) {
   const goBack = () => {
     navigate(-1);
   };
-  return (
+
+  const patientProfileRoutes = [
+    { name: "Edit Profile", path: "/profile", icon: editProfile },
+    { name: "Change Password", path: "/change-password", icon: changePassword },
+    { name: "Privacy Policy", path: "/privacy-policy", icon: privacyPolicy },
+    {
+      name: "Terms and Conditions",
+      path: "/terms-conditions",
+      icon: termsAndCondition,
+    },
+  ];
+  let abc = reduxUserState.level == 13 ? true : false;
+
+  return abc ? (
     <Header>
       <Container>
         <Row className="d-flex justify-content-between align-items-center pt-3">
@@ -82,13 +108,13 @@ function Setting({ children }) {
               >
                 Settings
                 {/* {currentLocation
-                    .split("-")
-                    .map(
-                      (item, index) =>
-                        item.charAt(0).toUpperCase() +
-                        item.slice(1).toString() +
-                        " "
-                    )} */}
+                .split("-")
+                .map(
+                  (item, index) =>
+                    item.charAt(0).toUpperCase() +
+                    item.slice(1).toString() +
+                    " "
+                )} */}
               </span>
             </div>
           </Col>
@@ -98,55 +124,416 @@ function Setting({ children }) {
             md={6}
           >
             {/* <button className="d-flex flex-column p-2 pm-green-btn border-0">
-                <small className="text-xs text-light">
-                  Upcoming Appointment
-                </small>
-                <small className="text-xs text-light">8:00 AM - 4:00 PM</small>
-              </button> */}
+            <small className="text-xs text-light">
+              Upcoming Appointment
+            </small>
+            <small className="text-xs text-light">8:00 AM - 4:00 PM</small>
+          </button> */}
           </Col>
         </Row>
       </Container>
-      <Container>
-        <Row
-          className="p-4"
-          style={{
-            backgroundColor: "#fff",
-            borderRadius: "12px",
-          }}
-        >
-          <Col xs={12} sm={4} className=" p-2">
-            <div
-              className="d-flex flex-column w-100 h-100"
-              style={{
-                borderRight: "solid 3px #D7D7E7",
-              }}
-            >
-              <div className="setting-route">
-                <span className="info_img">
-                  <img  src={termsAndCondition}/>
-                </span>
-                <div>
-
-                <span>Edit Profile</span>
-                <span>icon</span>
-                </div>
+      <Container
+        className="py-3 my-3"
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: "12px",
+        }}
+      >
+        <Row xs={24} sm={24} style={{ minHeight: "75vh" }}>
+          <Col xs={12} sm={3} className="p-2">
+            {/* Setting Routes */}
+            <div className="routes-layout pb-0">
+              <div>
+                {patientProfileRoutes.map((item, index) => {
+                  return (
+                    <div
+                      key={item.name + index.toString()}
+                      className="setting-route"
+                      onClick={() => {
+                        navigate(item.path);
+                      }}
+                    >
+                      <span className="info_img">
+                        <img src={item.icon} />
+                      </span>
+                      <div className="sub-setting-route chevron-icon-right">
+                        <span className="text-color-route">{item.name}</span>
+                        <span
+                          className={`icon-span chevron-icon-right ${
+                            currentLocation !== item.path && "border-0"
+                          }`}
+                        >
+                          <span className="icon-chevron chevron-icon-right">
+                            <FaChevronRight
+                              className="h-100 w-100 chevron-icon-right"
+                              style={{
+                                rotate:
+                                  currentLocation !== item.path && "90deg",
+                              }}
+                            />
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
+              {/* <div className="d-flex justify-content-center">
+                <Button
+                  className="w-100 text-danger border-danger"
+                  title="Remove Account"
+                  variant="secondary"
+                />
+              </div> */}
+
+              {/* <div className="setting-route">
+            <span className="info_img">
+              <img src={termsAndCondition} />
+            </span>
+            <div className="sub-setting-route">
+              <span className="text-color-route">Edit Profile</span>
+              <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+                <span className="icon-chevron">
+                  <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div className="setting-route">
+            <span className="info_img">
+              <img src={termsAndCondition} />
+            </span>
+            <div className="sub-setting-route">
+              <span className="text-color-route">Edit Profile</span>
+              <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+                <span className="icon-chevron">
+                  <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div className="setting-route">
+            <span className="info_img">
+              <img src={termsAndCondition} />
+            </span>
+            <div className="sub-setting-route">
+              <span className="text-color-route">Edit Profile</span>
+              <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+                <span className="icon-chevron">
+                  <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+                </span>
+              </span>
+            </div>
+          </div> */}
             </div>
           </Col>
-          <Col xs={12} sm={8} className="bg-success p-2">
-            <div>
-              <div className="d-flex justify-content-center m-0 ">
-                {children}
-              </div>
+          <Col xs={12} sm={9}>
+            <div className="d-flex justify-content-center h-100 m-0 ">
+              {children}
             </div>
           </Col>
         </Row>
       </Container>
     </Header>
+  ) : (
+    <DoctorHeader>
+     <Container>
+        <Row className="d-flex justify-content-between align-items-center pt-3">
+          <Col
+            className="d-flex flex-column justify-content-start"
+            xs={12}
+            md={6}
+          >
+            <div className="d-flex flex-row justify-content-start align-items-center">
+              <BackButton onClick={goBack} />
+              <span className="px-2" style={{ fontSize: "10px" }}>
+                |
+              </span>
+              <span
+                style={{
+                  fontSize: "24px",
+                  fontWeight: 500,
+                  color: "#243D4C",
+                }}
+              >
+                Settings
+                {/* {currentLocation
+                .split("-")
+                .map(
+                  (item, index) =>
+                    item.charAt(0).toUpperCase() +
+                    item.slice(1).toString() +
+                    " "
+                )} */}
+              </span>
+            </div>
+          </Col>
+          <Col
+            className="d-flex justify-content-end align-items-center"
+            xs={12}
+            md={6}
+          >
+            {/* <button className="d-flex flex-column p-2 pm-green-btn border-0">
+            <small className="text-xs text-light">
+              Upcoming Appointment
+            </small>
+            <small className="text-xs text-light">8:00 AM - 4:00 PM</small>
+          </button> */}
+          </Col>
+        </Row>
+      </Container>
+      <Container
+        className="py-3 my-3"
+        style={{
+          backgroundColor: "#fff",
+          borderRadius: "12px",
+        }}
+      >
+        <Row xs={24} sm={24} style={{ minHeight: "75vh" }}>
+          <Col xs={12} sm={3} className="p-2">
+            {/* Setting Routes */}
+            <div className="routes-layout pb-0">
+              <div>
+                {patientProfileRoutes.map((item, index) => {
+                  return (
+                    <div
+                      key={item.name + index.toString()}
+                      className="setting-route"
+                      onClick={() => {
+                        navigate(item.path);
+                      }}
+                    >
+                      <span className="info_img">
+                        <img src={item.icon} />
+                      </span>
+                      <div className="sub-setting-route chevron-icon-right">
+                        <span className="text-color-route">{item.name}</span>
+                        <span
+                          className={`icon-span chevron-icon-right ${
+                            currentLocation !== item.path && "border-0"
+                          }`}
+                        >
+                          <span className="icon-chevron chevron-icon-right">
+                            <FaChevronRight
+                              className="h-100 w-100 chevron-icon-right"
+                              style={{
+                                rotate:
+                                  currentLocation !== item.path && "90deg",
+                              }}
+                            />
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* <div className="d-flex justify-content-center">
+                <Button
+                  className="w-100 text-danger border-danger"
+                  title="Remove Account"
+                  variant="secondary"
+                />
+              </div> */}
+
+              {/* <div className="setting-route">
+            <span className="info_img">
+              <img src={termsAndCondition} />
+            </span>
+            <div className="sub-setting-route">
+              <span className="text-color-route">Edit Profile</span>
+              <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+                <span className="icon-chevron">
+                  <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div className="setting-route">
+            <span className="info_img">
+              <img src={termsAndCondition} />
+            </span>
+            <div className="sub-setting-route">
+              <span className="text-color-route">Edit Profile</span>
+              <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+                <span className="icon-chevron">
+                  <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div className="setting-route">
+            <span className="info_img">
+              <img src={termsAndCondition} />
+            </span>
+            <div className="sub-setting-route">
+              <span className="text-color-route">Edit Profile</span>
+              <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+                <span className="icon-chevron">
+                  <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+                </span>
+              </span>
+            </div>
+          </div> */}
+            </div>
+          </Col>
+          <Col xs={12} sm={9}>
+            <div className="d-flex justify-content-center h-100 m-0 ">
+              {children}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </DoctorHeader>
   );
 }
 
 export default Setting;
+// <Header>
+//   <Container>
+//     <Row className="d-flex justify-content-between align-items-center pt-3">
+//       <Col
+//         className="d-flex flex-column justify-content-start"
+//         xs={12}
+//         md={6}
+//       >
+//         <div className="d-flex flex-row justify-content-start align-items-center">
+//           <BackButton onClick={goBack} />
+//           <span className="px-2" style={{ fontSize: "10px" }}>
+//             |
+//           </span>
+//           <span
+//             style={{
+//               fontSize: "24px",
+//               fontWeight: 500,
+//               color: "#243D4C",
+//             }}
+//           >
+//             Settings
+//             {/* {currentLocation
+//                 .split("-")
+//                 .map(
+//                   (item, index) =>
+//                     item.charAt(0).toUpperCase() +
+//                     item.slice(1).toString() +
+//                     " "
+//                 )} */}
+//           </span>
+//         </div>
+//       </Col>
+//       <Col
+//         className="d-flex justify-content-end align-items-center"
+//         xs={12}
+//         md={6}
+//       >
+//         {/* <button className="d-flex flex-column p-2 pm-green-btn border-0">
+//             <small className="text-xs text-light">
+//               Upcoming Appointment
+//             </small>
+//             <small className="text-xs text-light">8:00 AM - 4:00 PM</small>
+//           </button> */}
+//       </Col>
+//     </Row>
+//   </Container>
+//   <Container
+//     className="py-3 my-3"
+//     style={{
+//       backgroundColor: "#fff",
+//       borderRadius: "12px",
+//     }}
+//   >
+//     <Row xs={24} sm={24} style={{minHeight: "75vh"}}>
+//       <Col xs={12} sm={3} className="p-2">
+//         {/* Setting Routes */}
+//         <div className="routes-layout pb-0">
+//           <div>
+//             {patientProfileRoutes.map((item, index) => {
+//               return (
+//                 <div
+//                   key={item.name + index.toString()}
+//                   className="setting-route"
+//                   onClick={() => {
+//                     navigate(item.path);
+//                   }}
+//                 >
+//                   <span className="info_img">
+//                     <img src={item.icon} />
+//                   </span>
+//                   <div className="sub-setting-route chevron-icon-right">
+//                     <span className="text-color-route">{item.name}</span>
+//                     <span
+//                       className={`icon-span chevron-icon-right ${
+//                         currentLocation !== item.path && "border-0"
+//                       }`}
+//                     >
+//                       <span className="icon-chevron chevron-icon-right">
+//                         <FaChevronRight
+//                           className="h-100 w-100 chevron-icon-right"
+//                           style={{
+//                             rotate:
+//                               currentLocation !== item.path && "90deg",
+//                           }}
+//                         />
+//                       </span>
+//                     </span>
+//                   </div>
+//                 </div>
+//               );
+//             })}
+//           </div>
+//           <div className="d-flex justify-content-center">
+//             <Button className="w-100 text-danger border-danger" title="Remove Account" variant="secondary" />
+//           </div>
+
+//           {/* <div className="setting-route">
+//             <span className="info_img">
+//               <img src={termsAndCondition} />
+//             </span>
+//             <div className="sub-setting-route">
+//               <span className="text-color-route">Edit Profile</span>
+//               <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+//                 <span className="icon-chevron">
+//                   <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+//                 </span>
+//               </span>
+//             </div>
+//           </div>
+//           <div className="setting-route">
+//             <span className="info_img">
+//               <img src={termsAndCondition} />
+//             </span>
+//             <div className="sub-setting-route">
+//               <span className="text-color-route">Edit Profile</span>
+//               <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+//                 <span className="icon-chevron">
+//                   <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+//                 </span>
+//               </span>
+//             </div>
+//           </div>
+//           <div className="setting-route">
+//             <span className="info_img">
+//               <img src={termsAndCondition} />
+//             </span>
+//             <div className="sub-setting-route">
+//               <span className="text-color-route">Edit Profile</span>
+//               <span className={`icon-span ${currentLocation == "/profile" && "border-0"}`}>
+//                 <span className="icon-chevron">
+//                   <FaChevronRight className="h-100 w-100" style={{ rotate: currentLocation !== "/profile" &&  "90deg"}} />
+//                 </span>
+//               </span>
+//             </div>
+//           </div> */}
+//         </div>
+//       </Col>
+//       <Col xs={12} sm={9}>
+//           <div className="d-flex justify-content-center h-100 m-0 ">
+//             {children}
+//         </div>
+//       </Col>
+//     </Row>
+//   </Container>
+// </Header>
 
 // <Row>
 // <Col xs={12} xl={12}>

@@ -1,9 +1,12 @@
 import Doctordetail from '../../components/Doctordetail'
+import Header from '../PatientDashboard/Header/Header'
 const DoctorDetails = () => {
   return (
-    <div className='d-flex justify-content-center m-4'>
+    <Header
+    //  className='d-flex justify-content-center m-4'
+     >
       <Doctordetail/>
-    </div>
+    </Header>
   )
 }
 

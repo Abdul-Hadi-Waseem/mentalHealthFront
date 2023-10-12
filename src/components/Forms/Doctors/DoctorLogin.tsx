@@ -13,6 +13,10 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import config from "../../../configs/config";
 
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, setUserInformation } from "../../../store/slices/UserSlice";
+import { getToken } from "../../../utils";
+
 interface FormValues {
   email: string;
   password: string;
@@ -29,6 +33,7 @@ const DoctorLoginForm = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const dispatch = useDispatch();
 
   // .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
   const validationSchema = Yup.object({
@@ -69,6 +74,8 @@ const DoctorLoginForm = () => {
     initialValues: {
       email: "",
       password: "",
+      // email: "uzair123@yopmail.com",
+      // password: "uzair@123",
       level: 11,
     },
     validationSchema,
@@ -97,34 +104,106 @@ const DoctorLoginForm = () => {
 
             if (token) {
               const res = await axios.get(
-                `${config.base_url}/doctor/is_doctor_registered/${name}/${uid}`
+                `${config.base_url}/doctor/is_doctor_registered/${name}/${uid}`, {
+                  headers: {
+                    'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+                  }
+                }
               );
-              const updateUser = {age, name, uid, ...res.data.data}
+              const updateUser = { age, name, uid, ...res.data.data };
               console.log("is_registered_respose", res);
-              localStorage.setItem("doctor_information", JSON.stringify(updateUser));
-              localStorage.setItem("user_complete_information", JSON.stringify(updateUser));
+              localStorage.setItem(
+                "doctor_information",
+                JSON.stringify(updateUser)
+              );
+              localStorage.setItem(
+                "user_complete_information",
+                JSON.stringify(updateUser)
+              );
 
+           
+            
 
               // const email = formik.values.email.trim()
               // console.log("resOfUserLogin", email);
               // const resOfUserLogin = await axios.get(
-              //   `${config.base_url}/user/get_user_information/${email}`
+              //   `${config.base_url}/user/get_user_information/${email}`, {
+          //   headers: {
+          //     'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+          //   }
+          // }
               // );
               // console.log("resOfUserLogin", resOfUserLogin);
               // localStorage.setItem("user_complete_information", JSON.stringify(resOfUserLogin.data.data));
-
 
               // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
               // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
               if (res?.data?.data) {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
-                setTimeout(() => {
-                  navigate("/doctor-dashboard"); // Navigate after 5 seconds
-                }, 5000);
+
+                const getDoctorCompleteProfileRes = await axios.get(
+                  `${config.base_url}/doctor/get_doctor_complete_profile/${res.data.data.id}/${uid}`, {
+                    headers: {
+                      'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+                    }
+                  }
+                );
+        
+                console.log("getDoctorCompleteProfileRes", getDoctorCompleteProfileRes);
+                let { doctor_details, professional_experience, schedule } =
+                  getDoctorCompleteProfileRes?.data?.data[0];
+                if (getDoctorCompleteProfileRes?.data?.data?.length > 0) {
+                  let myObj = {
+                    ...res?.data?.data,
+                    doctor_details,
+                    professional_experience,
+                    schedule,
+                  };
+                  dispatch(setUserInformation(myObj));
+                  setTimeout(() => {
+                    navigate("/doctor-dashboard"); // Navigate after 5 seconds
+                  }, 5000);
+                }
+
+
+
+                // let schedule =  [{ day: "", start_time: "", end_time: "" }];
+                // let doctor_details = { certificates : "", course : "", year : "", college_name: "" };
+                // let professional_experience = {
+                //   address: "",
+                //   state: "",
+                //   zip_code: "",
+                //   city: "",
+                //   country: "",
+                //   clinic_name: "",
+                //   clinic_experience: "",
+                //   specialities: "",
+                //   clinic_address: "",
+                //   description: "",
+                // };
+                // let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
+                // dispatch(setUserInformation(myObj));
+              
               } else {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
+                let schedule =  [{ day: "", start_time: "", end_time: "" }];
+                let doctor_details = { certificates : "", course : "", year : "", college_name: "" };
+                let professional_experience = {
+                  address: "",
+                  state: "",
+                  zip_code: "",
+                  city: "",
+                  country: "",
+                  clinic_name: "",
+                  clinic_experience: "",
+                  specialities: "",
+                  clinic_address: "",
+                  description: "",
+                };
+                let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
+                dispatch(setUserInformation(myObj));
 
                 localStorage.setItem("doctor_information", user);
                 setTimeout(() => {
@@ -132,7 +211,6 @@ const DoctorLoginForm = () => {
                 }, 5000);
               }
             }
-
             setFormSubmitted(false);
           }
           if (result.error) {
@@ -143,7 +221,7 @@ const DoctorLoginForm = () => {
       } catch (error) {
         console.log(
           "error in doctor dashboard checkIsRegistered",
-          error.response.data.data
+          error.message
         );
       }
     })();
@@ -231,13 +309,12 @@ const DoctorLoginForm = () => {
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </InputGroup.Text>
             </InputGroup>
-              {formik.touched.password && formik.errors.password && (
-                
-                <small className="text-danger">{formik.errors.password}</small>
-                // <Form.Control.Feedback type="invalid">
-                //   {formik.errors.password}
-                // </Form.Control.Feedback>
-              )}
+            {formik.touched.password && formik.errors.password && (
+              <small className="text-danger">{formik.errors.password}</small>
+              // <Form.Control.Feedback type="invalid">
+              //   {formik.errors.password}
+              // </Form.Control.Feedback>
+            )}
           </Form.Group>
         </Row>
         <Row className=" my-5">

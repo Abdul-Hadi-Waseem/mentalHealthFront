@@ -13,6 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import config from "../../configs/config";
 
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, setUserInformation } from "../../store/slices/UserSlice";
+import { getToken } from "../../utils";
 interface FormValues {
   email: string;
   password: string;
@@ -20,6 +23,9 @@ interface FormValues {
 }
 
 const LoginForm = () => {
+  const reduxUserState = useSelector(
+    (state: any) => state.currentUserInformation
+  );
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
     navigate("/psc-test");
@@ -30,29 +36,33 @@ const LoginForm = () => {
   const [Password, setPassword] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  
+
+  const dispatch = useDispatch();
+
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string().required("Required"),
     level: Yup.number().required("Required"),
   });
-  const [result, reExecuteQuery] = useActionLoginQuery({
-    variables: {
-      Data: {
-        email: Email,
-        password: Password,
-        level: 13,
-      },
-    },
-    pause: true,
-  });
+  // const [result, reExecuteQuery] = useActionLoginQuery({
+  //   variables: {
+  //     Data: {
+  //       email: Email,
+  //       password: Password,
+  //       level: 13,
+  //     },
+  //   },
+  //   pause: true,
+  // });
 
-  useEffect(() => {
-    if (Email !== "" && Password !== "") {
-      reExecuteQuery({
-        requestPolicy: "network-only",
-      });
-    }
-  }, [Email, Password, reExecuteQuery]);
+  // useEffect(() => {
+  //   if (Email !== "" && Password !== "") {
+  //     reExecuteQuery({
+  //       requestPolicy: "network-only",
+  //     });
+  //   }
+  // }, [Email, Password, reExecuteQuery]);
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -71,58 +81,259 @@ const LoginForm = () => {
   useEffect(() => {
     (async () => {
       try {
-        // console.log("result", result);
-        if (formSubmitted) {
+        if (formSubmitted && Email !== "" && Password !== "") {
           // Check the result only if the form has been submitted
-          if (result?.data?.login?.data?.token) {
+          const result = await axios.post(
+            `${config.base_url}/user/login`, {
+            data: { email: Email, password: Password }});
+          console.log("resultOfLogin ", result?.data?.login);
+
+          // THIS IS FOR PATIENT 
+          if (result?.data?.login?.data?.token && result?.data?.login?.data?.level == 13) {
             console.log("userData", result.data.login.data);
             const { age, uid, name } = await result?.data?.login?.data;
-            // localStorage.setItem("age", age);
+            localStorage.setItem("age", age);
+            const {token, ...remaining} = result?.data?.login?.data
+            // localStorage.setItem(
+            //   "user_information",
+            //   JSON.stringify(result.data.login.data)
+            // );
             localStorage.setItem(
               "user_information",
-              JSON.stringify(result.data.login.data)
+              JSON.stringify({...remaining})
             );
 
-            const token = result?.data?.login?.data?.token;
+            // const token = result?.data?.login?.data?.token;
             Cookies.set("token", token);
 
             if (token) {
               const res = await axios.post(
                 `${config.base_url}/patient/psc_test_check`,
-                { uid, name}
+                { uid, name },
+                {
+                  headers: {
+                    'Authorization': `Bearer ${token}` // Add the authorization token here with the "Bearer" prefix
+                  }
+                }
                 // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
                 // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
               );
-              console.log("resOfPatient Check ", res.data)
-              localStorage.setItem("user_complete_information", JSON.stringify(res.data.data));
-
+              console.log("resOfPatient Check ", res.data);
+              dispatch(setUserInformation(res.data.data));
+              localStorage.setItem(
+                "user_complete_information",
+                JSON.stringify(res.data.data)
+              );
+                // IF USER ALREADY GIVEN THE TEST THEN IT WILL REDIRECT TO PATIENT DASHBOARD
               if (res?.data?.program_data_uid) {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
                 setTimeout(() => {
                   // navigate("/schedule-appointment"); // Navigate after 5 seconds
                   navigate("/patient-dashboard"); // Navigate after 5 seconds
+                  // navigate("/psc-test"); // Navigate after 5 seconds
                 }, 3000);
               } else {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
                 setTimeout(() => {
                   navigate("/psc-test"); // Navigate after 5 seconds
+                  // navigate("/patient-dashboard"); // Navigate after 5 seconds
                 }, 3000);
               }
             }
             setFormSubmitted(false);
           }
-          if (result.error) {
+
+          // THIS IS FOR DOCTOR
+          else if (result?.data?.login?.data?.token && result?.data?.login?.data?.level == 11) {
+            console.log("login result", result);
+            const { age, uid, name } = result?.data?.login?.data;
+            localStorage.setItem("age", age);
+
+            const token = result?.data?.login?.data?.token;
+            Cookies.set("token", token);
+            // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
+            let user = JSON.stringify({ ...result?.data?.login?.data });
+
+            if (token) {
+              const res = await axios.get(`${config.base_url}/doctor/is_doctor_registered/${name}/${uid}`, {
+                headers: {
+                  'Authorization': `Bearer ${token}` // Add the authorization token here with the "Bearer" prefix
+                }
+              });
+              const updateUser = { age, name, uid, ...res.data.data };
+              console.log("is_registered_respose", res);
+              localStorage.setItem(
+                "doctor_information",
+                JSON.stringify(updateUser)
+              );
+              localStorage.setItem(
+                "user_complete_information",
+                JSON.stringify(updateUser)
+              );
+
+           
+            
+
+              // const email = formik.values.email.trim()
+              // console.log("resOfUserLogin", email);
+              // const resOfUserLogin = await axios.get(
+              //   `${config.base_url}/user/get_user_information/${email}`, {
+              //   headers: {
+              //     'Authorization': `Bearer ${getToken}` // Add the authorization token here with the "Bearer" prefix
+              //   }
+              // }
+              // );
+              // console.log("resOfUserLogin", resOfUserLogin);
+              // localStorage.setItem("user_complete_information", JSON.stringify(resOfUserLogin.data.data));
+
+              // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
+              // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
+              if (res?.data?.data) {
+                // The login was successful, navigate after 5 seconds
+                toast.success("Login Successful"); // Show the success toast
+
+                const getDoctorCompleteProfileRes = await axios.get(
+                  `${config.base_url}/doctor/get_doctor_complete_profile/${res.data.data.id}/${uid}`, {
+                    headers: {
+                      'Authorization': `Bearer ${token}` // Add the authorization token here with the "Bearer" prefix
+                    }
+                  }
+                );
+        
+                console.log("getDoctorCompleteProfileRes", getDoctorCompleteProfileRes);
+                if (getDoctorCompleteProfileRes?.data?.data?.length > 0) {
+                let { doctor_details, professional_experience, schedule } =
+                  getDoctorCompleteProfileRes?.data?.data[0];
+                  let myObj = {
+                    ...res?.data?.data,
+                    doctor_details,
+                    professional_experience,
+                    schedule,
+                  };         
+                  dispatch(setUserInformation(myObj));
+                  setTimeout(() => {
+                    navigate("/doctor-dashboard"); // Navigate after 5 seconds
+                  }, 5000);
+                }
+
+                // let schedule =  [{ day: "", start_time: "", end_time: "" }];
+                // let doctor_details = { certificates : "", course : "", year : "", college_name: "" };
+                // let professional_experience = {
+                //   address: "",
+                //   state: "",
+                //   zip_code: "",
+                //   city: "",
+                //   country: "",
+                //   clinic_name: "",
+                //   clinic_experience: "",
+                //   specialities: "",
+                //   clinic_address: "",
+                //   description: "",
+                // };
+                // let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
+                // dispatch(setUserInformation(myObj));
+              
+              } else {
+                // The login was successful, navigate after 5 seconds
+                toast.success("Login Successful"); // Show the success toast
+                // let schedule =  [{ day: "", start_time: "", end_time: "" }];
+                // let doctor_details = { certificates : "", course : "", year : "", college_name: "" };
+                // let professional_experience = {
+                //   address: "",
+                //   state: "",
+                //   zip_code: "",
+                //   city: "",
+                //   country: "",
+                //   clinic_name: "",
+                //   clinic_experience: "",
+                //   specialities: "",
+                //   clinic_address: "",
+                //   description: "",
+                // };
+                // let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
+                // dispatch(setUserInformation(myObj));
+
+                localStorage.setItem("doctor_information", user);
+                setTimeout(() => {
+                  navigate("/academic-information"); // Navigate after 5 seconds
+                }, 5000);
+              }
+            }
+            setFormSubmitted(false);
+          }
+          if (result?.data?.error?.message) {
             // If there's an error or the token is not present, show the error toast
             toast.error("Invalid Email/Password");
+            setFormSubmitted(false);
           }
         }
       } catch (error) {
-        console.log("error in checkIsTestSubmitted", error.response.data.data);
+        console.log("error in checkIsTestSubmitted", error);
       }
     })();
-  }, [formSubmitted, navigate, result]);
+  }, [formSubmitted]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       // console.log("result", result);
+  //       if (formSubmitted) {
+  //         // Check the result only if the form has been submitted
+  //         if (result?.data?.login?.data?.token) {
+  //           console.log("userData", result.data.login.data);
+  //           const { age, uid, name } = await result?.data?.login?.data;
+  //           localStorage.setItem("age", age);
+  //           localStorage.setItem(
+  //             "user_information",
+  //             JSON.stringify(result.data.login.data)
+  //           );
+
+  //           const token = result?.data?.login?.data?.token;
+  //           Cookies.set("token", token);
+
+  //           if (token) {
+  //             const res = await axios.post(
+  //               `${config.base_url}/patient/psc_test_check`,
+  //               { uid, name }
+  //               // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
+  //               // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
+  //             );
+  //             console.log("resOfPatient Check ", res.data);
+  //             dispatch(setUserInformation(res.data.data));
+  //             localStorage.setItem(
+  //               "user_complete_information",
+  //               JSON.stringify(res.data.data)
+  //             );
+
+  //             if (res?.data?.program_data_uid) {
+  //               // The login was successful, navigate after 5 seconds
+  //               toast.success("Login Successful"); // Show the success toast
+  //               setTimeout(() => {
+  //                 // navigate("/schedule-appointment"); // Navigate after 5 seconds
+  //                 navigate("/patient-dashboard"); // Navigate after 5 seconds
+  //               }, 3000);
+  //             } else {
+  //               // The login was successful, navigate after 5 seconds
+  //               toast.success("Login Successful"); // Show the success toast
+  //               setTimeout(() => {
+  //                 navigate("/psc-test"); // Navigate after 5 seconds
+  //               }, 3000);
+  //             }
+  //           }
+  //           setFormSubmitted(false);
+  //         }
+  //         if (result.error) {
+  //           // If there's an error or the token is not present, show the error toast
+  //           toast.error("Invalid Email/Password");
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.log("error in checkIsTestSubmitted", error.response.data.data);
+  //     }
+  //   })();
+  // }, [formSubmitted, navigate, result]);
 
   return (
     <Container className="login__section">
@@ -191,7 +402,8 @@ const LoginForm = () => {
         <Row className="text-center">
           <span style={{ fontSize: "14px" }}>
             Don’t have an account yet?{" "}
-            <Link to="/register" className="account__link">
+            {/* <Link to="/register" className="account__link"> */}
+            <Link to="/select-user" className="account__link">
               Register
             </Link>
           </span>

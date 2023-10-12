@@ -1,11 +1,14 @@
-import Selectdoctor from '../../components/Selectdoctor'
-import "./selectDoctor.css"
+import Selectdoctor from "../../components/Selectdoctor";
+import "./selectDoctor.css";
+import Header from "../PatientDashboard/Header/Header";
 const SelectDoctor = () => {
   return (
-    <div className='d-flex justify-content-center m-4'>
-      <Selectdoctor/>
-    </div>
-  )
-}
+    // <div className='d-flex justify-content-center m-4'>
+    <Header>
+      <Selectdoctor />
+    </Header>
+    // </div>
+  );
+};
 
-export default SelectDoctor
+export default SelectDoctor;

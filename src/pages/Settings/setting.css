@@ -1,5 +1,52 @@
-.setting-route{
+.routes-layout{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 4px 0px  12px  12px ;
+  width: 100%;
+  height: 100%;
+}
+
+
+.setting-route {
   display: flex;
   align-items: baseline;
-  padding: 8px;
+  padding: 20px 0px 15px 0px;
+  cursor: pointer;
+  color: #243D4C;
+  border-bottom: #D7D7E7 2px solid;
+
 }
+.sub-setting-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #243D4C;
+}
+
+.text-color-route {
+  color: #243D4C;
+}
+
+.icon-chevron {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  color: #516F8B;
+}
+
+.icon-span {
+  border: 1px solid #CED3DE;
+  padding: 5px;
+  border-radius: 9px;
+  transition: rotate 2s ease 1s;
+
+}
+
+/* .chevron-icon-right{
+  transition: ease 3s;
+  transition-duration: 3s;
+  transition-delay: 3s;
+  transition: width 2s linear 1s;
+} */
