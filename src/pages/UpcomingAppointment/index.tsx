@@ -42,9 +42,20 @@ function UpcomingAppointment() {
   const [loader, setLoader] = useState(true);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [currentPatient, setCurrentPatient] = useState<any>({});
+  const [pdfData , setPDFData] = useState(null)
+
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
-  const handleShowOffCanvas = (item: any) => {
+  const handleShowOffCanvas = async (item: any) => {
+    try {
+      let response = await axios.get(
+        `${config.base_url}/patient/get_patient_psc_record/${item?.patient_id}`
+      );
+      console.log("response?.data?.data" , response?.data?.data)
+      setPDFData(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
     console.log("item", item);
     setShowOffCanvas(true);
     setCurrentPatient(item);
@@ -301,6 +312,7 @@ function UpcomingAppointment() {
           placement={"end"}
           name={"end"}
           show={showOffCanvas}
+          pdfData={pdfData}
           onHide={handleCloseOffCanvas}
           img={doctor_img}
           userDetails={{

@@ -7,17 +7,30 @@ import "./userProfile.css";
 import Input from "./../Common/Input";
 import Button from "../Common/Buttons/Button";
 import {
+  PDFDownloadLink,
+  Page,
+  Text,
+  View,
+  Document,
+  Line,
+  Image,
+  StyleSheet,
+} from "@react-pdf/renderer";
+import {
   change_date_format,
   change_duration_format,
   change_time_format,
 } from "../../global_func";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import config from "../../configs/config";
 const UserProfile = ({
   img,
   userDetails,
   appointmentDetails,
+  pdfData,
   downloadForms,
-  heading
+  heading,
 }: any) => {
   const [isInsured, setIsInsured] = useState(false);
   const navigate = useNavigate();
@@ -30,6 +43,89 @@ const UserProfile = ({
   let { details } = userDetails;
   let { date, time, slot_duration } = details;
   // console.log("userDetails user", userDetails)
+  console.log(pdfData?.questions[0]);
+  const PSCDocs = () => (
+    <Document>
+      <Page size={"A4"}>
+        <View
+          style={{
+            display: "flex",
+            textAlign: "center",
+            marginTop: "10px",
+            fontSize: "20px",
+            fontWeight: "bold",
+          }}
+        >
+          <Text>PATIENT PSC TEST DETAIL</Text>
+        </View>
+        <View
+          style={{
+            marginTop: "4px",
+            marginLeft: "10px",
+            color: "gray",
+            fontSize: "13px",
+          }}
+        >
+          <Text>{`Name : ${name}`}</Text>
+        </View>
+        <View
+          style={{
+            marginTop: "4px",
+            marginLeft: "10px",
+            color: "gray",
+            fontSize: "13px",
+          }}
+        >
+          <Text>{`Score : ${pdfData?.score}`}</Text>
+        </View>
+        <View
+          style={{
+            marginTop: "4px",
+            marginLeft: "10px",
+            color: "gray",
+            fontSize: "13px",
+          }}
+        >
+          <Text>{`Condition : ${pdfData?.condition}`}</Text>
+        </View>
+        <View
+          style={{
+            marginTop: "10px",
+            fontSize: "16px",
+            borderTop: "1px solid gray",
+            borderBottom: "1px solid gray",
+            textAlign: "center",
+          }}
+        >
+          <Text>PSC Question and Answere</Text>
+        </View>
+        <View>
+          <Text>
+            <Text>
+              {pdfData.questions.map((el, index) => (
+                <View
+                  key={index}
+                  style={{
+                  }}
+                >
+                  <View style={{display : 'flex' , flexDirection : 'row'}}>
+                  <Text style={{ color: "gray", fontSize: 13 }}>
+                  Question : {JSON.parse(el).question}
+                  </Text>
+                  </View>
+                  <View style={{display : 'flex' , flexDirection : 'row'}}>
+                  <Text style={{ color: "gray", fontSize: 13 }}>
+                  Answer: {JSON.parse(el).answer}
+                  </Text>
+                  </View>
+                </View>
+              ))}
+            </Text>
+          </Text>
+        </View>
+      </Page>
+    </Document>
+  );
 
   const handlePatientDetails = () => {
     navigate("/patient-details");
@@ -41,7 +137,6 @@ const UserProfile = ({
           <Col xs={12}>
             {/* <h4 className="h4_child">Upcomming Appointments</h4> */}
             <h4 className="h4_child">{heading}</h4>
-
           </Col>
         </Row>
         <Row className="mb-4  m-0 p-0">
@@ -81,24 +176,18 @@ const UserProfile = ({
           <Row className="px-1">
             <Col xs={4}>
               <div className="pt-1">Date</div>
-              {/* <div className="fw-light text-muted py-1">{Date}</div> */}
-              {/* <div className="fw-light text-muted py-1">{moment(date).format("MMM D YYYY")}</div> */}
               <div className="fw-light text-muted py-1">
                 {change_date_format(date)}
               </div>
             </Col>
             <Col xs={4}>
               <div className="pt-1">Time</div>
-              {/* <div className="fw-light text-muted py-1">{Time}</div> */}
-              {/* <div className="fw-light text-muted py-1">{moment(time, "HH:mm:ssZ").format("hh:mm a")}</div> */}
               <div className="fw-light text-muted py-1">
                 {change_time_format(time)}
               </div>
             </Col>
             <Col xs={4}>
               <div className="pt-1">Duration</div>
-              {/* <div className="fw-light text-muted py-1">{Duration}</div> */}
-              {/* <div className="fw-light text-muted py-1">{slot_duration.toString().padStart(2, '0') + " hour" }</div> */}
               <div className="fw-light text-muted py-1">
                 {change_duration_format(slot_duration)}
               </div>
@@ -113,43 +202,22 @@ const UserProfile = ({
                 title="Patient Details"
               />
             </Col>
+            <Col xs={12} className="pt-2">
+              <PDFDownloadLink
+                className={"pdf-downloader"}
+                document={<PSCDocs />}
+                // style={{display:"none"}}
+                fileName={`order"}.pdf`}
+              >
+                <Button
+                  variant="primary"
+                  className="w-100 py-2"
+                  title="PSC Test Details PDF Download"
+                />
+              </PDFDownloadLink>
+            </Col>
           </Row>
         </Container>
-
-        {/* <div className="d-flex justify-content-between">
-          <div className="side_w_input">
-            <Input label="State" placeholder="State" />
-          </div>
-          <div className="side_w_input">
-            <Input label="Zip Code" placeholder="Zip Code" />
-          </div>
-        </div>
-        <div
-          className="d-flex justify-content-between"
-          style={{ margin: "10px 0px" }}
-        >
-          <p className="b_text">Is it Covered By Insured</p>
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            // label="Is it Covered By Insured"
-            checked={isInsured}
-            onChange={handleSwitchChange}
-          />
-        </div> */}
-
-        {/* Render the last three fields conditionally based on the switch value */}
-        {/* {isInsured && (
-          <>
-            <Input label="Insurance Company" placeholder="ABC Company" />
-            <Input label="Insurance Number" placeholder="0 123 456 789" />
-            <Input
-              label="Expiry Date"
-              placeholder="12-12-23"
-              className={"calendar_input"}
-            />
-          </>
-        )} */}
       </Container>
     </>
   );

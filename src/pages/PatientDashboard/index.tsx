@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { appRoutes } from "./../../constants/constants";
 import Header from "./Header/Header";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import d_db_male from "../../assets/images/d_db_male.png";
 import doctor_img from "../../assets/images/doctor.svg";
 import Button from "react-bootstrap/Button";
@@ -40,6 +40,10 @@ function PatientDashBoard() {
   //   },
   // ]);
   const [loader, setLoader] = useState(false);
+  const [show, setShow] = useState(false);
+  const [pscQuestions, setPscQuestion] = useState([]);
+  const [pscCurrentQuestions, setPscCurrentQuestions] = useState(null);
+  const [currentQuestionIndex, SetCurrentQuestionIndex] = useState(0);
 
   const elementRef = useRef(null);
   const navigate = useNavigate();
@@ -104,10 +108,77 @@ function PatientDashBoard() {
       }
     })();
   }, []);
+  const showPSCQuestion = async () => {
+    console.log("first")
+    try {
+      let response = await axios.get(
+        `${config.base_url}/patient/get_patient_psc_question/${
+          JSON.parse(localStorage.getItem("user_complete_information")).uid
+        }`
+      );
+      console.log("response", response?.data.data);
+      setPscQuestion(response?.data.data);
+      setPscCurrentQuestions(JSON.parse(response?.data.data[0]));
+      setShow(true);
+    } catch (error) {
+      // toast.error(error)
+      console.log(error);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentQuestionIndex > 0) {
+      setPscCurrentQuestions(null);
+      setPscCurrentQuestions(
+        JSON.parse(pscQuestions[currentQuestionIndex - 1])
+      );
+      SetCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+  const handleNext = () => {
+    if (currentQuestionIndex < pscQuestions.length - 1) {
+      setPscCurrentQuestions(null);
+      setPscCurrentQuestions(
+        JSON.parse(pscQuestions[currentQuestionIndex + 1])
+      );
+      SetCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+  const handleClose = () => {
+    SetCurrentQuestionIndex(0);
+    setShow(false);
+  };
 
   return (
     <>
       <Header>
+        <Modal centered show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>PSC QUESTION</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div style={{ padding: "2px" }}>
+              <div key={pscCurrentQuestions?.question}>
+                Q : {pscCurrentQuestions?.question}
+              </div>
+              <div key={pscCurrentQuestions?.answer}>
+                A : {pscCurrentQuestions?.answer}
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            {currentQuestionIndex !== 0 && (
+              <Button variant="secondary" onClick={handleBack}>
+                Back
+              </Button>
+            )}
+            {currentQuestionIndex !== pscQuestions.length - 1 && (
+              <Button variant="primary" onClick={handleNext}>
+                Next
+              </Button>
+            )}
+          </Modal.Footer>
+        </Modal>
         <Container>
           <Row className="d-flex flex-row flex-nowrap">
             <Col
@@ -159,8 +230,8 @@ function PatientDashBoard() {
                 <hr className="form_separator" style={{ margin: "10px 0px" }} />
                 <button
                   className="single_doctor_card_btn text-center"
-                  onClick={()=>{
-                    navigate("/profile")
+                  onClick={() => {
+                    navigate("/profile");
                   }}
                 >
                   {" "}
@@ -171,17 +242,23 @@ function PatientDashBoard() {
             <Col xs={12} xl={8} className="ps-md-3 ">
               <div
                 className="d-flex  mt-sm-4 m-xl-0  w-100 h-100 justify-content-between px-2 align-items-end  upcomming-appointments"
-                style={{ borderRadius: "12px", }}
+                style={{ borderRadius: "12px" }}
               >
                 <div className="text-light ps-5">
-                  <h3 style={{ fontSize: "34px" }} className="text-light mb-2">
+                  <h3
+                    onClick={showPSCQuestion}
+                    style={{ fontSize: "34px" , cursor: 'pointer' }}
+                    className="text-light mb-2"
+                  >
                     PSC Test
                   </h3>
                   {/* <p className="text-light">Score 5-9</p> */}
-                  <p className="text-light">Score &nbsp; {reduxUserState?.psc_test_result?.score}</p>
+                  <p className="text-light">
+                    Score &nbsp; {reduxUserState?.psc_test_result?.score}
+                  </p>
                   {/* <p className="text-light mb-4">Mild Anxiety</p> */}
                   <p className="text-light mb-4">
-                  {reduxUserState?.psc_test_result?.condition?.replace(
+                    {reduxUserState?.psc_test_result?.condition?.replace(
                       /[()]/g,
                       ""
                     )}

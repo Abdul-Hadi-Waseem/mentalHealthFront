@@ -7,6 +7,7 @@ import Checkout from "./Checkout";
 interface DoctorSideBarProps {
   show: boolean;
   onHide: () => void;
+  pdfData : any,
   name: string;
   placement: "start" | "end" | "top" | "bottom";
   img: any;
@@ -20,6 +21,7 @@ const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
   placement,
   show,
   onHide,
+  pdfData,
   img,
   userDetails,
   appointmentDetails,
@@ -59,6 +61,7 @@ const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
               treat: userDetails.treat,
               details: userDetails.details              
             }}
+            pdfData = {pdfData}
             heading={heading}
             appointmentDetails={appointmentDetails}
             downloadForms={downloadForms}

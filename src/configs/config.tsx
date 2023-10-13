@@ -8,10 +8,10 @@ const config: config = {
 
 
   // amazon server
-  base_url: "http://139.99.28.47:5000",
+  // base_url: "http://139.99.28.47:5000",
   
   // local
-  // base_url: "http://localhost:5000",
+  base_url: "http://localhost:5000",
 
 
 

@@ -36,8 +36,6 @@ const LoginForm = () => {
   const [Password, setPassword] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  
-
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
@@ -83,24 +81,29 @@ const LoginForm = () => {
       try {
         if (formSubmitted && Email !== "" && Password !== "") {
           // Check the result only if the form has been submitted
-          const result = await axios.post(
-            `${config.base_url}/user/login`, {
-            data: { email: Email, password: Password }});
-          console.log("resultOfLogin ", result?.data?.login);
+          // console.log(Email, Password);
+          const result = await axios.post(`${config.base_url}/api/login`, {
+            data: { email: Email, password: Password },
+          });
+          console.log("resultOfLogin ", result);
 
-          // THIS IS FOR PATIENT 
-          if (result?.data?.login?.data?.token && result?.data?.login?.data?.level == 13) {
-            console.log("userData", result.data.login.data);
-            const { age, uid, name } = await result?.data?.login?.data;
+          // THIS IS FOR PATIENT
+          if (
+            result?.data?.accessToken &&
+            result?.data?.data?.level == 13
+          ) {
+            console.log("userData", result.data.data);
+            const { age, uid, name } = await result?.data?.data;
             localStorage.setItem("age", age);
-            const {token, ...remaining} = result?.data?.login?.data
+            let token = result?.data?.accessToken
+            // const { token, ...remaining } = result?.data?.login?.data;
             // localStorage.setItem(
             //   "user_information",
             //   JSON.stringify(result.data.login.data)
             // );
             localStorage.setItem(
               "user_information",
-              JSON.stringify({...remaining})
+              JSON.stringify(result?.data?.data)
             );
 
             // const token = result?.data?.login?.data?.token;
@@ -112,8 +115,8 @@ const LoginForm = () => {
                 { uid, name },
                 {
                   headers: {
-                    'Authorization': `Bearer ${token}` // Add the authorization token here with the "Bearer" prefix
-                  }
+                    Authorization: `Bearer ${token}`, // Add the authorization token here with the "Bearer" prefix
+                  },
                 }
                 // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
                 // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
@@ -124,7 +127,7 @@ const LoginForm = () => {
                 "user_complete_information",
                 JSON.stringify(res.data.data)
               );
-                // IF USER ALREADY GIVEN THE TEST THEN IT WILL REDIRECT TO PATIENT DASHBOARD
+              // IF USER ALREADY GIVEN THE TEST THEN IT WILL REDIRECT TO PATIENT DASHBOARD
               if (res?.data?.program_data_uid) {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
@@ -146,22 +149,28 @@ const LoginForm = () => {
           }
 
           // THIS IS FOR DOCTOR
-          else if (result?.data?.login?.data?.token && result?.data?.login?.data?.level == 11) {
+          else if (
+            result?.data?.accessToken &&
+            result?.data?.data?.level == 11
+          ) {
             console.log("login result", result);
-            const { age, uid, name } = result?.data?.login?.data;
+            const { age, uid, name } = result?.data?.data;
             localStorage.setItem("age", age);
 
-            const token = result?.data?.login?.data?.token;
+            const token = result?.data?.accessToken;
             Cookies.set("token", token);
             // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
-            let user = JSON.stringify({ ...result?.data?.login?.data });
+            let user = JSON.stringify(result?.data?.data);
 
             if (token) {
-              const res = await axios.get(`${config.base_url}/doctor/is_doctor_registered/${name}/${uid}`, {
-                headers: {
-                  'Authorization': `Bearer ${token}` // Add the authorization token here with the "Bearer" prefix
+              const res = await axios.get(
+                `${config.base_url}/doctor/is_doctor_registered/${name}/${uid}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`, // Add the authorization token here with the "Bearer" prefix
+                  },
                 }
-              });
+              );
               const updateUser = { age, name, uid, ...res.data.data };
               console.log("is_registered_respose", res);
               localStorage.setItem(
@@ -172,9 +181,6 @@ const LoginForm = () => {
                 "user_complete_information",
                 JSON.stringify(updateUser)
               );
-
-           
-            
 
               // const email = formik.values.email.trim()
               // console.log("resOfUserLogin", email);
@@ -195,23 +201,27 @@ const LoginForm = () => {
                 toast.success("Login Successful"); // Show the success toast
 
                 const getDoctorCompleteProfileRes = await axios.get(
-                  `${config.base_url}/doctor/get_doctor_complete_profile/${res.data.data.id}/${uid}`, {
+                  `${config.base_url}/doctor/get_doctor_complete_profile/${res.data.data.id}/${uid}`,
+                  {
                     headers: {
-                      'Authorization': `Bearer ${token}` // Add the authorization token here with the "Bearer" prefix
-                    }
+                      Authorization: `Bearer ${token}`, // Add the authorization token here with the "Bearer" prefix
+                    },
                   }
                 );
-        
-                console.log("getDoctorCompleteProfileRes", getDoctorCompleteProfileRes);
+
+                console.log(
+                  "getDoctorCompleteProfileRes",
+                  getDoctorCompleteProfileRes
+                );
                 if (getDoctorCompleteProfileRes?.data?.data?.length > 0) {
-                let { doctor_details, professional_experience, schedule } =
-                  getDoctorCompleteProfileRes?.data?.data[0];
+                  let { doctor_details, professional_experience, schedule } =
+                    getDoctorCompleteProfileRes?.data?.data[0];
                   let myObj = {
                     ...res?.data?.data,
                     doctor_details,
                     professional_experience,
                     schedule,
-                  };         
+                  };
                   dispatch(setUserInformation(myObj));
                   setTimeout(() => {
                     navigate("/doctor-dashboard"); // Navigate after 5 seconds
@@ -234,7 +244,6 @@ const LoginForm = () => {
                 // };
                 // let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
                 // dispatch(setUserInformation(myObj));
-              
               } else {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
