@@ -381,6 +381,7 @@ function DoctorDashBoard() {
             name={"end"}
             show={showOffCanvas}
             onHide={handleCloseOffCanvas}
+            pdfData={''}
             heading={
               currentUserDetails?.appointment_status === "booked"
                 ? "Upcomming Appointments"

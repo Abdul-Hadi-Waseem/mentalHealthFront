@@ -144,6 +144,7 @@ const PatientsHistory = () => {
               })}
               <DoctorSideBar
                 placement={"end"}
+                pdfData={''}
                 name={"end"}
                 show={showOffCanvas}
                 onHide={handleCloseOffCanvas}
