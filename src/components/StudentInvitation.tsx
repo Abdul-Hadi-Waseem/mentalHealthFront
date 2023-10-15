@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Offcanvas } from "react-bootstrap";
 import Button from "./Common/Buttons/Button";
 import { useQuery } from "react-query";
 import { inviteStudent } from "./Forms/Institutes/InstituteAPIs";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 interface StudentInvitationProps {
@@ -28,26 +28,30 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
     class: Yup.string()
       .required("Class is required")
       .matches(/^\d{1,2}$/, "Class must be a one or two-digit number"),
+    dob: Yup.date().nullable().required("Date of birth is required"),
+    section: Yup.string()
+      .required("Section is required")
+      .matches(/^[A-Za-z]$/, "Section must be a single alphabet"),
+    guardian_name: Yup.string().required("Guardian name is required"),
+    phone: Yup.string().required("Phone is required"),
   });
-
-  // const [inputData, setInputData] = useState<{
-  //   name: string;
-  //   class: string;
-  //   age: string;
-  // }>({
-  //   name: "",
-  //   class: "",
-  //   age: "",
-  // });
 
   const inputValues = useRef<{
     name: string;
     class: string;
     age: string;
+    dob: Date | "";
+    section: string;
+    guardian_name: string;
+    phone: string;
   }>({
     name: "",
-    class: "",
     age: "",
+    class: "",
+    dob: "",
+    section: "",
+    guardian_name: "",
+    phone: "",
   });
 
   const { isLoading, isRefetching, refetch } = useQuery(
@@ -56,7 +60,11 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
       inviteStudent(
         inputValues.current.name,
         inputValues.current.age,
-        inputValues.current.class
+        inputValues.current.class,
+        inputValues.current.dob,
+        inputValues.current.section,
+        inputValues.current.guardian_name,
+        inputValues.current.phone
       ),
     {
       enabled: false,
@@ -69,6 +77,10 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
       name: string;
       class: string;
       age: string;
+      dob: Date | "";
+      section: string;
+      guardian_name: string;
+      phone: string;
     },
     { resetForm }
   ) => {
@@ -115,7 +127,15 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Formik
-          initialValues={{ name: "", age: "", class: "" }}
+          initialValues={{
+            name: "",
+            age: "",
+            class: "",
+            dob: "",
+            section: "",
+            guardian_name: "",
+            phone: "",
+          }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -129,9 +149,7 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
                   type="text"
                   id="name"
                   name="name"
-                  //   className="form-control"
                   className={`form-control ${
-                    /* Check if the field has an error and apply a CSS class accordingly */
                     errors.name && touched.name ? "is-invalid" : ""
                   }`}
                 />
@@ -141,17 +159,16 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
                   className="text-danger"
                 />
               </div>
+
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">
+                <label htmlFor="age" className="form-label">
                   Age
                 </label>
                 <Field
                   type="age"
                   id="age"
                   name="age"
-                  //   className="form-control"
                   className={`form-control ${
-                    /* Check if the field has an error and apply a CSS class accordingly */
                     errors.age && touched.age ? "is-invalid" : ""
                   }`}
                 />
@@ -161,17 +178,16 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
                   className="text-danger"
                 />
               </div>
+
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">
+                <label htmlFor="class" className="form-label">
                   Class
                 </label>
                 <Field
                   type="class"
                   id="class"
                   name="class"
-                  //   className="form-control"
                   className={`form-control ${
-                    /* Check if the field has an error and apply a CSS class accordingly */
                     errors.class && touched.class ? "is-invalid" : ""
                   }`}
                 />
@@ -181,6 +197,85 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
                   className="text-danger"
                 />
               </div>
+
+              <div className="mb-3">
+                <label htmlFor="dob" className="form-label">
+                  Date of Birth
+                </label>
+                <Field
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  className={`form-control ${
+                    errors.dob && touched.dob ? "is-invalid" : ""
+                  }`}
+                />
+                <ErrorMessage
+                  name="dob"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="section" className="form-label">
+                  Section
+                </label>
+                <Field
+                  type="text"
+                  id="section"
+                  name="section"
+                  className={`form-control ${
+                    errors.section && touched.section ? "is-invalid" : ""
+                  }`}
+                />
+                <ErrorMessage
+                  name="section"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="guardian_name" className="form-label">
+                  Guardian Name
+                </label>
+                <Field
+                  type="text"
+                  id="guardian_name"
+                  name="guardian_name"
+                  className={`form-control ${
+                    errors.guardian_name && touched.guardian_name
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                />
+                <ErrorMessage
+                  name="guardian_name"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label">
+                  Phone
+                </label>
+                <Field
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  className={`form-control ${
+                    errors.phone && touched.phone ? "is-invalid" : ""
+                  }`}
+                />
+                <ErrorMessage
+                  name="phone"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+
               <div className="d-flex justify-content-center">
                 <Button
                   variant="primary"

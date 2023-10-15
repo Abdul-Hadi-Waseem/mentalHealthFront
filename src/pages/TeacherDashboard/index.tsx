@@ -63,7 +63,6 @@ function TeacherDashboard() {
   );
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => {
-    console.log("function");
     setShowOffCanvas(true);
   };
 
@@ -74,19 +73,45 @@ function TeacherDashboard() {
       <Container>
         <Row className="d-flex flex-row">
           <Col
-            className="d-flex flex-column justify-content-start py-5"
+            className={`d-flex flex-column justify-content-start py-5`}
             xs={12}
-            sm={8}
-            md={9}
+            sm={5}
+            md={6}
+            lg={6}
+            xl={8}
           >
             <h4 className="text-capitalize">Dashboard</h4>
           </Col>
-          <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
+          <Col
+            className="d-flex align-items-center"
+            xs={12}
+            sm={4}
+            md={3}
+            lg={3}
+            xl={2}
+          >
+            <div>
+              <Button
+                variant="primary"
+                title="Upload Invite File"
+                className="px-3 px-sm-4 py-3 mb-3 text-truncate"
+                onClick={() => handleShowOffCanvas()}
+              />
+            </div>
+          </Col>
+          <Col
+            className="d-flex align-items-center"
+            xs={12}
+            sm={3}
+            md={3}
+            lg={3}
+            xl={2}
+          >
             <div>
               <Button
                 variant="primary"
                 title="Invite Student"
-                className="px-5 py-3 mb-3"
+                className="px-3 px-sm-4 py-3 mb-3 text-truncate"
                 onClick={() => handleShowOffCanvas()}
               />
             </div>

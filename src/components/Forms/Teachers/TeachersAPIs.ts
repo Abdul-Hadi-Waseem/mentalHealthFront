@@ -32,6 +32,8 @@ export const registerTeacher = async (values: FormValues) => {
     password: values.password,
     confirmPassword: values.confirmPassword,
     address: values.address,
+    classes:values?.classes,
+    qualification:values?.qualification
   };
   try {
     return await axios.post(`${baseUrl}/teacher/register`, newValues);

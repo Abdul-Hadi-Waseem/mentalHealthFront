@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Form, Row, Col, InputGroup, Container } from "react-bootstrap";
 import { Formik } from "formik";
-import * as Yup from "yup";
-import Button from "../../Common/Buttons/Button";
+import React, { useEffect, useState } from "react";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useQuery } from "react-query";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as Yup from "yup";
+import Button from "../../Common/Buttons/Button";
 import { getInstitutes, registerTeacher } from "./TeachersAPIs";
-import { Moment } from "moment";
-import { useQuery } from "react-query";
-
-type DateValue = string | Date;
 
 export interface FormValues {
   name: string;
@@ -32,6 +24,8 @@ export interface FormValues {
   password: string;
   confirmPassword: string;
   address: string;
+  qualification: "qualified" | "unqualified";
+  classes: string;
 }
 
 const TeachersRegistrationForm: React.FC = () => {
@@ -40,7 +34,14 @@ const TeachersRegistrationForm: React.FC = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const mailFromUrl = queryParams.get("email");
+  const qualification = queryParams.get("qualification");
+  const classes = queryParams.get("classes");
   const navigate = useNavigate();
+
+  console.log(queryParams, "dedit query params");
+  console.log(mailFromUrl, "dedit mail");
+  console.log(qualification, "dedit qualification");
+  console.log(classes, "dedit classes");
 
   if (!mailFromUrl) {
     window.history.replaceState({}, document.title, "/");
@@ -62,17 +63,13 @@ const TeachersRegistrationForm: React.FC = () => {
     password: "",
     confirmPassword: "",
     address: "",
+    qualification: qualification as "qualified" | "unqualified",
+    classes: classes,
   };
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
-    phone: Yup.string()
-      .required("Phone number is required")
-      .max(12, "Total Length must be 12")
-      .matches(
-        /^\+\d{11}$/,
-        'Phone number must start with "+" and have 11 digits'
-      ),
+    phone: Yup.string().required("Phone number is required"),
     address: Yup.string().required("Address Name is Required"),
     institute: Yup.string().required("Institute Name is Required"),
     // email: Yup.string().email("Invalid email").required("Email is required"),

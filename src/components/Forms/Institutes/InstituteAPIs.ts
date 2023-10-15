@@ -58,7 +58,12 @@ export const removeTeacherAccount = async (teacherId: number | string) => {
   );
 };
 
-export const sendTeacherInvitation = async (name: string, toEmail: string) => {
+export const sendTeacherInvitation = async (
+  name: string,
+  toEmail: string,
+  classes: string,
+  qualification: "qualified" | "unqualified"
+) => {
   try {
     const token = Cookies.get("token");
     return await axios.post(
@@ -66,6 +71,8 @@ export const sendTeacherInvitation = async (name: string, toEmail: string) => {
       {
         name,
         toEmail,
+        classes,
+        qualification,
       },
       {
         headers: {
@@ -81,7 +88,11 @@ export const sendTeacherInvitation = async (name: string, toEmail: string) => {
 export const inviteStudent = async (
   name: string,
   age: string,
-  className: string
+  className: string,
+  dob: "" | Date,
+  section: string,
+  guardian_name: string,
+  phone: string
 ) => {
   try {
     const token = Cookies.get("token");
@@ -91,6 +102,10 @@ export const inviteStudent = async (
         name,
         age,
         className,
+        dob,
+        section,
+        guardian_name,
+        phone,
       },
       {
         headers: {

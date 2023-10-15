@@ -103,20 +103,16 @@ const UserProfile = ({
           <Text>
             <Text>
               {pdfData.questions.map((el, index) => (
-                <View
-                  key={index}
-                  style={{
-                  }}
-                >
-                  <View style={{display : 'flex' , flexDirection : 'row'}}>
-                  <Text style={{ color: "gray", fontSize: 13 }}>
-                  Question : {JSON.parse(el).question}
-                  </Text>
+                <View key={index} style={{}}>
+                  <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Text style={{ color: "gray", fontSize: 13 }}>
+                      Question : {JSON.parse(el).question}
+                    </Text>
                   </View>
-                  <View style={{display : 'flex' , flexDirection : 'row'}}>
-                  <Text style={{ color: "gray", fontSize: 13 }}>
-                  Answer: {JSON.parse(el).answer}
-                  </Text>
+                  <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Text style={{ color: "gray", fontSize: 13 }}>
+                      Answer: {JSON.parse(el).answer}
+                    </Text>
                   </View>
                 </View>
               ))}

@@ -44,13 +44,7 @@ const InstituteRegistrationForm: React.FC = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
-    phone: Yup.string()
-      .required("Phone number is required")
-      .max(12, "Total Length must be 12")
-      .matches(
-        /^\+\d{11}$/,
-        'Phone number must start with "+" and have 11 digits'
-      ),
+    phone: Yup.string().required("Phone number is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     address: Yup.string().required("Address is required"),
     state: Yup.string().required("State is required"),

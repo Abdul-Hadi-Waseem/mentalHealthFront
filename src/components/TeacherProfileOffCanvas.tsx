@@ -1,21 +1,10 @@
 import React from "react";
 import { Button, Col, Container, Offcanvas, Row } from "react-bootstrap";
-import img from "../assets/images/team-1.png";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  BsArrowRight,
-  BsCreditCard,
-  BsGenderAmbiguous,
-  BsGenderMale,
-} from "react-icons/bs";
+import { BsGenderAmbiguous } from "react-icons/bs";
 import { FaEnvelope } from "react-icons/fa6";
-import {
-  FaAddressBook,
-  FaAddressCard,
-  FaBuilding,
-  FaCalendarAlt,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaAddressCard, FaBuilding, FaCalendarAlt } from "react-icons/fa";
+import { PiStudent } from "react-icons/pi";
 import moment from "moment";
 import { useQuery } from "react-query";
 import { removeTeacherAccount } from "./Forms/Institutes/InstituteAPIs";
@@ -42,6 +31,8 @@ type TeacherDetailsType = {
   email: string;
   image: string;
   phone?: string;
+  qualification: "qualified" | "unqualified";
+  classes: string;
 };
 
 // const {data} = useQuery("GetSingleStudentDetail", ()=>)
@@ -110,7 +101,7 @@ const TeacherProfileOffCanvas: React.FC<TeacherDetailPropsType> = ({
           >
             <img
               src={teacherData?.image}
-              alt="Student"
+              alt="Teacher Image"
               style={{ width: "100%", height: "100%", borderRadius: "50%" }}
             />
           </div>
@@ -123,7 +114,15 @@ const TeacherProfileOffCanvas: React.FC<TeacherDetailPropsType> = ({
             <span
               style={{ color: "white", fontSize: "14px", textAlign: "center" }}
             >
-              Teacher
+              {teacherData?.qualification === "qualified" ? (
+                <span>
+                  {teacherData.qualification.charAt(0).toUpperCase() +
+                    teacherData.qualification.slice(1)}{" "}
+                  Teacher
+                </span>
+              ) : (
+                <span>Teacher</span>
+              )}
             </span>
           </div>
         </div>
@@ -307,7 +306,7 @@ const TeacherProfileOffCanvas: React.FC<TeacherDetailPropsType> = ({
                   color: "#3773A9",
                 }}
               >
-                <FaPhoneAlt />
+                <PiStudent />
               </div>
               <div
                 style={{
@@ -319,10 +318,10 @@ const TeacherProfileOffCanvas: React.FC<TeacherDetailPropsType> = ({
                 }}
               >
                 <div>
-                  <h6>Phone Number</h6>
+                  <h6>Classes</h6>
                 </div>
                 <span className="text-secondary" style={{ fontSize: "12px" }}>
-                  {teacherData?.phone ? teacherData?.phone : "-"}
+                  {teacherData?.classes ? teacherData?.classes : "-"}
                 </span>
               </div>
             </Col>
@@ -368,6 +367,8 @@ const TeacherProfileOffCanvas: React.FC<TeacherDetailPropsType> = ({
             </Col>
           </Row>
         </Container>
+        {/* Classes */}
+
         {/* REmove */}
         <Container fluid className="my-2">
           <Row>

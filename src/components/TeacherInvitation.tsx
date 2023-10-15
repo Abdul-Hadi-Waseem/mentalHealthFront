@@ -25,13 +25,30 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
+    qualification: Yup.string()
+      .required("Teacher Qualification is required")
+      .oneOf(["qualified", "unqualified"], "Invalid qualification"),
+    classes: Yup.string()
+      .test("is-valid-classes", "Invalid classes", (value) => {
+        if (!value) {
+          return false;
+        }
+        const classArray = value.split(",").map((c) => c.trim());
+        return classArray.every((c) => /^\d+$/.test(c));
+      })
+      .required("Classes are required"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
     setBtnTitle("Sending Mail");
     // Handle form submission here, e.g., send data to the server
     console.log("Form submitted with values dedit:", values);
-    sendTeacherInvitation(values.name, values.email).then((res) => {
+    sendTeacherInvitation(
+      values.name,
+      values.email,
+      values?.classes,
+      values?.qualification
+    ).then((res) => {
       console.log(res);
       if (res?.status === 200) {
         setBtnTitle("Register");
@@ -64,7 +81,12 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Formik
-          initialValues={{ name: "", email: "" }}
+          initialValues={{
+            name: "",
+            email: "",
+            qualification: "",
+            classes: "",
+          }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -80,7 +102,6 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
                   name="name"
                   disabled={btnTitle === "Sending Mail"}
                   className={`form-control ${
-                    /* Check if the field has an error and apply a CSS class accordingly */
                     errors.name && touched.name ? "is-invalid" : ""
                   }`}
                 />
@@ -90,6 +111,7 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
                   className="text-danger"
                 />
               </div>
+
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email Address
@@ -100,7 +122,6 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
                   name="email"
                   disabled={btnTitle === "Sending Mail"}
                   className={`form-control ${
-                    /* Check if the field has an error and apply a CSS class accordingly */
                     errors.email && touched.email ? "is-invalid" : ""
                   }`}
                 />
@@ -110,6 +131,53 @@ const TeacherInvitation: React.FC<TeacherInvitationProps> = ({
                   className="text-danger"
                 />
               </div>
+
+              <div className="mb-3">
+                <label htmlFor="qualification" className="form-label">
+                  Qualification
+                </label>
+                <Field
+                  as="select"
+                  id="qualification"
+                  name="qualification"
+                  disabled={btnTitle === "Sending Mail"}
+                  className={`form-select ${
+                    errors.qualification && touched.qualification
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                >
+                  <option value="">Select Qualification</option>
+                  <option value="qualified">Qualified</option>
+                  <option value="unqualified">Unqualified</option>
+                </Field>
+                <ErrorMessage
+                  name="qualification"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="classes" className="form-label">
+                  Classes
+                </label>
+                <Field
+                  type="text"
+                  id="classes"
+                  name="classes"
+                  disabled={btnTitle === "Sending Mail"}
+                  className={`form-control ${
+                    errors.classes && touched.classes ? "is-invalid" : ""
+                  }`}
+                />
+                <ErrorMessage
+                  name="classes"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+
               <div>
                 <Button
                   variant="primary"
