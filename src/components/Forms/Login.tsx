@@ -82,9 +82,8 @@ const LoginForm = () => {
         if (formSubmitted && Email !== "" && Password !== "") {
           // Check the result only if the form has been submitted
           // console.log(Email, Password);
-          const result = await axios.post(`${config.base_url}/api/login`, {
-            data: { email: Email, password: Password },
-          });
+          const result = await axios.post(`${config.base_url}/api/login`,  { email: Email, password: Password },
+          );
           console.log("resultOfLogin ", result);
 
           // THIS IS FOR PATIENT
