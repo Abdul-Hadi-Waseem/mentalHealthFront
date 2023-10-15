@@ -6,9 +6,16 @@ import Button from "./Common/Buttons/Button";
 import { useQuery } from "react-query";
 import img from "../assets/images/team-1.png";
 import { BsArrowRight } from "react-icons/bs";
-import { FaCalendarAlt, FaCreditCard } from "react-icons/fa";
+import {
+  FaCalendar,
+  FaCalendarAlt,
+  FaCreditCard,
+  FaPhone,
+  FaUser,
+} from "react-icons/fa";
 import { FaCakeCandles, FaCalendarDays, FaComputer } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 interface StudentDetailPropsType {
   show: boolean;
@@ -18,17 +25,19 @@ interface StudentDetailPropsType {
   teacherName: string;
 }
 
-type SingleStudentType = {
-  id: string;
+export interface SingleStudentType {
+  id: number;
   name: string;
-  age: string;
+  age: number;
   class: string;
   teacher_id: number;
-  psc_score: number;
-  psc_result: string;
-};
-
-// const {data} = useQuery("GetSingleStudentDetail", ()=>)
+  psc_score: number | null;
+  psc_result: null | string;
+  dob: string;
+  section: string;
+  guardian_name: string;
+  phone: string;
+}
 
 const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
   placement,
@@ -300,7 +309,124 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
                   <h6>Class</h6>
                 </div>
                 <span className="text-secondary" style={{ fontSize: "14px" }}>
-                  Class {studentData?.class}
+                  {studentData?.class}-{studentData?.section}
+                </span>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        {/* Display Date of Birth */}
+        <Container fluid className="my-2">
+          <Row>
+            <Col
+              style={{ background: "#F6F7F9" }}
+              className="px-3 py-2 rounded d-flex"
+            >
+              <div
+                style={{
+                  fontSize: "24px",
+                  background: "#E3EAF1",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "18px",
+                  borderRadius: "20px",
+                  color: "#3773A9",
+                }}
+              >
+                <FaCalendar />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  padding: "0 15px",
+                }}
+              >
+                <div>
+                  <h6>Date of Birth</h6>
+                </div>
+                <span className="text-secondary" style={{ fontSize: "14px" }}>
+                  {moment(studentData?.dob).format("DD-MM-YYYY")}
+                </span>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        {/* Display Guardian Name */}
+        <Container fluid className="my-2">
+          <Row>
+            <Col
+              style={{ background: "#F6F7F9" }}
+              className="px-3 py-2 rounded d-flex"
+            >
+              <div
+                style={{
+                  fontSize: "24px",
+                  background: "#E3EAF1",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "18px",
+                  borderRadius: "20px",
+                  color: "#3773A9",
+                }}
+              >
+                <FaUser />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  padding: "0 15px",
+                }}
+              >
+                <div>
+                  <h6>Guardian Name</h6>
+                </div>
+                <span className="text-secondary" style={{ fontSize: "14px" }}>
+                  {studentData?.guardian_name}
+                </span>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        {/* Display Phone */}
+        <Container fluid className="my-2">
+          <Row>
+            <Col
+              style={{ background: "#F6F7F9" }}
+              className="px-3 py-2 rounded d-flex"
+            >
+              <div
+                style={{
+                  fontSize: "24px",
+                  background: "#E3EAF1",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "18px",
+                  borderRadius: "20px",
+                  color: "#3773A9",
+                }}
+              >
+                <FaPhone />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  padding: "0 15px",
+                }}
+              >
+                <div>
+                  <h6>Phone</h6>
+                </div>
+                <span className="text-secondary" style={{ fontSize: "14px" }}>
+                  {studentData?.phone}
                 </span>
               </div>
             </Col>

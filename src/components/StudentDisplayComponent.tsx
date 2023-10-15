@@ -7,15 +7,19 @@ import team_1 from "../assets/images/team-1.png";
 import TeacherInvitation from "./TeacherInvitation";
 import StudentDetailOffCanvas from "./StudentDetailOffCanvas";
 
-type SingleStudentType = {
-  id: string;
+export interface SingleStudentType {
+  id: number;
   name: string;
-  age: string;
+  age: number;
   class: string;
   teacher_id: number;
-  psc_score: number;
-  psc_result: string;
-};
+  psc_score: number | null;
+  psc_result: null | string;
+  dob: string;
+  section: string;
+  guardian_name: string;
+  phone: string;
+}
 
 type StudentsPropsType = {
   students: any;
