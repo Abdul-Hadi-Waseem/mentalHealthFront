@@ -107,7 +107,7 @@ const DoctorRegistrationForm: React.FC = () => {
       try {
         let {email, phone} = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
-        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}`, {
+        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}/11`, {
           headers: {
             'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
           }

@@ -43,7 +43,7 @@ const UserProfile = ({
   let { details } = userDetails;
   let { date, time, slot_duration } = details;
   // console.log("userDetails user", userDetails)
-  console.log(pdfData?.questions[0]);
+ 
   const PSCDocs = () => (
     <Document>
       <Page size={"A4"}>
@@ -99,16 +99,15 @@ const UserProfile = ({
         >
           <Text>PSC Question and Answere</Text>
         </View>
-        <View>
-          <Text>
-            <Text>
+        <View style={{display : "flex" , flexDirection : 'column'}}>
               {pdfData.questions.map((el, index) => (
-                <View key={index} style={{}}>
-                  <View style={{ display: "flex", flexDirection: "row" }}>
+                <View key={index} style={{display : "flex" ,   fontSize: "13px", margin : '3px 0px 2px 3px', flexDirection : 'column'}}>
+                  <View style={{ display: "flex", flexDirection: "row"  }}>
                     <Text style={{ color: "gray", fontSize: 13 }}>
                       Question : {JSON.parse(el).question}
                     </Text>
                   </View>
+                  <br/>
                   <View style={{ display: "flex", flexDirection: "row" }}>
                     <Text style={{ color: "gray", fontSize: 13 }}>
                       Answer: {JSON.parse(el).answer}
@@ -116,8 +115,6 @@ const UserProfile = ({
                   </View>
                 </View>
               ))}
-            </Text>
-          </Text>
         </View>
       </Page>
     </Document>
@@ -203,7 +200,7 @@ const UserProfile = ({
                 className={"pdf-downloader"}
                 document={<PSCDocs />}
                 // style={{display:"none"}}
-                fileName={`order"}.pdf`}
+                fileName={`${name}.pdf`}
               >
                 <Button
                   variant="primary"
