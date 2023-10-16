@@ -25,6 +25,7 @@ function PatientDashBoard() {
     JSON.parse(localStorage.getItem("user_complete_information"))
   );
   const [doctorsProfile, setDoctorsProfile] = useState([]);
+  const [patientHealthDetail ,setPatientHealthDetail] = useState(null)
   // const [doctorsProfile, setDoctorsProfile] = useState([
   //   {
   //     name: "Dr. Bessie Copper",
@@ -64,10 +65,24 @@ function PatientDashBoard() {
       setscrolEnd(false);
     }
   };
+
+  const patientHealthScore = async ()=> {
+     try {
+      let response = await axios.get(
+        `${config.base_url}/patient/get_patient_health_score/${
+          JSON.parse(localStorage.getItem("user_complete_information")).uid
+        }`
+        );
+        console.log( "response?.data?.data" , response?.data?.data)
+        setPatientHealthDetail(response?.data?.data)
+     } catch (error) {
+       console.log(error);
+     }
+  }
   const reduxUserState = useSelector(
     (state: any) => state.currentUserInformation
   );
-
+  console.log("reduxUserState" , reduxUserState?.psc_test_result);
   //This will check scroll event and checks for scroll end
   const scrollCheck = () => {
     setscrollX(elementRef.current.scrollLeft);
@@ -85,6 +100,7 @@ function PatientDashBoard() {
   useEffect(() => {
     (async () => {
       try {
+        await patientHealthScore();
         // const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/11`)
         // const response = await axios.get(
         //   `${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`
@@ -254,11 +270,11 @@ function PatientDashBoard() {
                   </h3>
                   {/* <p className="text-light">Score 5-9</p> */}
                   <p className="text-light">
-                    Score &nbsp; {reduxUserState?.psc_test_result?.score}
+                    Score &nbsp; {patientHealthDetail?.score}
                   </p>
                   {/* <p className="text-light mb-4">Mild Anxiety</p> */}
                   <p className="text-light mb-4">
-                    {reduxUserState?.psc_test_result?.condition?.replace(
+                    {patientHealthDetail?.condition?.replace(
                       /[()]/g,
                       ""
                     )}
