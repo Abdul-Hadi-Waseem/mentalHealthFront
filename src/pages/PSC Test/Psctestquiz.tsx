@@ -116,15 +116,48 @@ const PSC_Test_Quiz: React.FC = () => {
     } else if (currentQuestion === 0) navigate(-1);
   };
 
-  const dataSubmit = () => {
-    executeMutation({
-      Data: {
-        formId: formId,
-        metadata: answers,
-      },
-    }).then((res) => {
-      setScore(res.data?.programform.data);
-    });
+  const dataSubmit = async () => {
+    console.log("formId", formId);
+    console.log("formId answers", answers);
+    try {
+      setLoader(true);
+      const res = await axios.post(
+        `${config.base_url}/patient/create_psc_test`,
+        { data: { formId, answers, patient_uid: reduxUserState?.uid } },
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+          },
+        }
+      );
+      console.log("Psc_Test response", res?.data?.data);
+      dispatch(
+        setUserInformation({
+          ...reduxUserState,
+          psc_test_result: { ...res.data?.data },
+        })
+      );
+      
+      setScore(res.data?.data);
+      setLoader(false);
+
+      // toast.success("Psc_Test is completed successfully");
+      setShowModal(true); // show modal when form is submittedx
+    } catch (error) {
+      toast.error("Psc_Test creation not successful");
+      console.log(`error in Psc_Test`, error.message);
+    }
+
+
+
+    // executeMutation({
+    //   Data: {
+    //     formId: formId,
+    //     metadata: answers,
+    //   },
+    // }).then((res) => {
+    //   setScore(res.data?.programform.data);
+    // });
   };
 
   return loader ? (
