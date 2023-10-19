@@ -12,12 +12,14 @@ interface StudentInvitationProps {
   show: boolean;
   onHide: () => void;
   placement: "start" | "end" | "top" | "bottom";
+  refetchStudents: any;
 }
 
 const StudentInvitation: React.FC<StudentInvitationProps> = ({
   placement,
   show,
   onHide,
+  refetchStudents,
 }) => {
   const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
@@ -93,12 +95,13 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
         console.log("dedit result register", res);
         localStorage.setItem("age", values?.age);
         localStorage.setItem("student", JSON.stringify(values));
-        toast.success(`${res?.data?.data?.message}. Redirecting to PSC Test`);
+        toast.success(`${res?.data?.data?.message}`);
         resetForm();
         onHide();
-        setTimeout(() => {
-          navigate("/psc-test-node");
-        }, 3000);
+        refetchStudents();
+        // setTimeout(() => {
+        //   navigate("/psc-test-node");
+        // }, 3000);
       }
       if (res?.data?.data?.status !== 200) {
         toast.error(res?.data?.data?.message, {

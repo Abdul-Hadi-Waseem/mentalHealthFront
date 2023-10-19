@@ -50,11 +50,11 @@ function TeacherDashboard() {
     data: students,
     isLoading,
     isRefetching,
+    refetch,
   } = useQuery(
     "getAllOfTheStudentsForSingleTeacher",
     () => getStudentsOfATeacher(),
     {
-      refetchOnWindowFocus: false,
       onError: (err: AxiosError) => {
         if (err?.response?.status)
           toast.error("An error occured fetching Students. Please try again");
@@ -126,6 +126,7 @@ function TeacherDashboard() {
             <p>Loading...</p>
           ) : (
             <StudentInvitation
+              refetchStudents={refetch}
               onHide={handleCloseOffCanvas}
               show={showOffCanvas}
               placement="end"
