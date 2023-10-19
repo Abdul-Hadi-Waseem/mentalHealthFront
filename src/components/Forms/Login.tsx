@@ -82,19 +82,18 @@ const LoginForm = () => {
         if (formSubmitted && Email !== "" && Password !== "") {
           // Check the result only if the form has been submitted
           // console.log(Email, Password);
-          const result = await axios.post(`${config.base_url}/api/login`,  { email: Email, password: Password },
-          );
+          const result = await axios.post(`${config.base_url}/api/login`, {
+            email: Email,
+            password: Password,
+          });
           console.log("resultOfLogin ", result);
 
           // THIS IS FOR PATIENT
-          if (
-            result?.data?.accessToken &&
-            result?.data?.data?.level == 13
-          ) {
+          if (result?.data?.accessToken && result?.data?.data?.level == 13) {
             console.log("userData", result.data.data);
             const { age, uid, name } = await result?.data?.data;
             localStorage.setItem("age", age);
-            let token = result?.data?.accessToken
+            let token = result?.data?.accessToken;
             // const { token, ...remaining } = result?.data?.login?.data;
             // localStorage.setItem(
             //   "user_information",
@@ -271,6 +270,41 @@ const LoginForm = () => {
             }
             setFormSubmitted(false);
           }
+
+          // FOR TEACHER LOGIN
+          else if (
+            result?.data?.accessToken &&
+            result?.data?.data?.role === "teacher"
+          ) {
+            toast.success("Login Successful");
+            Cookies.set("token", result?.data?.accessToken);
+            localStorage.setItem(
+              "teacher_information",
+              JSON.stringify(result?.data?.data)
+            );
+            setTimeout(() => {
+              navigate("/teacher-dashboard");
+            }, 3000);
+            // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
+          }
+
+          //FOR INSTITUTE LOGIN
+          else if (
+            result?.data?.accessToken &&
+            result?.data?.data?.role === "institute"
+          ) {
+            toast.success("Login Successful");
+            Cookies.set("token", result?.data?.accessToken);
+            localStorage.setItem(
+              "institute_information",
+              JSON.stringify(result?.data?.data)
+            );
+            setTimeout(() => {
+              navigate("/institute-dashboard");
+            }, 3000);
+            // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
+          }
+
           if (result?.data?.error?.message) {
             // If there's an error or the token is not present, show the error toast
             toast.error("Invalid Email/Password");
