@@ -173,6 +173,7 @@ function Header({ children }) {
                             />
                           </div>
                           <li
+                          style={{cursor: "pointer"}}
                             onClick={
                               () => {
                                 setShowModal(true);
@@ -303,10 +304,18 @@ function Header({ children }) {
               className="patient-nav"
               // onClick={"/patient-prescriptions"}
             >
-              <div className="patient-nav-img">
+              <div 
+              className="patient-nav-img">
                 <img src={logoutIcon} alt="dashboardIcon" />
               </div>
-              <div className="patient-nav-text">Logout</div>
+              <div
+               style={{cursor: "pointer"}}
+               onClick={
+                 () => {
+                   setShowModal(true);
+                 } // modal to show
+               }
+               className="patient-nav-text">Logout</div>
               {/* </div> */}
             </div>
           </div>
