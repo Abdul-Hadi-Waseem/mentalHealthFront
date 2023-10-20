@@ -791,8 +791,8 @@ export const users: IUser[] = [
     id: 1,
     heading: "Seeking help for a family member",
     image: User1,
-    // path: "/register",
-    path: "/child-intake",
+    path: "/register",
+    // path: "/child-intake",
   },
   {
     id: 2,

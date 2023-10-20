@@ -49,9 +49,9 @@ function Header() {
       navigate("/login");
     } else {
       // nav_to_dc_lg ? navigate("/select-user") : navigate("/select-user");
-      navigate("/select-user");
+      // navigate("/select-user");
 
-      // navigate("/login");
+      navigate("/login");
     }
   }
   return (
