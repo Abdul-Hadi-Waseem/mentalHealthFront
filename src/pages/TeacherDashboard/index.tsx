@@ -1,44 +1,16 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useMatch, useNavigate } from "react-router-dom";
-import { appRoutes } from "./../../constants/constants";
-import { Container, Row, Col } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-// import "./Header.css";
-// import Container from "react-bootstrap/Container";
-// import Nav from "react-bootstrap/Nav";
-// import Navbar from "react-bootstrap/Navbar";
-// import logo from "../../assets/images/logo.svg";
-import d_db_female from "../../assets/images/d_db_female.png";
-import d_db_male from "../../assets/images/d_db_male.png";
-import doctor_img from "../../assets/images/doctor.svg";
-// import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-// // import Button from "../Common/Buttons/Button";
-// import Button from "./../../components/Common/Buttons/Button";
-// import Cookies from "js-cookie";
-// import { getToken } from "./../../utils";
-// FaArrowRight
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
-import UserCard from "../../components/Common/UserCard";
-// import "./dashboard.css";
-import DoctorSideBar from "../../components/DoctorSideBar";
-import axios, { AxiosError } from "axios";
-import Spinner from "react-bootstrap/Spinner";
-import config from "./../../configs/config";
-import InstituteHeader from "./Header/Header";
-import Button from "../../components/Common/Buttons/Button";
-import TeacherInvitation from "../../components/TeacherInvitation";
-import DoctorCard from "../../components/Common/DoctorCard";
-import TeacherCard from "../../components/Common/TeacherCard";
-import SearchComponent from "../../components/Search";
-import TeacherDisplayComponent from "../../components/TeacherDisplayComponent";
+import { AxiosError } from "axios";
 import { useQuery } from "react-query";
-import { getAllTeachers } from "../../components/Forms/Institutes/InstituteAPIs";
-import TeacherHeader from "./Header/Header";
-import StudentInvitation from "../../components/StudentInvitation";
+import Button from "../../components/Common/Buttons/Button";
+import {
+  getStudentsOfATeacher,
+  uploadStudentsCSVFile,
+} from "../../components/Forms/Teachers/TeachersAPIs";
 import StudentDisplayComponent from "../../components/StudentDisplayComponent";
-import { getStudentsOfATeacher } from "../../components/Forms/Teachers/TeachersAPIs";
+import StudentInvitation from "../../components/StudentInvitation";
+import TeacherHeader from "./Header/Header";
 
 function TeacherDashboard() {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
@@ -66,6 +38,32 @@ function TeacherDashboard() {
     setShowOffCanvas(true);
   };
 
+  const fileInputRef = useRef(null);
+
+  const handleFileSelect = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      if (selectedFile.type === "text/csv") {
+        // Valid CSV file selected, you can proceed with handling it.
+        console.log("CSV file selected:", selectedFile);
+        uploadStudentsCSVFile(selectedFile).then((result) => {
+          if (result?.data?.status === 200) {
+            toast.success(result?.data?.message);
+            refetch();
+          }
+        });
+      } else {
+        // Invalid file type selected, show an error toast.
+        toast.error("Invalid file type. Please select a CSV file.");
+      }
+    }
+  };
+
+  const handleButtonClick = () => {
+    // Trigger a click event on the hidden file input to open the file dialog.
+    fileInputRef.current.click();
+  };
   // const navigate = useNavigate();
   return (
     <>
@@ -95,7 +93,14 @@ function TeacherDashboard() {
                 variant="primary"
                 title="Upload Invite File"
                 className="px-3 px-sm-4 py-3 mb-3 text-truncate"
-                onClick={() => handleShowOffCanvas()}
+                onClick={handleButtonClick}
+              />
+              <input
+                type="file"
+                accept=".csv"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileSelect}
               />
             </div>
           </Col>

@@ -1,13 +1,12 @@
+import Cookies from "js-cookie";
 import axios from "../../../configs/axios";
 import { baseUrl } from "../../../constants/constants";
 import { FormValues } from "./TeachersRegistration";
-import Cookies from "js-cookie";
 
 export interface AnswersType {
   question: string;
   answer: string;
 }
-
 
 export const teacherLogin = async (email: string, password: string) => {
   try {
@@ -32,8 +31,8 @@ export const registerTeacher = async (values: FormValues) => {
     password: values.password,
     confirmPassword: values.confirmPassword,
     address: values.address,
-    classes:values?.classes,
-    qualification:values?.qualification
+    classes: values?.classes,
+    qualification: values?.qualification,
   };
   try {
     return await axios.post(`${baseUrl}/teacher/register`, newValues);
@@ -50,24 +49,6 @@ export const getInstitutes = async () => {
   }
 };
 
-// export const getAllTeachers = async () => {
-//   const token = Cookies.get("token");
-//   return await axios.get(`${baseUrl}/institute/teachers/get`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
-
-// export const getTeacherDetail = async (id: number | string) => {
-//   const token = Cookies.get("token");
-//   return await axios.get(`${baseUrl}/institute/teacher/${id}`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-// };
-
 export const getStudentsOfATeacher = async () => {
   const token = Cookies.get("token");
   return await axios.get(`${baseUrl}/teacher/students/get`, {
@@ -77,15 +58,41 @@ export const getStudentsOfATeacher = async () => {
   });
 };
 
-export const submitPSCTest = async (answers: AnswersType[], id:number) => {
+export const submitPSCTest = async (answers: AnswersType[], id: number) => {
   try {
     const token = Cookies.get("token");
-    return await axios.post(`${baseUrl}/teacher/student/test/psc/${id}`, answers, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });    
+    return await axios.post(
+      `${baseUrl}/teacher/student/test/psc/${id}`,
+      answers,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   } catch (error) {
-    return error?.response
+    return error?.response;
+  }
+};
+
+export const uploadStudentsCSVFile = async (file: File) => {
+  const token = Cookies.get("token");
+  const formData = new FormData();
+  formData.append("csvFile", file);
+
+  // Set the API endpoint URL
+  const apiUrl = `${baseUrl}/teacher/students/upload`;
+
+  // Set up headers, including the authorization token
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  try {
+    // Send the POST request with the FormData
+    return await axios.post(apiUrl, formData, { headers });    
+  } catch (error) {
+    // Handle errors, e.g., show an error message to the user
+    console.error("Error uploading CSV file:", error);
   }
 };
