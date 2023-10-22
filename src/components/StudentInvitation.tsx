@@ -282,7 +282,7 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
               <div className="d-flex justify-content-center">
                 <Button
                   variant="primary"
-                  title="Start PSC Test"
+                  title="Register Student"
                   className="px-5 py-3"
                   type="submit"
                   disabled={isLoading || isRefetching}

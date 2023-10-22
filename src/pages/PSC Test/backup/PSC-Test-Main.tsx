@@ -30,14 +30,14 @@ const HeroSection: React.FC = () => {
     },
     {
       paragraph:
-        "This is the second form content. Replace this text with your desired content.",
+        "We are human beings and its okay to have different emotions at different times, however sometimes its good and sometimes bad.",
       button: {
         text: "Next",
       },
     },
     {
       paragraph:
-        "Third form content goes here. Feel free to customize this text according to your needs.",
+        "We will help you to stay focused, feel motivated and finish your day at a positive note.",
       button: {
         text: "Next",
       },
@@ -127,9 +127,16 @@ const HeroSection: React.FC = () => {
     <Container
       fluid
       className="hero-section px-3 background-image"
-      style={{ backgroundImage: `url(${images[currentStep]})` }}
+      style={{
+        backgroundImage: `url(${images[currentStep]})`,
+        objectFit: "cover",
+        marginTop: "7rem",
+      }}
     >
-      <Row className="step-form justify-content-md-start ">
+      <Row
+        className="step-form justify-content-md-start "
+        style={{ overflow: "hidden" }}
+      >
         <Col lg={4} sm={12} className="p-0">
           {renderStepperForm()}
         </Col>

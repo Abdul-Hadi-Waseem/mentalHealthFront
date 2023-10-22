@@ -791,8 +791,8 @@ export const users: IUser[] = [
     id: 1,
     heading: "Seeking help for a family member",
     image: User1,
-    path: "/register",
-    // path: "/child-intake",
+    // path: "/register",
+    path: "/child-intake",
   },
   {
     id: 2,
@@ -805,7 +805,7 @@ export const users: IUser[] = [
     id: 3,
     heading: "Educational institutions",
     image: User3,
-    path: "/institute-registration",
+    path: "/sign-in",
   },
   {
     id: 4,
@@ -816,5 +816,5 @@ export const users: IUser[] = [
   },
 ];
 
-// export const baseUrl = "http://localhost:5000";
+//export const baseUrl = "http://localhost:5000";
 export const baseUrl = "http://139.99.28.47:5000";
