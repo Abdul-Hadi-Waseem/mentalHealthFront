@@ -32,6 +32,11 @@ export type ActionsUsersModel = GenericGraphQlResponse & {
   success: Scalars['Boolean'];
 };
 
+export type AddDoctorArgs = {
+  college: Scalars['String'];
+  course: Scalars['String'];
+};
+
 export type ContactUsArgs = {
   email: Scalars['String'];
   message: Scalars['String'];
@@ -55,6 +60,13 @@ export type CreateUserDto = {
   zip_code?: InputMaybe<Scalars['String']>;
 };
 
+export type Doctor = {
+  __typename?: 'Doctor';
+  college: Scalars['String'];
+  course: Scalars['String'];
+  id: Scalars['Int'];
+};
+
 export type GenericGraphQlResponse = {
   error: Scalars['String'];
   message: Scalars['String'];
@@ -70,6 +82,7 @@ export type LoginDto = {
 export type Mutation = {
   __typename?: 'Mutation';
   actionsUsersRegistration: ActionsUsersModel;
+  addDoctorProfile: Scalars['String'];
   contactUs: Scalars['String'];
   instituteRegistration: ActionsUsersModel;
   programform: SuccessJsonResponse;
@@ -78,6 +91,11 @@ export type Mutation = {
 
 export type MutationActionsUsersRegistrationArgs = {
   rawData: CreateUserDto;
+};
+
+
+export type MutationAddDoctorProfileArgs = {
+  addDoctorArgs: AddDoctorArgs;
 };
 
 
@@ -103,6 +121,7 @@ export type ProgramDataArgs = {
 export type Query = {
   __typename?: 'Query';
   dictionary: SuccessJsonResponse;
+  doctors: Array<Doctor>;
   login: ActionsUsersLoginModel;
   main: SuccessResponse;
 };
