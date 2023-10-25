@@ -39,7 +39,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email address").required("Required"),
+    email: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
     level: Yup.number().required("Required"),
   });
@@ -305,6 +305,23 @@ const LoginForm = () => {
             // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
           }
 
+          // FOR STUDENT LOGIN
+          else if (
+            result?.data?.accessToken &&
+            result?.data?.data?.role === "student"
+          ) {
+            toast.success("Login Successful");
+            Cookies.set("token", result?.data?.accessToken);
+            localStorage.setItem(
+              "student_information",
+              JSON.stringify(result?.data?.data)
+            );
+            setTimeout(() => {
+              navigate("/student-dashboard");
+            }, 3000);
+            // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
+          }
+
           if (result?.data?.error?.message) {
             // If there's an error or the token is not present, show the error toast
             toast.error("Invalid Email/Password");
@@ -392,13 +409,13 @@ const LoginForm = () => {
         <Row className="mb-3">
           <Form.Group as={Col} sm={12}>
             <Form.Control
-              type="email"
+              type="text"
               id="email"
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              placeholder="Email"
+              placeholder="Email / Username"
               isInvalid={formik.touched.email && !!formik.errors.email}
             />
             {formik.touched.email && formik.errors.email && (

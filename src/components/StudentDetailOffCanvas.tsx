@@ -1,21 +1,12 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Col, Container, Offcanvas, Row } from "react-bootstrap";
-import Button from "./Common/Buttons/Button";
-import { useQuery } from "react-query";
-import img from "../assets/images/team-1.png";
-import { BsArrowRight } from "react-icons/bs";
-import {
-  FaCalendar,
-  FaCalendarAlt,
-  FaCreditCard,
-  FaPhone,
-  FaUser,
-} from "react-icons/fa";
-import { FaCakeCandles, FaCalendarDays, FaComputer } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import React from "react";
+import { Col, Container, Offcanvas, Row } from "react-bootstrap";
+import { BsArrowRight } from "react-icons/bs";
+import { FaCalendar, FaCreditCard, FaPhone, FaUser } from "react-icons/fa";
+import { FaCakeCandles, FaComputer } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import img from "../assets/images/team-1.png";
+import Button from "./Common/Buttons/Button";
 
 interface StudentDetailPropsType {
   show: boolean;

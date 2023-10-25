@@ -1,11 +1,9 @@
+import axios from "axios";
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
-import { useLocation } from "react-router-dom";
-import moment from "moment";
-import axios, { Axios } from "axios";
 import config from "../configs/config";
-import { getToken } from "../utils";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -39,6 +37,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     "/terms-conditions",
     "/select-doctor",
     "/doctor-detail",
+    "/student-dashboard",
   ];
 
   const isFooterVisible = footerVisibleRoutes.includes(location.pathname);

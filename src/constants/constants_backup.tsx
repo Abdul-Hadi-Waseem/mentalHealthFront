@@ -1,25 +1,18 @@
 import { ReactElement } from "react";
-import Home from "../pages/Home/Home";
-import About from "../pages/About/About";
-import Blog from "../pages/Blogs/Blog";
-import BlogDetails from "../pages/Blogs/BlogDetails";
-import ContactUs from "../pages/ContactUs/ContactUs";
-import WhatWeTreat from "../pages/WhatWeTreat/WhatWeTreat";
-import ChildIntake from "../pages/ChildIntake/ChildIntake.tsx";
+import Access from "../assets/icons/access.svg";
+import Digital from "../assets/icons/digital.svg";
 import Facebook from "../assets/icons/facebook.svg";
 import Instagram from "../assets/icons/instagram.svg";
 import Linkedin from "../assets/icons/linkedin.svg";
+import Monitoring from "../assets/icons/marketing.svg";
+import Messaging from "../assets/icons/messaging.svg";
+import Private from "../assets/icons/private.svg";
+import Secure from "../assets/icons/secure.svg";
 import Telegram from "../assets/icons/telegram.svg";
 import Twitter from "../assets/icons/twitter.svg";
-import Virtual from "../assets/icons/virtual.svg";
-import Secure from "../assets/icons/secure.svg";
-import Private from "../assets/icons/private.svg";
-import Digital from "../assets/icons/digital.svg";
-import Monitoring from "../assets/icons/marketing.svg";
-import Access from "../assets/icons/access.svg";
-import Messaging from "../assets/icons/messaging.svg";
-import Voice from "../assets/icons/voice.svg";
 import Video from "../assets/icons/video.svg";
+import Virtual from "../assets/icons/virtual.svg";
+import Voice from "../assets/icons/voice.svg";
 import Avatar1 from "../assets/images/avatar1.png";
 import Avatar2 from "../assets/images/avatar2.png";
 import Avatar3 from "../assets/images/avatar3.png";
@@ -29,50 +22,52 @@ import Team2 from "../assets/images/team-2.png";
 import Team3 from "../assets/images/team-3.png";
 import Team4 from "../assets/images/team-4.png";
 import Team5 from "../assets/images/team-5.png";
+import About from "../pages/About/About";
+import Blog from "../pages/Blogs/Blog";
+import BlogDetails from "../pages/Blogs/BlogDetails";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import Home from "../pages/Home/Home";
+import WhatWeTreat from "../pages/WhatWeTreat/WhatWeTreat";
 
 import ChildIntakeSteper from "../pages/ChildIntake/ChildIntakeSteper.tsx";
-import SelectDoctor from "../pages/SelectDoctor/SelectDoctor.tsx";
 import DoctorDetails from "../pages/SelectDoctor/DoctorDetails.tsx";
+import SelectDoctor from "../pages/SelectDoctor/SelectDoctor.tsx";
 
-import SelectUser from "../pages/SelectUser/SelectUser";
 import User1 from "../assets/images/User1.png";
 import User2 from "../assets/images/User2.png";
 import User3 from "../assets/images/User3.png";
 import User4 from "../assets/images/User4.png";
 import Account from "../pages/Account/Account";
-import AcademicInformation from "../components/Forms/Doctors/AcademicInformation.tsx";
-import PSC_Test_Quiz from "../pages/PSC Test/Psctestquiz.tsx";
 import HeroSection from "../pages/PSC Test/PSC-Test-Main.tsx";
+import PSC_Test_Quiz from "../pages/PSC Test/Psctestquiz.tsx";
 import AppointmentScheduler from "../pages/Schedule Appointment/ScheduleAppoitment.tsx";
 import ScheduleByDoctorDetails from "../pages/ScheduleByDoctor/ScheduleByDoctorDetails.tsx";
+import SelectUser from "../pages/SelectUser/SelectUser";
 
 // Doctor
 import DoctorDashBoard from "../pages/DoctorDashboard/index.tsx";
-import UpcomingAppointment from "../pages/UpcomingAppointment";
-import PatientsHistory from "../pages/PatientsHistory/PatientsHistory.tsx";
 import PatientDetails from "../pages/PatientDetails/PatientDetails.tsx";
+import PatientsHistory from "../pages/PatientsHistory/PatientsHistory.tsx";
+import UpcomingAppointment from "../pages/UpcomingAppointment";
 
 // Patient
 import PatientDashBoard from "../pages/PatientDashboard/index.tsx";
-import PatientVisits from "../pages/PatientVisits/PatientVisits.tsx";
-import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
-import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
 import PatientPrescriptions from "../pages/PatientPrescriptions/PatientPrescriptions.tsx";
+import PatientVisits from "../pages/PatientVisits/PatientVisits.tsx";
+import AppoinmentByDoctor from "../pages/ScheduleByDoctor/AppoinmentByDoctor.tsx";
+import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 
 // Settings Pages
-import Profile from "../pages/Settings/ProfilesPages/Profile.tsx";
-import InstituteLoginForm from "../components/Forms/Institutes/InstituteLogin.tsx";
-import InstituteRegistrationForm from "../components/Forms/Institutes/InstituteRegistration.tsx";
-import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
 import TeacherDetail from "../components/TeacherDetail.tsx";
-import TeachersRegistrationForm from "../components/Forms/Teachers/TeachersRegistration.tsx";
-import TeacherLoginForm from "../components/Forms/Teachers/TeachersLogin.tsx";
-import TeacherDashboard from "../pages/TeacherDashboard/index.tsx";
-import PSC_Test_Quiz_NodeJs from "../pages/PSC Test NodeJs/Psctestquiz.tsx";
+import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
 import HeroSectionNodeJs from "../pages/PSC Test NodeJs/PSC-Test-Main.tsx";
+import PSC_Test_Quiz_NodeJs from "../pages/PSC Test NodeJs/Psctestquiz.tsx";
 import ChangePassword from "../pages/Settings/ProfilesPages/ChangePassword.tsx";
-import TermsAndConditions from "../pages/Settings/ProfilesPages/TermsAndConditions.tsx";
 import PrivacyPolicy from "../pages/Settings/ProfilesPages/PrivacyPolicy.tsx";
+import Profile from "../pages/Settings/ProfilesPages/Profile.tsx";
+import TermsAndConditions from "../pages/Settings/ProfilesPages/TermsAndConditions.tsx";
+import StudentDashboard from "../pages/StudentDashboard/index.tsx";
+import TeacherDashboard from "../pages/TeacherDashboard/index.tsx";
 
 interface RouteItem {
   id: number;
@@ -386,66 +381,73 @@ export const appRoutes: RouteItem[] = [
   //   visible: false,
   // },
   {
-    id: 32,
+    id: 34,
     Component: <Account />,
     path: "/institute-registration",
     name: "Institute Registration",
     visible: false,
   },
   {
-    id: 33,
+    id: 35,
     Component: <InstituteDashBoard />,
     path: "/institute-dashboard",
     name: "Institute Dashboard",
     visible: false,
   },
   {
-    id: 33,
+    id: 36,
     Component: <TeacherDetail />,
     path: "/teacher/detail/:id",
     name: "Teacher Detail",
     visible: false,
   },
   {
-    id: 34,
+    id: 37,
     Component: <Account />,
     path: "/teacher-registration",
     name: "Teacher Registration",
     visible: false,
   },
   {
-    id: 34,
+    id: 38,
     Component: <Account />,
-    path: "/sign-in",
+    path: "/login",
     name: "Teacher / Institute Login",
     visible: false,
   },
   {
-    id: 34,
+    id: 39,
     Component: <TeacherDashboard />,
     path: "/teacher-dashboard",
     name: "Teacher Dashboard",
     visible: false,
   },
   {
-    id: 35,
+    id: 40,
     Component: <PSC_Test_Quiz_NodeJs />,
     path: "/psc-test-quiz-node",
     name: "PSC Test Quiz Node",
     visible: false,
   },
   {
-    id: 36,
+    id: 41,
     Component: <HeroSectionNodeJs />,
     path: "/psc-test-node",
     name: "PSC Test Node",
     visible: false,
   },
   {
-    id: 34,
+    id: 42,
     Component: <TermsAndConditions />,
     path: "/terms-conditions",
     name: "Terms and Conditions",
+    visible: false,
+  },
+  {
+    id: 43,
+    Component: <StudentDashboard />,
+    path: "/student-dashboard",
+    name: "Student Dashboard",
     visible: false,
   },
 ];
@@ -805,7 +807,7 @@ export const users: IUser[] = [
     id: 3,
     heading: "Educational institutions",
     image: User3,
-    path: "/sign-in",
+    path: "/login",
   },
   {
     id: 4,

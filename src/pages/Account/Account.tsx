@@ -119,7 +119,7 @@ function Account() {
         return <TeacherLoginForm />;
       case "/teacher-registration":
         return <TeachersRegistrationForm />;
-      case "/sign-in":
+      case "/login":
         return <CommonLoginForm />;
       // case "/institute-dashboard":
       //   return <InstituteDashBoard />;
@@ -142,7 +142,7 @@ function Account() {
         return academic_information;
       case "/professional-experience":
         return professional_experience;
-      case "/sign-in":
+      case "/login":
         return Login_Bg;
       default:
         return Register_Bg;

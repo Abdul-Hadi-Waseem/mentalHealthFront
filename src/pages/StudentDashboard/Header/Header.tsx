@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link, useMatch, useNavigate } from "react-router-dom";
-import { appRoutes } from "./../../../constants/constants";
-import "./Header.css";
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Link, useNavigate } from "react-router-dom";
+import "./Header.css";
 // import logo from "../../assets/images/logo.svg";
-import logo from "./../../../assets/images/logo.svg";
 import besse_cooper from "./../../../assets/images/besse_cooper.png";
+import logo from "./../../../assets/images/logo.svg";
 // import Button from "../Common/Buttons/Button";
-import Button from "./../../../components/Common/Buttons/Button";
 import Cookies from "js-cookie";
-import { getToken } from "./../../../utils";
+import { Image, Modal } from "react-bootstrap";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
-import Avatar from "react-avatar";
-import { Row, Col, Image, Modal } from "react-bootstrap";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "./../../../components/Common/Buttons/Button";
+import { getToken } from "./../../../utils";
 
-function InstituteHeader() {
+function StudentHeader() {
   const [showDropDown, setShowDropDown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   // const [btnTitle, setBtnTitle] = useState("Get Started");
@@ -28,20 +25,13 @@ function InstituteHeader() {
     // navigate("/doctor-dashboard");
   };
 
-  // useEffect(() => {
-  //   if (token) {
-  //     setBtnTitle("Logout");
-  //   } else {
-  //     setBtnTitle("Get Started");
-  //   }
-  // }, [token]);
   function handleClick() {
     if (token) {
       Cookies.remove("token");
-      localStorage.removeItem("institute_information");
+      localStorage.removeItem("student_information");
       navigate("/login");
     } else {
-      localStorage.removeItem("institute_information");
+      localStorage.removeItem("student_information");
       navigate("/login");
     }
   }
@@ -50,23 +40,9 @@ function InstituteHeader() {
     // navigate("/doctor-dashboard");
     handleClick();
   };
-  let institute_information = JSON.parse(
-    localStorage.getItem("institute_information")
+  let student_information = JSON.parse(
+    localStorage.getItem("student_information")
   );
-
-  // const btnAvatar = (
-  //   <div className="d-flex flex-row">
-  //     <div className="w-8 h-8 pe-4">
-  //       <Image alt="logo" src={logo} width={50} circle />
-  //     </div>
-  //     <div className="d-flex flex-column p-0">
-  //       <small className="text-light  p-0">
-  //         <strong>Bessie Cooper</strong>
-  //       </small>
-  //       <small className="text-light  p-0">Psychiatrist</small>
-  //     </div>
-  //   </div>
-  // );
   return (
     <>
       <Navbar collapseOnSelect expand="xl">
@@ -95,9 +71,6 @@ function InstituteHeader() {
               </div>
 
               <button
-                // className={`${
-                //   variant === "secondary" ? "secondary-btn" : "primary-btn"
-                // } ${className} ${disabled ? "disabled-btn" : ""}`}
                 className="primary-btn px-3 py-2 border-0 position-relative"
                 onClick={(e) => {
                   e.preventDefault();
@@ -116,7 +89,7 @@ function InstituteHeader() {
                     <small className="text-light p-0">
                       {/* <strong className="text-light">Bessie Cooper</strong> */}
                       <strong className="text-light text-capitalize">
-                        {institute_information.name}
+                        {student_information.name}
                         <br />
                       </strong>
                     </small>
@@ -202,4 +175,4 @@ function InstituteHeader() {
   );
 }
 
-export default InstituteHeader;
+export default StudentHeader;

@@ -78,7 +78,7 @@ const InstituteRegistrationForm: React.FC = () => {
             hideProgressBar: true,
           });
           setTimeout(() => {
-            navigate("/sign-in");
+            navigate("/login");
           }, 3000);
         }
         if (res?.data?.status !== 200) {
@@ -359,7 +359,7 @@ const InstituteRegistrationForm: React.FC = () => {
             <Row className="text-center">
               <span style={{ fontSize: "14px" }}>
                 Have an account?
-                <Link to="/sign-in" className="account__link">
+                <Link to="/login" className="account__link">
                   Login
                 </Link>
               </span>

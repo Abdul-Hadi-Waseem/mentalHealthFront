@@ -1,37 +1,22 @@
-interface config{
-  base_url: string
+interface config {
+  base_url: string;
 }
 
 const config: config = {
   // //server
   // base_url: "https://mental.cyclic.app",
 
-
   // amazon server
-  base_url: "http://139.99.28.47:5000",
-  
+  // base_url: "http://139.99.28.47:5000",
+
   // local
-  //base_url: "http://localhost:5000",
+  base_url: "http://localhost:5000",
 
+  //   # local domain
+  // DOMAIN=localhost:5000
 
-
-
-//   # local domain
-// DOMAIN=localhost:5000
-
-// # amazon server deployment domain
-// # DOMAIN=139.99.28.47
-
-
-
-
-
-
-
-
-
-
-
+  // # amazon server deployment domain
+  // # DOMAIN=139.99.28.47
 
   // makeUrl = "http://localhost:5000";
   // http://localhost:5000
