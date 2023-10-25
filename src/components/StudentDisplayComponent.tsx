@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Col, Form, InputGroup, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
-import StudentCard from "./Common/StudentCard";
 import team_1 from "../assets/images/team-1.png";
-import TeacherInvitation from "./TeacherInvitation";
+import StudentCard from "./Common/StudentCard";
 import StudentDetailOffCanvas from "./StudentDetailOffCanvas";
 
 export interface SingleStudentType {
@@ -21,21 +19,37 @@ export interface SingleStudentType {
   phone: string;
 }
 
+export type TeacherDetailsType = {
+  id: number;
+  name: string;
+  dob: string;
+  gender: string;
+  address: string;
+  state: string;
+  zip_code: string;
+  city: string;
+  country: string;
+  institute_id: number;
+  email: string;
+  image: string;
+  phone?: string;
+  qualification: "qualified" | "unqualified";
+  classes: string;
+};
+
 type StudentsPropsType = {
   students: any;
-  teacherName: string;
+  teacherData: TeacherDetailsType;
 };
 
 const StudentDisplayComponent = ({
   students,
-  teacherName,
+  teacherData,
 }: StudentsPropsType) => {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<SingleStudentType>();
   const [studentsList, setStudentsList] = useState([]);
-  const navigate = useNavigate();
-  //   const [suggestedBlogs, setSuggestedBlogs] = useState<IBlogs[]>([]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -111,7 +125,7 @@ const StudentDisplayComponent = ({
         show={showOffCanvas}
         placement="end"
         studentData={selectedStudent}
-        teacherName={teacherName}
+        teacherData={teacherData}
       />
     </div>
   );

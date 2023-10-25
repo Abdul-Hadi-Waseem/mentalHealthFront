@@ -135,7 +135,7 @@ const TeacherDetail = () => {
       <Container>
         <StudentDisplayComponent
           students={students?.data?.data}
-          teacherName={data?.data?.data?.name}
+          teacherData={data?.data?.data}
         />
       </Container>
       <Container>

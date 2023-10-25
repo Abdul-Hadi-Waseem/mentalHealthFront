@@ -1,11 +1,12 @@
+import { AxiosError } from "axios";
 import { useRef, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
-import { AxiosError } from "axios";
 import { useQuery } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
 import Button from "../../components/Common/Buttons/Button";
 import {
   getStudentsOfATeacher,
+  getTeacherData,
   uploadStudentsCSVFile,
 } from "../../components/Forms/Teachers/TeachersAPIs";
 import StudentDisplayComponent from "../../components/StudentDisplayComponent";
@@ -14,9 +15,6 @@ import TeacherHeader from "./Header/Header";
 
 function TeacherDashboard() {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  const teacher_information = JSON.parse(
-    localStorage.getItem("teacher_information")
-  );
 
   const {
     data: students,
@@ -32,6 +30,9 @@ function TeacherDashboard() {
           toast.error("An error occured fetching Students. Please try again");
       },
     }
+  );
+  const { data: teacherData } = useQuery("getTeacherDetail", () =>
+    getTeacherData()
   );
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => {
@@ -124,7 +125,7 @@ function TeacherDashboard() {
         </Row>
         <StudentDisplayComponent
           students={students?.data?.data}
-          teacherName={teacher_information?.name}
+          teacherData={teacherData?.data?.data}
         />
         <Row className="d-flex justify-content-between">
           {isLoading || isRefetching ? (

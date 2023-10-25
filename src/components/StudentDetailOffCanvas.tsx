@@ -1,19 +1,19 @@
 import moment from "moment";
-import React from "react";
-import { Col, Container, Offcanvas, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Col, Container, Dropdown, Offcanvas, Row } from "react-bootstrap";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCalendar, FaCreditCard, FaPhone, FaUser } from "react-icons/fa";
 import { FaCakeCandles, FaComputer } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import img from "../assets/images/team-1.png";
 import Button from "./Common/Buttons/Button";
+import { TeacherDetailsType } from "./StudentDisplayComponent";
 
 interface StudentDetailPropsType {
   show: boolean;
   onHide: () => void;
   placement: "start" | "end" | "top" | "bottom";
   studentData: SingleStudentType;
-  teacherName: string;
+  teacherData: TeacherDetailsType;
 }
 
 export interface SingleStudentType {
@@ -35,9 +35,15 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
   show,
   onHide,
   studentData,
-  teacherName,
+  teacherData,
 }) => {
-  const navigate = useNavigate();
+  console.log(teacherData, "dedit teacher data");
+
+  const [selectedTest, setSelectedTest] = useState(null);
+
+  const handleTestSelect = (test) => {
+    setSelectedTest(test);
+  };
   return (
     <Offcanvas
       show={show}
@@ -102,13 +108,13 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
             </span>
             {/* <br /> */}
             <span style={{ color: "white", fontSize: "14px" }}>
-              Invited by {teacherName}
+              Invited by {teacherData?.name}
             </span>
           </div>
         </div>
 
-        {/* Second Row */}
-        <div
+        {/* PSC ROWS */}
+        {/* <div
           style={{
             background:
               "linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%)",
@@ -182,6 +188,216 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+        </div> */}
+
+        <div
+          style={{
+            background:
+              "linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%)",
+          }}
+          className="p-3 rounded"
+        >
+          {teacherData?.qualification === "qualified" ? (
+            <div>
+              {studentData?.psc_result === null ? (
+                <div className="d-flex justify-content-center">
+                  <div className="d-flex align-items-center">
+                    <Dropdown className="mx-2">
+                      <Dropdown.Toggle>Select Test</Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onSelect={() => handleTestSelect("PSC")}>
+                          PSC
+                        </Dropdown.Item>
+                        <Dropdown.Item onSelect={() => handleTestSelect("ASQ")}>
+                          ASQ
+                        </Dropdown.Item>
+                        <Dropdown.Item onSelect={() => handleTestSelect("SDQ")}>
+                          SDQ
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() => handleTestSelect("ACE-Q")}
+                        >
+                          ACE-Q
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() => handleTestSelect("SNAP-IV")}
+                        >
+                          SNAP-IV
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() => handleTestSelect("CES-DC")}
+                        >
+                          CES-DC
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() => handleTestSelect("MOVES")}
+                        >
+                          MOVES
+                        </Dropdown.Item>
+                        <Dropdown.Item onSelect={() => handleTestSelect("SMQ")}>
+                          SMQ
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() => handleTestSelect("CRAFT")}
+                        >
+                          CRAFT
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() => handleTestSelect("WFIRS-P")}
+                        >
+                          WFIRS-P
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    <Button
+                      title="Assign"
+                      className="mx-2 px-5 py-3"
+                      type="submit"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div>
+                    <h6 className="text-white">PSC Test</h6>
+                  </div>
+                  <div>
+                    <div>
+                      <span className="text-white" style={{ fontSize: "14px" }}>
+                        Score: {studentData?.psc_score}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <span
+                          className="text-white"
+                          style={{
+                            fontSize: "14px",
+                            // marginTop: '-8px',
+                          }}
+                        >
+                          {studentData?.psc_result}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          display: "inline-flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginBottom: "-6px",
+                        }}
+                      >
+                        <span
+                          className="text-white"
+                          style={{
+                            fontSize: "14px",
+                            marginTop: "-6px",
+                            fontWeight: "300",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Share with Administration
+                        </span>
+                        <p
+                          className="text-white px-2"
+                          style={{ marginTop: "-6px" }}
+                        >
+                          <BsArrowRight />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div>
+              {studentData?.psc_result === null ? (
+                <div className="d-flex justify-content-center">
+                  <div className="d-flex flex-column align-items-center">
+                    <Button
+                      variant="success"
+                      title="Start Test"
+                      className="px-5 py-3"
+                      type="submit"
+                    />
+                    <Dropdown>
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Select Test
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#">PSC</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div>
+                    <h6 className="text-white">PSC Test</h6>
+                  </div>
+                  <div>
+                    <div>
+                      <span className="text-white" style={{ fontSize: "14px" }}>
+                        Score: {studentData?.psc_score}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <span
+                          className="text-white"
+                          style={{
+                            fontSize: "14px",
+                            // marginTop: '-8px',
+                          }}
+                        >
+                          {studentData?.psc_result}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          display: "inline-flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginBottom: "-6px",
+                        }}
+                      >
+                        <span
+                          className="text-white"
+                          style={{
+                            fontSize: "14px",
+                            marginTop: "-6px",
+                            fontWeight: "300",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Share with Administration
+                        </span>
+                        <p
+                          className="text-white px-2"
+                          style={{ marginTop: "-6px" }}
+                        >
+                          <BsArrowRight />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import axios from "../../../configs/axios";
 import { baseUrl } from "../../../constants/constants";
 import { FormValues } from "./TeachersRegistration";
+import { TeacherDetailsType } from "../../StudentDisplayComponent";
 
 export interface AnswersType {
   question: string;
@@ -49,6 +50,19 @@ export const getInstitutes = async () => {
   }
 };
 
+export const getTeacherData = async () => {
+  const token = Cookies.get("token");
+  try {
+    return await axios.get<TeacherDetailsType>(`${baseUrl}/teacher/data/get`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    return error?.response;
+  }
+};
+
 export const getStudentsOfATeacher = async () => {
   const token = Cookies.get("token");
   return await axios.get(`${baseUrl}/teacher/students/get`, {
@@ -90,7 +104,7 @@ export const uploadStudentsCSVFile = async (file: File) => {
 
   try {
     // Send the POST request with the FormData
-    return await axios.post(apiUrl, formData, { headers });    
+    return await axios.post(apiUrl, formData, { headers });
   } catch (error) {
     // Handle errors, e.g., show an error message to the user
     console.error("Error uploading CSV file:", error);
