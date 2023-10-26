@@ -1,12 +1,15 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { Col, Container, Dropdown, Offcanvas, Row } from "react-bootstrap";
+import { Col, Container, Offcanvas, Row } from "react-bootstrap";
 import { BsArrowRight } from "react-icons/bs";
 import { FaCalendar, FaCreditCard, FaPhone, FaUser } from "react-icons/fa";
 import { FaCakeCandles, FaComputer } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import img from "../assets/images/team-1.png";
 import Button from "./Common/Buttons/Button";
+import { registerStudentForTest } from "./Forms/Teachers/TeachersAPIs";
 import { TeacherDetailsType } from "./StudentDisplayComponent";
+import { toast } from "react-toastify";
 
 interface StudentDetailPropsType {
   show: boolean;
@@ -37,13 +40,24 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
   studentData,
   teacherData,
 }) => {
-  console.log(teacherData, "dedit teacher data");
-
-  const [selectedTest, setSelectedTest] = useState(null);
+  const [selectedTest, setSelectedTest] = useState<null | number>(null);
 
   const handleTestSelect = (test) => {
     setSelectedTest(test);
   };
+  function handleTestAssignment(testId: number): void {
+    registerStudentForTest(testId, studentData?.id).then((res) => {
+      console?.log(res, "dedit regiter res");
+      if (res?.data?.status === 200) {
+        toast.success(res?.data?.message);
+        onHide();
+      } else {
+        toast.error(res?.data?.message);
+        onHide();
+      }
+    });
+  }
+
   return (
     <Offcanvas
       show={show}
@@ -113,85 +127,6 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
           </div>
         </div>
 
-        {/* PSC ROWS */}
-        {/* <div
-          style={{
-            background:
-              "linear-gradient(167.39deg, #5E9CD3 0%, #3773A9 100.87%)",
-          }}
-          className="p-3 rounded"
-        >
-          {studentData?.psc_result === null ? (
-            <div className="d-flex justify-content-center">
-              <Button
-                variant="success"
-                title="Start PSC Test"
-                className="px-5 py-3"
-                type="submit"
-                onClick={() => navigate("/psc-test-node")}
-              />
-            </div>
-          ) : (
-            <div>
-              <div>
-                <h6 className="text-white">PSC Test</h6>
-              </div>
-              <div>
-                <div>
-                  <span className="text-white" style={{ fontSize: "14px" }}>
-                    Score: {studentData?.psc_score}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <span
-                      className="text-white"
-                      style={{
-                        fontSize: "14px",
-                        // marginTop: "-8px",
-                      }}
-                    >
-                      {studentData?.psc_result}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginBottom: "-6px",
-                    }}
-                  >
-                    <span
-                      className="text-white "
-                      style={{
-                        fontSize: "14px",
-                        marginTop: "-6px",
-                        fontWeight: "300",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Share with Administration
-                    </span>
-                    <p
-                      className="text-white px-2"
-                      style={{ marginTop: "-6px" }}
-                    >
-                      <BsArrowRight />
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div> */}
-
         <div
           style={{
             background:
@@ -204,58 +139,42 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
               {studentData?.psc_result === null ? (
                 <div className="d-flex justify-content-center">
                   <div className="d-flex align-items-center">
-                    <Dropdown className="mx-2">
-                      <Dropdown.Toggle>Select Test</Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item onSelect={() => handleTestSelect("PSC")}>
-                          PSC
-                        </Dropdown.Item>
-                        <Dropdown.Item onSelect={() => handleTestSelect("ASQ")}>
-                          ASQ
-                        </Dropdown.Item>
-                        <Dropdown.Item onSelect={() => handleTestSelect("SDQ")}>
-                          SDQ
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onSelect={() => handleTestSelect("ACE-Q")}
+                    <Row className="d-flex d-sm-flex-column justify-content-center align-items-center">
+                      <Col className="w-100">
+                        <select
+                          className="mx-2"
+                          value={selectedTest}
+                          onChange={(e) => handleTestSelect(e.target.value)}
+                          style={{
+                            padding: "8px",
+                            borderRadius: "4px",
+                            border: "1px solid #ccc",
+                            backgroundColor: "white",
+                            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                            outline: "0",
+                          }}
                         >
-                          ACE-Q
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onSelect={() => handleTestSelect("SNAP-IV")}
-                        >
-                          SNAP-IV
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onSelect={() => handleTestSelect("CES-DC")}
-                        >
-                          CES-DC
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onSelect={() => handleTestSelect("MOVES")}
-                        >
-                          MOVES
-                        </Dropdown.Item>
-                        <Dropdown.Item onSelect={() => handleTestSelect("SMQ")}>
-                          SMQ
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onSelect={() => handleTestSelect("CRAFT")}
-                        >
-                          CRAFT
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          onSelect={() => handleTestSelect("WFIRS-P")}
-                        >
-                          WFIRS-P
-                        </Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <Button
-                      title="Assign"
-                      className="mx-2 px-5 py-3"
-                      type="submit"
-                    />
+                          <option value="">Select Test</option>
+                          <option value="1">PSC</option>
+                          <option value="2">ASQ</option>
+                          <option value="3">SDQ</option>
+                          <option value="4">ACE-Q</option>
+                          <option value="5">SNAP-IV</option>
+                          <option value="6">CES-DC</option>
+                          <option value="7">MOVES</option>
+                          <option value="8">SMQ</option>
+                          <option value="9">CRAFT</option>
+                          <option value="10">WFIRS-P</option>
+                        </select>
+                      </Col>
+                      <Col className="d-flex justify-content-center align-items-center w-100">
+                        <Button
+                          title="Assign"
+                          className="mx-2 px-5 py-3"
+                          onClick={() => handleTestAssignment(selectedTest)}
+                        />
+                      </Col>
+                    </Row>
                   </div>
                 </div>
               ) : (
@@ -325,18 +244,13 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
                   <div className="d-flex flex-column align-items-center">
                     <Button
                       variant="success"
-                      title="Start Test"
+                      title="Register PSC Test"
                       className="px-5 py-3"
                       type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(1)
+                      }
                     />
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        Select Test
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#">PSC</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
                   </div>
                 </div>
               ) : (

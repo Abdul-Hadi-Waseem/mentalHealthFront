@@ -31,8 +31,12 @@ function TeacherDashboard() {
       },
     }
   );
-  const { data: teacherData } = useQuery("getTeacherDetail", () =>
-    getTeacherData()
+  const { data: teacherData } = useQuery(
+    "getTeacherDetail",
+    () => getTeacherData(),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => {

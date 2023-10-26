@@ -110,3 +110,23 @@ export const uploadStudentsCSVFile = async (file: File) => {
     console.error("Error uploading CSV file:", error);
   }
 };
+
+export const registerStudentForTest = async (
+  testId: number,
+  studentId: number
+) => {
+  try {
+    const token = Cookies.get("token");
+    return await axios.post(
+      `${baseUrl}/teacher/student/test/assign`,
+      { studentId, testId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    return error?.response;
+  }
+};

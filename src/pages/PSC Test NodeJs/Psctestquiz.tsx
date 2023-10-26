@@ -15,7 +15,7 @@ interface QuizAnswer {
 }
 
 const PSC_Test_Quiz_NodeJs: React.FC = () => {
-  const studentData = JSON.parse(localStorage.getItem("student"));
+  const studentData = JSON.parse(localStorage.getItem("student_information"));
   const [loading, setLoading] = useState(false);
   const [formId, setFormId] = useState(0);
   const history = useNavigate();
@@ -126,12 +126,14 @@ const PSC_Test_Quiz_NodeJs: React.FC = () => {
         toast.success(res?.data?.message, {
           toastId: "psc",
         });
-        navigate("/teacher-dashboard");
+        navigate("/student-dashboard");
+        setLoading(false);
       }
       if (res?.data?.status !== 200) {
         toast.error(res?.data?.message, {
           hideProgressBar: true,
         });
+        setLoading(false);
       }
     });
   };

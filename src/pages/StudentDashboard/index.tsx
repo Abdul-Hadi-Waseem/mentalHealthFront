@@ -1,9 +1,12 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { useQuery } from "react-query";
 import { ToastContainer } from "react-toastify";
-import Button from "../../components/Common/Buttons/Button";
+import { getAllTests } from "../../components/Forms/Students/StudentAPIs";
+import StudentTestsDisplay from "../../components/StudentTestsDisplay";
 import InstituteHeader from "./Header/Header";
 
 function StudentDashboard() {
+  const { data } = useQuery("getAllStudentTests", () => getAllTests());
   return (
     <>
       <InstituteHeader />
@@ -17,7 +20,7 @@ function StudentDashboard() {
           >
             <h4 className="text-capitalize">Dashboard</h4>
           </Col>
-          <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
+          {/* <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
             <div>
               <Button
                 variant="primary"
@@ -26,20 +29,13 @@ function StudentDashboard() {
                 // onClick={() => handleShowOffCanvas()}
               />
             </div>
-          </Col>
+          </Col> */}
         </Row>
-        {/* <TeacherDisplayComponent teachers={data?.data?.data} /> */}
-        {/* <Row className="d-flex justify-content-between">
-          {isLoading || isRefetching ? (
-            <p>Loading...</p>
-          ) : (
-            <TeacherInvitation
-              onHide={handleCloseOffCanvas}
-              show={showOffCanvas}
-              placement="end"
-            />
-          )}
-        </Row> */}
+        <Row>
+          {data?.data?.data?.map((each) => (
+            <StudentTestsDisplay key={each?.test_id} testData={each as any} />
+          ))}
+        </Row>
       </Container>
       <ToastContainer />
     </>
