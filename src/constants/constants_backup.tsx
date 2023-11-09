@@ -61,6 +61,7 @@ import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 import TeacherDetail from "../components/TeacherDetail.tsx";
 import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
 import HeroSectionNodeJs from "../pages/PSC Test NodeJs/PSC-Test-Main.tsx";
+import HeroSectionNodeJsASQ from "../pages/All-Tests-Common/Test-Main.tsx";
 import PSC_Test_Quiz_NodeJs from "../pages/PSC Test NodeJs/Psctestquiz.tsx";
 import ChangePassword from "../pages/Settings/ProfilesPages/ChangePassword.tsx";
 import PrivacyPolicy from "../pages/Settings/ProfilesPages/PrivacyPolicy.tsx";

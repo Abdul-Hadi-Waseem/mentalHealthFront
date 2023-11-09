@@ -6,13 +6,16 @@ import BackButton from "../../components/Common/Buttons/BackButton";
 import Copyright from "../../components/Footer/Copyright";
 import { useNavigate } from "react-router-dom";
 import { useProgramdataMutation } from "../../gql/generated";
+import { submitTests } from "../../components/Forms/Teachers/TeachersAPIs";
+import { toast } from "react-toastify";
 
 interface QuizAnswer {
   question: string;
   answer: string;
 }
-
-const PSC_Test_Quiz: React.FC = () => {
+const PSC_Test_Quiz_NodeJs: React.FC<any> = ({ testData }) => {
+  const studentData = JSON.parse(localStorage.getItem("student_information"));
+  const [loading, setLoading] = useState(false);
   const [formId, setFormId] = useState(0);
   const history = useNavigate();
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
@@ -20,23 +23,22 @@ const PSC_Test_Quiz: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [result, executeMutation] = useProgramdataMutation()
+  const [result, executeMutation] = useProgramdataMutation();
   const [score, setScore] = useState("");
+  const navigate = useNavigate();
 
   const loadQuestions = useCallback(async (age: string | null) => {
     let questionSet;
-    if (age && Number(age) < 18) {
-      setFormId(22);
-      questionSet = await import(
-        "../../assets/jsons/psc-child-assessment.json"
-      );
-    } else {
-      setFormId(23);
-      questionSet = await import(
-        "../../assets/jsons/psc-youth-assessments.json"        
-      );
-    }
-
+    setFormId(24);
+    // if (testData === 2) navigate("/asq-test-node");
+    // if (testData === 3) navigate("/sdq-test-node");
+    // if (testData === 4) navigate("/ace-test-node");
+    if (testData === 5) questionSet = await import("../../assets/jsons/snap-test.json");
+    if (testData === 6) questionSet = await import("../../assets/jsons/ces-test.json");
+    if (testData === 7) questionSet = await import("../../assets/jsons/moves-test.json");
+    if (testData === 8) questionSet = await import("../../assets/jsons/smq-test.json");
+    // if (testData === 9) navigate("/craft-test-node");
+    if (testData === 10) questionSet = await import("../../assets/jsons/wfirs-test.json");
     setQuestions(questionSet);
   }, []);
 
@@ -68,15 +70,26 @@ const PSC_Test_Quiz: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newAnswer: QuizAnswer = {
-      question: questions.questions[currentQuestion].questions,
-      answer: selectedAnswer!,
-    };
-    setAnswers((prev) => [...prev, newAnswer]);
-    if (currentQuestion < questions.questions.length - 1) {
+    if (currentQuestion < questions?.questions?.length - 1) {
+      const newAnswer: QuizAnswer = {
+        question: questions?.questions[currentQuestion]?.questions,
+        answer: selectedAnswer!,
+      };
+      setAnswers((prev) => [...prev, newAnswer]);
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null); // clear the selected answer for the next question
-    } else if (score) {
+    } else if (currentQuestion === questions?.questions?.length - 1) {
+      if (answers.length >= questions?.questions?.length) {
+        dataSubmit();
+      } else {
+        const newAnswer: QuizAnswer = {
+          question: questions?.questions[currentQuestion]?.questions,
+          answer: selectedAnswer!,
+        };
+        setAnswers((prev) => [...prev, newAnswer]);
+      }
+    }
+    if (score) {
       setShowModal(true); // show modal when form is submittedx
     }
   };
@@ -99,17 +112,27 @@ const PSC_Test_Quiz: React.FC = () => {
         (ans) => ans.question === questions.questions[currentQuestion].question
       );
       setSelectedAnswer(previousAnswer?.answer || null);
-    }
+      const updatedAnswers = [...answers.slice(0, -1)];
+      setAnswers(updatedAnswers);
+    } else if (currentQuestion === 0) navigate(-1);
   };
 
   const dataSubmit = () => {
-    executeMutation({
-      Data: {
-        formId: formId,
-        metadata: answers,
-      },
-    }).then((res) => {
-      setScore(res.data?.programform.data);
+    setLoading(true);
+    submitTests(answers, studentData?.id,testData).then((res) => {
+      if (res?.data?.status === 200) {
+        toast.success(res?.data?.message, {
+          toastId: "psc",
+        });
+        navigate("/student-dashboard");
+        setLoading(false);
+      }
+      if (res?.data?.status !== 200) {
+        toast.error(res?.data?.message, {
+          hideProgressBar: true,
+        });
+        setLoading(false);
+      }
     });
   };
 
@@ -151,20 +174,19 @@ const PSC_Test_Quiz: React.FC = () => {
               </div>
             )
           )}
-          <Button
-            onClick={() =>
-              currentQuestion < questions.questions.length - 1
-                ? null
-                : dataSubmit()
-            }
-            title={
-              currentQuestion < questions.questions.length - 1
-                ? "Next"
-                : "Submit"
-            }
-            className="w-100"
-            disabled={selectedAnswer ? false : true}
-          />
+          {loading ? (
+            <p>Submitting...</p>
+          ) : (
+            <Button
+              title={
+                currentQuestion < questions.questions.length - 1
+                  ? "Next"
+                  : "Submit"
+              }
+              className="w-100"
+              disabled={selectedAnswer ? false : true || loading}
+            />
+          )}
         </Form>
       </div>
       <Copyright />
@@ -174,7 +196,7 @@ const PSC_Test_Quiz: React.FC = () => {
         className="d-flex align-items-center justify-content-center"
       >
         <Modal.Body className="d-flex flex-column justify-content-center py-3 px-4">
-          <span className="modal-title">PSC Test</span>
+          <span className="modal-title">MOVES Test</span>
           <span className="modal-text py-3">
             Based on your answers,
             <br /> {score}
@@ -194,4 +216,4 @@ const PSC_Test_Quiz: React.FC = () => {
   );
 };
 
-export default PSC_Test_Quiz;
+export default PSC_Test_Quiz_NodeJs;

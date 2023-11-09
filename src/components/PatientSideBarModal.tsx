@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 // import PaymentForm from "./PaymentForm"
 import UserProfile from "./UserProfile";
-import Checkout from "./Checkout";
+import Button from "./Common/Buttons/Button";
 import DoctorProfile from "./DoctorProfile";
+import { Link, useNavigate } from "react-router-dom";
 
 interface DoctorSideBarProps {
   show: boolean;
@@ -14,7 +15,7 @@ interface DoctorSideBarProps {
   doctorDetails: any;
   appointmentDetails: any;
   downloadForms: any;
-  heading: string
+  heading: string;
 }
 
 const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
@@ -25,48 +26,76 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
   doctorDetails,
   appointmentDetails,
   downloadForms,
-  heading
+  heading,
 }) => {
   const [secondForm, setSecondForm] = useState(false);
-
+  const [inMeeting, setInMeeting] = useState(false);
+  const navigate = useNavigate();
   function handleSecondForm() {
     setSecondForm(true);
   }
-  // let obj = {
-  //   name: doctorDetails.name,
-  //   treat: doctorDetails.treat,
-  //   details: doctorDetails.details
-  // }
-  // console.log("obj", obj)
+  const agoraAppId = "a077f8ac258242d6b0fc381501d5468e";
+  const agoraAppCertificate = "0fa509c3b274453a9c0029681a0187cb";
 
+  // function generateToken(channelName, uid, role) {
+  //   // Set the token expiration time in seconds
+  //   const expirationTimeInSeconds = 3600;
+
+  //   // Create an Agora access token
+  //   const token = agora.RtcTokenBuilder.buildTokenWithUid(
+  //     agoraAppId,
+  //     agoraAppCertificate,
+  //     channelName,
+  //     uid,
+  //     expirationTimeInSeconds
+  //   );
+
+  //   return token;
+  // }
+
+  const handleAgoraMeeting = () => {
+    if (
+      doctorDetails &&
+      doctorDetails.details &&
+      doctorDetails.details.schedule &&
+      doctorDetails.details.schedule[0]
+    ) {
+      // const channelName = doctorDetails.details.schedule[0]?.channel_name;
+      const channelName = "test";
+      const meetingId = doctorDetails.details.schedule[0]?.meeting_id;
+      const role = "patient";
+      localStorage.setItem("creds",channelName+'@'+role+'@'+meetingId);
+      navigate("/patient-video-call");
+    }
+  };
   return (
     <>
       <Offcanvas show={show} onHide={onHide} placement={placement}>
         <Offcanvas.Header closeButton></Offcanvas.Header>
         <Offcanvas.Body>
-          {/* {!secondForm ? (
-            <UserProfile handleSecondForm={handleSecondForm} />
-          ) : (
-            <Checkout />
-          )} */}
-          {/* <div>
-            fayyaz
-          </div> */}
-
           <DoctorProfile
             img={img}
-            doctorDetails={JSON.parse(localStorage.getItem("current_doctor_details"))}
+            doctorDetails={JSON.parse(
+              localStorage.getItem("current_doctor_details")
+            )}
             appointmentDetails={appointmentDetails}
             downloadForms={downloadForms}
             heading={heading}
-
           />
-
-          {/* <UserDetailBar 
-           doctorDetails={ doctorDetails}
-           appointmentDetails={  appointmentDetails}
-           downloadForms={  downloadForms}
-          /> */}
+          <div className="flex-center">
+            {!inMeeting ? (
+              <Button
+                variant="success"
+                title="JOIN APPOINTMENT"
+                className="px-5 py-3"
+                type="submit"
+                onClick={handleAgoraMeeting}
+              />
+            ) : (
+              <div>
+              </div>
+            )}
+          </div>
         </Offcanvas.Body>
       </Offcanvas>
     </>

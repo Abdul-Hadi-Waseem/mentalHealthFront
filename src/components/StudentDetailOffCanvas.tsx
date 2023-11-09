@@ -251,6 +251,96 @@ const StudentDetailOffCanvas: React.FC<StudentDetailPropsType> = ({
                         handleTestAssignment(1)
                       }
                     />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register ASQ Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(2)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register SDQ Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(3)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register ACE-Q Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(4)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register SNAP-IV Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(5)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register CES-DC Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(6)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register MOVES Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(7)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register SMQ Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(8)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register CRAFT Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(9)
+                      }
+                    />
+                    <br/>
+                     <Button
+                      variant="success"
+                      title="Register WFIRS-P Test"
+                      className="px-5 py-3"
+                      type="submit"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleTestAssignment(10)
+                      }
+                    />
                   </div>
                 </div>
               ) : (

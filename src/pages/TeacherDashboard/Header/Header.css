@@ -1,7 +1,10 @@
 .navbar{
   z-index:  3 !important;
 }
-
+.green-button{
+  background: linear-gradient(134deg, #77AC28 0%, #77AC28 100%) !important;
+  font-size: 12px !important;
+}
 
 .navbar-nav a {
   color: #243d4c;

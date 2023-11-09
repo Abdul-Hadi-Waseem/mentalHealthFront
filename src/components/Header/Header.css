@@ -75,7 +75,15 @@
   font-size: 16px;
   background: transparent;
 }
-
+.danger-btn {
+  padding: 20px 35px;
+  border-radius: 10px;
+  color: white;
+  font-family: "roboto";
+  border: 1px solid #a93737;
+  font-size: 16px;
+  background: #a93737;
+}
 .disabled-btn {
   border: 1px solid #999999;
   background: #cccccc;

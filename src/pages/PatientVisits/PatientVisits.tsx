@@ -32,6 +32,7 @@ function PatientVisits() {
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = (item: any) => {
     setShowOffCanvas(true);
+    console.log("Ammaaar", item);
     setCurrentDoctorDeatils(item);
     localStorage.setItem("current_doctor_details", JSON.stringify(item));
   };
@@ -40,14 +41,19 @@ function PatientVisits() {
   let conducted = [];
   const handleBookedAndConducted = (profiles: any) => {
     let data = [...profiles];
-    data.forEach((item, index) => {
-      let { schedule, ...res } = item;
+    data.forEach((data_item, index) => {
+      let { schedule, ...res } = data_item;
       let conductedObj = { ...res, schedule: [] };
       let bookedObj = { ...res, schedule: [] };
-      schedule.forEach((item, index) => {
-        return item.appointment_status === "conducted"
-          ? conductedObj.schedule.push(item)
-          : bookedObj.schedule.push(item);
+      schedule.forEach((item, index) => {     
+        if(item.appointment_status === "conducted")
+        {          
+          return conductedObj.schedule.push(item)
+        }
+        else{
+          data_item.meeting_id? item.meeting_id = data_item.meeting_id: null;
+          return bookedObj.schedule.push(item)
+        }
       });
       if (conductedObj.schedule.length > 0) {
         conducted.push(conductedObj);
@@ -59,9 +65,9 @@ function PatientVisits() {
     setBookedAppointments(booked);
     setConductedAppointments(conducted);
 
-    console.log("conducted", conducted);
-    console.log("conducted booked", booked);
-    console.log("data", data);
+    // console.log("conducted", conducted);
+    // console.log("conducted booked", booked);
+    // console.log("data", data);
   };
 
   useEffect(() => {
@@ -84,7 +90,6 @@ function PatientVisits() {
             JSON.stringify(res?.data?.data[0])
           );
           setDoctorProfiles(res?.data?.data);
-          // setDoctorProfiles([{name: "fayyaz", treat: "anxiety"}]);
           setLoader(!loader);
         }
       } catch (error) {
@@ -96,51 +101,6 @@ function PatientVisits() {
     handleBookedAndConducted(doctorProfiles);
   }, [doctorProfiles]);
 
-  //   <Container>
-  //   <Row className="d-flex justify-content-between align-items-center pt-3">
-  //     <Col
-  //       className="d-flex flex-column justify-content-start"
-  //       xs={12}
-  //       md={6}
-  //     >
-  //       <div className="d-flex flex-row justify-content-start align-items-center">
-  //         <BackButton onClick={goBack} />
-  //         <span className="px-2" style={{ fontSize: "10px" }}>
-  //           |
-  //         </span>
-  //         <span
-  //           style={{
-  //             fontSize: "24px",
-  //             fontWeight: 500,
-  //             color: "#243D4C",
-  //           }}
-  //         >
-  //           {currentLocation
-  //             .split("-")
-  //             .map(
-  //               (item, index) =>
-  //                 item.charAt(0).toUpperCase() +
-  //                 item.slice(1).toString() +
-  //                 " "
-  //             )}
-  //         </span>
-  //       </div>
-  //     </Col>
-  //     <Col
-  //       className="d-flex justify-content-end align-items-center"
-  //       xs={12}
-  //       md={6}
-  //     >
-  //       <button className="d-flex flex-column p-2 pm-green-btn border-0">
-  //         <small className="text-xs text-light">
-  //           Upcoming Appointment
-  //         </small>
-  //         <small className="text-xs text-light">8:00 AM - 4:00 PM</small>
-  //       </button>
-  //     </Col>
-  //   </Row>
-  // </Container>
-
   return (
     <Header>
       <Container>
@@ -151,10 +111,6 @@ function PatientVisits() {
             md={6}
           >
             <div className="d-flex flex-row justify-content-start align-items-center">
-              {/* <BackButton onClick={goBack} />
-                <span className="px-2" style={{ fontSize: "10px" }}>
-                  |
-                </span> */}
               <span
                 style={{
                   fontSize: "24px",
@@ -163,14 +119,6 @@ function PatientVisits() {
                 }}
               >
                 My Visits
-                {/* {currentLocation
-                    .split("-")
-                    .map(
-                      (item, index) =>
-                        item.charAt(0).toUpperCase() +
-                        item.slice(1).toString() +
-                        " "
-                    )} */}
               </span>
             </div>
           </Col>
@@ -205,7 +153,6 @@ function PatientVisits() {
               <span>No Data Found</span>
             </div>
           ) : (
-            // className="select_doctorContainer"
             <Container
               className="p-4 my-3"
               style={{ background: "#fff", borderRadius: "20px" }}
@@ -229,8 +176,6 @@ function PatientVisits() {
                           btnTitle="View Details"
                           key={"abcd" + index.toString()}
                           img={doctor_img}
-                          // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
-                          // userDetails={{ ...item, treat: "Psychiatrist" }}
                           userDetails={{ ...item, treat: item?.schedule[0]?.specialities }}
                           handleUserProfile={() => {
                             handleShowOffCanvas(item);
@@ -274,24 +219,17 @@ function PatientVisits() {
             show={showOffCanvas}
             onHide={handleCloseOffCanvas}
             img={doctor_img}
-            // userDetails={{
-            //   name: "John Smith",
-            //   treat: "Mild Anxiety",
-            // }}
             heading={currentDoctorDetails?.schedule[0]?.appointment_status}
             doctorDetails={{
               name: currentDoctorDetails.name,
               specialities: "Doctor Specialities",
               details: currentDoctorDetails,
             }}
-            // userDetails={currentUserDetails}
             appointmentDetails={{
               Date: "Jan 1 2022",
               Time: "02:00 pm",
               Duration: "01 hour",
-              // Date: currentAppointmentDate,
-              // Time: currentAppointmentTime,
-              // Duration: currentAppointmentDuration,
+              Meeting_id: "123"
             }}
             downloadForms={"Downloadable Forms"}
           />

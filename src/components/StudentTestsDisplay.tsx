@@ -17,6 +17,15 @@ const StudentTestsDisplay = ({ testData }: TestDataType | any) => {
 
   function handleAttempt(): void {
     if (testData?.test_id === 1) navigate("/psc-test-node");
+    if (testData?.test_id === 2) navigate("/asq-test-node");
+    if (testData?.test_id === 3) navigate("/sdq-test-node");
+    if (testData?.test_id === 4) navigate("/ace-test-node");
+    if (testData?.test_id === 5) navigate("/snap-test-node");
+    if (testData?.test_id === 6) navigate("/ces-test-node");
+    if (testData?.test_id === 7) navigate("/moves-test-node");
+    if (testData?.test_id === 8) navigate("/smq-test-node");
+    if (testData?.test_id === 9) navigate("/craft-test-node");
+    if (testData?.test_id === 10) navigate("/wfirs-test-node");
   }
 
   console?.log(testData, "dedit test data");
@@ -27,7 +36,7 @@ const StudentTestsDisplay = ({ testData }: TestDataType | any) => {
         <Col
           style={{ background: "#F6F7F9" }}
           className="px-3 py-2 rounded d-flex"
-        >
+        > 
           <div
             style={{
               fontSize: "24px",
@@ -47,7 +56,6 @@ const StudentTestsDisplay = ({ testData }: TestDataType | any) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              //   alignItems: "center",
               padding: "0 15px",
             }}
           >

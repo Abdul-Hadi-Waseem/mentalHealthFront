@@ -28,8 +28,7 @@ const DoctorProfile = ({
     setIsInsured(!isInsured);
   };
   let { details } = doctorDetails;
-  // let {date, time , slot_duration} = details;
-  // console.log("doctorDetails user", doctorDetails)
+  
 
   const handlePatientDetails = () => {
     navigate("/patient-details");

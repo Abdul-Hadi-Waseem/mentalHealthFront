@@ -20,7 +20,7 @@ const Button = ({
     <button
       onClick={onClick}
       className={`${
-        variant === "secondary" ? "secondary-btn" : "primary-btn"
+        variant === "secondary" ? "secondary-btn" : variant === "danger" ? "danger-btn" : "primary-btn"
       } ${className} ${disabled ? "disabled-btn" : ""}`}
       disabled={disabled}
       type={type}

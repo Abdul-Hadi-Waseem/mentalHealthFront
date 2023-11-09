@@ -165,3 +165,19 @@ body {
     font-size: 16px !important;
   }
 }
+
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  margin-top: 20px;
+}
+.video-player{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.video-player > div{
+  width: 50% !important;
+  height: 50% !important;
+}

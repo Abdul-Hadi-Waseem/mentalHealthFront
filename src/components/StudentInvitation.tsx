@@ -88,7 +88,6 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
   ) => {
     // Handle form submission here, e.g., send data to the server
     console.log("Form submitted with values dedit:", values);
-    // setInputData(values);
     inputValues.current = values;
     refetch().then((res) => {
       if (res?.data?.data?.status === 200) {
@@ -99,9 +98,6 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
         resetForm();
         onHide();
         refetchStudents();
-        // setTimeout(() => {
-        //   navigate("/psc-test-node");
-        // }, 3000);
       }
       if (res?.data?.data?.status !== 200) {
         toast.error(res?.data?.data?.message, {

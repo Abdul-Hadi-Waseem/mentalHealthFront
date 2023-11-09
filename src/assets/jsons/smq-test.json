@@ -1,0 +1,100 @@
+{
+  "questions": [
+    {
+      "questions": "When appropriate, my child talks to most peers at school",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child talks to selected peers (his/her friends) at school.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When my child is asked a question by his/her teacher, s/he answers.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child asks his or her teacher questions",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child speaks to most teachers or staff at school.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child speaks in groups or in front of the class.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child talks to family members living at home when other people are present.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child talks to family members while in unfamiliar places.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child talks to family members that don't live with him/her (e.g. grandparent, cousin).",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child talks on the phone to his/her parents and siblings.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "When appropriate, my child speaks with family friends who are well-known to him/her.",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "My child speaks to at least one babysitter",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    }
+  ]
+}

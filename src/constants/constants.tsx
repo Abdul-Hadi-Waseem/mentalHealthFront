@@ -61,7 +61,9 @@ import ShowAllDoctors from "../pages/ShowAllDoctors/ShowAllDoctors.tsx";
 import TeacherDetail from "../components/TeacherDetail.tsx";
 import InstituteDashBoard from "../pages/InstituteDashboard/index.tsx";
 import HeroSectionNodeJs from "../pages/PSC Test NodeJs/PSC-Test-Main.tsx";
+import HeroSectionNodeJsMAIN from "../pages/All-Tests-Common/Test-Main.tsx";
 import PSC_Test_Quiz_NodeJs from "../pages/PSC Test NodeJs/Psctestquiz.tsx";
+import Tests_Quiz_NodeJs from "../pages/All-Tests-Common/testquiz.tsx";
 import ChangePassword from "../pages/Settings/ProfilesPages/ChangePassword.tsx";
 import PrivacyPolicy from "../pages/Settings/ProfilesPages/PrivacyPolicy.tsx";
 import Profile from "../pages/Settings/ProfilesPages/Profile.tsx";
@@ -69,6 +71,8 @@ import TermsAndConditions from "../pages/Settings/ProfilesPages/TermsAndConditio
 import StudentDashboard from "../pages/StudentDashboard/index.tsx";
 import TeacherDashboard from "../pages/TeacherDashboard/index.tsx";
 
+//video call
+import PatientVideoCall from "../pages/Video-Calls/patient-video-call.tsx";
 interface RouteItem {
   id: number;
   Component: ReactElement;
@@ -449,6 +453,105 @@ export const appRoutes: RouteItem[] = [
     path: "/student-dashboard",
     name: "Terms and Conditions",
     visible: false,
+  },
+  {
+    id: 36,
+    Component: <HeroSectionNodeJsMAIN testData={7} />,
+    path: "/moves-test-node",
+    name: "MOVES Test Node",
+    visible: false,
+  },
+  // {
+  //   id: 38,
+  //   Component: <HeroSectionNodeJsMAIN testData={2} />,
+  //   path: "/asq-test-node",
+  //   name: "ASQ Test Node",
+  // },
+  {
+    id: 39,
+    Component: <HeroSectionNodeJsMAIN testData={3} />,
+    path: "/sdq-test-node",
+    name: "SDQ Test Node",
+  },
+  {
+    id: 40,
+    Component: <HeroSectionNodeJsMAIN testData={4} />,
+    path: "/ace-test-node",
+    name: "ACE Test Node",
+  },
+  {
+    id: 41,
+    Component: <HeroSectionNodeJsMAIN testData={5} />,
+    path: "/snap-test-node",
+    name: "SNAP Test Node",
+  },
+  {
+    id: 42,
+    Component: <HeroSectionNodeJsMAIN testData={6} />,
+    path: "/ces-test-node",
+    name: "CES Test Node",
+  },
+  {
+    id: 43,
+    Component: <HeroSectionNodeJsMAIN testData={8} />,
+    path: "/smq-test-node",
+    name: "SMQ Test Node",
+  },
+  {
+    id: 44,
+    Component: <HeroSectionNodeJsMAIN testData={9} />,
+    path: "/craft-test-node",
+    name: "CRAFT Test Node",
+  },
+  {
+    id: 45,
+    Component: <HeroSectionNodeJsMAIN testData={10} />,
+    path: "/wfirs-test-node",
+    name: "WFIRS Test Node",
+  },
+  {
+    id: 37,
+    Component: <Tests_Quiz_NodeJs testData={7} />,
+    path: "/moves-test-quiz-node",
+    name: "moves Test Quiz Node",
+    visible: false,
+  },
+  {
+    id: 46,
+    Component: <Tests_Quiz_NodeJs testData={10} />,
+    path: "/wfirs-test-quiz-node",
+    name: "Wfirs Test Quiz Node",
+    visible: false,
+  },
+  {
+    id: 47,
+    Component: <Tests_Quiz_NodeJs testData={6} />,
+    path: "/ces-test-quiz-node",
+    name: "CES Test Quiz Node",
+  },
+  // {
+  //   id: 48,
+  //   Component: <Tests_Quiz_NodeJs testData={9} />,
+  //   path: "/craft-test-quiz-node",
+  //   name: "CRAFT Test Quiz Node",
+  // },
+  {
+    id: 49,
+    Component: <Tests_Quiz_NodeJs testData={5} />,
+    path: "/snap-test-quiz-node",
+    name: "SNAP Test Quiz Node",
+  },
+  {
+    id: 50,
+    Component: <Tests_Quiz_NodeJs testData={8} />,
+    path: "/smq-test-quiz-node",
+    name: "SMQ Test Quiz Node",
+  },
+  {
+    id: 51,
+    Component: <PatientVideoCall />,
+    path: "/patient-video-call",
+    name: "Patient Video Call",
   },
 ];
 

@@ -4,6 +4,7 @@ import { baseUrl } from "../../../constants/constants";
 import { FormValues } from "./TeachersRegistration";
 import { TeacherDetailsType } from "../../StudentDisplayComponent";
 
+
 export interface AnswersType {
   question: string;
   answer: string;
@@ -89,6 +90,23 @@ export const submitPSCTest = async (answers: AnswersType[], id: number) => {
   }
 };
 
+export const submitTests = async (answers: AnswersType[], id: number, testid: number) => {
+  try {
+    const token = Cookies.get("token");
+    return await axios.post(
+      `${baseUrl}/teacher/student/test/main/${id}/${testid}`,
+      answers,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    return error?.response;
+  }
+};
+
 export const uploadStudentsCSVFile = async (file: File) => {
   const token = Cookies.get("token");
   const formData = new FormData();
@@ -130,3 +148,13 @@ export const registerStudentForTest = async (
     return error?.response;
   }
 };
+
+export const registerStudentsBulk = async (students:any) => {
+  const token = Cookies.get("token");
+  return await axios.post(`${baseUrl}/teacher/students/excel`,students,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

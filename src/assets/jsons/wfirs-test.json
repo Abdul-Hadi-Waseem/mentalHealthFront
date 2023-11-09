@@ -1,0 +1,406 @@
+{
+    "questions": [
+      {
+        "questions": "Having problems with brothers & sisters",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Causing problems between parents",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Takes time away from family members’ work or activities",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Causing fighting in the family",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Isolating the family from friends and social activities",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Makes it hard for the family to have fun together",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Makes parenting difficult",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Makes it hard to give fair attention to all family members",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Provokes others to hit or scream at him/her",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Costs the family more money",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Makes it difficult to keep up with schoolwork",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Needs extra help at school",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Needs tutoring",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Receives grades that are not as good as his/her ability",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Causes problems for the teacher in the classroom",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Receives “time-out” or removal from the classroom",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Having problems in the school yard",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Receives detentions (during or after school)",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Suspended or expelled from school",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Misses classes or is late for school",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Excessive use of TV, computer, or video games",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Keeping clean, brushing teeth, brushing hair, bathing, etc.",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems getting ready for school",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems getting ready for bed",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems with eating (picky eater, junk food)",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems with sleeping",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Gets hurt or injured",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Avoids exercise",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Needs more medical care",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Has trouble taking medication, getting needles or visiting the doctor/dentist",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "My child feels bad about himself/herself",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "My child does not have enough fun",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "My child is not happy with his/her life",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Being teased or bullied by other children",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Teases or bullies other children",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems getting along with other children",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems participating in after-school activities (sports, music, clubs)",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems making new friends",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Problems keeping friends",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Difficulty with parties (not invited, avoids them, misbehaves)",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Easily led by other children (peer pressure)",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Breaking or damaging things",
+        "options": [
+         
+  
+   "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Doing things that are illegal",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Being involved with the police",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Smoking cigarettes",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Taking illegal drugs",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Doing dangerous things",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Causes injury to others",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Says mean or inappropriate things",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      },
+      {
+        "questions": "Sexually inappropriate behaviour",
+        "options": [
+          "Never",
+          "Sometimes",
+          "Often"
+        ]
+      }
+    ]
+  }
