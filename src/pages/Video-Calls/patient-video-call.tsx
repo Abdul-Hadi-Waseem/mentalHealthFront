@@ -23,7 +23,6 @@ const PatientVideoCall: React.FC = () => {
       Div.remove();
     }
   }
-  // The following code is solely related to UI implementation and not Agora-specific code
   window.onload = async () => {
     const handleVSDKEvents = (eventName, ...args) => {
       switch (eventName) {
@@ -34,17 +33,13 @@ const PatientVideoCall: React.FC = () => {
             channelParameters.remoteUid = args[0].uid.toString();
             remotePlayerContainer.id = args[0].uid.toString();
             channelParameters.remoteUid = args[0].uid.toString();
-            remotePlayerContainer.textContent =
-              "Remote user " + args[0].uid.toString();
-            document.body.append(remotePlayerContainer);
-            // Play the remote video track.
+            remotePlayerContainer.classList.add("video-player");
+            document.getElementById("video-container").append(remotePlayerContainer);
+            // document.body.append(remotePlayerContainer);
             channelParameters.remoteVideoTrack.play(remotePlayerContainer);
           }
-          // Subscribe and play the remote audio track If the remote user publishes the audio track only.
           if (args[1] == "audio") {
-            // Get the RemoteAudioTrack object in the AgoraRTCRemoteUser object.
             channelParameters.remoteAudioTrack = args[0].audioTrack;
-            // Play the remote audio track. No need to pass any DOM element.
             channelParameters.remoteAudioTrack.play();
           }
       }
@@ -55,19 +50,11 @@ const PatientVideoCall: React.FC = () => {
     document.getElementById("channelName").innerHTML = config.channelName;
     document.getElementById("userId").innerHTML = config.uid;
 
-    // Dynamically create a container in the form of a DIV element to play the remote video track.
     const remotePlayerContainer = document.createElement("div");
-    // Dynamically create a container in the form of a DIV element to play the local video track.
     const localPlayerContainer = document.createElement("div");
     
-    // Specify the ID of the DIV container. You can use the uid of the local user.
-    // localPlayerContainer.id = config.uid;
-    // Set the textContent property of the local video container to the local user id.
-    // localPlayerContainer.textContent = "Local user " + config.uid;
-    // Set the local video container size.
     localPlayerContainer.style.width = "100vw";
     localPlayerContainer.style.height = "100vh";
-    // Set the remote video container size.
     remotePlayerContainer.style.width = "100vw";
     remotePlayerContainer.style.height = "100vh";
 
@@ -76,6 +63,7 @@ const PatientVideoCall: React.FC = () => {
       // Join a channel.
       setIsInMeeting(true);
       await join(localPlayerContainer, channelParameters);
+      // await subscribe(remotePlayerContainer,channelParameters,"1");
       console.log("publish success!");
     };
     // Listen to the Leave button click event.

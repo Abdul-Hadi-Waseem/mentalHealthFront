@@ -32,23 +32,38 @@ const AgoraManager = async (eventsCallback) => {
       config.token,
       config.uid
     );
-    // Create a local audio track from the audio sampled by a microphone.
-    channelParameters.localAudioTrack =
-      await AgoraRTC.createMicrophoneAudioTrack();
-    // Create a local video track from the video captured by a camera.
+    channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
     channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
     // Append the local video container to the page body.
     localPlayerContainer.classList.add("video-player");
-    document.body.append(localPlayerContainer);    
+    document.getElementById("video-container").append(localPlayerContainer);
+    // document.body.append(localPlayerContainer);    
     // Publish the local audio and video tracks in the channel.
     await getAgoraEngine().publish([
       channelParameters.localAudioTrack,
       channelParameters.localVideoTrack,
-    ]);
+    ]);    
     // Play the local video track.
     channelParameters.localVideoTrack.play(localPlayerContainer);
   };
-
+  // const subscribe = async (remotePlayerContainer, channelParameters, uid) => {
+  //   // await agoraEngine.subscribe(uid, "audio");
+  //   // if (mediaType === "video") {
+  //   //   const remotePlayerContainer = document.createElement("div");
+  //   //   user.videoTrack.play(remotePlayerContainer);
+  //   //   document.body.append(remotePlayerContainer);
+  //   // }
+  //   // user.audioTrack.play();
+  //   // // Create a remote video track to render the video stream from the remote user.    
+  //   // const remoteVideoTrack = await getAgoraEngine().subscribe(uid);
+  //   // // Play the remote video track in the specified remote player container.
+  //   // remoteVideoTrack.play(remotePlayerContainer);
+  //   // remotePlayerContainer.classList.add("video-player");
+  //   // document.body.append(remotePlayerContainer);    
+  //   // // Store the remote video track in the channel parameters for future reference.
+  //   // channelParameters.remoteVideoTracks.set(uid, remoteVideoTrack);
+  // };
+  
   const leave = async (channelParameters) => {
     // Destroy the local audio and video tracks.
     channelParameters.localAudioTrack.close();
@@ -63,6 +78,7 @@ const AgoraManager = async (eventsCallback) => {
     config,
     join,
     leave,
+    // subscribe
   };
 };
 
