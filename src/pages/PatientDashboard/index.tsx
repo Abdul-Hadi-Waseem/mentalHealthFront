@@ -25,20 +25,6 @@ function PatientDashBoard() {
     JSON.parse(localStorage.getItem("user_complete_information"))
   );
   const [doctorsProfile, setDoctorsProfile] = useState([]);
-  // const [doctorsProfile, setDoctorsProfile] = useState([
-  //   {
-  //     name: "Dr. Bessie Copper",
-  //   },
-  //   {
-  //     name: "Dr. Arlene McCoy",
-  //   },
-  //   {
-  //     name: "Dr. Darlena Roberston",
-  //   },
-  //   {
-  //     name: "Dr. Bessie Copper",
-  //   },
-  // ]);
   const [loader, setLoader] = useState(false);
   const [show, setShow] = useState(false);
   const [pscQuestions, setPscQuestion] = useState([]);
@@ -51,7 +37,6 @@ function PatientDashBoard() {
   const handleHorizantalScroll = (element, speed, distance, step) => {
     element.scrollLeft += step;
     setscrollX(scrollX + step);
-    console.log("scroll", element.scrollLeft);
 
     //For checking if the scroll has ended
     if (
@@ -85,10 +70,6 @@ function PatientDashBoard() {
   useEffect(() => {
     (async () => {
       try {
-        // const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/11`)
-        // const response = await axios.get(
-        //   `${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`
-        // );
         const res = await axios.get(
           `${config.base_url}/doctor/get_all_doctors`,
           {
@@ -100,7 +81,6 @@ function PatientDashBoard() {
         console.log("get_all_doctors_response", res.data.data);
         if (res?.data?.data) {
           setDoctorsProfile(res?.data?.data);
-          // setDoctorProfiles([{name: "fayyaz", treat: "anxiety"}]);
           setLoader(false);
         }
       } catch (error) {
