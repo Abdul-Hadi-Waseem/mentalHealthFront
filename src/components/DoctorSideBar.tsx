@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-// import PaymentForm from "./PaymentForm"
 import UserProfile from "./UserProfile";
-import Checkout from "./Checkout";
 
 interface DoctorSideBarProps {
   show: boolean;
@@ -33,26 +31,12 @@ const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
   function handleSecondForm() {
     setSecondForm(true);
   }
-  // let obj = {
-  //   name: userDetails.name,
-  //   treat: userDetails.treat,
-  //   details: userDetails.details
-  // }
-  // console.log("obj", obj)
-
+console.log(appointmentDetails)
   return (
     <>
       <Offcanvas show={show} onHide={onHide} placement={placement}>
         <Offcanvas.Header closeButton></Offcanvas.Header>
         <Offcanvas.Body>
-          {/* {!secondForm ? (
-            <UserProfile handleSecondForm={handleSecondForm} />
-          ) : (
-            <Checkout />
-          )} */}
-          {/* <div>
-            fayyaz
-          </div> */}
 
           <UserProfile
             img={img}
@@ -61,17 +45,14 @@ const DoctorSideBar: React.FC<DoctorSideBarProps> = ({
               treat: userDetails.treat,
               details: userDetails.details              
             }}
+            doctorDetails={JSON.parse(
+              localStorage.getItem("current_doctor_details")
+            )}
             pdfData = {pdfData}
             heading={heading}
             appointmentDetails={appointmentDetails}
             downloadForms={downloadForms}
           />
-
-          {/* <UserDetailBar 
-           userDetails={ userDetails}
-           appointmentDetails={  appointmentDetails}
-           downloadForms={  downloadForms}
-          /> */}
         </Offcanvas.Body>
       </Offcanvas>
     </>

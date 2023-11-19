@@ -5,6 +5,8 @@ import UserProfile from "./UserProfile";
 import Button from "./Common/Buttons/Button";
 import DoctorProfile from "./DoctorProfile";
 import { Link, useNavigate } from "react-router-dom";
+import config from "../configs/config";
+import axios from "axios";
 
 interface DoctorSideBarProps {
   show: boolean;
@@ -17,7 +19,6 @@ interface DoctorSideBarProps {
   downloadForms: any;
   heading: string;
 }
-
 const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
   placement,
   show,
@@ -29,42 +30,27 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
   heading,
 }) => {
   const [secondForm, setSecondForm] = useState(false);
-  const [inMeeting, setInMeeting] = useState(false);
   const navigate = useNavigate();
   function handleSecondForm() {
     setSecondForm(true);
   }
-  const agoraAppId = "a077f8ac258242d6b0fc381501d5468e";
-  const agoraAppCertificate = "0fa509c3b274453a9c0029681a0187cb";
 
-  // function generateToken(channelName, uid, role) {
-  //   // Set the token expiration time in seconds
-  //   const expirationTimeInSeconds = 3600;
-
-  //   // Create an Agora access token
-  //   const token = agora.RtcTokenBuilder.buildTokenWithUid(
-  //     agoraAppId,
-  //     agoraAppCertificate,
-  //     channelName,
-  //     uid,
-  //     expirationTimeInSeconds
-  //   );
-
-  //   return token;
-  // }
-
-  const handleAgoraMeeting = () => {
+  const handleAgoraMeeting = async () => {
     if (
       doctorDetails &&
       doctorDetails.details &&
       doctorDetails.details.schedule &&
       doctorDetails.details.schedule[0]
     ) {
-      // const channelName = doctorDetails.details.schedule[0]?.channel_name;
-      const channelName = "test";
-      const meetingId = doctorDetails.details.schedule[0]?.meeting_id;
+      const channelName =
+        JSON.parse(localStorage.getItem("current_doctor_details"))
+          .channel_name || "Appointment";
+      const patientId = JSON.parse(localStorage.getItem("current_doctor_details")).patient_id || "123456";
       const role = "patient";
-      localStorage.setItem("creds",channelName+'@'+role+'@'+meetingId);
+      let response = await axios.get(
+        `${config.base_url}/patient/get_meeting_token/${patientId}/${channelName}`
+      );
+      localStorage.setItem("creds", channelName + "@" + role + "@" + response.data.data + "@" + patientId);
       navigate("/patient-video-call");
     }
   };
@@ -82,20 +68,32 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
             downloadForms={downloadForms}
             heading={heading}
           />
-          <div className="flex-center">
-            {!inMeeting ? (
+          {appointmentDetails.date &&
+          new Date(appointmentDetails.date) > new Date() ? (
+            <div className="flex-center">
               <Button
                 variant="success"
                 title="JOIN APPOINTMENT"
-                className="px-5 py-3"
+                className="w-100 py-2"
                 type="submit"
                 onClick={handleAgoraMeeting}
               />
-            ) : (
-              <div>
-              </div>
-            )}
-          </div>
+            </div>
+          ) : new Date(appointmentDetails.date) > new Date() ? (
+            <div className="flex-center">
+              <Button
+                variant="success"
+                title="SCHEDULED APPOINTMENT"
+                className="w-100 py-2"
+                type="submit"
+                disabled={true}
+              />
+            </div>
+          ) : (
+            <div className="flex-center">
+              <p>Expired</p>
+            </div>
+          )}
         </Offcanvas.Body>
       </Offcanvas>
     </>

@@ -36,6 +36,7 @@ const TeachersRegistrationForm: React.FC = () => {
   const mailFromUrl = queryParams.get("email");
   const qualification = queryParams.get("qualification");
   const classes = queryParams.get("classes");
+  const institute_name = queryParams.get("institute");
   const navigate = useNavigate();
 
   console.log(queryParams, "dedit query params");
@@ -51,7 +52,7 @@ const TeachersRegistrationForm: React.FC = () => {
 
   const initialValues: FormValues = {
     name: "",
-    institute: "",
+    institute: institute_name,
     phone: "",
     email: mailFromUrl,
     dob: "",
@@ -87,8 +88,6 @@ const TeachersRegistrationForm: React.FC = () => {
         "Password must contain at least one special character"
       )
       .required("Password is required"),
-    // .min(8, "Password must be at least 8 characters")
-    // .required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), undefined], "Passwords must match")
       .required("Confirm Password is required"),
@@ -101,23 +100,28 @@ const TeachersRegistrationForm: React.FC = () => {
     () => getInstitutes(),
     {
       onError: () =>
-        toast.error("Error Fetching Institute names. Please Try Again."),
+        toast.error("Error Fetching Institute names. Please Try Again."),       
     }
   );
 
-  const registerPostRequest = (values: FormValues) => {
+  const registerPostRequest = (values: FormValues) => {    
+    const instituteID = institutesData?.data.data?.find(
+      (each: { id: number; name: string }) => each.name === institute_name
+    )?.id;      
     if (values.gender !== "Male" && values.gender !== "Female") {
       toast.error("Please Select Gender");
       return;
-    }
+    }        
     if (
       values.institute === undefined ||
       values.institute === "Institute Name"
     ) {
+      
       toast.error("Please Select Institute");
       return;
     }
     try {
+      values.institute = instituteID; 
       registerTeacher(values).then((res) => {
         if (res?.data?.status === 200) {
           toast.success("Registration Successful", {
@@ -176,7 +180,7 @@ const TeachersRegistrationForm: React.FC = () => {
                   <small className="text-danger">{formik.errors.name}</small>
                 )}
               </Form.Group>
-              <Form.Group as={Col} lg={6} sm={12}>
+              {/* <Form.Group as={Col} lg={6} sm={12}>
                 <Form.Select
                   aria-label=""
                   onChange={(e) => {
@@ -201,6 +205,27 @@ const TeachersRegistrationForm: React.FC = () => {
                     {formik.errors.institute}
                   </small>
                 )}
+              </Form.Group> */}
+              <Form.Group as={Col} lg={6} sm={12}>
+              <Form.Control
+                  type="text"
+                  placeholder="Intitute Name"
+                  id="institute"
+                  name="institute"
+                  value={formik?.values.institute}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  isInvalid={formik.touched.institute && !!formik.errors.institute}
+                  disabled
+                />               
+                {/* {formik.touched.state && formik.errors.state && (
+                  <small className="text-danger">{formik.errors.state}</small>
+                )}
+                {formik.touched.institute && formik.errors.institute && (
+                  <small className="text-danger">
+                    {formik.errors.institute}
+                  </small>
+                )} */}
               </Form.Group>
             </Row>
             <Row className="mb-3">

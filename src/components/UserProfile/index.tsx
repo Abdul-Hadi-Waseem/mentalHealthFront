@@ -1,10 +1,6 @@
 import { useState } from "react";
-import moment from "moment";
-import Form from "react-bootstrap/Form";
 import { Container, Row, Col } from "react-bootstrap";
 import "./userProfile.css";
-
-import Input from "./../Common/Input";
 import Button from "../Common/Buttons/Button";
 import {
   PDFDownloadLink,
@@ -21,17 +17,19 @@ import {
   change_duration_format,
   change_time_format,
 } from "../../global_func";
+import config from "../../configs/config";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import config from "../../configs/config";
 const UserProfile = ({
   img,
   userDetails,
   appointmentDetails,
   pdfData,
+  doctorDetails,
   downloadForms,
   heading,
 }: any) => {
+  console.log("salam",doctorDetails);
   const [isInsured, setIsInsured] = useState(false);
   const navigate = useNavigate();
 
@@ -42,8 +40,16 @@ const UserProfile = ({
   };
   let { details } = userDetails;
   let { date, time, slot_duration } = details;
-  // console.log("userDetails user", userDetails)
- 
+  const handleAgoraMeeting = async () => {    
+      const channelName = doctorDetails.channel_name || "Appointment";
+      const doctor_id = doctorDetails.doctor_id || "123456";
+      const role = "Doctor";
+      let response = await axios.get(
+        `${config.base_url}/patient/get_meeting_token/${doctor_id}/${channelName}`
+      );
+      localStorage.setItem("creds", channelName + "@" + role + "@" + response.data.data + "@" + doctor_id);
+      navigate("/doctor-video-call");
+    }
   const PSCDocs = () => (
     <Document>
       <Page size={"A4"}>
@@ -128,7 +134,6 @@ const UserProfile = ({
       <Container fluid className="px-2" style={{ color: "#243D4C" }}>
         <Row>
           <Col xs={12}>
-            {/* <h4 className="h4_child">Upcomming Appointments</h4> */}
             <h4 className="h4_child">{heading}</h4>
           </Col>
         </Row>
@@ -209,7 +214,34 @@ const UserProfile = ({
                 />
               </PDFDownloadLink>
             </Col>
+            {appointmentDetails.Date &&
+          new Date(appointmentDetails.Date) > new Date() ? (
+            <div className="flex-center">
+              <Button
+                variant="success"
+                title="JOIN APPOINTMENT"
+                className="w-100 py-2"
+                type="submit"
+                onClick={handleAgoraMeeting}
+              />
+            </div>
+          ) : new Date(appointmentDetails.Date) > new Date() ? (
+            <div className="flex-center">
+              <Button
+                variant="success"
+                title="SCHEDULED APPOINTMENT"
+                className="w-100 py-2"
+                type="submit"
+                disabled={true}
+              />
+            </div>
+          ) : (
+            <div className="flex-center">
+              <p>Expired</p>
+            </div>
+          )}
           </Row>
+          
         </Container>
       </Container>
     </>

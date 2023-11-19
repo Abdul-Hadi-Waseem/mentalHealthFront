@@ -43,7 +43,7 @@ const AcademicInformation: React.FC<MyComponentProps> = (props) => {
   const maxFileSize = 15 * 1024 * 1024; // 15 MB in bytes
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 15 MB in bytes
   // const MAX_FILE_SIZE = 102; // 10 kb
-  const supportedFormats = ["image/png", "image/jpg", "application/pdf"];
+  const supportedFormats = ["image/png", "image/jpg","image/jpeg", "application/pdf"];
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   const navigate = useNavigate();

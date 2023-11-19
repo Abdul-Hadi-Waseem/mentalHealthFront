@@ -23,7 +23,6 @@ const DoctorCard = ({ img, doctor_details }: any) => {
       JSON.stringify(doctor_details)
     );
     navigate("/doctor-detail");
-    // handleUserProfile()
   };
 
   return (
@@ -42,12 +41,6 @@ const DoctorCard = ({ img, doctor_details }: any) => {
         {" "}
         View Profile{" "}
       </button>
-      {/* <SideBar
-        placement={"end"}
-        name={"end"}
-        show={showOffCanvas}
-        onHide={handleCloseOffCanvas}
-      /> */}
     </div>
   );
 };

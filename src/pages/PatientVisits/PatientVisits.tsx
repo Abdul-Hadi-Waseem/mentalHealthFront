@@ -15,24 +15,18 @@ import PatientSideBarModal from "../../components/PatientSideBarModal";
 import { getToken } from "../../utils";
 
 function PatientVisits() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  let currentLocation = location.pathname.split("/").slice(-1).toString();
+  // const location = useLocation();
+  // const navigate = useNavigate();
+  // let currentLocation = location.pathname.split("/").slice(-1).toString();
   const [doctorProfiles, setDoctorProfiles] = useState([]);
   const [bookedAppointments, setBookedAppointments] = useState([]);
   const [conductedAppointments, setConductedAppointments] = useState([]);
   const [currentDoctorDetails, setCurrentDoctorDeatils] = useState<any>();
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  // console.log("currentDoctorDetails", currentDoctorDetails)
-  // console.log(" setShowOffCanvas",  showOffCanvas)
-
-  console.log("conductedAppointments bookedAppointments", bookedAppointments);
-  console.log("conductedAppointments booked", conductedAppointments);
-
+  
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = (item: any) => {
     setShowOffCanvas(true);
-    console.log("Ammaaar", item);
     setCurrentDoctorDeatils(item);
     localStorage.setItem("current_doctor_details", JSON.stringify(item));
   };
@@ -65,9 +59,6 @@ function PatientVisits() {
     setBookedAppointments(booked);
     setConductedAppointments(conducted);
 
-    // console.log("conducted", conducted);
-    // console.log("conducted booked", booked);
-    // console.log("data", data);
   };
 
   useEffect(() => {
@@ -198,7 +189,6 @@ function PatientVisits() {
                           btnTitle="View Details"
                           key={"abcd" + index.toString()}
                           img={doctor_img}
-                          // userDetails={{ name: item.name, treat: "Mild Anxiety" }}
                           userDetails={{ ...item, treat: "Psychiatrist" }}
                           handleUserProfile={() => {
                             handleShowOffCanvas(item);
@@ -225,12 +215,7 @@ function PatientVisits() {
               specialities: "Doctor Specialities",
               details: currentDoctorDetails,
             }}
-            appointmentDetails={{
-              Date: "Jan 1 2022",
-              Time: "02:00 pm",
-              Duration: "01 hour",
-              Meeting_id: "123"
-            }}
+            appointmentDetails={bookedAppointments[0].schedule[0]}
             downloadForms={"Downloadable Forms"}
           />
         )}

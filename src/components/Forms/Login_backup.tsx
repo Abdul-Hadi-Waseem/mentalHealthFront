@@ -131,9 +131,7 @@ const LoginForm = () => {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
                 setTimeout(() => {
-                  // navigate("/schedule-appointment"); // Navigate after 5 seconds
                   navigate("/patient-dashboard"); // Navigate after 5 seconds
-                  // navigate("/psc-test"); // Navigate after 5 seconds
                 }, 3000);
               } else {
                 // The login was successful, navigate after 5 seconds

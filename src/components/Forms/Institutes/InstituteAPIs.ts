@@ -66,6 +66,9 @@ export const sendTeacherInvitation = async (
 ) => {
   try {
     const token = Cookies.get("token");
+    //get institute_information from localstorage
+    const institute_information = JSON.parse(localStorage.getItem("institute_information"));
+    const institute_name = institute_information.name;
     return await axios.post(
       `${baseUrl}/institute/mail/send/register`,
       {
@@ -73,6 +76,7 @@ export const sendTeacherInvitation = async (
         toEmail,
         classes,
         qualification,
+        institute_name
       },
       {
         headers: {

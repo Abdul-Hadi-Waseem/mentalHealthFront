@@ -75,15 +75,7 @@ function Account() {
 
   const handleDoctorAcademicInformation = (values: FormValues) => {
     setDoctorInformation(values);
-    // console.log("value of academic information on account", values)
   };
-  // const handleDoctorAcademicInformation = (values:DoctorAcountInformation) => {
-  //   setDoctorInformation({...doctorRegisterInformation, values});
-  //   // console.log("value of academic information on account", values)
-  // };
-  // const handleDoctorProfessionExperience = (values:DoctorProfessionalExperience) => {
-  //   setDoctorInformation({...doctorRegisterInformation, values});
-  // };
 
   const goToPage = (path: string) => {
     switch (path) {
@@ -171,14 +163,6 @@ function Account() {
       </Col>
       <Col className="d-flex" sm={12} lg={6}>
         <img
-          // src={location.pathname === "/login" ? Login_Bg :location.pathname === "/doctor-login" ? doctor_heart : Register_Bg}
-          // location.pathname === "/login"
-          //   ? Login_Bg
-          //   : location.pathname === "/doctor-login"
-          //   ? doctor_login
-          //   : location.pathname === "/doctor-registration"
-          //   ? doctor_heart
-          //   : Register_Bg
           src={setImage(location.pathname)}
           className="w-100"
           style={{ height: "100%" }}

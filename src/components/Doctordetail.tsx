@@ -35,7 +35,6 @@ const Doctordetail = () => {
     setDoctorDetails(doctorProfile);
   }, []);
 
-  // const { name, specialities, clinic_experience, description } = doctorDetails;
   const {
     appointment_fees,
     city,
@@ -86,8 +85,6 @@ const Doctordetail = () => {
       }, 2000);
 
       console.log("res", res.data);
-      // setAppointmentDetails()
-      // setLoader(!loader);
     } catch (error) {
       console.log("error", error);
     }
@@ -118,27 +115,19 @@ const Doctordetail = () => {
 
   return (
     <>
-      <div
-      //  className="doctor_detail_container"
-      >
-        <div
-        // className="detail_header d-flex "
-        >
+      <div>
+        <div>
           <img src={doc_img} alt="" className="doc_detail_img" />
           <div className="header_2nd">
             <div className="header_section_1">
               <div>
                 <h4 className="h4_child" style={{ marginBottom: "0px" }}>
-                  {/* Richard Muldoone */}
                   {name}
                 </h4>
-                {/* <span>Speciality : Heart Surgeon </span> */}
-                {/* <span>Speciality : {JSON.parse(sessionStorage.getItem('currentDoctorDetails')).designation} </span> */}
                 <span>Speciality : {specialities} </span>
               </div>
               <button
                 className="detail_btn"
-                // onClick={handleShowOffCanvas}
                 onClick={bookAppointment}
                 disabled={appointmentDisable}
               >
@@ -150,12 +139,10 @@ const Doctordetail = () => {
             </div>
             <div className="header_section_2">
               <div className="header_card">
-                {/* <p className="b_text">$250</p> */}
                 <p className="b_text">${appointment_fees}</p>
                 <span className="n_text">Appointment Fee</span>
               </div>
               <div className="header_card">
-                {/* <p className="b_text">10+</p> */}
                 <p className="b_text">
                   {clinic_experience.replace(" years", "")}+
                 </p>
@@ -167,13 +154,6 @@ const Doctordetail = () => {
         <hr className="form_separator" />
         <div className="detail_about">
           <h4 className="box_heading">About Doctor</h4>
-          {/* <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting.
-          </p> */}
           <p>{description}</p>
         </div>
         <hr className="form_separator" />
@@ -187,8 +167,6 @@ const Doctordetail = () => {
               <img src={call} alt="" className="info_img" />
               <div>
                 <p style={{ fontWeight: "500" }}>Contact Us</p>
-                {/* <span className="light_text">+0123456789</span> */}
-                {/* <span className="light_text">{current_doctor_details?.phone}</span> */}
                 <span className="light_text">{phone}</span>
               </div>
             </div>
@@ -201,7 +179,6 @@ const Doctordetail = () => {
             >
               <img src={location} alt="" className="info_img" />
               <div>
-                {/* <p style={{ fontWeight: "500" }}>Lotus Medical Center</p> */}
                 <p style={{ fontWeight: "500" }}>{clinic_name}</p>
                 <span className="light_text">
                   {clinic_address +
@@ -214,9 +191,6 @@ const Doctordetail = () => {
                     " " +
                     country}
                 </span>
-                {/* <span className="light_text">
-                  4517 Washington Ave. Manchester, Kentucky 39495
-                </span> */}
               </div>
             </div>
           </div>
@@ -227,14 +201,7 @@ const Doctordetail = () => {
           <div className="certificate_box">
             {certificates?.length > 0 ? (
               certificates.map((imageName, index) => {
-                // Change 'image_name' to the column name in your table that stores the image names
-                // const imageUrl = `http://your-domain/certificates/${imageName}`;
-                // const imageUrl = `http://${process.env.DOMAIN}/certificates/${imageName}`;
-                // const imageName = 
                 const imageUrl = `${config.base_url}/certificates/${imageName}`;
-                // console.log("imageUrl", imageUrl)
-                // certificatesURL.push(imageUrl);
-                // return imageUrl;
                 return <img src={imageUrl} alt="" className="cer_img" />;
               })
             ) : (

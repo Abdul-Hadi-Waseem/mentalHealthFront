@@ -3,17 +3,17 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { appRoutes } from "./../../constants/constants";
 import { Container, Row, Col } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
+// import Image from "react-bootstrap/Image";
 // import "./Header.css";
 // import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
 // import Navbar from "react-bootstrap/Navbar";
 // import logo from "../../assets/images/logo.svg";
-import d_db_female from "../../assets/images/d_db_female.png";
-import d_db_male from "../../assets/images/d_db_male.png";
-import doctor_img from "../../assets/images/doctor.svg";
+// import d_db_female from "../../assets/images/d_db_female.png";
+// import d_db_male from "../../assets/images/d_db_male.png";
+// import doctor_img from "../../assets/images/doctor.svg";
 // import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+// import Card from "react-bootstrap/Card";
 // // import Button from "../Common/Buttons/Button";
 // import Button from "./../../components/Common/Buttons/Button";
 // import Cookies from "js-cookie";
@@ -145,36 +145,6 @@ function InstituteDashBoard() {
   //   }
   // };
 
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (token) {
-  //     setBtnTitle("Logout");
-  //   } else {
-  //     setBtnTitle("Login / Register");
-  //   }
-  // }, [token]);
-  // function handleClick() {
-  //   if (token) {
-  //     Cookies.remove("token");
-  //     navigate("/login");
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   //Check width of the scollings
-  //   if (
-  //     elementRef.current &&
-  //     elementRef?.current?.scrollWidth === elementRef?.current?.offsetWidth
-  //   ) {
-  //     setscrolEnd(true);
-  //   } else {
-  //     setscrolEnd(false);
-  //   }
-  //   return () => {};
-  // }, [elementRef?.current?.scrollWidth, elementRef?.current?.offsetWidth]);
   return (
     <>
       <InstituteHeader />

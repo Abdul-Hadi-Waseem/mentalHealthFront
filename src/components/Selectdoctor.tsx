@@ -15,16 +15,9 @@ const Selectdoctor = () => {
   // ]);
   const [doctorProfiles, setdoctorProfiles] = useState([]);
   const [loader, setLoader] = useState(true);
-  console.log("doctorProfile", doctorProfiles);
 
   let data = JSON.parse(localStorage.getItem("appointment_date"));
-  console.log("data formated", data);
 
-  // data: {
-  //   day: "Wednesday",
-  //   start_time: "2023-09-05T16:48:00.000Z",
-  //   end_time: "2023-09-05T17:48:00.000Z",
-  // }
   useEffect(() => {
     (async () => {
       try {
@@ -34,7 +27,6 @@ const Selectdoctor = () => {
             data,
           }
         );
-        // console.log("res", res.data.data[0]);
         setdoctorProfiles(res.data.data);
         setLoader(!loader);
       } catch (error) {
@@ -62,7 +54,7 @@ const Selectdoctor = () => {
           </Spinner>
         </div>
       ) : doctorProfiles.length == 0 ? (
-        <div className="d-flex  justify-content-center">
+        <div className="d-flex justify-content-center">
           No Doctors found in Your time range
         </div>
       ) : (
@@ -83,11 +75,3 @@ const Selectdoctor = () => {
 };
 
 export default Selectdoctor;
-
-// {/* <DoctorCard img={doctor_img}/>
-// <DoctorCard img={doctor_img}/>
-// <DoctorCard img={doctor_img}/>
-// <DoctorCard img={doctor_img}/>
-// <DoctorCard img={doctor_img}/>
-// <DoctorCard img={doctor_img}/>
-// <DoctorCard img={doctor_img}/> */}
