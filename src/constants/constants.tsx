@@ -73,6 +73,7 @@ import TeacherDashboard from "../pages/TeacherDashboard/index.tsx";
 
 //video call
 import PatientVideoCall from "../pages/Video-Calls/patient-video-call.tsx";
+import DoctorVideoCall from "../pages/Video-Calls/doctor-video-call.tsx";
 interface RouteItem {
   id: number;
   Component: ReactElement;
@@ -553,6 +554,12 @@ export const appRoutes: RouteItem[] = [
     path: "/patient-video-call",
     name: "Patient Video Call",
   },
+  {
+    id: 52,
+    Component: <DoctorVideoCall />,
+    path: "/doctor-video-call",
+    name: "Doctor Video Call",
+  },  
 ];
 
 export const socialIcons: IsocialIcons[] = [

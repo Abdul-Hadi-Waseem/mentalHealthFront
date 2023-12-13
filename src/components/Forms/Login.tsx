@@ -87,7 +87,6 @@ const LoginForm = () => {
             password: Password,
           });
           console.log("resultOfLogin ", result);
-
           // THIS IS FOR PATIENT
           if (result?.data?.accessToken && result?.data?.data?.level == 13) {
             console.log("userData", result.data.data);

@@ -1,8 +1,8 @@
 {
     "uid": 1,
     "appId": "a077f8ac258242d6b0fc381501d5468e",
-    "channelName": "Appointment",
-    "token": "007eJxTYOgrfXRhLa9SvlONabKqdFJrr03tFhPzpS0rN9XZ9i15lq7AkGhgbp5mkZhsZGphZGKUYpZkkJZsbGFoamCYYmpiZpHKLOqb2hDIyGAhN5GRkQECQXxuBseCgvzMvJLc1LwSBgYAhf8fNA==",
+    "channelName": "",
+    "token": "",
     "proxyUrl": "http://localhost:5050/",
     "serverUrl": "",
     "tokenExpiryTime": "600",

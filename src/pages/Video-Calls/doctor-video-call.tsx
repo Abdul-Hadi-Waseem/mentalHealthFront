@@ -18,44 +18,41 @@ let channelParameters = {
 const PatientVideoCall: React.FC = () => {
   const [channelParams, setChannelParams] = useState(channelParameters);
   const [isInMeeting, setIsInMeeting] = useState(false);
+  const [channelName, setChannelName] = useState("");
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isMicOn, setIsMicOn] = useState(false);
-  const [channelName, setChannelName] = useState("");
-  const [patientId, setPatientId] = useState("");
   const [role, setRole] = useState("");
   const [meetingToken, setMeetingToken] = useState("");
   useEffect(() => {
     const meetingCredentials = localStorage.getItem("creds");
     const info = meetingCredentials.split("@");
     setChannelName(info[0] || "appointment");
-    setRole(info[1] || "patient");
+    setRole(info[1] || "Doctor");
     setMeetingToken(info[2]);
-    setPatientId(info[3]);
     const initializeVideoCall = async () => {
       const handleVSDKEvents = (eventName, ...args) => {
         switch (eventName) {
           case "user-published":
             if (args[1] == "video") {
-              channelParams.remoteVideoTrack = args[0].videoTrack;
-              channelParams.remoteAudioTrack = args[0].audioTrack;
-              channelParams.remoteUid = args[0].uid.toString();
+              channelParameters.remoteVideoTrack = args[0].videoTrack;
+              channelParameters.remoteAudioTrack = args[0].audioTrack;
+              channelParameters.remoteUid = args[0].uid.toString();
               remotePlayerContainer.id = args[0].uid.toString();
-              channelParams.remoteUid = args[0].uid.toString();
+              channelParameters.remoteUid = args[0].uid.toString();
               remotePlayerContainer.classList.add("video-player");
               document
                 .getElementById("video-container")
                 .append(remotePlayerContainer);
-              channelParams.remoteVideoTrack.play(remotePlayerContainer);
+              channelParameters.remoteVideoTrack.play(remotePlayerContainer);
             }
             if (args[1] == "audio") {
-              channelParams.remoteAudioTrack = args[0].audioTrack;
-              channelParams.remoteAudioTrack.play();
+              channelParameters.remoteAudioTrack = args[0].audioTrack;
+              channelParameters.remoteAudioTrack.play();
             }
         }
       };
 
-      const { join, leave, rejoinVideo, rejoinAudio, leaveVideo ,leaveAudio} =
-        await AgoraGetStarted(handleVSDKEvents);
+      const { join, leave, rejoinVideo, rejoinAudio, leaveVideo ,leaveAudio} = await AgoraGetStarted(handleVSDKEvents);
 
       const remotePlayerContainer = document.createElement("div");
       const localPlayerContainer = document.createElement("div");
@@ -67,19 +64,19 @@ const PatientVideoCall: React.FC = () => {
 
       // Listen to the Join button click event.
       document.getElementById("join").onclick = async function () {
-        channelParams.channelName = info[0];
-        channelParams.token = info[2];
-        channelParams.uid = parseInt(info[3]);
-        // setIsInMeeting(true);
-        setChannelParams(await join(localPlayerContainer, channelParams));
+        channelParameters.channelName = info[0];
+        channelParameters.token = info[2];
+        channelParameters.uid = parseInt(info[3]);
+        setChannelParams(await join(localPlayerContainer, channelParameters));
         setIsInMeeting(true);
         setIsVideoOn(true);
         setIsMicOn(true);
-      };
+      };      
+      // Listen to the Leave button click event.
       document.getElementById("leave").onclick = async function () {
-        // removeVideoDiv(remotePlayerContainer.id);
-        // removeVideoDiv(localPlayerContainer.id);
-        await leave(channelParams);
+        removeVideoDiv(remotePlayerContainer.id);
+        removeVideoDiv(localPlayerContainer.id);
+        await leave(channelParameters);
         window.location.reload();
       };
       document.getElementById("stopVideo").onclick = async function () {
@@ -101,7 +98,6 @@ const PatientVideoCall: React.FC = () => {
         setChannelParams(await leaveAudio(channelParams));        
       };
     };
-
     initializeVideoCall();
   }, []);
   function removeVideoDiv(elementId) {
@@ -115,7 +111,7 @@ const PatientVideoCall: React.FC = () => {
     <div id="projectSelector">
       <h1>{channelName.replace(/([A-Z])/g, ' $1').trim() + " Appointment"}</h1>
       <h2>User: {role}</h2>
-      <div style={{ display: "flex","justifyContent": "space-evenly" }}>
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         <button
           id="leave"
           className="danger-btn"
