@@ -1,21 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
-import { Form, Row, Col, InputGroup, Container } from "react-bootstrap";
-import Cookies from "js-cookie";
 import { useFormik } from "formik";
+import Cookies from "js-cookie";
+import { useCallback, useEffect, useState } from "react";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import Button from "../Common/Buttons/Button";
 
+import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useActionLoginQuery } from "../../gql/generated";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import config from "../../configs/config";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, setUserInformation } from "../../store/slices/UserSlice";
-import { getToken } from "../../utils";
+import { setUserInformation } from "../../store/slices/UserSlice";
 interface FormValues {
   email: string;
   password: string;
@@ -23,13 +21,13 @@ interface FormValues {
 }
 
 const LoginForm = () => {
-  const reduxUserState = useSelector(
-    (state: any) => state.currentUserInformation
-  );
+  // const reduxUserState = useSelector(
+  //   (state: any) => state.currentUserInformation
+  // );
   const navigate = useNavigate();
-  const handleClick = useCallback(() => {
-    navigate("/psc-test");
-  }, [navigate]);
+  // const handleClick = useCallback(() => {
+  //   navigate("/psc-test");
+  // }, [navigate]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [Email, setEmail] = useState("");
@@ -320,7 +318,7 @@ const LoginForm = () => {
             }, 3000);
             // `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
           }
-
+          console.log(result, "dedit result log");
           if (result?.data?.error?.message) {
             // If there's an error or the token is not present, show the error toast
             toast.error("Invalid Email/Password");
@@ -328,7 +326,9 @@ const LoginForm = () => {
           }
         }
       } catch (error) {
-        console.log("error in checkIsTestSubmitted", error);
+        // console.log("error in checkIsTestSubmitted", error?.response);
+        toast.error(error?.response?.data?.message);
+        setFormSubmitted(false);
       }
     })();
   }, [formSubmitted]);

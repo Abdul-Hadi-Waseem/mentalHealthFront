@@ -4,7 +4,6 @@ import { baseUrl } from "../../../constants/constants";
 import { FormValues } from "./TeachersRegistration";
 import { TeacherDetailsType } from "../../StudentDisplayComponent";
 
-
 export interface AnswersType {
   question: string;
   answer: string;
@@ -38,6 +37,14 @@ export const registerTeacher = async (values: FormValues) => {
   };
   try {
     return await axios.post(`${baseUrl}/teacher/register`, newValues);
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const sendSuccessMail = async (values: FormValues) => {
+  try {
+    return await axios.post(`${baseUrl}/mail/registersuccessful`, values);
   } catch (error) {
     return error?.response;
   }
@@ -90,7 +97,11 @@ export const submitPSCTest = async (answers: AnswersType[], id: number) => {
   }
 };
 
-export const submitTests = async (answers: AnswersType[], id: number, testid: number) => {
+export const submitTests = async (
+  answers: AnswersType[],
+  id: number,
+  testid: number
+) => {
   try {
     const token = Cookies.get("token");
     return await axios.post(
@@ -149,12 +160,11 @@ export const registerStudentForTest = async (
   }
 };
 
-export const registerStudentsBulk = async (students:any) => {
+export const registerStudentsBulk = async (students: any) => {
   const token = Cookies.get("token");
-  return await axios.post(`${baseUrl}/teacher/students/excel`,students,
-  {
+  return await axios.post(`${baseUrl}/teacher/students/excel`, students, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-}
+};

@@ -19,6 +19,14 @@ export const registerInstitute = async (values: FormValues) => {
   }
 };
 
+export const sendSuccessMail = async (values: FormValues) => {
+  try {
+    return await axios.post(`${baseUrl}/mail/registersuccessful`, values);
+  } catch (error) {
+    return error?.response;
+  }
+};
+
 export const getAllTeachers = async () => {
   const token = Cookies.get("token");
   return await axios.get(`${baseUrl}/institute/teachers/get`, {
@@ -67,7 +75,9 @@ export const sendTeacherInvitation = async (
   try {
     const token = Cookies.get("token");
     //get institute_information from localstorage
-    const institute_information = JSON.parse(localStorage.getItem("institute_information"));
+    const institute_information = JSON.parse(
+      localStorage.getItem("institute_information")
+    );
     const institute_name = institute_information.name;
     return await axios.post(
       `${baseUrl}/institute/mail/send/register`,
@@ -76,7 +86,7 @@ export const sendTeacherInvitation = async (
         toEmail,
         classes,
         qualification,
-        institute_name
+        institute_name,
       },
       {
         headers: {
