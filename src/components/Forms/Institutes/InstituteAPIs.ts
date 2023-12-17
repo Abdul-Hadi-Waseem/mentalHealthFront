@@ -28,6 +28,15 @@ export const getAllTeachers = async () => {
   });
 };
 
+export const getAllDeactivatedTeachers = async () => {
+  const token = Cookies.get("token");
+  return await axios.get(`${baseUrl}/institute/teachers/deactivated`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const getTeacherDetail = async (id: number | string) => {
   const token = Cookies.get("token");
   return await axios.get(`${baseUrl}/institute/teacher/${id}`, {
@@ -50,6 +59,18 @@ export const removeTeacherAccount = async (teacherId: number | string) => {
   const token = Cookies.get("token");
   return await axios.delete(
     `${baseUrl}/institute/teacher/remove/${teacherId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+export const reactivateTeacherAccount = async (teacherId: number | string, instituteId: any) => {
+  const token = Cookies.get("token");  
+  return await axios.put(
+    `${baseUrl}/institute/teacher/reactivate/${teacherId}/${instituteId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
