@@ -15,9 +15,9 @@ function Appointment() {
         Get in touch today to take charge of your <br />
         mental well being!
       </p>
-      <div className="text-center">
+      {/* <div className="text-center">
         <Button title="Book an Appointment" />
-      </div>
+      </div> */}
     </Container>
   );
 }

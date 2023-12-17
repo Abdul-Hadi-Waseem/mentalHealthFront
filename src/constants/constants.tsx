@@ -568,31 +568,32 @@ export const socialIcons: IsocialIcons[] = [
     name: "Facebook",
     src: Facebook,
     link: "#",
-  },
-  {
-    id: 2,
-    name: "Instagram",
-    src: Instagram,
-    link: "#",
-  },
-  {
-    id: 3,
-    name: "Linkedin",
-    src: Linkedin,
-    link: "#",
-  },
-  {
-    id: 4,
-    name: "Twitter",
-    src: Twitter,
-    link: "#",
-  },
-  {
-    id: 5,
-    name: "Telegram",
-    src: Telegram,
-    link: "#",
-  },
+  }
+  // ,
+  // {
+  //   id: 2,
+  //   name: "Instagram",
+  //   src: Instagram,
+  //   link: "#",
+  // },
+  // {
+  //   id: 3,
+  //   name: "Linkedin",
+  //   src: Linkedin,
+  //   link: "#",
+  // },
+  // {
+  //   id: 4,
+  //   name: "Twitter",
+  //   src: Twitter,
+  //   link: "#",
+  // },
+  // {
+  //   id: 5,
+  //   name: "Telegram",
+  //   src: Telegram,
+  //   link: "#",
+  // },
 ];
 
 export const services1: Iservices[] = [

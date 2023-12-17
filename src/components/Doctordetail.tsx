@@ -67,6 +67,7 @@ const Doctordetail = () => {
     setAppointmentDisable(true);
 
     try {
+      
       // http://localhost:5000/patient/create_appointment
       const res = await axios.post(
         `${config.base_url}/patient/create_appointment`,
