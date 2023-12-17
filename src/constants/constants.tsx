@@ -677,27 +677,27 @@ export const workSteps: Isteps[] = [
 export const partners: Ipartners[] = [
   {
     id: 1,
-    name: "Bessie Cooper",
-    designation: "CEO Amazon",
-    avatar: Avatar1,
+    name: "Rayan",
+    designation: "Student",
+    avatar: Avatar2,
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five.",
+      "Dear Mental Support Community,\nI am writing this with immense gratitude and a heart full of appreciation for the transformative journey I've experienced on the Mental Support platform. In a world where the challenges of mental health can sometimes feel isolating, this platform has been a beacon of hope, understanding, and personalized support. My journey began with a simple registration, and what set Mental Support apart from other platforms was its unique approach to understanding users. The initial questions weren't just routine; they were thoughtfully designed to unravel the intricacies of my thoughts, emotions, and needs. It was the first indication that Mental Support was truly committed to providing personalized care. The magic happened behind the scenes, where their AI system worked diligently to process my responses. Soon after, I was presented with recommendations for experienced therapists who aligned with my unique set of challenges. Having the power to choose a therapist based on their profile and expertise was empowering—it made me feel in control of my own healing process. The ability to communicate anonymously was a game-changer for me. It allowed me to be honest and vulnerable without the fear of judgment. The secure messaging system became my safe haven, a space where I could pour out my thoughts and receive thoughtful responses from my chosen therapist. What truly sets Mental Support apart is its flexibility. The platform offers various communication modes—text, voice calls, and video conversations. Having the choice to communicate in a way that felt most comfortable to me was liberating. It made the therapeutic process feel tailored to my preferences, adding an extra layer of comfort to the entire experience. Throughout my journey, one thing remained constant: the commitment to maintaining the utmost confidentiality. Every conversation, every detail shared, was treated with the utmost care. This sense of security allowed me to explore my thoughts and feelings in ways I hadn't thought possible. In a world where mental health care is often stigmatized or inaccessible, Mental Support stands as a beacon of hope. It's not just a platform; it's a community of compassionate professionals who genuinely care about your well-being. My Mental Support journey has been transformative, enlightening, and, most importantly, healing. If you're on the fence about seeking help, I encourage you to take that leap. Mental Support has been my guiding light through the darkness, and I am eternally grateful for the support and care they've provided.",
   },
   {
     id: 2,
-    name: "Leslie Alexander",
-    avatar: Avatar2,
-    designation: "Medical Assistant",
+    name: "Rania",
+    avatar: Avatar1,
+    designation: "Student",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five.",
+      "In the chaos of exam stress, my anxiety levels were through the roof. Sleepless nights, racing thoughts—fear of failure was suffocating. Enter Mental Support, a game-changer in my struggle for mental well-being. No hoops to jump through—registering was a breeze. The initial questions weren generic; however they delved deep into my exam anxiety. It felt like they understood me before we even started. The AI wizardry kicked in, analyzing my responses. It recommended therapists specialized in academic anxiety. It was like having a study buddy who knew the ins and outs of the mental game. What set Mental Support apart was the option to communicate anonymously. I could spill my fears without judgment. The secure messaging system became my private confessional. Flexibility in communication was key. Choosing how to connect—messages, voice calls, or video—adapted to my study schedule and comfort level. With Mental Support's support, my mindset shifted. Anxiety turned into empowerment. Techniques from my therapist became tools against exam stress. Facing exams went from daunting to doable. To students grappling with exam anxiety, consider Mental Support. It's more than a platform—it's a companion in your academic journey, offering personalized support that goes beyond textbooks. My journey is proof that seeking help is a proactive step toward well-being.",
   },
   {
     id: 3,
-    name: "Courtney Henry",
+    name: "Thara Lie",
     avatar: Avatar3,
-    designation: "Marketing Coordinator",
+    designation: "Student",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five.",
+      "I'm just a regular 14-year-old girl, and I want to share a bit about something that's been happening at home. It's not easy, but I found someone super cool who helped me, and I thought it might help someone else too. So, you know how sometimes parents fight? Well, mine did a lot, and it made me feel really scared and insecure. It's not fun when the people who are supposed to make you feel safe are always arguing. I needed someone to talk to, and that's when I met Syeda Asma Bukhari. Asma isn't like a regular grown-up who just tells you what to do. She's more like a friend who listens. I didn't have to use big words or be super serious. I just talked about how I felt, and she really understood. She helped me see things in a new way. Instead of feeling small and scared, she showed me that I'm strong and can handle tough stuff. She didn't make it all sound like a big deal, and that made it easier for me to understand. We did this thing called 'positive mindset'. It's like looking at problems in a different way. Asma helped me find good things even when everything seemed bad. She made me believe in myself. Now, I feel way more confident. It's like I have this secret power to stay cool even when things get crazy at home. She taught me that I'm not alone, and that it's okay to ask for help. I'm still learning, but every day feels a bit brighter. If you ever feel stuck or scared, maybe talking to someone like Syeda Asma can help you too. It's not about being perfect or having all the answers. It's just about finding your own way to feel better.\nStay strong, friends!"
   },
 ];
 

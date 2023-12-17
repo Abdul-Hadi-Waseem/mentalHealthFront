@@ -178,21 +178,6 @@ const LoginForm = () => {
                 "user_complete_information",
                 JSON.stringify(updateUser)
               );
-
-              // const email = formik.values.email.trim()
-              // console.log("resOfUserLogin", email);
-              // const resOfUserLogin = await axios.get(
-              //   `${config.base_url}/user/get_user_information/${email}`, {
-              //   headers: {
-              //     'Authorization': `Bearer ${getToken}` // Add the authorization token here with the "Bearer" prefix
-              //   }
-              // }
-              // );
-              // console.log("resOfUserLogin", resOfUserLogin);
-              // localStorage.setItem("user_complete_information", JSON.stringify(resOfUserLogin.data.data));
-
-              // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
-              // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
               if (res?.data?.data) {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
@@ -224,43 +209,9 @@ const LoginForm = () => {
                     navigate("/doctor-dashboard"); // Navigate after 5 seconds
                   }, 5000);
                 }
-
-                // let schedule =  [{ day: "", start_time: "", end_time: "" }];
-                // let doctor_details = { certificates : "", course : "", year : "", college_name: "" };
-                // let professional_experience = {
-                //   address: "",
-                //   state: "",
-                //   zip_code: "",
-                //   city: "",
-                //   country: "",
-                //   clinic_name: "",
-                //   clinic_experience: "",
-                //   specialities: "",
-                //   clinic_address: "",
-                //   description: "",
-                // };
-                // let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
-                // dispatch(setUserInformation(myObj));
               } else {
                 // The login was successful, navigate after 5 seconds
                 toast.success("Login Successful"); // Show the success toast
-                // let schedule =  [{ day: "", start_time: "", end_time: "" }];
-                // let doctor_details = { certificates : "", course : "", year : "", college_name: "" };
-                // let professional_experience = {
-                //   address: "",
-                //   state: "",
-                //   zip_code: "",
-                //   city: "",
-                //   country: "",
-                //   clinic_name: "",
-                //   clinic_experience: "",
-                //   specialities: "",
-                //   clinic_address: "",
-                //   description: "",
-                // };
-                // let myObj = {...res?.data?.data, professional_experience, doctor_details,schedule}
-                // dispatch(setUserInformation(myObj));
-
                 localStorage.setItem("doctor_information", user);
                 setTimeout(() => {
                   navigate("/academic-information"); // Navigate after 5 seconds
@@ -333,74 +284,14 @@ const LoginForm = () => {
     })();
   }, [formSubmitted]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       // console.log("result", result);
-  //       if (formSubmitted) {
-  //         // Check the result only if the form has been submitted
-  //         if (result?.data?.login?.data?.token) {
-  //           console.log("userData", result.data.login.data);
-  //           const { age, uid, name } = await result?.data?.login?.data;
-  //           localStorage.setItem("age", age);
-  //           localStorage.setItem(
-  //             "user_information",
-  //             JSON.stringify(result.data.login.data)
-  //           );
-
-  //           const token = result?.data?.login?.data?.token;
-  //           Cookies.set("token", token);
-
-  //           if (token) {
-  //             const res = await axios.post(
-  //               `${config.base_url}/patient/psc_test_check`,
-  //               { uid, name }
-  //               // {uid:"6adbbd88-1c45-4f65-b48c-c7af549bf6b5"}
-  //               // { uid: "a3323143-b20b-40bd-b2f1-1036fe1bde40" }
-  //             );
-  //             console.log("resOfPatient Check ", res.data);
-  //             dispatch(setUserInformation(res.data.data));
-  //             localStorage.setItem(
-  //               "user_complete_information",
-  //               JSON.stringify(res.data.data)
-  //             );
-
-  //             if (res?.data?.program_data_uid) {
-  //               // The login was successful, navigate after 5 seconds
-  //               toast.success("Login Successful"); // Show the success toast
-  //               setTimeout(() => {
-  //                 // navigate("/schedule-appointment"); // Navigate after 5 seconds
-  //                 navigate("/patient-dashboard"); // Navigate after 5 seconds
-  //               }, 3000);
-  //             } else {
-  //               // The login was successful, navigate after 5 seconds
-  //               toast.success("Login Successful"); // Show the success toast
-  //               setTimeout(() => {
-  //                 navigate("/psc-test"); // Navigate after 5 seconds
-  //               }, 3000);
-  //             }
-  //           }
-  //           setFormSubmitted(false);
-  //         }
-  //         if (result.error) {
-  //           // If there's an error or the token is not present, show the error toast
-  //           toast.error("Invalid Email/Password");
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.log("error in checkIsTestSubmitted", error.response.data.data);
-  //     }
-  //   })();
-  // }, [formSubmitted, navigate, result]);
-
   return (
     <Container className="login__section">
       <Row className="mb-3 ">
         <Col sm={12} className="">
-          <h1 className="">
-            Very good work
-            <br /> are waiting for <br />
-            you <span className="txt__green">login now</span> 👋
+        <h1 className="">
+            take a moment for yourself and let's continue your 
+            <br />
+            <span className="txt__green">Journey to well-being</span>
           </h1>
         </Col>
       </Row>
