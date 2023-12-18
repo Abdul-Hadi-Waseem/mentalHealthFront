@@ -1,0 +1,98 @@
+.navbar{
+  z-index:  3 !important;
+}
+
+
+.navbar-nav a {
+  color: #243d4c;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "poppins";
+  text-decoration: none;
+  margin-right: 60px;
+  color: #243d4c;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "poppins";
+  text-decoration: none;
+  margin-right: 60px;
+  z-index: 3;
+}
+.navbar {
+  background: #fff;
+  box-shadow: 0px 16px 39px 0px rgba(55, 84, 113, 0.08);
+}
+
+.navbar-nav a:hover {
+  color: #3773a9;
+}
+
+.navbar-nav .active {
+  color: #3773a9;
+  position: relative;
+  font-weight: 600;
+}
+
+.navbar-nav .active::before {
+  content: url("/src/assets/images/active-sign.svg");
+  position: absolute;
+  left: -5px;
+  top: 6px;
+}
+
+.primary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 35px;
+  border-radius: 10px;
+  color: #fff;
+  font-family: "roboto";
+  border: none;
+  /* border: 1px solid #3773A9; */
+  font-size: 16px;
+  background: linear-gradient(134deg, #5e9cd3 0%, #3773a9 100%);
+}
+
+.pm-green-btn {
+  padding: 20px 35px;
+  border-radius: 10px;
+  color: #fff;
+  font-family: "roboto";
+  border: 1px solid #77AC28;
+  font-size: 16px;
+  background: linear-gradient(134deg, #A0D256 0%, #77AC28 100%);
+}
+
+.secondary-btn {
+  padding: 20px 35px;
+  border-radius: 10px;
+  color: #3773A9;
+  font-family: "roboto";
+  border: 1px solid #3773A9;
+  font-size: 16px;
+  background: transparent;
+}
+.danger-btn {
+  padding: 20px 35px;
+  border-radius: 10px;
+  color: white;
+  font-family: "roboto";
+  border: 1px solid #a93737;
+  font-size: 16px;
+  background: #a93737;
+}
+.disabled-btn {
+  border: 1px solid #999999;
+  background: #cccccc;
+  color: #243d4c;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar-nav {
+    gap: 30px;
+    padding: 30px 0px;
+  }
+}

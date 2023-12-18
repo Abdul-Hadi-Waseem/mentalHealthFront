@@ -1,0 +1,29 @@
+.depression__btn {
+  padding-left: 60px !important;
+  padding-right: 60px !important;
+}
+.depression__section,
+.treatment__section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .dep__img{
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
+  }
+  
+}
+
+@media screen and (max-width: 767px){
+  .dep__img{
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+  .depression__section,
+  .treatment__section{
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+  }
+}

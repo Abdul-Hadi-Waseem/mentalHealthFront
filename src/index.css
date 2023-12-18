@@ -1,0 +1,192 @@
+* {
+  font-family: "poppins";
+}
+
+p,
+h1,
+h2,
+h3,
+h3,
+h5,
+h6 {
+  margin-bottom: 0px !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.txt__green {
+  color: #77ac28;
+  font-size: 50px;
+  font-family: "poppins";
+  font-weight: 600;
+}
+textarea {
+  resize: none;
+ }
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.back_button {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.files-input-label{
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: #243d4c 2px dashed !important;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  /* FiUpload */
+
+}
+
+.txt__blue {
+  color: #243d4c;
+}
+.txt__red{
+  color: red
+}
+.react-datepicker-wrapper{
+  display: block !important;
+  cursor: pointer !important;
+}
+
+.heading__bg {
+  position: relative;
+}
+
+.heading__bg .overlap {
+  text-align: center;
+}
+
+.heading__bg .rectangle {
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1,
+h2 {
+  font-size: 50px !important;
+  font-weight: 600 !important;
+  line-height: 67px !important;
+  text-transform: capitalize !important;
+  color: #243d4c;
+}
+
+h3 {
+  color: #243d4c;
+  font-family: Roboto;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+h5 {
+  color: #243d4c;
+  font-size: 24px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+p {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  color: #243d4c;
+}
+
+html,
+body {
+  background-color: #f6fafd;
+  overflow-x: hidden;
+}
+
+.heading {
+  color: #243d4c;
+  text-align: center;
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 67px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* ... */
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h4,
+  h5,
+  p {
+    font-size: 18px !important;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media screen and (max-width: 767px) {
+
+  h1,
+  h2 {
+    font-size: 30px !important;
+    font-weight: 600 !important;
+    line-height: 40px !important;
+    text-transform: capitalize !important;
+    color: #243d4c;
+  }
+
+  h2 {
+    line-height: 32px !important;
+    font-size: 26px !important;
+  }
+
+  h4,
+  h5,
+  p {
+    font-size: 16px !important;
+  }
+}
+
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  margin-top: 20px;
+}
+.video-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  width: 100vw;
+  padding: 30px 0px;
+}
+.video-player{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  width: 50vw !important;
+  height: 70vh !important;  
+}
+.video-player > div{
+  width: 80% !important;
+  height: 100% !important;
+}

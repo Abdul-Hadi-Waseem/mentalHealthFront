@@ -1,0 +1,99 @@
+/* QuizForm.css */
+
+.main-container .copyright {
+  border-top: 0px !important;
+}
+
+.backButton {
+  color: #516f8b;
+  border-color: #516f8b;
+}
+
+.optionRadio {
+  border-radius: 10px;
+  border: 1px solid #3773a9;
+  background: var(--white, #fff);
+  box-shadow: 0px -22px 43px 0px rgba(154, 178, 194, 0.06);
+  padding: 16px 25px;
+  position: relative;
+  cursor: pointer;
+}
+
+.optionRadio.text-primary {
+  color: #516f8b !important;
+}
+
+.optionRadio:hover .form-check-label {
+  color: white;
+}
+
+.optionRadio:hover {
+  background-color: #3773a9;
+}
+
+.optionRadio.selected {
+  background-color: #3773a9;
+  color: white !important;
+}
+
+.form-check-input:checked {
+  background-color: #ccd8e1 !important;
+  border-color: #ccd8e1 !important;
+}
+
+.submitButton {
+  background-color: #5e9cd3;
+  border-color: #5e9cd3;
+}
+
+.submitButton:hover {
+  background-color: #3773a9;
+  border-color: #3773a9;
+}
+
+.steps {
+  color: #243d4c;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.quiz-question {
+  color: #243d4c;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.form-container .form-check-input[type="radio"] {
+  position: absolute;
+  right: 20px;
+}
+
+.modal-title {
+  color: #243d4c;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.modal-text {
+  color: #516f8b;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 137.5% */
+}
+
+.form-container {
+  width: 35% !important;
+}
+
+@media screen and (max-width: 767px) {
+  .form-container {
+    width: 80% !important;
+  }
+}
+
+

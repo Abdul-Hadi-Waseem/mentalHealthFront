@@ -1,0 +1,167 @@
+ 
+{
+  "questions": [
+    {
+      "questions": "I make noises (like grunts) that I can't stop",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "Parts of my body jerk again and again, that I can't control",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have bad ideas over and over, that I can't stop",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to do things in certain order or certain ways (like touching things}",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "Words come out that I can't stop or control",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "At times I have the same jerk or twitch over and over",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "Certain bad words or thoughts keep going through my mind",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to do exactly the opposite of what I'm told",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "The same unpleasant or silly thought or picture goes through my mind",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I can't control all my movements",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to do several movements over and over again, in the same order",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "Bad or swear words come out that I don't mean to say",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I feel pressure to talk, shout, or scream",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have ideas that bother me (like germs or like cutting myself)",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I do certain things (like jumping or clapping) over and over",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have habits or movements that come out more when I'm nervous",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to repeat words or phrases over and over",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to repeat things that 1 hear other people say",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to make bad gestures (like the finger)",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    },
+    {
+      "questions": "I have to do things I see other people do",
+      "options": [
+        "Never",
+        "Sometimes",
+        "Often"
+      ]
+    }
+  ]
+}
+
+

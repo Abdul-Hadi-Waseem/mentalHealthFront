@@ -1,0 +1,146 @@
+.about {
+  position: relative;
+
+}
+
+.about .overlap {
+  top: 50%;
+
+  height: 50vh; /* Adjust the height as per your requirements */
+}
+
+.about .overlap {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+
+  text-align: center;
+}
+
+.about .rectangle {
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* Add responsive styles for smaller screens */
+
+.team__designation {
+  border-radius: 8px;
+  background: linear-gradient(134deg, #a0d256 0%, #77ac28 100%);
+  padding: 5px 20px 5px 8px;
+  color: #0a0605;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.about__advisor {
+  background-image: url("../../assets/images/advisor_bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 420px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  position: relative;
+}
+
+.img__adivsor {
+  position: absolute;
+  top: -11%;
+  left: 10%;
+}
+
+.about__section {
+  padding-bottom: 100px;
+}
+
+/* CSs for responsivness */
+.team__box {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+/* @media (min-width: 576px) { 
+  h2 {
+    font-size: 80%;
+    }
+
+  h4, h5, p, span {
+    font-size: 110%;
+   
+    
+  }
+ 
+} */
+
+/* Medium devices (tablets, 768px and up) */
+/* @media (min-width: 768px) { 
+  h2 {
+    font-size: 140%;
+  }
+
+  h4, h5, p, span {
+    font-size: 120%;
+  }
+} */
+
+/* Large devices (desktops, 992px and up) */
+/* @media (min-width: 992px) { 
+  h2 {
+    font-size: 160%;
+  }
+
+  h4, h5, p, span {
+    font-size: 130%;
+  }
+} */
+
+/* Extra large devices (large desktops, 1200px and up) */
+/* @media (min-width: 1200px) { 
+  h2 {
+    font-size: 180%;
+  }
+
+  h4, h5, p, span {
+    font-size: 140%;
+  }
+} */
+
+/* XXL devices (larger desktops, 1400px and up) */
+/* @media (min-width: 1400px) { 
+  h2 {
+    font-size: 200%;
+  }
+
+  h4, h5, p, span {
+    font-size: 150%;
+  }
+} */ 
+
+/* Media query for smaller screens */
+
+@media (max-width: 768px) {
+  .about .text-wrapper-2 {
+    font-size: 1.5rem;
+  }
+  
+  .about__advisor {
+    margin-top: 50px;
+    margin-bottom: 500px;
+  }
+  
+  .img__adivsor {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+
+
+}

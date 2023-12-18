@@ -1,0 +1,8 @@
+query ActionLogin($Data: LoginDto!) {
+  login(rawData: $Data) {
+    success
+    error
+    message
+    data
+  }
+}

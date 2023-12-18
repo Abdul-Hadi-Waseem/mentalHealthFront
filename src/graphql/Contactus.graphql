@@ -1,0 +1,3 @@
+mutation contactUs($Data: ContactUsArgs!) {
+  contactUs(rawData: $Data)
+}

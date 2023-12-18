@@ -1,0 +1,21 @@
+# Files and directories to exclude when building Docker image
+
+# Node.js dependencies
+.github
+node_modules
+dist
+# Development and build files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+build
+
+# Editor-specific files
+.vscode
+.idea
+*.swp
+*.swo
+*.bak
+
+# macOS specific files
+.DS_Store
