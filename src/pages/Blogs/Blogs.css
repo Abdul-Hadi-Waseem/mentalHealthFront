@@ -14,12 +14,13 @@ hr {
   font-family: Roboto;
   font-size: 16px;
   font-weight: 600;
+  height: 75px;
 }
 .blog__date,
 .blog__writer {
   color: #243d4c;
   font-family: Roboto;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
