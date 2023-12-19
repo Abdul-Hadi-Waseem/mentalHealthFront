@@ -25,6 +25,7 @@
   top: 30px;
   background-color: #5693ca;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .footer__top {

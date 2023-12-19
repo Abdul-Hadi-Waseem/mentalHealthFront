@@ -27,7 +27,6 @@ const TeacherDisplayComponent = ({ teachers }: TeachersPropsType) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [teachersList, setTeachersList] = useState([]);
   const navigate = useNavigate();
-  //   const [suggestedBlogs, setSuggestedBlogs] = useState<IBlogs[]>([]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);

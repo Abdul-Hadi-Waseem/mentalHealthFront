@@ -21,24 +21,18 @@ import { Container, Row, Col } from "react-bootstrap";
 // FaArrowRight
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 import UserCard from "../../components/Common/UserCard";
-// import "./dashboard.css";
-import DoctorSideBar from "../../components/DoctorSideBar";
 import axios, { AxiosError } from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "./../../configs/config";
 import InstituteHeader from "./Header/Header";
 import Button from "../../components/Common/Buttons/Button";
 import TeacherInvitation from "../../components/TeacherInvitation";
-import DoctorCard from "../../components/Common/DoctorCard";
-import TeacherCard from "../../components/Common/TeacherCard";
-import SearchComponent from "../../components/Search";
+import TeacherReactivate from "../../components/TeacherReactivate";
 import TeacherDisplayComponent from "../../components/TeacherDisplayComponent";
 import { useQuery } from "react-query";
 import { getAllTeachers } from "../../components/Forms/Institutes/InstituteAPIs";
 
 function InstituteDashBoard() {
-  // const token = getToken();
-  // const [btnTitle, setBtnTitle] = useState("Login / Register");
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
@@ -62,88 +56,17 @@ function InstituteDashBoard() {
       },
     }
   );
-  // const {
-  //   currentAppointmentDate,
-  //   currentAppointmentTime,
-  //   currentAppointmentDuration,
-  // } = currentUserDetails?.details
-
-  // useEffect(() => {
-  //   try {
-  //     const getAllPatients = async () => {
-  //       // const res = await axios.get(
-  //       //   `${config.base_url}/doctor/get_all_users`
-  //       // );
-  //       const res = await axios.get(
-  //         `${config.base_url}/doctor/get_upcomming_appointments/${name}/${uid}`
-  //       );
-  //       console.log("res", res?.data?.data);
-  //       localStorage.setItem("patients", JSON.stringify(res?.data?.data));
-  //       // Array.isArray(res.data);
-  //       // setUserProfiles([{name:"fayyaz"}])
-  //       // setUserProfiles(res.data.data);
-  //       setUserProfiles(res?.data?.data);
-  //       setLoader(false);
-  //     };
-  //     getAllPatients();
-  //   } catch (error) {
-  //     setUserProfiles([{ name: "fayyaz Ansari" }]);
-  //     console.log("error", error);
-  //   }
-  // }, []);
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
-  // const handleShowOffCanvas = ({ name, treat, details }: any) => {
   const handleShowOffCanvas = () => {
-    console.log("function");
-    setShowOffCanvas(true);
-    // setCurrentUserDetails({ name, treat, details });
-    // setCurrentUserDetails(item);
-    // localStorage.setItem("user", JSON.stringify(item));
+    setShowOffCanvas(true);    
   };
-  // const elementRef = useRef(null);
+  const handleShowOffReActivateCanvas = () => {
+    setShowOffCanvas(true);    
+  };
+  const handleCloseOffReActivateCanvas = () => setShowOffCanvas(false);
   const navigate = useNavigate();
 
-  // const handleHorizantalScroll = (element, speed, distance, step) => {
-  //   element.scrollLeft += step;
-  //   setscrollX(scrollX + step);
-  //   console.log("scroll", element.scrollLeft);
-
-  //   //For checking if the scroll has ended
-  //   if (
-  //     Math.floor(
-  //       elementRef.current.scrollWidth - elementRef.current.scrollLeft
-  //     ) <= elementRef.current.offsetWidth
-  //   ) {
-  //     setscrolEnd(true);
-  //   } else {
-  //     setscrolEnd(false);
-  //   }
-
-  // let whereScroll = leftArroDisable;
-  // let minusScroll = leftArroDisable;
-  //  whereScroll += step;
-  // setLeftArroDisable(whereScroll)
-  // if(leftArroDisable  >= 0){
-  //   element.scrollRight += whereScroll;
-  // }else{
-  //   element.scrollLeft += whereScroll;
-  // }
-  // };
-
-  //This will check scroll event and checks for scroll end
-  // const scrollCheck = () => {
-  //   setscrollX(elementRef.current.scrollLeft);
-  //   if (
-  //     Math.floor(
-  //       elementRef.current.scrollWidth - elementRef.current.scrollLeft
-  //     ) <= elementRef.current.offsetWidth
-  //   ) {
-  //     setscrolEnd(true);
-  //   } else {
-  //     setscrolEnd(false);
-  //   }
-  // };
 
   return (
     <>
@@ -153,10 +76,20 @@ function InstituteDashBoard() {
           <Col
             className="d-flex flex-column justify-content-start py-5"
             xs={12}
-            sm={8}
-            md={9}
+            sm={4}
+            md={6}
           >
             <h4 className="text-capitalize">Dashboard</h4>
+          </Col>
+          <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
+            <div>
+              <Button
+                variant="primary"
+                title="Re-Activate Teacher" 
+                className="px-5 py-3 mb-3"
+                onClick={() => handleShowOffReActivateCanvas()}
+              />
+            </div>
           </Col>
           <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
             <div>
@@ -176,6 +109,17 @@ function InstituteDashBoard() {
           ) : (
             <TeacherInvitation
               onHide={handleCloseOffCanvas}
+              show={showOffCanvas}
+              placement="end"
+            />
+          )}
+        </Row>
+        <Row className="d-flex justify-content-between">
+          {isLoading || isRefetching ? (
+            <p>Loading...</p>
+          ) : (
+            <TeacherReactivate
+              onHide={handleCloseOffReActivateCanvas}
               show={showOffCanvas}
               placement="end"
             />
