@@ -18,7 +18,6 @@ import doctor_heart from "./../../../assets/images/doctor_heart.png";
 import axios from "axios";
 import config from "../../../configs/config";
 
-
 import moment from "moment";
 import { getToken } from "../../../utils";
 interface FormValues {
@@ -93,7 +92,7 @@ const DoctorRegistrationForm: React.FC = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log( "Values ",values);
+      console.log("Values ", values);
       event.preventDefault();
       values.gender = Number(values.gender);
 
@@ -105,26 +104,32 @@ const DoctorRegistrationForm: React.FC = () => {
       const { confirmPassword, ...dataToSend } = values;
 
       try {
-        let {email, phone} = dataToSend;
+        let { email, phone } = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
-        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}/11`, {
-          headers: {
-            'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+        const isRegisteredResponse = await axios.get(
+          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/11`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
           }
-        })
-        console.log("isRegisteredResponse", isRegisteredResponse?.data?.isRegistered)
-        if(isRegisteredResponse?.data?.isRegistered){
+        );
+        console.log(
+          "isRegisteredResponse",
+          isRegisteredResponse?.data?.isRegistered
+        );
+        if (isRegisteredResponse?.data?.isRegistered) {
           return toast.error("Email Or Phone is already registered");
-        }else{
+        } else {
           await executeMutation({ Data: dataToSend });
-        console.log("signup result", result)
-        toast.success("Registration Successful"); // Show the success toast
-        
-        setTimeout(() => {
-          // navigate("/doctor-login"); // Navigate after 5 seconds
-          navigate("/login"); // Navigate after 5 seconds
-        }, 5000);
-        }        
+          console.log("signup result", result);
+          toast.success("Registration Successful"); // Show the success toast
+
+          setTimeout(() => {
+            // navigate("/doctor-login"); // Navigate after 5 seconds
+            navigate("/login"); // Navigate after 5 seconds
+          }, 5000);
+        }
       } catch (error) {
         toast.error("Registration not successful");
         console.error(error);

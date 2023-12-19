@@ -459,32 +459,31 @@ export const socialIcons: IsocialIcons[] = [
     name: "Facebook",
     src: Facebook,
     link: "#",
-  }
-  // ,
-  // {
-  //   id: 2,
-  //   name: "Instagram",
-  //   src: Instagram,
-  //   link: "#",
-  // },
-  // {
-  //   id: 3,
-  //   name: "Linkedin",
-  //   src: Linkedin,
-  //   link: "#",
-  // },
-  // {
-  //   id: 4,
-  //   name: "Twitter",
-  //   src: Twitter,
-  //   link: "#",
-  // },
-  // {
-  //   id: 5,
-  //   name: "Telegram",
-  //   src: Telegram,
-  //   link: "#",
-  // },
+  },
+  {
+    id: 2,
+    name: "Instagram",
+    src: Instagram,
+    link: "#",
+  },
+  {
+    id: 3,
+    name: "Linkedin",
+    src: Linkedin,
+    link: "#",
+  },
+  {
+    id: 4,
+    name: "Twitter",
+    src: Twitter,
+    link: "#",
+  },
+  {
+    id: 5,
+    name: "Telegram",
+    src: Telegram,
+    link: "#",
+  },
 ];
 
 export const services1: Iservices[] = [
@@ -820,5 +819,5 @@ export const users: IUser[] = [
   },
 ];
 
-export const baseUrl = "http://localhost:5000";
-// export const baseUrl = "http://139.99.28.47:5000";
+//export const baseUrl = "http://localhost:5000";
+export const baseUrl = "http://139.99.28.47:5000";

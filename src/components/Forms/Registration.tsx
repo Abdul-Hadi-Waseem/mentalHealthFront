@@ -95,7 +95,7 @@ const RegistrationForm: React.FC = () => {
       const { confirmPassword, ...dataToSend } = values;
       console.log("dataToSend", dataToSend);
       try {
-        let { email, phone , level} = dataToSend;
+        let { email, phone, level } = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
         const isRegisteredResponse = await axios.get(
           `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/${level}`,

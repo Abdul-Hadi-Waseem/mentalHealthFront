@@ -103,7 +103,7 @@ const TeachersRegistrationForm: React.FC = () => {
     console.log("institute id");
     const instituteID = institutesData?.data.data?.find(
       (each: { id: number; name: string }) => each.name === institute_name
-    )?.id;    
+    )?.id;
     if (values.gender !== "Male" && values.gender !== "Female") {
       toast.error("Please Select Gender");
       return;

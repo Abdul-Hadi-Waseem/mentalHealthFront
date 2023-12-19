@@ -75,8 +75,11 @@ export const removeTeacherAccount = async (teacherId: number | string) => {
   );
 };
 
-export const reactivateTeacherAccount = async (teacherId: number | string, instituteId: any) => {
-  const token = Cookies.get("token");  
+export const reactivateTeacherAccount = async (
+  teacherId: number | string,
+  instituteId: any
+) => {
+  const token = Cookies.get("token");
   return await axios.put(
     `${baseUrl}/institute/teacher/reactivate/${teacherId}/${instituteId}`,
     {

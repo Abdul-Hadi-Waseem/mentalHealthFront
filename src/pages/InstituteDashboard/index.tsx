@@ -59,14 +59,13 @@ function InstituteDashBoard() {
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => {
-    setShowOffCanvas(true);    
+    setShowOffCanvas(true);
   };
   const handleShowOffReActivateCanvas = () => {
-    setShowOffCanvas(true);    
+    setShowOffCanvas(true);
   };
   const handleCloseOffReActivateCanvas = () => setShowOffCanvas(false);
   const navigate = useNavigate();
-
 
   return (
     <>
@@ -85,7 +84,7 @@ function InstituteDashBoard() {
             <div>
               <Button
                 variant="primary"
-                title="Re-Activate Teacher" 
+                title="Re-Activate Teacher"
                 className="px-5 py-3 mb-3"
                 onClick={() => handleShowOffReActivateCanvas()}
               />

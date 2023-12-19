@@ -20,6 +20,7 @@ const PatientsHistory = () => {
   // console.log("userProfile", userProfiles[0].name);
 
   const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [pdfData, setPDFData] = useState(null);
 
   const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
 
@@ -47,7 +48,24 @@ const PatientsHistory = () => {
     }
   }, []);
 
-  const handleShowOffCanvas = (item: any) => {
+  // const handleShowOffCanvas = (item: any) => {
+  //   console.log("function", item);
+  //   setShowOffCanvas(true);
+  //   // setCurrentUserDetails({ name, treat, details });
+  //   setCurrentUserDetails(item);
+  //   localStorage.setItem("user", JSON.stringify(item));
+  // };
+
+  const handleShowOffCanvas = async (item: any) => {
+    try {
+      let response = await axios.get(
+        `${config.base_url}/patient/get_patient_psc_record/${item?.patient_id}`
+      );
+      console.log("response?.data?.data", response?.data?.data);
+      setPDFData(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
     console.log("function");
     setShowOffCanvas(true);
     // setCurrentUserDetails({ name, treat, details });
@@ -136,7 +154,7 @@ const PatientsHistory = () => {
                       treat: "Patient Condition",
                     }}
                     handleUserProfile={() => {
-                      console.log("handleUserProfile");
+                      console.log("handleUserProfile", item);
                       handleShowOffCanvas(item);
                     }}
                   />
@@ -144,7 +162,7 @@ const PatientsHistory = () => {
               })}
               <DoctorSideBar
                 placement={"end"}
-                pdfData={''}
+                pdfData={pdfData}
                 name={"end"}
                 show={showOffCanvas}
                 onHide={handleCloseOffCanvas}

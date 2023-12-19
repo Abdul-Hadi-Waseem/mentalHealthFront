@@ -288,8 +288,8 @@ const LoginForm = () => {
     <Container className="login__section">
       <Row className="mb-3 ">
         <Col sm={12} className="">
-        <h1 className="">
-            take a moment for yourself and let's continue your 
+          <h1 className="">
+            take a moment for yourself and let's continue your
             <br />
             <span className="txt__green">Journey to well-being</span>
           </h1>

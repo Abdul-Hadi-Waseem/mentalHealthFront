@@ -559,7 +559,7 @@ export const appRoutes: RouteItem[] = [
     Component: <DoctorVideoCall />,
     path: "/doctor-video-call",
     name: "Doctor Video Call",
-  },  
+  },
 ];
 
 export const socialIcons: IsocialIcons[] = [
@@ -568,7 +568,7 @@ export const socialIcons: IsocialIcons[] = [
     name: "Facebook",
     src: Facebook,
     link: "#",
-  }
+  },
   // ,
   // {
   //   id: 2,
@@ -697,7 +697,7 @@ export const partners: Ipartners[] = [
     avatar: Avatar3,
     designation: "Student",
     description:
-      "I'm just a regular 14-year-old girl, and I want to share a bit about something that's been happening at home. It's not easy, but I found someone super cool who helped me, and I thought it might help someone else too. So, you know how sometimes parents fight? Well, mine did a lot, and it made me feel really scared and insecure. It's not fun when the people who are supposed to make you feel safe are always arguing. I needed someone to talk to, and that's when I met Syeda Asma Bukhari. Asma isn't like a regular grown-up who just tells you what to do. She's more like a friend who listens. I didn't have to use big words or be super serious. I just talked about how I felt, and she really understood. She helped me see things in a new way. Instead of feeling small and scared, she showed me that I'm strong and can handle tough stuff. She didn't make it all sound like a big deal, and that made it easier for me to understand. We did this thing called 'positive mindset'. It's like looking at problems in a different way. Asma helped me find good things even when everything seemed bad. She made me believe in myself. Now, I feel way more confident. It's like I have this secret power to stay cool even when things get crazy at home. She taught me that I'm not alone, and that it's okay to ask for help. I'm still learning, but every day feels a bit brighter. If you ever feel stuck or scared, maybe talking to someone like Syeda Asma can help you too. It's not about being perfect or having all the answers. It's just about finding your own way to feel better.\nStay strong, friends!"
+      "I'm just a regular 14-year-old girl, and I want to share a bit about something that's been happening at home. It's not easy, but I found someone super cool who helped me, and I thought it might help someone else too. So, you know how sometimes parents fight? Well, mine did a lot, and it made me feel really scared and insecure. It's not fun when the people who are supposed to make you feel safe are always arguing. I needed someone to talk to, and that's when I met Syeda Asma Bukhari. Asma isn't like a regular grown-up who just tells you what to do. She's more like a friend who listens. I didn't have to use big words or be super serious. I just talked about how I felt, and she really understood. She helped me see things in a new way. Instead of feeling small and scared, she showed me that I'm strong and can handle tough stuff. She didn't make it all sound like a big deal, and that made it easier for me to understand. We did this thing called 'positive mindset'. It's like looking at problems in a different way. Asma helped me find good things even when everything seemed bad. She made me believe in myself. Now, I feel way more confident. It's like I have this secret power to stay cool even when things get crazy at home. She taught me that I'm not alone, and that it's okay to ask for help. I'm still learning, but every day feels a bit brighter. If you ever feel stuck or scared, maybe talking to someone like Syeda Asma can help you too. It's not about being perfect or having all the answers. It's just about finding your own way to feel better.\nStay strong, friends!",
   },
 ];
 
@@ -749,8 +749,7 @@ export const symptoms: Symptom[] = [
 export const blogs: IBlogs[] = [
   {
     id: 1,
-    description:
-      `Mental well-being is a crucial aspect of our overall health and quality of life. It encompasses our emotional, psychological, and social well-being, and can impact how we think, feel, and behave on a daily basis. Mental well-being is essential for our ability to cope with life's challenges, form healthy relationships, and achieve our goals. In this blog, we will explore the importance of mental well-being and ways in which we can promote and maintain it.
+    description: `Mental well-being is a crucial aspect of our overall health and quality of life. It encompasses our emotional, psychological, and social well-being, and can impact how we think, feel, and behave on a daily basis. Mental well-being is essential for our ability to cope with life's challenges, form healthy relationships, and achieve our goals. In this blog, we will explore the importance of mental well-being and ways in which we can promote and maintain it.
       Improved Physical Health: Good mental well-being is associated with better physical health outcomes. People with good mental well-being are less likely to suffer from chronic diseases such as heart disease, stroke, and diabetes. They are also more likely to engage in healthy behaviors such as regular exercise, healthy eating, and getting enough sleep.
       Better Relationships: Our mental well-being affects our ability to form and maintain healthy relationships. When we are mentally healthy, we are better able to communicate effectively, manage conflicts, and show empathy and compassion towards others. This can help us build strong and supportive relationships with our family, friends, and colleagues.
       Increased Resilience: Resilience is our ability to bounce back from adversity and overcome challenges. Good mental well-being can help us develop resilience, enabling us to cope with life's ups and downs more effectively. When we are mentally healthy, we are better able to manage stress, adapt to change, and stay optimistic in the face of setbacks.
@@ -769,8 +768,7 @@ export const blogs: IBlogs[] = [
   },
   {
     id: 2,
-    description:
-      `Mental health illnesses are a common problem that affect millions of people around the world. From anxiety and depression to more severe conditions like bipolar disorder and schizophrenia, mental illnesses can have a profound impact on a person's quality of life. Early intervention for mental health illnesses is crucial for several reasons. In this blog, we will explore the importance of early intervention for mental health illnesses and how it can help individuals lead happier, healthier lives.
+    description: `Mental health illnesses are a common problem that affect millions of people around the world. From anxiety and depression to more severe conditions like bipolar disorder and schizophrenia, mental illnesses can have a profound impact on a person's quality of life. Early intervention for mental health illnesses is crucial for several reasons. In this blog, we will explore the importance of early intervention for mental health illnesses and how it can help individuals lead happier, healthier lives.
       Preventing the Development of Chronic Mental Health Conditions: Early intervention for mental health illnesses can help prevent the development of chronic mental health conditions. If left untreated, mental health conditions can worsen over time, leading to more severe symptoms and a higher risk of long-term disability. Early intervention can help individuals receive the support they need to manage their symptoms effectively, preventing the condition from becoming chronic.
       Improving the Effectiveness of Treatment: Early intervention can also improve the effectiveness of treatment for mental health illnesses. When mental health conditions are caught early, treatment is often more effective, and individuals are more likely to respond positively to interventions like therapy, medication, or a combination of both. This can help individuals recover more quickly and maintain better mental health over the long term.
       Enhancing Quality of Life: Mental health conditions can have a significant impact on a person's quality of life, affecting their ability to work, socialize, and participate in activities they enjoy. Early intervention can help individuals manage their symptoms more effectively, enabling them to lead more fulfilling lives. This can lead to improvements in overall well-being, social relationships, and work performance.
@@ -785,8 +783,7 @@ export const blogs: IBlogs[] = [
   },
   {
     id: 3,
-    description:
-      `As the COVID-19 pandemic continues to impact our daily lives, we are beginning to understand the impact it is having on children's mental health. As a teacher, I have seen firsthand how the pandemic has affected my students' emotional well-being. In this blog, I will analyze the effects of COVID-19 on children's mental health and offer some strategies for supporting students during these challenging times.
+    description: `As the COVID-19 pandemic continues to impact our daily lives, we are beginning to understand the impact it is having on children's mental health. As a teacher, I have seen firsthand how the pandemic has affected my students' emotional well-being. In this blog, I will analyze the effects of COVID-19 on children's mental health and offer some strategies for supporting students during these challenging times.
       Disruption of Daily Routine: The COVID-19 pandemic has disrupted many aspects of children's daily routine, including school, extracurricular activities, and social interactions. This disruption can be particularly challenging for children, who thrive on structure and routine. As a result, some children may experience feelings of anxiety, stress, and confusion.
       Increased Screen Time: With many schools and activities moving online, children are spending more time in front of screens than ever before. This increased screen time can lead to a range of mental health issues, including anxiety, depression, and difficulty sleeping. As a teacher, I have noticed that some of my students are experiencing difficulty concentrating and may be more easily distracted than usual.
       Social Isolation: The COVID-19 pandemic has forced many children to isolate themselves from friends and family members. This isolation can be particularly challenging for children, who rely on social interactions to develop important social skills and build relationships. Some children may experience feelings of loneliness, depression, and anxiety as a result of social isolation.
@@ -801,14 +798,14 @@ export const blogs: IBlogs[] = [
       In conclusion, the COVID-19 pandemic has had a significant impact on children's mental health, and it is important for teachers to prioritize mental health during these challenging times. By maintaining regular contact, providing resources, encouraging self-care, creating a positive classroom environment, and being flexible, teachers can help support their students' emotional well-being during the pandemic.
       `,
     image: Blog_Image,
-    title: "Impact of COVID-19 on children's mental health, a teacher'’'s viewpoint",
+    title:
+      "Impact of COVID-19 on children's mental health, a teacher'’'s viewpoint",
     date: "01-Dec-2023",
     writer: "Sharjil Hussain, CEO, Mental Support",
   },
   {
     id: 4,
-    description:
-      `Children spend a significant amount of their time in the education system, and teachers play a critical role in shaping the lives of their students. Beyond imparting academic knowledge, teachers are often the first line of defense when it comes to identifying students who may be experiencing mental distress.
+    description: `Children spend a significant amount of their time in the education system, and teachers play a critical role in shaping the lives of their students. Beyond imparting academic knowledge, teachers are often the first line of defense when it comes to identifying students who may be experiencing mental distress.
       Teachers can observe changes in a student's behavior, such as changes in mood, motivation, and performance, that may indicate mental health issues. In fact, research suggests that teachers are often better at identifying mental health issues in their students than mental health professionals.
       Unfortunately, many teachers are not equipped with the tools they need to identify these signs and provide the necessary support. In this blog, we'll discuss how equipping teachers with the tools to identify signs of mental distress in students can help improve students' mental health.
       Mental health issues are more common among children and youth than many people realize. In fact, according to the Canadian Mental Health Association, 1 in 5 young Canadians experience a mental health issue at some point in their lives. Despite this, many students suffer in silence, often because they do not have access to the support they need.
@@ -820,14 +817,14 @@ export const blogs: IBlogs[] = [
       In conclusion, equipping teachers with the tools to identify signs of mental distress in students is essential for improving students' mental health. By taking a proactive approach to mental health, teachers can create a safe and supportive environment for their students, and help them get the support they need to thrive. With the right training and resources, teachers can play a critical role in promoting mental well-being for students, both now and in the future.
       `,
     image: Blog_Image,
-    title: "The Importance of training teachers to identify early signs of mental distress",
+    title:
+      "The Importance of training teachers to identify early signs of mental distress",
     date: "01-Dec-2023",
     writer: "Sharjil Hussain, CEO, Mental Support",
   },
   {
     id: 5,
-    description:
-      `Mental health is a critical aspect of our overall health and well-being, but unfortunately, access to mental health services can be limited due to financial constraints. In many cases, people are not able to access the mental health services they need because of high costs or a lack of insurance coverage. This is why insurance coverage for mental health services is so important.
+    description: `Mental health is a critical aspect of our overall health and well-being, but unfortunately, access to mental health services can be limited due to financial constraints. In many cases, people are not able to access the mental health services they need because of high costs or a lack of insurance coverage. This is why insurance coverage for mental health services is so important.
       Having insurance coverage for mental health services can make a significant difference in a person's ability to access the care they need. Insurance coverage can help to offset the costs of therapy, medication, and other mental health treatments. This can be particularly important for people who require ongoing mental health services or those who need specialized care.
       Moreover, insurance coverage for mental health services can help to reduce the stigma surrounding mental health. By providing coverage for mental health services, insurance companies send a message that mental health is just as important as physical health. This can encourage more people to seek help when they need it and can help to reduce the stigma that often surrounds mental health issues.
       Insurance coverage for mental health services can also have broader benefits for society as a whole. By providing people with access to mental health services, we can improve overall mental health outcomes, reduce the burden of mental illness on families and communities, and increase productivity and economic growth.
@@ -840,8 +837,7 @@ export const blogs: IBlogs[] = [
   },
   {
     id: 6,
-    description:
-      `Mental health is an essential aspect of overall health and well-being. However, many people around the world struggle to access the mental health services they need. This can be due to a variety of factors, including a shortage of mental health professionals, lack of insurance coverage, and stigma surrounding mental illness.
+    description: `Mental health is an essential aspect of overall health and well-being. However, many people around the world struggle to access the mental health services they need. This can be due to a variety of factors, including a shortage of mental health professionals, lack of insurance coverage, and stigma surrounding mental illness.
       At Mental Support, we’re leveraging technology to develop a scalable mental health services platform. Through our interactive platform, we provide people with easy access to a range of mental health services, including counseling, therapy, and psychiatric care. By leveraging technology, Mental Support intends to increase access and deliver superior mental health services to a large number of people, regardless of their geographic location or financial situation.
       One of our key focuses is to provide care to people in remote or underserved areas. In many parts of the world, there is a shortage of mental health professionals, which makes it difficult for people to access the care they need. Mental Support addresses this challenge through technology  by connecting people with mental health professionals remotely, through video or phone consultations.
       We understand that each patient is unique in their needs which is why we provide tailored care to individuals. By using data and algorithms, our platform can identify a person's specific mental health needs and recommend personalized treatment options. This can help ensure that people receive the care that is most effective for their unique situation.
@@ -855,8 +851,7 @@ export const blogs: IBlogs[] = [
   },
   {
     id: 7,
-    description:
-      `The UN charter on universal access to mental health services is important for several reasons:
+    description: `The UN charter on universal access to mental health services is important for several reasons:
       It recognizes mental health as a fundamental human right: The charter recognizes that access to mental health services is a basic human right, and that all people should have the right to access these services without discrimination.
       It promotes the availability and accessibility of mental health services: The charter emphasizes the importance of ensuring that mental health services are available, accessible, and affordable to all people, regardless of their socioeconomic status, location, or background.
       It advocates for the integration of mental health services into primary healthcare systems: The charter recognizes that mental health is an integral part of overall health and wellbeing, and emphasizes the need to integrate mental health services into primary healthcare systems to ensure that people can access these services easily and efficiently.
@@ -866,7 +861,8 @@ export const blogs: IBlogs[] = [
       By integrating the charter in our core working principles, we have the potential to improve the lives of millions of people around the world!
       `,
     image: Blog_Image,
-    title: "The importance of the UN Charter on Universal Access to Mental Health Services",
+    title:
+      "The importance of the UN Charter on Universal Access to Mental Health Services",
     date: "01-Dec-2023",
     writer: "Rajiv Aggarwal, COO, Mental Support",
   },

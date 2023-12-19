@@ -34,7 +34,7 @@ const PSC_Test_Quiz: React.FC = () => {
   const [questions, setQuestions] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [result, executeMutation] = useProgramdataMutation();
-  const [score, setScore] = useState("");
+  const [score, setScore] = useState({ score: "", testName: "", result: "" });
 
   const loadQuestions = useCallback(async (age: string | null) => {
     let questionSet;
@@ -137,7 +137,7 @@ const PSC_Test_Quiz: React.FC = () => {
           psc_test_result: { ...res.data?.data },
         })
       );
-      
+
       setScore(res.data?.data);
       setLoader(false);
 
@@ -147,8 +147,6 @@ const PSC_Test_Quiz: React.FC = () => {
       toast.error("Psc_Test creation not successful");
       console.log(`error in Psc_Test`, error.message);
     }
-
-
 
     // executeMutation({
     //   Data: {
@@ -236,7 +234,7 @@ const PSC_Test_Quiz: React.FC = () => {
           <span className="modal-title">PSC Test</span>
           <span className="modal-text py-3">
             Based on your answers <br />
-            {/* {score?.result} */}
+            {score?.result}
             {/* {score?.score} */}
           </span>
           <div className="d-flex justify-content-center ">

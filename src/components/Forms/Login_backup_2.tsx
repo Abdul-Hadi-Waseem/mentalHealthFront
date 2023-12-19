@@ -82,19 +82,18 @@ const LoginForm = () => {
         if (formSubmitted && Email !== "" && Password !== "") {
           // Check the result only if the form has been submitted
           // console.log(Email, Password);
-          const result = await axios.post(`${config.base_url}/api/login`,  { email: Email, password: Password },
-          );
+          const result = await axios.post(`${config.base_url}/api/login`, {
+            email: Email,
+            password: Password,
+          });
           console.log("resultOfLogin ", result);
 
           // THIS IS FOR PATIENT
-          if (
-            result?.data?.accessToken &&
-            result?.data?.data?.level == 13
-          ) {
+          if (result?.data?.accessToken && result?.data?.data?.level == 13) {
             console.log("userData", result.data.data);
             const { age, uid, name } = await result?.data?.data;
             localStorage.setItem("age", age);
-            let token = result?.data?.accessToken
+            let token = result?.data?.accessToken;
             // const { token, ...remaining } = result?.data?.login?.data;
             // localStorage.setItem(
             //   "user_information",
@@ -228,7 +227,7 @@ const LoginForm = () => {
         console.log("error in checkIsTestSubmitted", error);
       }
     })();
-  }, [formSubmitted]); 
+  }, [formSubmitted]);
 
   return (
     <Container className="login__section">

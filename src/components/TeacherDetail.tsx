@@ -12,11 +12,11 @@ import { getToken } from "../utils";
 import {
   getStudentsOfATeacher,
   getTeacherDetail,
-  removeTeacherAccount
+  removeTeacherAccount,
 } from "./Forms/Institutes/InstituteAPIs";
 import StudentDisplayComponent from "./StudentDisplayComponent";
 import TeacherProfileOffCanvas from "./TeacherProfileOffCanvas";
-import TransferStudentsModal from './TransferStudentsModal';
+import TransferStudentsModal from "./TransferStudentsModal";
 import { getAllTeachers } from "../components/Forms/Institutes/InstituteAPIs";
 
 const TeacherDetail = () => {
@@ -25,7 +25,7 @@ const TeacherDetail = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleTransferStudents = async (toTeacher) => {
-    const fromTeacher = id;  
+    const fromTeacher = id;
     const response = await axios.put(
       `${config.base_url}/institute/student/transfer`,
       {
@@ -33,9 +33,9 @@ const TeacherDetail = () => {
           Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
         },
         fromTeacher,
-        toTeacher      
+        toTeacher,
       }
-    );    
+    );
     if (response.status == 200) {
       toast.success("Students Transferred Successfully");
       handleCloseModal();
@@ -47,20 +47,20 @@ const TeacherDetail = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-  const { data:teacher_data, isLoading: teacher_isLoading, isRefetching :teacher_isRefetching } = useQuery(
-    "getAllTeachersInInstitute",
-    () => getAllTeachers(),
-    {
-      refetchOnWindowFocus: false,
-      onError: (err: AxiosError) => {
-        if (err?.response?.status)
-          toast.error("An error occured fetching Teachers. Please try again");
-      },
-      onSuccess: (data) => {
-        // console.log("teacher_data", data)
-      }
-    }
-  );  
+  const {
+    data: teacher_data,
+    isLoading: teacher_isLoading,
+    isRefetching: teacher_isRefetching,
+  } = useQuery("getAllTeachersInInstitute", () => getAllTeachers(), {
+    refetchOnWindowFocus: false,
+    onError: (err: AxiosError) => {
+      if (err?.response?.status)
+        toast.error("An error occured fetching Teachers. Please try again");
+    },
+    onSuccess: (data) => {
+      // console.log("teacher_data", data)
+    },
+  });
   const { data, isLoading, isRefetching } = useQuery(
     "getInstitute'sTeacherDetail",
     () => getTeacherDetail(id),
@@ -82,38 +82,40 @@ const TeacherDetail = () => {
 
       onError: (err: any) => {
         toast.error("Error Fetching Students, Please try again");
-      },      
+      },
     }
-  );  
+  );
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleDeactivateTeacher = async () => {
-    const confirmation = window.confirm("Are you sure you want to deactivate this teacher?");
-  if (confirmation) {
-    const { refetch: deleteTeacherAccount, isRefetching } = useQuery(
-      "removeasingleteacheraccount",
-      () => removeTeacherAccount(id),
-      {
-        onSuccess: (res) => {
-          console.log(res, "delet succ  ");
-          if (res?.status === 200) {
-            toast.success(res?.data?.message);
-            setTimeout(() => {
-              navigate(-1);
-            }, 2000);
-          }
-        },
-        onError: (err: any) => {
-          console.log(err, "ERROR DELETED");
-          toast.error(err?.response?.data?.message);
-        },
-        enabled: false,
-      }
+    const confirmation = window.confirm(
+      "Are you sure you want to deactivate this teacher?"
     );
-  } else {
-    return;
-  }
-  }    
+    if (confirmation) {
+      const { refetch: deleteTeacherAccount, isRefetching } = useQuery(
+        "removeasingleteacheraccount",
+        () => removeTeacherAccount(id),
+        {
+          onSuccess: (res) => {
+            console.log(res, "delet succ  ");
+            if (res?.status === 200) {
+              toast.success(res?.data?.message);
+              setTimeout(() => {
+                navigate(-1);
+              }, 2000);
+            }
+          },
+          onError: (err: any) => {
+            console.log(err, "ERROR DELETED");
+            toast.error(err?.response?.data?.message);
+          },
+          enabled: false,
+        }
+      );
+    } else {
+      return;
+    }
+  };
   const handleShowOffCanvas = () => {
     setShowOffCanvas(true);
   };
@@ -232,14 +234,16 @@ const TeacherDetail = () => {
           show={showOffCanvas}
         />
       </Container>
-      {teacher_data?(
+      {teacher_data ? (
         <TransferStudentsModal
-        isOpen={isModalOpen}
-        teachers={teacher_data.data.data.filter(teacher => teacher.id != id)}
-        handleCloseModal={handleCloseModal}
-        transferStudents={handleTransferStudents}
-      />
-      ):null}
+          isOpen={isModalOpen}
+          teachers={teacher_data.data.data.filter(
+            (teacher) => teacher.id != id
+          )}
+          handleCloseModal={handleCloseModal}
+          transferStudents={handleTransferStudents}
+        />
+      ) : null}
       <ToastContainer />
     </>
   );

@@ -25,6 +25,21 @@ function PatientDashBoard() {
     JSON.parse(localStorage.getItem("user_complete_information"))
   );
   const [doctorsProfile, setDoctorsProfile] = useState([]);
+  const [patientHealthDetail, setPatientHealthDetail] = useState(null);
+  // const [doctorsProfile, setDoctorsProfile] = useState([
+  //   {
+  //     name: "Dr. Bessie Copper",
+  //   },
+  //   {
+  //     name: "Dr. Arlene McCoy",
+  //   },
+  //   {
+  //     name: "Dr. Darlena Roberston",
+  //   },
+  //   {
+  //     name: "Dr. Bessie Copper",
+  //   },
+  // ]);
   const [loader, setLoader] = useState(false);
   const [show, setShow] = useState(false);
   const [pscQuestions, setPscQuestion] = useState([]);
@@ -37,6 +52,7 @@ function PatientDashBoard() {
   const handleHorizantalScroll = (element, speed, distance, step) => {
     element.scrollLeft += step;
     setscrollX(scrollX + step);
+    console.log("scroll", element.scrollLeft);
 
     //For checking if the scroll has ended
     if (
@@ -49,10 +65,24 @@ function PatientDashBoard() {
       setscrolEnd(false);
     }
   };
+
+  const patientHealthScore = async () => {
+    try {
+      let response = await axios.get(
+        `${config.base_url}/patient/get_patient_health_score/${
+          JSON.parse(localStorage.getItem("user_complete_information")).uid
+        }`
+      );
+      console.log("response?.data?.data", response?.data?.data);
+      setPatientHealthDetail(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const reduxUserState = useSelector(
     (state: any) => state.currentUserInformation
   );
-
+  console.log("reduxUserState", reduxUserState?.psc_test_result);
   //This will check scroll event and checks for scroll end
   const scrollCheck = () => {
     setscrollX(elementRef.current.scrollLeft);
@@ -70,6 +100,11 @@ function PatientDashBoard() {
   useEffect(() => {
     (async () => {
       try {
+        await patientHealthScore();
+        // const response = await axios.get(`${config.base_url}/patient/get_patient_upcoming_appointment/11`)
+        // const response = await axios.get(
+        //   `${config.base_url}/patient/get_patient_upcoming_appointment/${currentUserInformation.id}`
+        // );
         const res = await axios.get(
           `${config.base_url}/doctor/get_all_doctors`,
           {
@@ -81,6 +116,7 @@ function PatientDashBoard() {
         console.log("get_all_doctors_response", res.data.data);
         if (res?.data?.data) {
           setDoctorsProfile(res?.data?.data);
+          // setDoctorProfiles([{name: "fayyaz", treat: "anxiety"}]);
           setLoader(false);
         }
       } catch (error) {
@@ -89,7 +125,7 @@ function PatientDashBoard() {
     })();
   }, []);
   const showPSCQuestion = async () => {
-    console.log("first")
+    console.log("first");
     try {
       let response = await axios.get(
         `${config.base_url}/patient/get_patient_psc_question/${
@@ -227,21 +263,18 @@ function PatientDashBoard() {
                 <div className="text-light ps-5">
                   <h3
                     onClick={showPSCQuestion}
-                    style={{ fontSize: "34px" , cursor: 'pointer' }}
+                    style={{ fontSize: "34px", cursor: "pointer" }}
                     className="text-light mb-2"
                   >
                     PSC Test
                   </h3>
                   {/* <p className="text-light">Score 5-9</p> */}
                   <p className="text-light">
-                    Score &nbsp; {reduxUserState?.psc_test_result?.score}
+                    Score &nbsp; {patientHealthDetail?.score}
                   </p>
                   {/* <p className="text-light mb-4">Mild Anxiety</p> */}
                   <p className="text-light mb-4">
-                    {reduxUserState?.psc_test_result?.condition?.replace(
-                      /[()]/g,
-                      ""
-                    )}
+                    {patientHealthDetail?.condition?.replace(/[()]/g, "")}
                   </p>
                 </div>
                 <div className="pe-4">
