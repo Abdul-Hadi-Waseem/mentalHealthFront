@@ -33,14 +33,11 @@ import { useQuery } from "react-query";
 import { getAllTeachers } from "../../components/Forms/Institutes/InstituteAPIs";
 
 function InstituteDashBoard() {
-  const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
-  const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
+  // const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
+  // const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [showOffReactivateCanvas, setShowOffReactivateCanvas] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);
-  // console.log("userprofiles", userProfiles)
-  const [loader, setLoader] = useState(true);
-
-  const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
   const institute_information = JSON.parse(
     localStorage.getItem("institute_information")
   );
@@ -62,9 +59,9 @@ function InstituteDashBoard() {
     setShowOffCanvas(true);
   };
   const handleShowOffReActivateCanvas = () => {
-    setShowOffCanvas(true);
+    setShowOffReactivateCanvas(true);
   };
-  const handleCloseOffReActivateCanvas = () => setShowOffCanvas(false);
+  const handleCloseOffReActivateCanvas = () => setShowOffReactivateCanvas(false);
   const navigate = useNavigate();
 
   return (
@@ -119,7 +116,7 @@ function InstituteDashBoard() {
           ) : (
             <TeacherReactivate
               onHide={handleCloseOffReActivateCanvas}
-              show={showOffCanvas}
+              show={showOffReactivateCanvas}
               placement="end"
             />
           )}

@@ -107,29 +107,6 @@ const About = () => {
             );
           })}
         </Row>
-        <Row className="about__advisor align-items-center px-4">
-          <Col className="text-center">
-            <img src={Advisor} className="img__adivsor" />
-          </Col>
-          <Col>
-            <p className="mt-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla.
-            </p>
-            <hr
-              style={{ color: "#243D4C", borderBottom: "1px solid #243D4C" }}
-              className="my-4"
-            />
-            <h5 style={{ fontWeight: "600" }}>
-              Dr. Anshul Kulkarni, Clinical Psychologist
-            </h5>
-            <span>Advisors</span>
-          </Col>
-        </Row>
       </Container>
       <Appointment />
     </div>

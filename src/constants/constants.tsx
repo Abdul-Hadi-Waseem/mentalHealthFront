@@ -2,14 +2,10 @@ import { ReactElement } from "react";
 import Access from "../assets/icons/access.svg";
 import Digital from "../assets/icons/digital.svg";
 import Facebook from "../assets/icons/facebook.svg";
-import Instagram from "../assets/icons/instagram.svg";
-import Linkedin from "../assets/icons/linkedin.svg";
 import Monitoring from "../assets/icons/marketing.svg";
 import Messaging from "../assets/icons/messaging.svg";
 import Private from "../assets/icons/private.svg";
 import Secure from "../assets/icons/secure.svg";
-import Telegram from "../assets/icons/telegram.svg";
-import Twitter from "../assets/icons/twitter.svg";
 import Video from "../assets/icons/video.svg";
 import Virtual from "../assets/icons/virtual.svg";
 import Voice from "../assets/icons/voice.svg";
@@ -17,11 +13,10 @@ import Avatar1 from "../assets/images/avatar1.png";
 import Avatar2 from "../assets/images/avatar2.png";
 import Avatar3 from "../assets/images/avatar3.png";
 import Blog_Image from "../assets/images/blogs/blog_1_img.png";
-import Team1 from "../assets/images/team-1.png";
-import Team2 from "../assets/images/team-2.png";
-import Team3 from "../assets/images/team-3.png";
-import Team4 from "../assets/images/team-4.png";
-import Team5 from "../assets/images/team-5.png";
+import Team_sharjil from "../assets/images/team_sharjil.jpeg";
+import Team_rajiv from "../assets/images/team_rajiv.jpeg";
+import Team_lashari from "../assets/images/team_lashari.jpeg";
+import Team_asif from "../assets/images/team_asif.jpeg";
 import About from "../pages/About/About";
 import Blog from "../pages/Blogs/Blog";
 import BlogDetails from "../pages/Blogs/BlogDetails";
@@ -936,31 +931,25 @@ export const teams: ITeam[] = [
     id: 1,
     name: "Sharjil Hussain",
     designation: "CEO",
-    image: Team1,
+    image: Team_sharjil,
   },
   {
     id: 2,
     name: "Rajiv Aggarwal",
     designation: "COO",
-    image: Team2,
-  },
-  {
-    id: 3,
-    name: "Fariya Altaf",
-    designation: "CLO",
-    image: Team3,
+    image: Team_rajiv,
   },
   {
     id: 4,
     name: "Abdul Wahab Lashari",
     designation: "CIO",
-    image: Team4,
+    image: Team_lashari,
   },
   {
     id: 5,
     name: "Asif Iqbal",
     designation: "CSO",
-    image: Team5,
+    image: Team_asif,
   },
 ];
 
@@ -995,4 +984,4 @@ export const users: IUser[] = [
 ];
 
 export const baseUrl = "http://localhost:5000";
-// export const baseUrl = "http://139.99.28.47:5000";
+// export const baseUrl = "https://mentalsupport.ca:6060";
