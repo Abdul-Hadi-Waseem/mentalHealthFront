@@ -120,7 +120,6 @@ interface IContributors {
   id: number;
   name: string;
   articles: number;
-  avatar: string;
 }
 interface ITeam {
   id: number;
@@ -866,64 +865,34 @@ export const blogs: IBlogs[] = [
 export const contributors: IContributors[] = [
   {
     id: 1,
-    articles: 135,
-    avatar: Avatar1,
-    name: "Leslie Alexander",
+    articles: 2,    
+    name: "Sharjil Hussain, CEO, Mental Support",
   },
   {
     id: 2,
-    articles: 135,
-    avatar: Avatar2,
-    name: "Robert Fox",
+    articles: 1,    
+    name: "Asif Iqbal, Chief Strategy Officer, Mental Support",
   },
   {
     id: 3,
-    articles: 135,
-    avatar: Avatar3,
-    name: "Savannah Nguyen",
+    articles: 1,    
+    name: "Rajiv Aggarwal, COO, Mental Support",
   },
   {
     id: 4,
-    articles: 135,
-    avatar: Avatar1,
-    name: "Jenny Wilson",
+    articles: 1,    
+    name: "M Lashari, Chief Insurance Officer, Mental Support",
   },
   {
     id: 5,
-    articles: 135,
-    avatar: Avatar2,
-    name: "Bessie Cooper",
+    articles: 1,    
+    name: "Dr. Anshul Kulkarni, Clinical Psychologist, Mental Support",
   },
   {
     id: 6,
-    articles: 135,
-    avatar: Avatar3,
-    name: "Ralph Edwards",
-  },
-  {
-    id: 7,
-    articles: 135,
-    avatar: Avatar1,
-    name: "Ronald Richards",
-  },
-  {
-    id: 8,
-    articles: 135,
-    avatar: Avatar2,
-    name: "Albert Flores",
-  },
-  {
-    id: 9,
-    articles: 135,
-    avatar: Avatar3,
-    name: "Savannah Nguyen",
-  },
-  {
-    id: 10,
-    articles: 135,
-    avatar: Avatar3,
-    name: "Savannah Nguyen",
-  },
+    articles: 1,    
+    name: "Fariya Altaf, Chief Learning Officer, Mental Support",
+  }
 ];
 
 export const teams: ITeam[] = [
@@ -983,5 +952,5 @@ export const users: IUser[] = [
   },
 ];
 
-export const baseUrl = "http://localhost:5000";
-// export const baseUrl = "https://mentalsupport.ca:6060";
+// export const baseUrl = "http://localhost:5000";
+export const baseUrl = "https://mentalsupport.ca:6060";

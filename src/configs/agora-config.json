@@ -3,7 +3,7 @@
     "appId": "a077f8ac258242d6b0fc381501d5468e",
     "channelName": "",
     "token": "",
-    "proxyUrl": "http://localhost:5050/",
+    "proxyUrl": "https://mentalsupport.ca:6060/",
     "serverUrl": "",
     "tokenExpiryTime": "600",
     "encryptionMode": "aes-256-gcm2",

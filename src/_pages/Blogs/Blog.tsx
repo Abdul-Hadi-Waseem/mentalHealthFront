@@ -102,7 +102,6 @@ function Blog() {
                     className="d-flex g-3 mb-4 align-items-center"
                     key={contributor.id}
                   >
-                    <img src={contributor.avatar} />
                     <div className="d-flex flex-column ps-3">
                       <span className="contributor__name">
                         {contributor.name}
