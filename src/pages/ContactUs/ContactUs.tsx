@@ -26,10 +26,6 @@ function ContactUs() {
         <Row className="g-5">
           <Col className="px-4" lg={7}>
             <h2>Get in Touch</h2>
-            <p style={{ fontFamily: "roboto" }} className="py-3">
-              Enim tempor eget pharetra facilisis sed maecenas adipiscing. Eu
-              leo molestie vel, ornare non id blandit netus.
-            </p>
             <ContactForm success={success} />
             <Row className="pt-4 align-items-center">
               <Col className="social-div d-flex" lg={6}>

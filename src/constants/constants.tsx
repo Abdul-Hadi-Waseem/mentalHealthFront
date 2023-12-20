@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 import Access from "../assets/icons/access.svg";
 import Digital from "../assets/icons/digital.svg";
-import Facebook from "../assets/icons/facebook.svg";
+// import Facebook from "../assets/icons/facebook.svg";
+import Linkedin from "../assets/icons/linkedin.svg";
 import Monitoring from "../assets/icons/marketing.svg";
 import Messaging from "../assets/icons/messaging.svg";
 import Private from "../assets/icons/private.svg";
@@ -173,7 +174,7 @@ export const appRoutes: RouteItem[] = [
   {
     id: 6,
     Component: <BlogDetails />,
-    path: "/blog-detail",
+    path: "/blog-detail/:blogId",
     name: "Blog Detail",
     visible: false,
   },
@@ -557,12 +558,12 @@ export const appRoutes: RouteItem[] = [
 ];
 
 export const socialIcons: IsocialIcons[] = [
-  {
-    id: 1,
-    name: "Facebook",
-    src: Facebook,
-    link: "#",
-  },
+  // {
+  //   id: 1,
+  //   name: "Facebook",
+  //   src: Facebook,
+  //   link: "#",
+  // },
   // ,
   // {
   //   id: 2,
@@ -570,12 +571,12 @@ export const socialIcons: IsocialIcons[] = [
   //   src: Instagram,
   //   link: "#",
   // },
-  // {
-  //   id: 3,
-  //   name: "Linkedin",
-  //   src: Linkedin,
-  //   link: "#",
-  // },
+  {
+    id: 3,
+    name: "Linkedin",
+    src: Linkedin,
+    link: "https://www.linkedin.com/company/mental-support/about/",
+  },
   // {
   //   id: 4,
   //   name: "Twitter",

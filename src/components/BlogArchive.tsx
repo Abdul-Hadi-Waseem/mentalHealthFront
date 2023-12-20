@@ -4,6 +4,7 @@ import Button from "./Common/Buttons/Button";
 import { useNavigate } from "react-router-dom";
 
 interface BlogProps {
+  id: number;
   description: string;
   showDescription: boolean;
   showButton: boolean;
@@ -14,13 +15,14 @@ interface BlogProps {
 }
 
 function BlogArchive({
+  id,
   description,
   showDescription,
   showButton,
   image,
   title,
   date,
-  writer,
+  writer,  
 }: BlogProps) {
   const trimmedDescription = showDescription
     ? description.split(" ").slice(0, 30).join(" ") + "..."
@@ -28,7 +30,7 @@ function BlogArchive({
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/blog-detail");
+    navigate("/blog-detail/"+id);
   };
 
   const calculateTimeAgo = (inputDate: string): string => {
@@ -50,7 +52,6 @@ function BlogArchive({
   return (
     <div
       className="d-flex flex-column px-2 pt-2 pb-4 blog__box mx-2"
-      style={{ height: "350px" }}
     >
       <div className="text-end">
         <span className="blog__read__time">2 Min Read</span>

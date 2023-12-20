@@ -387,7 +387,7 @@ function PatientDashBoard() {
                   </div>
                 ) : doctorsProfile.length == 0 ? (
                   <div className="d-flex  justify-content-center">
-                    No Doctors found
+                    No Clinics found
                   </div>
                 ) : (
                   doctorsProfile.map((item, index) => {
@@ -396,8 +396,8 @@ function PatientDashBoard() {
                         key={item.name + index}
                         sm={12}
                         md={6}
-                        lg={4}
-                        xl={3}
+                        lg={5}
+                        xl={4}
                         className="pe-2"
                       >
                         <UserCard

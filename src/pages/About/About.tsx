@@ -2,7 +2,6 @@ import "./style.css";
 import Heading from "../../components/Common/Heading";
 import { Col, Container, Row } from "react-bootstrap";
 import About__Image from "../../assets/images/Group 2.png";
-import Advisor from "../../assets/images/advisor.png";
 import { teams } from "../../constants/constants";
 import Appointment from "../../components/Appointment";
 const About = () => {
@@ -19,16 +18,16 @@ const About = () => {
             </h2>
             <p className="pt-3 px-2">
               Out of the desire to provide access to mental health services as
-              early in a person’s life as possible.
+              early in a person's life as possible.
               <br />
               <br /> As a team of parents and educators, we saw the impact of
-              COVID-19 lock downs on children’s mental health.
+              COVID-19 lock downs on children's mental health.
               <br />
               <br /> Seventy percent (70%) of mental health problems have their
               onset in childhood and adolescence. Yet 75% of children with
               mental disorders do not access specialized services.
               <br />
-              <br /> We’re on a mission to improve access to quality services
+              <br /> We're on a mission to improve access to quality services
               for the most vulnerable populations of society..
               <br />
               <br /> Our team has extensive experience working with vulnerable
@@ -73,7 +72,7 @@ const About = () => {
             mental health problems in children and to take action to get them
             the help they need.
             <br />
-            <br /> At Mental Support, we’re committed to empowering parents,
+            <br /> At Mental Support, we're committed to empowering parents,
             teachers and healthcare professionals by providing them with the
             tools they need to identify early signs of mental health problems
             and seek help as early as possible. Early intervention can help

@@ -159,7 +159,7 @@ function PatientVisits() {
                         key={"item" + index.toString()}
                         xs={12}
                         sm={12}
-                        md={6}
+                        md={4}
                         lg={3}
                         className="py-2"
                       >

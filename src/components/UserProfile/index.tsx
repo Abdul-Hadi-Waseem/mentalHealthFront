@@ -29,7 +29,6 @@ const UserProfile = ({
   downloadForms,
   heading,
 }: any) => {
-  console.log("salam",doctorDetails);
   const [isInsured, setIsInsured] = useState(false);
   const navigate = useNavigate();
 
@@ -40,16 +39,19 @@ const UserProfile = ({
   };
   let { details } = userDetails;
   let { date, time, slot_duration } = details;
-  const handleAgoraMeeting = async () => {    
-      const channelName = doctorDetails.channel_name || "Appointment";
-      const doctor_id = doctorDetails.doctor_id || "123456";
-      const role = "Doctor";
-      let response = await axios.get(
-        `${config.base_url}/patient/get_meeting_token/${doctor_id}/${channelName}`
-      );
-      localStorage.setItem("creds", channelName + "@" + role + "@" + response.data.data + "@" + doctor_id);
-      navigate("/doctor-video-call");
-    }
+  const handleAgoraMeeting = async () => {
+    const channelName = doctorDetails.channel_name || "Appointment";
+    const doctor_id = doctorDetails.doctor_id || "123456";
+    const role = "Doctor";
+    let response = await axios.get(
+      `${config.base_url}/patient/get_meeting_token/${doctor_id}/${channelName}`
+    );
+    localStorage.setItem(
+      "creds",
+      channelName + "@" + role + "@" + response.data.data + "@" + doctor_id
+    );
+    navigate("/doctor-video-call");
+  };
   const PSCDocs = () => (
     <Document>
       <Page size={"A4"}>
@@ -105,22 +107,36 @@ const UserProfile = ({
         >
           <Text>PSC Question and Answere</Text>
         </View>
-        <View style={{display : "flex" , flexDirection : 'column'}}>
-              {pdfData.questions.map((el, index) => (
-                <View key={index} style={{display : "flex" ,   fontSize: "13px", margin : '3px 0px 2px 3px', flexDirection : 'column'}}>
-                  <View style={{ display: "flex", flexDirection: "row"  }}>
-                    <Text style={{ color: "gray", fontSize: 13 }}>
-                      Question : {JSON.parse(el).question}
-                    </Text>
-                  </View>
-                  <br/>
-                  <View style={{ display: "flex", flexDirection: "row" }}>
-                    <Text style={{ color: "gray", fontSize: 13 }}>
-                      Answer: {JSON.parse(el).answer}
-                    </Text>
-                  </View>
-                </View>
-              ))}
+        <View style={{ display: "flex", flexDirection: "column" }}>
+          {pdfData.questions.map((el, index) => (
+            <View
+              key={index}
+              style={{
+                display: "flex",
+                fontSize: "13px",
+                margin: "3px 0px 2px 3px",
+                flexDirection: "column",
+              }}
+            >
+              <View
+                key={`question-${index}`}
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Text style={{ color: "gray", fontSize: 13 }}>
+                  Question : {JSON.parse(el).question}
+                </Text>
+              </View>
+              <br />
+              <View
+                key={`answer-${index}`}
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Text style={{ color: "gray", fontSize: 13 }}>
+                  Answer: {JSON.parse(el).answer}
+                </Text>
+              </View>
+            </View>
+          ))}
         </View>
       </Page>
     </Document>
@@ -204,7 +220,6 @@ const UserProfile = ({
               <PDFDownloadLink
                 className={"pdf-downloader"}
                 document={<PSCDocs />}
-                // style={{display:"none"}}
                 fileName={`${name}.pdf`}
               >
                 <Button
@@ -215,33 +230,32 @@ const UserProfile = ({
               </PDFDownloadLink>
             </Col>
             {appointmentDetails.Date &&
-          new Date(appointmentDetails.Date) > new Date() ? (
-            <div className="flex-center">
-              <Button
-                variant="success"
-                title="JOIN APPOINTMENT"
-                className="w-100 py-2"
-                type="submit"
-                onClick={handleAgoraMeeting}
-              />
-            </div>
-          ) : new Date(appointmentDetails.Date) > new Date() ? (
-            <div className="flex-center">
-              <Button
-                variant="success"
-                title="SCHEDULED APPOINTMENT"
-                className="w-100 py-2"
-                type="submit"
-                disabled={true}
-              />
-            </div>
-          ) : (
-            <div className="flex-center">
-              <p>Expired</p>
-            </div>
-          )}
+            new Date(appointmentDetails.Date) == new Date() ? (
+              <div className="flex-center">
+                <Button
+                  variant="success"
+                  title="JOIN APPOINTMENT"
+                  className="w-100 py-2"
+                  type="submit"
+                  onClick={handleAgoraMeeting}
+                />
+              </div>
+            ) : new Date(appointmentDetails.Date) > new Date() ? (
+              <div className="flex-center">
+                <Button
+                  variant="success"
+                  title="SCHEDULED APPOINTMENT"
+                  className="w-100 py-2"
+                  type="submit"
+                  disabled={true}
+                />
+              </div>
+            ) : (
+              <div className="flex-center">
+                <p>Expired</p>
+              </div>
+            )}
           </Row>
-          
         </Container>
       </Container>
     </>

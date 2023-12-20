@@ -20,25 +20,25 @@ function Blog() {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: false
-        }
+          dots: false,
+        },
       },
-{
+      {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <>
@@ -52,12 +52,13 @@ function Blog() {
             return (
               <Col lg={3} key={blog.id}>
                 <BlogArchive
+                  id={blog.id}
                   date={blog.date}
                   description={blog.description}
                   image={blog.image}
                   title={blog.title}
                   writer={blog.writer}
-                  showButton={false}
+                  showButton={true}
                   showDescription={false}
                 />
               </Col>
@@ -74,6 +75,7 @@ function Blog() {
                 return (
                   <Col lg={6} key={blog.id} className="mb-4">
                     <BlogArchive
+                      id={blog.id}
                       date={blog.date}
                       description={blog.description}
                       image={blog.image}
@@ -102,7 +104,6 @@ function Blog() {
                     className="d-flex g-3 mb-4 align-items-center"
                     key={contributor.id}
                   >
-                    <img src={contributor.avatar} />
                     <div className="d-flex flex-column ps-3">
                       <span className="contributor__name">
                         {contributor.name}

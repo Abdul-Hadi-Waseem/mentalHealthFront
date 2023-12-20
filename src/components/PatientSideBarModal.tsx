@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 // import PaymentForm from "./PaymentForm"
 import UserProfile from "./UserProfile";
@@ -29,6 +29,32 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
   downloadForms,
   heading,
 }) => {
+  const currentdate = new Date();
+  const currenttime = new Date();
+  const appointmentdate = new Date(appointmentDetails.date);
+  const appointmentdatePlusanHour = new Date(appointmentDetails.date);
+  currentdate.setHours(0, 0, 0, 0);
+  appointmentdate.setHours(0, 0, 0, 0);
+  appointmentdatePlusanHour.setHours(appointmentdatePlusanHour.getHours() + 1);
+
+  const [appointmentbtnTitle, setAppointmentbtnTitle] = useState("");
+  const [appointmentbtnDisabled, setAppointmentbtnDisabled] = useState(true);
+  useEffect(() => {
+    if (currentdate.getTime() === appointmentdate.getTime()) {
+      if (currenttime > appointmentdatePlusanHour) {
+        setAppointmentbtnTitle("Expired");
+      } else if (currenttime < new Date(appointmentDetails.date)) {
+        setAppointmentbtnTitle("SCHEDULED TODAY");
+      } else if (currenttime >= new Date(appointmentDetails.date)) {
+        setAppointmentbtnTitle("JOIN APPOINTMENT");
+        setAppointmentbtnDisabled(false);
+      }
+    } else if (currentdate < appointmentdate) {
+      setAppointmentbtnTitle("SCHEDULED APPOINTMENT");
+    } else if (currentdate > appointmentdate) {
+      setAppointmentbtnTitle("Expired");
+    }
+  }, [currentdate, currenttime, appointmentdate, appointmentDetails]);
   const [secondForm, setSecondForm] = useState(false);
   const navigate = useNavigate();
   function handleSecondForm() {
@@ -45,12 +71,17 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
       const channelName =
         JSON.parse(localStorage.getItem("current_doctor_details"))
           .channel_name || "Appointment";
-      const patientId = JSON.parse(localStorage.getItem("current_doctor_details")).patient_id || "123456";
+      const patientId =
+        JSON.parse(localStorage.getItem("current_doctor_details")).patient_id ||
+        "123456";
       const role = "patient";
       let response = await axios.get(
         `${config.base_url}/patient/get_meeting_token/${patientId}/${channelName}`
       );
-      localStorage.setItem("creds", channelName + "@" + role + "@" + response.data.data + "@" + patientId);
+      localStorage.setItem(
+        "creds",
+        channelName + "@" + role + "@" + response.data.data + "@" + patientId
+      );
       navigate("/patient-video-call");
     }
   };
@@ -68,32 +99,16 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
             downloadForms={downloadForms}
             heading={heading}
           />
-          {appointmentDetails.date &&
-          new Date(appointmentDetails.date) > new Date() ? (
-            <div className="flex-center">
-              <Button
-                variant="success"
-                title="JOIN APPOINTMENT"
-                className="w-100 py-2"
-                type="submit"
-                onClick={handleAgoraMeeting}
-              />
-            </div>
-          ) : new Date(appointmentDetails.date) > new Date() ? (
-            <div className="flex-center">
-              <Button
-                variant="success"
-                title="SCHEDULED APPOINTMENT"
-                className="w-100 py-2"
-                type="submit"
-                disabled={true}
-              />
-            </div>
-          ) : (
-            <div className="flex-center">
-              <p>Expired</p>
-            </div>
-          )}
+          <div className="flex-center">
+            <Button
+              variant="success"
+              title={appointmentbtnTitle}
+              className="w-100 py-2"
+              type="submit"
+              onClick={handleAgoraMeeting}
+              disabled={appointmentbtnDisabled}
+            />
+          </div>
         </Offcanvas.Body>
       </Offcanvas>
     </>

@@ -107,7 +107,7 @@ function Partners() {
                 {selectedPartner.description.length > 550 && (
                   <span>
                     <br />
-                    <a onClick={handleReadMoreClick} style={{ color: "blue" }}>
+                    <a onClick={handleReadMoreClick} style={{'color':'blue'}}>
                       Read More
                     </a>
                   </span>
