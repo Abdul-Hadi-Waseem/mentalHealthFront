@@ -46,15 +46,6 @@
     font-weight: 400;
    color : rgba(81, 111, 139, 0.7);
 }
-.doctor_card_btn_danger{
-    width: 100%;
-    border: none;
-    background-color: rgba(255, 0, 0, 0.1);
-    color: rgba(255, 0, 0, 1);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 0, 0, 1);
-    padding: 18px 35px;
-}
 .doctor_card_btn{
     width: 100%;
     border: none;

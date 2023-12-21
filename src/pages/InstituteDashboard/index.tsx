@@ -189,6 +189,17 @@ function InstituteDashBoard() {
             />
           )}
         </Row>
+        <Row className="d-flex justify-content-between">
+          {isLoading || isRefetching ? (
+            <p>Loading...</p>
+          ) : (
+            <TeacherReactivate
+              onHide={handleCloseOffReActivateCanvas}
+              show={showOffReactivateCanvas}
+              placement="end"
+            />
+          )}
+        </Row>
       </Container>
       <ToastContainer />
     </>
