@@ -29,17 +29,11 @@ import TeacherReactivate from "../../components/TeacherReactivate";
 import InstituteHeader from "./Header/Header";
 
 function InstituteDashBoard() {
-  // const token = getToken();
-  // const [btnTitle, setBtnTitle] = useState("Login / Register");
-  const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
-  const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
+  // const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
+  // const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [showOffReactivateCanvas, setShowOffReactivateCanvas] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);
-  // console.log("userprofiles", userProfiles)
-  const [loader, setLoader] = useState(true);
-
-  const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
   const institute_information = JSON.parse(
     localStorage.getItem("institute_information")
   );
@@ -95,46 +89,6 @@ function InstituteDashBoard() {
   const handleCloseOffReActivateCanvas = () =>
     setShowOffReactivateCanvas(false);
   const navigate = useNavigate();
-  // const handleHorizantalScroll = (element, speed, distance, step) => {
-  //   element.scrollLeft += step;
-  //   setscrollX(scrollX + step);
-  //   console.log("scroll", element.scrollLeft);
-
-  //   //For checking if the scroll has ended
-  //   if (
-  //     Math.floor(
-  //       elementRef.current.scrollWidth - elementRef.current.scrollLeft
-  //     ) <= elementRef.current.offsetWidth
-  //   ) {
-  //     setscrolEnd(true);
-  //   } else {
-  //     setscrolEnd(false);
-  //   }
-
-  // let whereScroll = leftArroDisable;
-  // let minusScroll = leftArroDisable;
-  //  whereScroll += step;
-  // setLeftArroDisable(whereScroll)
-  // if(leftArroDisable  >= 0){
-  //   element.scrollRight += whereScroll;
-  // }else{
-  //   element.scrollLeft += whereScroll;
-  // }
-  // };
-
-  //This will check scroll event and checks for scroll end
-  // const scrollCheck = () => {
-  //   setscrollX(elementRef.current.scrollLeft);
-  //   if (
-  //     Math.floor(
-  //       elementRef.current.scrollWidth - elementRef.current.scrollLeft
-  //     ) <= elementRef.current.offsetWidth
-  //   ) {
-  //     setscrolEnd(true);
-  //   } else {
-  //     setscrolEnd(false);
-  //   }
-  // };
 
   return (
     <>

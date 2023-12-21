@@ -282,7 +282,7 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={myVisitsIcon} alt="dashboardIcon" />
               </div>
-              <div>Doctors</div>
+              <div>Clinics</div>
             </div>
             {/* <div className="patient-nav" onClick={"/patient-prescriptions"}> */}
             <div
@@ -298,7 +298,7 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={prcsiptionIcon} alt="dashboardIcon" />
               </div>
-              <div>Prescriptions</div>
+              <div>Clinical Feedback</div>
             </div>
             <div
               className={`cursor-pointer ${

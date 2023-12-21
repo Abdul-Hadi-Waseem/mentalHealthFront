@@ -220,6 +220,7 @@ const RegistrationForm: React.FC = () => {
         <Row className="mb-3">
           <Form.Group as={Col} lg={6} sm={12}>
             <InputGroup className="customDatePickerWidth">
+            <label htmlFor="dob">Date of Birth</label>
               <input
                 style={{
                   width: "100%",
@@ -239,10 +240,6 @@ const RegistrationForm: React.FC = () => {
                     : ""
                 }
               />
-
-              {/* <InputGroup.Text style={{ cursor: "pointer" }} className="icon">
-                <BsCalendar />
-              </InputGroup.Text> */}
             </InputGroup>
             {formik.touched.dob && formik.errors.dob && (
               // {formik.errors.dob}
@@ -252,6 +249,7 @@ const RegistrationForm: React.FC = () => {
             )}
           </Form.Group>
           <Form.Group as={Col} lg={6} sm={12}>
+          <label htmlFor="dob">Sex</label>
             <Form.Control
               as="select"
               id="gender"

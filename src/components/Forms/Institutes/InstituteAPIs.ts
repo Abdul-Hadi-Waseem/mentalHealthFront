@@ -19,6 +19,14 @@ export const registerInstitute = async (values: FormValues) => {
   }
 };
 
+export const sendSuccessMail = async (values: FormValues) => {
+  try {
+    return await axios.post(`${baseUrl}/mail/registersuccessful`, values);
+  } catch (error) {
+    return error?.response;
+  }
+};
+
 export const getAllTeachers = async () => {
   const token = Cookies.get("token");
   return await axios.get(`${baseUrl}/institute/teachers/get`, {

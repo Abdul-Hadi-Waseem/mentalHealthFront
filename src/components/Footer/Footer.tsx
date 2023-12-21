@@ -27,6 +27,7 @@ function Footer() {
                   key={route.id}
                   to={route.path}
                   className={useMatch(route.path) ? "active" : ""}
+                  onClick={scrollToTop}
                 >
                   {route.name}
                 </Link>
@@ -38,7 +39,7 @@ function Footer() {
         <div className="social__icons d-flex">
           {socialIcons.map((socialIcon) => {
             return (
-              <a key={socialIcon.id} href={socialIcon.link}>
+              <a key={socialIcon.id} href={socialIcon.link} target="_blank" rel="noopener noreferrer">
                 <img src={socialIcon.src} alt={socialIcon.name} />
               </a>
             );

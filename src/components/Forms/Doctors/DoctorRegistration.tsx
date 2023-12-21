@@ -93,6 +93,7 @@ const DoctorRegistrationForm: React.FC = () => {
     validationSchema,
     onSubmit: async (values) => {
       console.log("Values ", values);
+      console.log("Values ", values);
       event.preventDefault();
       values.gender = Number(values.gender);
 
