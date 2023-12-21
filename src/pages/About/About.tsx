@@ -96,7 +96,7 @@ const About = () => {
                 >
                   <h4
                     style={{ fontSize: "20px" }}
-                    className="text-white team__name"
+                    className="text-black team__name"
                   >
                     {team.name}
                   </h4>
