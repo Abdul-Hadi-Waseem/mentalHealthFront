@@ -1,8 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useMatch, useNavigate } from "react-router-dom";
-import { appRoutes } from "./../../constants/constants";
-import { Container, Row, Col } from "react-bootstrap";
 // import Image from "react-bootstrap/Image";
 // import "./Header.css";
 // import Container from "react-bootstrap/Container";
@@ -19,22 +18,15 @@ import { Container, Row, Col } from "react-bootstrap";
 // import Cookies from "js-cookie";
 // import { getToken } from "./../../utils";
 // FaArrowRight
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
-import UserCard from "../../components/Common/UserCard";
 // import "./dashboard.css";
-import DoctorSideBar from "../../components/DoctorSideBar";
-import axios, { AxiosError } from "axios";
-import Spinner from "react-bootstrap/Spinner";
-import config from "./../../configs/config";
-import InstituteHeader from "./Header/Header";
-import Button from "../../components/Common/Buttons/Button";
-import TeacherInvitation from "../../components/TeacherInvitation";
-import DoctorCard from "../../components/Common/DoctorCard";
-import TeacherCard from "../../components/Common/TeacherCard";
-import SearchComponent from "../../components/Search";
-import TeacherDisplayComponent from "../../components/TeacherDisplayComponent";
+import { AxiosError } from "axios";
 import { useQuery } from "react-query";
+import Button from "../../components/Common/Buttons/Button";
 import { getAllTeachers } from "../../components/Forms/Institutes/InstituteAPIs";
+import TeacherDisplayComponent from "../../components/TeacherDisplayComponent";
+import TeacherInvitation from "../../components/TeacherInvitation";
+import TeacherReactivate from "../../components/TeacherReactivate";
+import InstituteHeader from "./Header/Header";
 
 function InstituteDashBoard() {
   // const token = getToken();
@@ -42,6 +34,7 @@ function InstituteDashBoard() {
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [showOffReactivateCanvas, setShowOffReactivateCanvas] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);
   // console.log("userprofiles", userProfiles)
   const [loader, setLoader] = useState(true);
@@ -97,11 +90,11 @@ function InstituteDashBoard() {
     setShowOffCanvas(true);
   };
   const handleShowOffReActivateCanvas = () => {
-    setShowOffCanvas(true);
+    setShowOffReactivateCanvas(true);
   };
-  const handleCloseOffReActivateCanvas = () => setShowOffCanvas(false);
+  const handleCloseOffReActivateCanvas = () =>
+    setShowOffReactivateCanvas(false);
   const navigate = useNavigate();
-
   // const handleHorizantalScroll = (element, speed, distance, step) => {
   //   element.scrollLeft += step;
   //   setscrollX(scrollX + step);
