@@ -95,7 +95,7 @@ const RegistrationForm: React.FC = () => {
       const { confirmPassword, ...dataToSend } = values;
       console.log("dataToSend", dataToSend);
       try {
-        let { email, phone , level} = dataToSend;
+        let { email, phone, level } = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
         const isRegisteredResponse = await axios.get(
           `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/${level}`,
@@ -112,7 +112,6 @@ const RegistrationForm: React.FC = () => {
         if (isRegisteredResponse?.data?.isRegistered) {
           return toast.error("Email Or Phone is already registered");
         } else {
-
           // await executeMutation({ Data: dataToSend });
           // console.log("signup result", result);
           // toast.success("Registration Successful"); // Show the success toast
@@ -125,10 +124,7 @@ const RegistrationForm: React.FC = () => {
             `${config.base_url}/user/register`,
             dataToSend
           );
-          console.log(
-            "Registration response",
-            result?.data?.message
-          );
+          console.log("Registration response", result?.data?.message);
           toast.success(result?.data?.message); // Show the success toast
           setTimeout(() => {
             navigate("/login"); // Navigate after 5 seconds

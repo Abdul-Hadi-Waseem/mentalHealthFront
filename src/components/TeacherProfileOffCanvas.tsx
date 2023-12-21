@@ -49,12 +49,11 @@ const TeacherProfileOffCanvas: React.FC<TeacherDetailPropsType> = ({
     () => removeTeacherAccount(teacherData?.id),
     {
       onSuccess: (res) => {
-        console.log(res, "delet succ  ");
         if (res?.status === 200) {
           toast.success(res?.data?.message);
           setTimeout(() => {
             navigate(-1);
-          }, 2000);
+          }, 1500);
         }
       },
       onError: (err: any) => {

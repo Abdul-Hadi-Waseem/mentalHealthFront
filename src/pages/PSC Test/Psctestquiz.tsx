@@ -36,7 +36,6 @@ const PSC_Test_Quiz: React.FC = () => {
   const [result, executeMutation] = useProgramdataMutation();
   const [score, setScore] = useState({ score: "", testName: "", result: "" });
 
-
   const loadQuestions = useCallback(async (age: string | null) => {
     let questionSet;
     if (age && Number(age) < 18) {
@@ -138,7 +137,7 @@ const PSC_Test_Quiz: React.FC = () => {
           psc_test_result: { ...res.data?.data },
         })
       );
-      
+
       setScore(res.data?.data);
       setLoader(false);
 
@@ -148,8 +147,6 @@ const PSC_Test_Quiz: React.FC = () => {
       toast.error("Psc_Test creation not successful");
       console.log(`error in Psc_Test`, error.message);
     }
-
-
 
     // executeMutation({
     //   Data: {

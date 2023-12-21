@@ -100,28 +100,27 @@ const TeachersRegistrationForm: React.FC = () => {
     () => getInstitutes(),
     {
       onError: () =>
-        toast.error("Error Fetching Institute names. Please Try Again."),       
+        toast.error("Error Fetching Institute names. Please Try Again."),
     }
   );
 
-  const registerPostRequest = (values: FormValues) => {    
+  const registerPostRequest = (values: FormValues) => {
     const instituteID = institutesData?.data.data?.find(
       (each: { id: number; name: string }) => each.name === institute_name
-    )?.id;      
+    )?.id;
     if (values.gender !== "Male" && values.gender !== "Female") {
       toast.error("Please Select Gender");
       return;
-    }        
+    }
     if (
       values.institute === undefined ||
       values.institute === "Institute Name"
     ) {
-      
       toast.error("Please Select Institute");
       return;
     }
     try {
-      values.institute = instituteID; 
+      values.institute = instituteID;
       registerTeacher(values).then((res) => {
         if (res?.data?.status === 200) {
           toast.success("Registration Successful", {
@@ -207,7 +206,7 @@ const TeachersRegistrationForm: React.FC = () => {
                 )}
               </Form.Group> */}
               <Form.Group as={Col} lg={6} sm={12}>
-              <Form.Control
+                <Form.Control
                   type="text"
                   placeholder="Intitute Name"
                   id="institute"
@@ -215,9 +214,11 @@ const TeachersRegistrationForm: React.FC = () => {
                   value={formik?.values.institute}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  isInvalid={formik.touched.institute && !!formik.errors.institute}
+                  isInvalid={
+                    formik.touched.institute && !!formik.errors.institute
+                  }
                   disabled
-                />               
+                />
                 {/* {formik.touched.state && formik.errors.state && (
                   <small className="text-danger">{formik.errors.state}</small>
                 )}

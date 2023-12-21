@@ -559,7 +559,7 @@ export const appRoutes: RouteItem[] = [
     Component: <DoctorVideoCall />,
     path: "/doctor-video-call",
     name: "Doctor Video Call",
-  },  
+  },
 ];
 
 export const socialIcons: IsocialIcons[] = [
@@ -568,7 +568,7 @@ export const socialIcons: IsocialIcons[] = [
     name: "Facebook",
     src: Facebook,
     link: "#",
-  }
+  },
   // ,
   // {
   //   id: 2,

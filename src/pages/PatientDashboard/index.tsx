@@ -25,7 +25,7 @@ function PatientDashBoard() {
     JSON.parse(localStorage.getItem("user_complete_information"))
   );
   const [doctorsProfile, setDoctorsProfile] = useState([]);
-  const [patientHealthDetail ,setPatientHealthDetail] = useState(null)
+  const [patientHealthDetail, setPatientHealthDetail] = useState(null);
   // const [doctorsProfile, setDoctorsProfile] = useState([
   //   {
   //     name: "Dr. Bessie Copper",
@@ -66,23 +66,23 @@ function PatientDashBoard() {
     }
   };
 
-  const patientHealthScore = async ()=> {
-     try {
+  const patientHealthScore = async () => {
+    try {
       let response = await axios.get(
         `${config.base_url}/patient/get_patient_health_score/${
           JSON.parse(localStorage.getItem("user_complete_information")).uid
         }`
-        );
-        console.log( "response?.data?.data" , response?.data?.data)
-        setPatientHealthDetail(response?.data?.data)
-     } catch (error) {
-       console.log(error);
-     }
-  }
+      );
+      console.log("response?.data?.data", response?.data?.data);
+      setPatientHealthDetail(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const reduxUserState = useSelector(
     (state: any) => state.currentUserInformation
   );
-  console.log("reduxUserState" , reduxUserState?.psc_test_result);
+  console.log("reduxUserState", reduxUserState?.psc_test_result);
   //This will check scroll event and checks for scroll end
   const scrollCheck = () => {
     setscrollX(elementRef.current.scrollLeft);
@@ -125,7 +125,7 @@ function PatientDashBoard() {
     })();
   }, []);
   const showPSCQuestion = async () => {
-    console.log("first")
+    console.log("first");
     try {
       let response = await axios.get(
         `${config.base_url}/patient/get_patient_psc_question/${
@@ -263,7 +263,7 @@ function PatientDashBoard() {
                 <div className="text-light ps-5">
                   <h3
                     onClick={showPSCQuestion}
-                    style={{ fontSize: "34px" , cursor: 'pointer' }}
+                    style={{ fontSize: "34px", cursor: "pointer" }}
                     className="text-light mb-2"
                   >
                     PSC Test
@@ -274,10 +274,7 @@ function PatientDashBoard() {
                   </p>
                   {/* <p className="text-light mb-4">Mild Anxiety</p> */}
                   <p className="text-light mb-4">
-                    {patientHealthDetail?.condition?.replace(
-                      /[()]/g,
-                      ""
-                    )}
+                    {patientHealthDetail?.condition?.replace(/[()]/g, "")}
                   </p>
                 </div>
                 <div className="pe-4">

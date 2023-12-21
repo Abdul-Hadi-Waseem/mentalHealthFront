@@ -93,15 +93,13 @@ function InstituteDashBoard() {
   // }, []);
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
-  // const handleShowOffCanvas = ({ name, treat, details }: any) => {
   const handleShowOffCanvas = () => {
-    console.log("function");
     setShowOffCanvas(true);
-    // setCurrentUserDetails({ name, treat, details });
-    // setCurrentUserDetails(item);
-    // localStorage.setItem("user", JSON.stringify(item));
   };
-  // const elementRef = useRef(null);
+  const handleShowOffReActivateCanvas = () => {
+    setShowOffCanvas(true);
+  };
+  const handleCloseOffReActivateCanvas = () => setShowOffCanvas(false);
   const navigate = useNavigate();
 
   // const handleHorizantalScroll = (element, speed, distance, step) => {
@@ -153,10 +151,20 @@ function InstituteDashBoard() {
           <Col
             className="d-flex flex-column justify-content-start py-5"
             xs={12}
-            sm={8}
-            md={9}
+            sm={4}
+            md={6}
           >
             <h4 className="text-capitalize">Dashboard</h4>
+          </Col>
+          <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
+            <div>
+              <Button
+                variant="primary"
+                title="Re-Activate Teacher"
+                className="px-5 py-3 mb-3"
+                onClick={() => handleShowOffReActivateCanvas()}
+              />
+            </div>
           </Col>
           <Col className="d-flex align-items-center" xs={12} sm={4} md={3}>
             <div>

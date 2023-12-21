@@ -20,7 +20,7 @@ const PatientsHistory = () => {
   // console.log("userProfile", userProfiles[0].name);
 
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  const [pdfData , setPDFData] = useState(null)
+  const [pdfData, setPDFData] = useState(null);
 
   const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
 
@@ -56,13 +56,12 @@ const PatientsHistory = () => {
   //   localStorage.setItem("user", JSON.stringify(item));
   // };
 
-  
-  const handleShowOffCanvas =async (item: any) => {
+  const handleShowOffCanvas = async (item: any) => {
     try {
       let response = await axios.get(
         `${config.base_url}/patient/get_patient_psc_record/${item?.patient_id}`
       );
-      console.log("response?.data?.data" , response?.data?.data)
+      console.log("response?.data?.data", response?.data?.data);
       setPDFData(response?.data?.data);
     } catch (error) {
       console.log(error);
@@ -155,7 +154,7 @@ const PatientsHistory = () => {
                       treat: "Patient Condition",
                     }}
                     handleUserProfile={() => {
-                      console.log("handleUserProfile",item);
+                      console.log("handleUserProfile", item);
                       handleShowOffCanvas(item);
                     }}
                   />

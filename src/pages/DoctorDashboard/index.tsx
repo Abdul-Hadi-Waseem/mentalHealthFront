@@ -35,12 +35,9 @@ function DoctorDashBoard() {
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);
-  const [pdfData , setPDFData] = useState(null)
+  const [pdfData, setPDFData] = useState(null);
 
   // console.log("userprofiles", userProfiles)
-
-
-  
 
   const [currentUserDetails, setCurrentUserDetails] = useState<any>({});
   console.log("currentUser", currentUserDetails);
@@ -53,10 +50,11 @@ function DoctorDashBoard() {
     try {
       const getAllPatients = async () => {
         const res = await axios.get(
-          `${config.base_url}/doctor/doctors_all_appointments/${name}/${uid}`, {
+          `${config.base_url}/doctor/doctors_all_appointments/${name}/${uid}`,
+          {
             headers: {
-              'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
-            }
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
           }
         );
         console.log("res", res?.data?.data);
@@ -80,12 +78,12 @@ function DoctorDashBoard() {
   //   setCurrentUserDetails(item);
   //   localStorage.setItem("user", JSON.stringify(item));
   // };
-  const handleShowOffCanvas =async (item: any) => {
+  const handleShowOffCanvas = async (item: any) => {
     try {
       let response = await axios.get(
         `${config.base_url}/patient/get_patient_psc_record/${item?.patient_id}`
       );
-      console.log("response?.data?.data" , response?.data?.data)
+      console.log("response?.data?.data", response?.data?.data);
       setPDFData(response?.data?.data);
     } catch (error) {
       console.log(error);

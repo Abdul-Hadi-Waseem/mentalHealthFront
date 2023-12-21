@@ -157,9 +157,9 @@ span.input-group-text {
   position: absolute;
 }
 
-@media screen and (max-width: 767px){
-.slick-next:before,
-.slick-prev:before {
- display: none !important;
-}
+@media screen and (max-width: 767px) {
+  .slick-next:before,
+  .slick-prev:before {
+    display: none !important;
+  }
 }

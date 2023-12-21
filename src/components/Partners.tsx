@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import { Container, Modal, Button } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
@@ -21,10 +21,25 @@ function Partners() {
   const [selectedPartner, setSelectedPartner] = useState<Ipartners | null>(
     partners[0] || null
   );
-
+  const truncateDescription = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
   const handleClick = (partnerId: number, partner: Ipartners) => {
     setActivePartner(partnerId);
     setSelectedPartner(partner);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleReadMoreClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -64,7 +79,7 @@ function Partners() {
             })}
           </div>
         </Col>
-        <Col sm={12} lg={6} >
+        <Col sm={12} lg={6}>
           {selectedPartner && (
             <div className="partner__desctription py-5 px-5">
               <div className="d-flex align-items-center justify-content-between py-3">
@@ -87,11 +102,36 @@ function Partners() {
                 </div>
               </div>
               <img src={Stars} className="" />
-              <p className="pt-4">{selectedPartner.description}</p>
+              <p className="pt-4">
+                {truncateDescription(selectedPartner.description, 550)}
+                {selectedPartner.description.length > 550 && (
+                  <span>
+                    <br />
+                    <a onClick={handleReadMoreClick} style={{ color: "blue" }}>
+                      Read More
+                    </a>
+                  </span>
+                )}
+              </p>
             </div>
           )}
         </Col>
       </Row>
+      {/* Modal */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedPartner.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={selectedPartner.avatar} alt={selectedPartner.name} />
+          <p>{selectedPartner.description}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

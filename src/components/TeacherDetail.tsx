@@ -4,18 +4,63 @@ import InstituteHeader from "../pages/InstituteDashboard/Header/Header";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import BackButton from "./Common/Buttons/BackButton";
 import { useQuery } from "react-query";
+import { AxiosError } from "axios";
+import axios from "axios";
+import config from "../configs/config";
 import { toast, ToastContainer } from "react-toastify";
+import { getToken } from "../utils";
 import {
   getStudentsOfATeacher,
   getTeacherDetail,
+  removeTeacherAccount,
 } from "./Forms/Institutes/InstituteAPIs";
 import StudentDisplayComponent from "./StudentDisplayComponent";
 import TeacherProfileOffCanvas from "./TeacherProfileOffCanvas";
+import TransferStudentsModal from "./TransferStudentsModal";
+import { getAllTeachers } from "../components/Forms/Institutes/InstituteAPIs";
 
 const TeacherDetail = () => {
   const { id } = useParams();
   const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
+  const handleTransferStudents = async (toTeacher) => {
+    const fromTeacher = id;
+    const response = await axios.put(
+      `${config.base_url}/institute/student/transfer`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+        },
+        fromTeacher,
+        toTeacher,
+      }
+    );
+    if (response.status == 200) {
+      toast.success("Students Transferred Successfully");
+      handleCloseModal();
+    }
+  };
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+  const {
+    data: teacher_data,
+    isLoading: teacher_isLoading,
+    isRefetching: teacher_isRefetching,
+  } = useQuery("getAllTeachersInInstitute", () => getAllTeachers(), {
+    refetchOnWindowFocus: false,
+    onError: (err: AxiosError) => {
+      if (err?.response?.status)
+        toast.error("An error occured fetching Teachers. Please try again");
+    },
+    onSuccess: (data) => {
+      // console.log("teacher_data", data)
+    },
+  });
   const { data, isLoading, isRefetching } = useQuery(
     "getInstitute'sTeacherDetail",
     () => getTeacherDetail(id),
@@ -34,6 +79,7 @@ const TeacherDetail = () => {
     {
       refetchOnWindowFocus: false,
       enabled: !!data?.data?.data?.id,
+
       onError: (err: any) => {
         toast.error("Error Fetching Students, Please try again");
       },
@@ -41,9 +87,36 @@ const TeacherDetail = () => {
   );
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
-
+  const handleDeactivateTeacher = async () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to deactivate this teacher?"
+    );
+    if (confirmation) {
+      const { refetch: deleteTeacherAccount, isRefetching } = useQuery(
+        "removeasingleteacheraccount",
+        () => removeTeacherAccount(id),
+        {
+          onSuccess: (res) => {
+            console.log(res, "delet succ  ");
+            if (res?.status === 200) {
+              toast.success(res?.data?.message);
+              setTimeout(() => {
+                navigate(-1);
+              }, 2000);
+            }
+          },
+          onError: (err: any) => {
+            console.log(err, "ERROR DELETED");
+            toast.error(err?.response?.data?.message);
+          },
+          enabled: false,
+        }
+      );
+    } else {
+      return;
+    }
+  };
   const handleShowOffCanvas = () => {
-    console.log("function");
     setShowOffCanvas(true);
   };
   const navigate = useNavigate();
@@ -107,17 +180,32 @@ const TeacherDetail = () => {
               </Col>
               <Col xs={12} md={10}>
                 <Row className="px-3">
-                  <Col xs={12} md={9}>
-                    {/* <h3 className="doctor-name">Richard Muldoone</h3> */}
+                  <Col xs={12} md={4}>
                     <h3 className="doctor-name">{data?.data?.data?.name}</h3>
                     <p>Teacher</p>
                   </Col>
-                  <Col xs={12} md={3}>
+                  <Col xs={12} md={4} className="mt-3">
+                    <button
+                      className="doctor_card_btn text-center"
+                      onClick={handleOpenModal}
+                    >
+                      {"Transfer Students"}
+                    </button>
+                  </Col>
+                  <Col xs={12} md={4} className="mt-3">
                     <button
                       className="doctor_card_btn text-center"
                       onClick={handleShowOffCanvas}
                     >
                       {"View Profile"}
+                    </button>
+                  </Col>
+                  <Col xs={12} md={3} className="mt-3">
+                    <button
+                      className="doctor_card_btn_danger text-center"
+                      onClick={handleDeactivateTeacher}
+                    >
+                      {"Deactivate"}
                     </button>
                   </Col>
                 </Row>
@@ -146,6 +234,16 @@ const TeacherDetail = () => {
           show={showOffCanvas}
         />
       </Container>
+      {teacher_data ? (
+        <TransferStudentsModal
+          isOpen={isModalOpen}
+          teachers={teacher_data.data.data.filter(
+            (teacher) => teacher.id != id
+          )}
+          handleCloseModal={handleCloseModal}
+          transferStudents={handleTransferStudents}
+        />
+      ) : null}
       <ToastContainer />
     </>
   );

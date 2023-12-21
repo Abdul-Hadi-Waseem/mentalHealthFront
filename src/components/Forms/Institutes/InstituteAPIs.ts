@@ -28,6 +28,15 @@ export const getAllTeachers = async () => {
   });
 };
 
+export const getAllDeactivatedTeachers = async () => {
+  const token = Cookies.get("token");
+  return await axios.get(`${baseUrl}/institute/teachers/deactivated`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const getTeacherDetail = async (id: number | string) => {
   const token = Cookies.get("token");
   return await axios.get(`${baseUrl}/institute/teacher/${id}`, {
@@ -58,6 +67,21 @@ export const removeTeacherAccount = async (teacherId: number | string) => {
   );
 };
 
+export const reactivateTeacherAccount = async (
+  teacherId: number | string,
+  instituteId: any
+) => {
+  const token = Cookies.get("token");
+  return await axios.put(
+    `${baseUrl}/institute/teacher/reactivate/${teacherId}/${instituteId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 export const sendTeacherInvitation = async (
   name: string,
   toEmail: string,
@@ -67,7 +91,9 @@ export const sendTeacherInvitation = async (
   try {
     const token = Cookies.get("token");
     //get institute_information from localstorage
-    const institute_information = JSON.parse(localStorage.getItem("institute_information"));
+    const institute_information = JSON.parse(
+      localStorage.getItem("institute_information")
+    );
     const institute_name = institute_information.name;
     return await axios.post(
       `${baseUrl}/institute/mail/send/register`,
@@ -76,7 +102,7 @@ export const sendTeacherInvitation = async (
         toEmail,
         classes,
         qualification,
-        institute_name
+        institute_name,
       },
       {
         headers: {
