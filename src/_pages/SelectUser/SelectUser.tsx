@@ -18,9 +18,7 @@ function SelectUser() {
       </h1>
       <Row className="user__section">
         {users.map((user) => {
-          // Check if user.path is defined before invoking handleClick
           const isPathDefined = typeof user.path === "string";
-
           return (
             <Col
               key={user.id}

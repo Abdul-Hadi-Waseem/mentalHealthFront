@@ -29,8 +29,6 @@ import TeacherReactivate from "../../components/TeacherReactivate";
 import InstituteHeader from "./Header/Header";
 
 function InstituteDashBoard() {
-  // const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
-  // const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [showOffReactivateCanvas, setShowOffReactivateCanvas] = useState(false);
   const [userProfiles, setUserProfiles] = useState([]);

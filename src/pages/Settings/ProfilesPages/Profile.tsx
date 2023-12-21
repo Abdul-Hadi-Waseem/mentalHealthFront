@@ -99,8 +99,9 @@ function Profile() {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values, "Value");
-      // event.preventDefault();
+      if(values.dob == new Date("2004-06-30T19:00:00.000Z").toString()){
+        return toast.error("Date of Birth is required");
+      }
       values.gender = Number(values.gender);
 
       const dobDate = new Date(values.dob);

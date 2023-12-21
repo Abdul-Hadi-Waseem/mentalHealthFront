@@ -151,7 +151,7 @@ function Header({ children }) {
                         <small className="text-light p-0">
                           {/* <strong className="text-light">Bessie Cooper</strong> */}
                           <strong className="text-light text-capitalize">
-                            Mr {currentPatient.name}
+                            {currentPatient.name}
                           </strong>
                         </small>
                         {/* <small className="text-light  p-0">

@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerInstitute } from "./InstituteAPIs";
+import { countryList } from "../../../constants/constants";
 
 export interface FormValues {
   name: string;
@@ -187,25 +188,6 @@ const InstituteRegistrationForm: React.FC = () => {
                 )}
               </Form.Group>
             </Row>
-            {/* <Row className="mb-3">
-          <Form.Group as={Col} lg={12} sm={12}>
-            <Form.Control
-              type="text"
-              placeholder="Address"
-              id="address"
-              name="address"
-              value={formik.values.address}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              isInvalid={formik.touched.address && !!formik.errors.address}
-            />
-            {formik.touched.address && formik.errors.address && (
-              <Form.Control.Feedback type="invalid">
-                {formik.errors.address}
-              </Form.Control.Feedback>
-            )}
-          </Form.Group>
-        </Row> */}
             <Row className="mb-3">
               <Form.Group as={Col} lg={6} sm={12}>
                 <Form.Control
@@ -264,15 +246,21 @@ const InstituteRegistrationForm: React.FC = () => {
               </Form.Group>
               <Form.Group as={Col} lg={6} sm={12}>
                 <Form.Control
-                  type="text"
-                  placeholder="Country"
+                  as="select"
                   id="country"
                   name="country"
                   value={formik.values.country}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isInvalid={formik.touched.country && !!formik.errors.country}
-                />
+                >
+                  <option value="" label="Select a country" />
+                  {countryList.map((country, index) => (
+                    <option key={index} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </Form.Control>
                 {formik.touched.country && formik.errors.country && (
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.country}

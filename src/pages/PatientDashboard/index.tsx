@@ -231,7 +231,6 @@ function PatientDashBoard() {
                   {/* <p className="doctor_name">Dr. Bessie Cooper</p> */}
                   {/* <p className="single_doctor_card_name">Dr Bessie Copper</p> */}
                   <p className="single_doctor_card_name">
-                    Mr &nbsp;
                     {reduxUserState?.name}
                   </p>
 
