@@ -672,25 +672,25 @@ export const workSteps: Isteps[] = [
 export const partners: Ipartners[] = [
   {
     id: 1,
-    name: "Bessie Cooper",
-    designation: "CEO Amazon",
+    name: "Rimi",
+    designation: "Student",
     avatar: Avatar1,
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five.",
+      "I am writing this with immense gratitude and a heart full of appreciation for the transformative journey I've experienced on the Mental Support platform. In a world where the challenges of mental health can sometimes feel isolating, this platform has been a beacon of hope, understanding, and personalized support. My journey began with a simple registration, and what set Mental Support apart from other platforms was its unique approach to understanding users. The initial questions weren't just routine; they were thoughtfully designed to unravel the intricacies of my thoughts, emotions, and needs. It was the first indication that Mental Support was truly committed to providing personalized care. The magic happened behind the scenes, where their AI system worked diligently to process my responses. Soon after, I was presented with recommendations for experienced therapists who aligned with my unique set of challenges. Having the power to choose a therapist based on their profile and expertise was empowering—it made me feel in control of my own healing process. The ability to communicate anonymously was a game-changer for me. It allowed me to be honest and vulnerable without the fear of judgment. The secure messaging system became my safe haven, a space where I could pour out my thoughts and receive thoughtful responses from my chosen therapist. What truly sets Mental Support apart is its flexibility. The platform offers various communication modes—text, voice calls, and video conversations. Having the choice to communicate in a way that felt most comfortable to me was liberating. It made the therapeutic process feel tailored to my preferences, adding an extra layer of comfort to the entire experience. Throughout my journey, one thing remained constant: the commitment to maintaining the utmost confidentiality. Every conversation, every detail shared, was treated with the utmost care. This sense of security allowed me to explore my thoughts and feelings in ways I hadn't thought possible. In a world where mental health care is often stigmatized or inaccessible, Mental Support stands as a beacon of hope. It's not just a platform; it's a community of compassionate professionals who genuinely care about your well-being. My Mental Support journey has been transformative, enlightening, and, most importantly, healing. If you're on the fence about seeking help, I encourage you to take that leap. Mental Support has been my guiding light through the darkness, and I am eternally grateful for the support and care they've provided.",
   },
   {
     id: 2,
-    name: "Leslie Alexander",
+    name: "Kamran",
     avatar: Avatar2,
-    designation: "Medical Assistant",
+    designation: "Student",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five.",
+      "In the chaos of exam stress, my anxiety levels were through the roof. Sleepless nights, racing thoughts—fear of failure was suffocating. Enter Mental Support, a game-changer in my struggle for mental well-being. No hoops to jump through—registering was a breeze. The initial questions weren generic; however they delved deep into my exam anxiety. It felt like they understood me before we even started. The AI wizardry kicked in, analyzing my responses. It recommended therapists specialized in academic anxiety. It was like having a study buddy who knew the ins and outs of the mental game. What set Mental Support apart was the option to communicate anonymously. I could spill my fears without judgment. The secure messaging system became my private confessional. Flexibility in communication was key. Choosing how to connect—messages, voice calls, or video—adapted to my study schedule and comfort level. With Mental Support's support, my mindset shifted. Anxiety turned into empowerment. Techniques from my therapist became tools against exam stress. Facing exams went from daunting to doable. To students grappling with exam anxiety, consider Mental Support. It's more than a platform—it's a companion in your academic journey, offering personalized support that goes beyond textbooks. My journey is proof that seeking help is a proactive step toward well-being.",
   },
   {
     id: 3,
-    name: "Courtney Henry",
+    name: "Thara Lie",
     avatar: Avatar3,
-    designation: "Marketing Coordinator",
+    designation: "Student",
     description:
       "I'm just a regular 14-year-old girl, and I want to share a bit about something that's been happening at home. It's not easy, but I found someone super cool who helped me, and I thought it might help someone else too. So, you know how sometimes parents fight? Well, mine did a lot, and it made me feel really scared and insecure. It's not fun when the people who are supposed to make you feel safe are always arguing. I needed someone to talk to, and that's when I met Syeda Asma Bukhari. Asma isn't like a regular grown-up who just tells you what to do. She's more like a friend who listens. I didn't have to use big words or be super serious. I just talked about how I felt, and she really understood. She helped me see things in a new way. Instead of feeling small and scared, she showed me that I'm strong and can handle tough stuff. She didn't make it all sound like a big deal, and that made it easier for me to understand. We did this thing called 'positive mindset'. It's like looking at problems in a different way. Asma helped me find good things even when everything seemed bad. She made me believe in myself. Now, I feel way more confident. It's like I have this secret power to stay cool even when things get crazy at home. She taught me that I'm not alone, and that it's okay to ask for help. I'm still learning, but every day feels a bit brighter. If you ever feel stuck or scared, maybe talking to someone like Syeda Asma can help you too. It's not about being perfect or having all the answers. It's just about finding your own way to feel better.\nStay strong, friends!",
   },
@@ -757,7 +757,7 @@ export const blogs: IBlogs[] = [
       In conclusion, mental well-being is a critical aspect of our overall health and quality of life. It impacts how we think, feel, and behave, and can influence our ability to cope with life's challenges and achieve our goals. By promoting and maintaining good mental well-being, we can lead happier, healthier, and more fulfilling lives.
       `,
     image: Blog_Image,
-    title: "Aenean egestas libero.",
+    title: "Mental well-being: Why is it important and how can we promote it?",
     date: "12-Aug-2022",
     writer: "John Smith",
   },
@@ -772,7 +772,7 @@ export const blogs: IBlogs[] = [
       In conclusion, early intervention for mental health illnesses is critical for promoting better mental health outcomes. It can help prevent the development of chronic mental health conditions, improve the effectiveness of treatment, enhance quality of life, reduce the risk of suicide, and reduce the stigma associated with mental illness. By identifying and treating mental health conditions early, we can help individuals lead happier, healthier lives and reduce the burden of mental illness on individuals, families, and communities.
       `,
     image: Blog_Image,
-    title: "Aenean egestas libero.",
+    title: "Mental health illnesses and risk of suicide",
     date: "12-Aug-2022",
     writer: "John Smith",
   },
@@ -794,7 +794,7 @@ export const blogs: IBlogs[] = [
       `,
     image: Blog_Image,
     title:
-      "Impact of COVID-19 on children's mental health, a teacher'’'s viewpoint",
+      "Impact of COVID-19 on children's mental health, a teacher's viewpoint",
     date: "01-Dec-2023",
     writer: "Sharjil Hussain, CEO, Mental Support",
   },
@@ -807,7 +807,7 @@ export const blogs: IBlogs[] = [
       One of the reasons that students do not receive the support they need is that mental health issues can be difficult to identify. This is where teachers come in. Teachers are uniquely positioned to observe changes in their students' behavior and to identify signs of mental distress. However, many teachers do not receive the training they need to recognize these signs and to respond appropriately.
       Equipping teachers with the tools to identify signs of mental distress in students can have a profound impact on students' mental health. When teachers are able to identify signs of mental distress, they can take action to connect students with the support they need. This may involve referring students to school counselors or mental health professionals, or providing support and resources themselves.
       In addition, when teachers are equipped with the tools to identify signs of mental distress, they can take steps to prevent mental health issues from arising in the first place. This may involve creating a positive classroom environment, fostering strong relationships with students, and promoting mental health awareness and education.
-      At Mental Support, we’re working with teachers and schools to provide them with the training and tools they need to help in identifying signs of mental distress in their student populations. 
+      At Mental Support, we're working with teachers and schools to provide them with the training and tools they need to help in identifying signs of mental distress in their student populations. 
       Through deep analytics, we can assist schools in focusing on areas of concern and build a positive and inclusive environment for all students.
       In conclusion, equipping teachers with the tools to identify signs of mental distress in students is essential for improving students' mental health. By taking a proactive approach to mental health, teachers can create a safe and supportive environment for their students, and help them get the support they need to thrive. With the right training and resources, teachers can play a critical role in promoting mental well-being for students, both now and in the future.
       `,
@@ -826,14 +826,14 @@ export const blogs: IBlogs[] = [
       In conclusion, insurance coverage for mental health services is a critical component of ensuring that everyone has access to the care they need. At Mental Support, we’re advocating for better insurance coverage for mental health services so we can help to promote mental well-being and reduce the negative impacts of mental illness.
       `,
     image: Blog_Image,
-    title: "Aenean egestas libero.",
+    title: "The importance of insurance coverage for mental health services",
     date: "12-Aug-2022",
     writer: "John Smith",
   },
   {
     id: 6,
     description: `Mental health is an essential aspect of overall health and well-being. However, many people around the world struggle to access the mental health services they need. This can be due to a variety of factors, including a shortage of mental health professionals, lack of insurance coverage, and stigma surrounding mental illness.
-      At Mental Support, we’re leveraging technology to develop a scalable mental health services platform. Through our interactive platform, we provide people with easy access to a range of mental health services, including counseling, therapy, and psychiatric care. By leveraging technology, Mental Support intends to increase access and deliver superior mental health services to a large number of people, regardless of their geographic location or financial situation.
+      At Mental Support, we're leveraging technology to develop a scalable mental health services platform. Through our interactive platform, we provide people with easy access to a range of mental health services, including counseling, therapy, and psychiatric care. By leveraging technology, Mental Support intends to increase access and deliver superior mental health services to a large number of people, regardless of their geographic location or financial situation.
       One of our key focuses is to provide care to people in remote or underserved areas. In many parts of the world, there is a shortage of mental health professionals, which makes it difficult for people to access the care they need. Mental Support addresses this challenge through technology  by connecting people with mental health professionals remotely, through video or phone consultations.
       We understand that each patient is unique in their needs which is why we provide tailored care to individuals. By using data and algorithms, our platform can identify a person's specific mental health needs and recommend personalized treatment options. This can help ensure that people receive the care that is most effective for their unique situation.
       We strongly feel about reducing the stigma around accessing mental health services. By providing access to mental health services in a private and confidential manner, we  envision improved access for people who need help for mental health issues. This can lead to increased awareness and understanding of mental health, which can help reduce the stigma surrounding mental illness.
