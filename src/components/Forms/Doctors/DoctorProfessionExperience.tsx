@@ -466,7 +466,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="State"
+              placeholder="State/Province"
               id="state"
               name="state"
               value={formik.values.state}
@@ -485,7 +485,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="Zip Code"
+              placeholder="Zip/POBox Code"
               id="zip_code"
               name="zip_code"
               value={formik.values.zip_code}

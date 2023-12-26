@@ -16,6 +16,7 @@ import Avatar3 from "../assets/images/avatar3.png";
 import Blog_Image from "../assets/images/blogs/blog_1_img.png";
 import Team_sharjil from "../assets/images/team_sharjil.jpeg";
 import Team_rajiv from "../assets/images/team_rajiv.jpeg";
+import Team_fariha from "../assets/images/team_fariha.jpg";
 import Team_lashari from "../assets/images/team_lashari.jpeg";
 import Team_asif from "../assets/images/team_asif.jpeg";
 import About from "../pages/About/About";
@@ -908,6 +909,12 @@ export const teams: ITeam[] = [
     name: "Rajiv Aggarwal",
     designation: "COO",
     image: Team_rajiv,
+  },
+  {
+    id: 3,
+    name: "Fariya Altaf",
+    designation: "CLO",
+    image: Team_fariha,
   },
   {
     id: 4,

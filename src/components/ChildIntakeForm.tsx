@@ -279,7 +279,7 @@ const handleSubmit = () => {
         <div className="sm_form_w">
           <Input
             label="State"
-            placeholder="State"
+            placeholder="State/Province"
             value={formData.state}
             onChange={(e) =>
               setFormData({ ...formData, state: e.target.value })
@@ -289,7 +289,7 @@ const handleSubmit = () => {
         <div className="sm_form_w">
           <Input
             label="Zip Code"
-            placeholder="Zip Code"
+            placeholder="Zip/POBox Code"
             value={formData.zipCode}
             onChange={(e) =>
               setFormData({ ...formData, zipCode: e.target.value })
@@ -379,7 +379,7 @@ const handleSubmit = () => {
         <div className="sm_form_w">
           <Input
             label="State"
-            placeholder="State"
+            placeholder="State/Province"
             value={formData.stepState}
             onChange={(e) =>
               setFormData({ ...formData, stepState: e.target.value })
@@ -389,7 +389,7 @@ const handleSubmit = () => {
         <div className="sm_form_w">
           <Input
             label="Zip Code"
-            placeholder="Zip Code"
+            placeholder="Zip/POBox Code"
             value={formData.stepZipCode}
             onChange={(e) =>
               setFormData({ ...formData, stepZipCode: e.target.value })

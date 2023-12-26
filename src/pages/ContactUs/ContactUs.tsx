@@ -28,7 +28,7 @@ function ContactUs() {
             <h2>Get in Touch</h2>
             <ContactForm success={success} />
             <Row className="pt-4 align-items-center">
-              <Col className="social-div d-flex" lg={6}>
+              <Col className="social-div d-flex" lg={9} md={10} sm={12}>
                 <div className="d-flex align-items-center pe-5">
                   <img src={Phone} />
                   <div className="ps-3">
@@ -78,10 +78,10 @@ function ContactUs() {
                   </div>
                 </div>
               </Col>
-              <Col className="p-0 mt-2 text-center">
+              <Col className="p-0 mt-2 text-center" lg={1} md={1} sm={12}>
                 <div className="vr"></div>
               </Col>
-              <Col lg={5}>
+              <Col lg={2} sm={12} md={10}>
                 <div className="social__icons d-flex">
                   {socialIcons.map((socialIcon) => {
                     return (

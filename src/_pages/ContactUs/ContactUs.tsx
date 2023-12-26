@@ -32,7 +32,7 @@ function ContactUs() {
             </p>
             <ContactForm success={success} />
             <Row className="pt-4 align-items-center">
-              <Col className="social-div d-flex" lg={6}>
+              <Col className="social-div d-flex" lg={12}>
                 <div className="d-flex align-items-center pe-5">
                   <img src={Phone} />
                   <div className="ps-3">
