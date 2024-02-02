@@ -4,6 +4,8 @@ import videoOnIcon from "../../assets/icons/video-on-icon.svg";
 import videoOffIcon from "../../assets/icons/video-off-icon.svg";
 import micOffIcon from "../../assets/icons/mic-off-icon.svg";
 import micOnIcon from "../../assets/icons/mic-on-icon.svg";
+import leaveMeetingIcon from "../../assets/icons/leave-meeting.svg";
+import joinMeetingIcon from "../../assets/icons/join-meeting.svg";
 import "./videos.css";
 let channelParameters = {
   localAudioTrack: null,
@@ -54,16 +56,12 @@ const PatientVideoCall: React.FC = () => {
         }
       };
 
-      const { join, leave, rejoinVideo, rejoinAudio, leaveVideo ,leaveAudio} =
+      const { join, leave, rejoinVideo, rejoinAudio, leaveVideo, leaveAudio } =
         await AgoraGetStarted(handleVSDKEvents);
 
-      const remotePlayerContainer = document.createElement("div");
+      const remotePlayerContainer = document.createElement("div");      
       const localPlayerContainer = document.createElement("div");
-
-      localPlayerContainer.style.width = "100vw";
-      localPlayerContainer.style.height = "100vh";
-      remotePlayerContainer.style.width = "100vw";
-      remotePlayerContainer.style.height = "100vh";
+      localPlayerContainer.id = "local-player";
 
       // Listen to the Join button click event.
       document.getElementById("join").onclick = async function () {
@@ -84,21 +82,23 @@ const PatientVideoCall: React.FC = () => {
       };
       document.getElementById("stopVideo").onclick = async function () {
         setIsVideoOn(false);
-        setChannelParams(await leaveVideo(channelParams));        
+        setChannelParams(await leaveVideo(channelParams));
       };
-      document.getElementById("startVideo").onclick = async function () {        
+      document.getElementById("startVideo").onclick = async function () {
         setIsVideoOn(true);
         setChannelParams(
           await rejoinVideo(localPlayerContainer, channelParams)
-        );    
+        );
       };
-      document.getElementById("startMic").onclick = async function () {        
+      document.getElementById("startMic").onclick = async function () {
         setIsMicOn(true);
-        setChannelParams(await rejoinAudio(localPlayerContainer, channelParams));    
+        setChannelParams(
+          await rejoinAudio(localPlayerContainer, channelParams)
+        );
       };
       document.getElementById("stopMic").onclick = async function () {
         setIsMicOn(false);
-        setChannelParams(await leaveAudio(channelParams));        
+        setChannelParams(await leaveAudio(channelParams));
       };
     };
 
@@ -113,28 +113,15 @@ const PatientVideoCall: React.FC = () => {
   }
   return (
     <div id="projectSelector">
-      <h1>{channelName.replace(/([A-Z])/g, ' $1').trim() + " Appointment"}</h1>
+      <h1>{channelName.replace(/([A-Z])/g, " $1").trim() + " Appointment"}</h1>
       <h2>User: {role}</h2>
-      <div style={{ display: "flex","justifyContent": "space-evenly" }}>
-        <button
-          id="leave"
-          className="danger-btn"
-          style={{ display: isInMeeting ? "block" : "none" }}
-        >
-          LEAVE MEETING
-        </button>
-        <button
-          id="join"
-          className="primary-btn"
-          style={{ display: isInMeeting ? "none" : "block" }}
-        >
-          JOIN MEETING
-        </button>
+      <div className="video-controls">
         <div className="video-panel">
           <img
             id="stopVideo"
             src={videoOnIcon}
             width={"50px"}
+            className="video-control-btn"
             style={{
               display: isInMeeting ? (isVideoOn ? "block" : "none") : "none",
             }}
@@ -143,6 +130,7 @@ const PatientVideoCall: React.FC = () => {
             id="startVideo"
             src={videoOffIcon}
             width={"50px"}
+            className="video-control-btn"
             style={{
               display: isInMeeting ? (isVideoOn ? "none" : "block") : "none",
             }}
@@ -163,9 +151,21 @@ const PatientVideoCall: React.FC = () => {
               display: isInMeeting ? (isMicOn ? "none" : "block") : "none",
             }}
           ></img>
+          <img
+            src={leaveMeetingIcon}
+            id="leave"
+            className="video-control-btn"
+            style={{ display: isInMeeting ? "block" : "none" }}
+          />
+          <img
+            src={joinMeetingIcon}
+            id="join"
+            className="video-control-btn"
+            style={{ display: isInMeeting ? "none" : "block" }}
+          />
         </div>
       </div>
-      <div id="video-container" className="video-container"></div>
+      <div id="video-container"></div>
     </div>
   );
 };

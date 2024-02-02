@@ -112,7 +112,6 @@ function TeacherDashboard() {
     // Trigger a click event on the hidden file input to open the file dialog.
     fileInputRef.current.click();
   };
-  // const navigate = useNavigate();
   return (
     <>
       <TeacherHeader />

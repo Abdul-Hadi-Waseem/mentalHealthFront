@@ -4,6 +4,8 @@ import videoOnIcon from "../../assets/icons/video-on-icon.svg";
 import videoOffIcon from "../../assets/icons/video-off-icon.svg";
 import micOffIcon from "../../assets/icons/mic-off-icon.svg";
 import micOnIcon from "../../assets/icons/mic-on-icon.svg";
+import leaveMeetingIcon from "../../assets/icons/leave-meeting.svg";
+import joinMeetingIcon from "../../assets/icons/join-meeting.svg";
 import "./videos.css";
 let channelParameters = {
   localAudioTrack: null,
@@ -56,11 +58,7 @@ const PatientVideoCall: React.FC = () => {
 
       const remotePlayerContainer = document.createElement("div");
       const localPlayerContainer = document.createElement("div");
-
-      localPlayerContainer.style.width = "100vw";
-      localPlayerContainer.style.height = "100vh";
-      remotePlayerContainer.style.width = "100vw";
-      remotePlayerContainer.style.height = "100vh";
+      localPlayerContainer.id = "local-player";
 
       // Listen to the Join button click event.
       document.getElementById("join").onclick = async function () {
@@ -111,26 +109,13 @@ const PatientVideoCall: React.FC = () => {
     <div id="projectSelector">
       <h1>{channelName.replace(/([A-Z])/g, ' $1').trim() + " Appointment"}</h1>
       <h2>User: {role}</h2>
-      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        <button
-          id="leave"
-          className="danger-btn"
-          style={{ display: isInMeeting ? "block" : "none" }}
-        >
-          LEAVE MEETING
-        </button>
-        <button
-          id="join"
-          className="primary-btn"
-          style={{ display: isInMeeting ? "none" : "block" }}
-        >
-          JOIN MEETING
-        </button>
+      <div className="video-controls">        
         <div className="video-panel">
           <img
             id="stopVideo"
             src={videoOnIcon}
             width={"50px"}
+            className="video-control-btn"
             style={{
               display: isInMeeting ? (isVideoOn ? "block" : "none") : "none",
             }}
@@ -139,6 +124,7 @@ const PatientVideoCall: React.FC = () => {
             id="startVideo"
             src={videoOffIcon}
             width={"50px"}
+            className="video-control-btn"
             style={{
               display: isInMeeting ? (isVideoOn ? "none" : "block") : "none",
             }}
@@ -159,9 +145,11 @@ const PatientVideoCall: React.FC = () => {
               display: isInMeeting ? (isMicOn ? "none" : "block") : "none",
             }}
           ></img>
-        </div>
+          <img src={leaveMeetingIcon} id="leave" className='video-control-btn' style={{ display: isInMeeting ? "block" : "none" }}/>
+          <img src={joinMeetingIcon} id="join" className='video-control-btn' style={{ display: isInMeeting ? "none" : "block" }}/>
+        </div>          
       </div>
-      <div id="video-container" className="video-container"></div>
+      <div id="video-container"></div>
     </div>
   );
 };

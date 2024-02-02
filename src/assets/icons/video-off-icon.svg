@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M5.58578644,7 L3,7 L3,17 L15,17 L15,16.4142136 L5.58578644,7 Z M16.6766123,18.0908259 C16.3197659,18.6381832 15.7021364,19 15,19 L3,19 C1.8954305,19 1,18.1045695 1,17 L1,7 C1,5.8954305 1.8954305,5 3,5 L3.58578644,5 L0.292893219,1.70710678 L1.70710678,0.292893219 L23.7071068,22.2928932 L22.2928932,23.7071068 L16.6766123,18.0908259 Z M17,8.38196601 L23,5.38196601 L23,18.370101 L21,16.370101 L21,8.61803399 L17,10.618034 L17,13.0007865 L15,11.0007865 L15,7 L10.9992135,7 L8.99921354,5 L15,5 C16.1045695,5 17,5.8954305 17,7 L17,8.38196601 Z"/>
+<svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_b_833_15409)">
+<circle cx="37.9593" cy="38.388" r="37.475" fill="black" fill-opacity="0.52"/>
+</g>
+<path d="M28.9304 49.3175C28.4229 49.3175 27.9789 49.1272 27.5983 48.7466C27.2176 48.366 27.0273 47.9219 27.0273 47.4145V30.9216C27.0273 30.4141 27.2176 29.9701 27.5983 29.5895C27.9789 29.2089 28.4229 29.0186 28.9304 29.0186H45.4233C45.9307 29.0186 46.3748 29.2089 46.7554 29.5895C47.136 29.9701 47.3263 30.4141 47.3263 30.9216V37.7408L52.401 32.666V45.67L47.3263 40.5953V47.4145C47.3263 47.9219 47.136 48.366 46.7554 48.7466C46.3748 49.1272 45.9307 49.3175 45.4233 49.3175H28.9304Z" fill="#F8000F"/>
+<defs>
+<filter id="filter0_b_833_15409" x="-61.9739" y="-61.5452" width="199.866" height="199.867" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="31.2291"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_833_15409"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_833_15409" result="shape"/>
+</filter>
+</defs>
 </svg>

@@ -47,36 +47,6 @@ function InstituteDashBoard() {
       },
     }
   );
-  // const {
-  //   currentAppointmentDate,
-  //   currentAppointmentTime,
-  //   currentAppointmentDuration,
-  // } = currentUserDetails?.details
-
-  // useEffect(() => {
-  //   try {
-  //     const getAllPatients = async () => {
-  //       // const res = await axios.get(
-  //       //   `${config.base_url}/doctor/get_all_users`
-  //       // );
-  //       const res = await axios.get(
-  //         `${config.base_url}/doctor/get_upcomming_appointments/${name}/${uid}`
-  //       );
-  //       console.log("res", res?.data?.data);
-  //       localStorage.setItem("patients", JSON.stringify(res?.data?.data));
-  //       // Array.isArray(res.data);
-  //       // setUserProfiles([{name:"fayyaz"}])
-  //       // setUserProfiles(res.data.data);
-  //       setUserProfiles(res?.data?.data);
-  //       setLoader(false);
-  //     };
-  //     getAllPatients();
-  //   } catch (error) {
-  //     setUserProfiles([{ name: "fayyaz Ansari" }]);
-  //     console.log("error", error);
-  //   }
-  // }, []);
-
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => {
     setShowOffCanvas(true);

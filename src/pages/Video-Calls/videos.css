@@ -1,14 +1,89 @@
-#projectSelector{
-    padding-left: 10px;
+#projectSelector {
+  padding-left: 10px;
 }
-#stopVideo,
-#startVideo {
-    cursor: pointer;
-    margin: 0px 20px;
+#projectSelector h1 {
+  font-size: 1.5rem !important;
+  line-height: normal;
 }
-.video-panel{
-    display: flex;
-    padding: 25px 25vw;
-    border: 2px solid #3773A9;
-    border-radius: 10px;
+#projectSelector h2 {
+  font-size: 1rem !important;
+  line-height: normal;
+}
+.video-panel {
+  display: flex;
+  gap: 20px;
+  padding: 10px 5vw;
+  background-color: #000000a1;
+  border-radius: 10px;
+  opacity: 0.5;
+  transition: 1.5s ease opacity;
+}
+.video-panel:hover {
+  opacity: 1;
+}
+.video-controls {
+  display: flex;
+  position: absolute;
+  justify-content: space-around;
+  bottom: 2vh;
+  width: 40%;
+  margin: 0% 30%;
+  z-index: 1;
+}
+.my-video {
+  width: 30vw !important;
+  height: 40vh !important;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.video-player {
+  position: absolute;
+  z-index: -1;
+  width: 95%;
+  height: 95%;
+  object-fit: cover;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+.video-control-btn {
+  cursor: pointer;
+  width: 50px;
+}
+#local-player {
+  position: absolute;
+  z-index: 1;
+  width: 20vw;
+  height: 25vh;
+  object-fit: cover;
+  top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+#local-player > div {
+  background-color: transparent !important;
+}
+#local-player .agora_video_player {
+  border-radius: 10px;
+}
+@media (max-width: 500px) {
+  .video-panel {
+    padding: 10px 5vw;
+  }
+  .video-controls {
+    width: 100%;
+    margin: 0;
+  }
+  .my-video {
+    width: 90vw !important;
+    height: 40vh !important;
+  }
+  #local-player {
+    width: 20vw;
+    height: 15vh;
+    top: 80%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+  }
 }

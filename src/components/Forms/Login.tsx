@@ -21,13 +21,7 @@ interface FormValues {
 }
 
 const LoginForm = () => {
-  // const reduxUserState = useSelector(
-  //   (state: any) => state.currentUserInformation
-  // );
   const navigate = useNavigate();
-  // const handleClick = useCallback(() => {
-  //   navigate("/psc-test");
-  // }, [navigate]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [Email, setEmail] = useState("");
@@ -41,24 +35,6 @@ const LoginForm = () => {
     password: Yup.string().required("Required"),
     level: Yup.number().required("Required"),
   });
-  // const [result, reExecuteQuery] = useActionLoginQuery({
-  //   variables: {
-  //     Data: {
-  //       email: Email,
-  //       password: Password,
-  //       level: 13,
-  //     },
-  //   },
-  //   pause: true,
-  // });
-
-  // useEffect(() => {
-  //   if (Email !== "" && Password !== "") {
-  //     reExecuteQuery({
-  //       requestPolicy: "network-only",
-  //     });
-  //   }
-  // }, [Email, Password, reExecuteQuery]);
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -78,8 +54,6 @@ const LoginForm = () => {
     (async () => {
       try {
         if (formSubmitted && Email !== "" && Password !== "") {
-          // Check the result only if the form has been submitted
-          // console.log(Email, Password);
           const result = await axios.post(`${config.base_url}/api/login`, {
             email: Email,
             password: Password,
@@ -91,11 +65,6 @@ const LoginForm = () => {
             const { age, uid, name } = await result?.data?.data;
             localStorage.setItem("age", age);
             let token = result?.data?.accessToken;
-            // const { token, ...remaining } = result?.data?.login?.data;
-            // localStorage.setItem(
-            //   "user_information",
-            //   JSON.stringify(result.data.login.data)
-            // );
             localStorage.setItem(
               "user_information",
               JSON.stringify(result?.data?.data)
@@ -351,7 +320,6 @@ const LoginForm = () => {
         <Row className="text-center">
           <span style={{ fontSize: "14px" }}>
             Don’t have an account yet?{" "}
-            {/* <Link to="/register" className="account__link"> */}
             <Link to="/select-user" className="account__link">
               Register
             </Link>
