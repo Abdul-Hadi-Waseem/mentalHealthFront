@@ -260,51 +260,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
       // console.log("formData", formData)
 
       //  {data:dataToSend}
-
-      // const response = await axios.post(
-      //   `http://localhost:5000/doctor/create_profile`,
-      //   formData,
-      //   config
-      // );
-      // console.log("response", response)
-
-      // console.log("values dataToSend", dataToSend);
-      // console.log("values in Doctor Profession Experience", values);
-      // console.log("values dataTosend", professional_experience);
-      // console.log("values clinic_schedule", clinic_schedule);
-      // console.log("values Academic", props.academicInformation.certificates[0]);
-      // console.log("values Academic", certificatesArr);
-
-      // event.preventDefault();
-      // const dataToSend = {
-      //   college_name: "Adamjee College",
-      //   course: "Dentist",
-      //   year: "2022",
-      // };
-      // try {
-      //   await executeMutation({
-      //    dataToSend
-      //     },
-      //   });
-      //   // toast.success("Doctor Registration Successful"); // Show the success toast
-      //   // setTimeout(() => {
-      //   //   navigate("/doctor-login"); // Navigate after 5 seconds
-      //   // }, 5000);
-      // } catch (error) {
-      //   toast.error("Doctor Registration not successful");
-      //   console.error(error);
-      // }
-
-      // try {
-      //   await executeMutation({ Data: dataToSend });
-      //   toast.success("Registration Successful"); // Show the success toast
-      //   setTimeout(() => {
-      //     navigate("/doctor-login"); // Navigate after 5 seconds
-      //   }, 5000);
-      // } catch (error) {
-      //   toast.error("Registration not successful");
-      //   console.error(error);
-      // }
+      
     },
   });
   // const handleFormData = async (formDataKeysAndValues) => {
@@ -510,7 +466,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="State"
+              placeholder="State/Province"
               id="state"
               name="state"
               value={formik.values.state}
@@ -529,7 +485,7 @@ const DoctorProfessionExperience: React.FC<MyComponentProps> = (props) => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="Zip Code"
+              placeholder="Zip/POBox Code"
               id="zip_code"
               name="zip_code"
               value={formik.values.zip_code}

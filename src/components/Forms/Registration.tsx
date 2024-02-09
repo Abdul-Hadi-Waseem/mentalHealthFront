@@ -16,10 +16,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import config from "../../configs/config";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../store/slices/UserSlice";
 import { getToken } from "../../utils";
-
+import { countryList } from "../../constants/constants";
 interface FormValues {
   name: string;
   phone: string;
@@ -40,7 +38,6 @@ const RegistrationForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [result, executeMutation] = usePatientRegistrationMutation();
-  // const [result, executeMutation] = useDoctorRegistrationMutation();
   const navigate = useNavigate();
   const initialValues: FormValues = {
     name: "",
@@ -66,7 +63,7 @@ const RegistrationForm: React.FC = () => {
       .required("Date of Birth is required")
       .max(new Date(), "Date of Birth cannot be in the future"),
     gender: Yup.number().required("Gender is required"),
-    address: Yup.string().required("Address is required"),
+    // address: Yup.string().required("Address is required"),
     state: Yup.string().required("State is required"),
     zip_code: Yup.string().required("Zip Code is required"),
     city: Yup.string().required("City is required"),
@@ -83,8 +80,9 @@ const RegistrationForm: React.FC = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values, "Value");
-      // event.preventDefault();
+      if (values.dob == new Date("2004-06-30T19:00:00.000Z").toString()) {
+        return toast.error("Date of Birth is required");
+      }
       values.gender = Number(values.gender);
 
       const dobDate = new Date(values.dob);
@@ -95,10 +93,9 @@ const RegistrationForm: React.FC = () => {
       const { confirmPassword, ...dataToSend } = values;
       console.log("dataToSend", dataToSend);
       try {
-        let { email, phone } = dataToSend;
-        // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
+        let { email, phone, level } = dataToSend;
         const isRegisteredResponse = await axios.get(
-          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}`,
+          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/${level}`,
           {
             headers: {
               Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
@@ -112,34 +109,26 @@ const RegistrationForm: React.FC = () => {
         if (isRegisteredResponse?.data?.isRegistered) {
           return toast.error("Email Or Phone is already registered");
         } else {
-          await executeMutation({ Data: dataToSend });
-          console.log("signup result", result);
-          toast.success("Registration Successful"); // Show the success toast
-
-          await executeMutation({ Data: dataToSend });
-          console.log("responseOfSignup", result);
-          toast.success("Registration Successful"); // Show the success toast
+          const result = await axios.post(
+            `${config.base_url}/user/register`,
+            dataToSend
+          );
+          console.log("Registration response", result?.data?.message);
+          localStorage.setItem("registeredEmail", values.email)
+					localStorage.setItem("registeredpassword", values.password)
+          toast.success(result?.data?.message); // Show the success toast
+          // setTimeout(() => {
+          //   navigate("/login"); // Navigate after 5 seconds
+          // }, 3000);
           setTimeout(() => {
-            navigate("/login"); // Navigate after 5 seconds
-          }, 3000);
+						navigate("/otp-verification") // Navigate after 3 seconds
+						// navigate(/"/login"); // Navigate after 3 seconds
+					}, 1000)
         }
       } catch (error) {
         toast.error("Registration not successful");
         console.error(error);
       }
-
-      // try {
-      //   await executeMutation({ Data: dataToSend });
-      //   const response = await result;
-      //   console.log("responseOfSignup", response)
-      //   toast.success("Registration Successful"); // Show the success toast
-      //   setTimeout(() => {
-      //     navigate("/login"); // Navigate after 5 seconds
-      //   }, 5000);
-      // } catch (error) {
-      //   toast.error("Registration not successful");
-      //   console.error(error);
-      // }
     },
   });
 
@@ -213,6 +202,7 @@ const RegistrationForm: React.FC = () => {
         <Row className="mb-3">
           <Form.Group as={Col} lg={6} sm={12}>
             <InputGroup className="customDatePickerWidth">
+              <label htmlFor="dob">Date of Birth</label>
               <input
                 style={{
                   width: "100%",
@@ -232,10 +222,6 @@ const RegistrationForm: React.FC = () => {
                     : ""
                 }
               />
-
-              {/* <InputGroup.Text style={{ cursor: "pointer" }} className="icon">
-                <BsCalendar />
-              </InputGroup.Text> */}
             </InputGroup>
             {formik.touched.dob && formik.errors.dob && (
               // {formik.errors.dob}
@@ -245,6 +231,7 @@ const RegistrationForm: React.FC = () => {
             )}
           </Form.Group>
           <Form.Group as={Col} lg={6} sm={12}>
+            <label htmlFor="dob">Sex</label>
             <Form.Control
               as="select"
               id="gender"
@@ -266,7 +253,7 @@ const RegistrationForm: React.FC = () => {
           </Form.Group>
         </Row>
         <Row className="mb-3">
-          <Form.Group as={Col} lg={12} sm={12}>
+          {/* <Form.Group as={Col} lg={12} sm={12}>
             <Form.Control
               type="text"
               placeholder="Address"
@@ -282,13 +269,13 @@ const RegistrationForm: React.FC = () => {
                 {formik.errors.address}
               </Form.Control.Feedback>
             )}
-          </Form.Group>
+          </Form.Group> */}
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="State"
+              placeholder="State/Province"
               id="state"
               name="state"
               value={formik.values.state}
@@ -305,7 +292,7 @@ const RegistrationForm: React.FC = () => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="Zip Code"
+              placeholder="Zip/POBox Code"
               id="zip_code"
               name="zip_code"
               value={formik.values.zip_code}
@@ -340,15 +327,21 @@ const RegistrationForm: React.FC = () => {
           </Form.Group>
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
-              type="text"
-              placeholder="Country"
+              as="select"
               id="country"
               name="country"
               value={formik.values.country}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               isInvalid={formik.touched.country && !!formik.errors.country}
-            />
+            >
+              <option value="" label="Select a country" />
+              {countryList.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
+            </Form.Control>
             {formik.touched.country && formik.errors.country && (
               <Form.Control.Feedback type="invalid">
                 {formik.errors.country}

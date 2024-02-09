@@ -6,6 +6,7 @@ import Button from "./Common/Buttons/Button";
 import { useNavigate } from "react-router-dom";
 
 interface BlogProps {
+  id: number;
   description: string;
   showDescription: boolean;
   showButton: boolean;
@@ -16,6 +17,7 @@ interface BlogProps {
 }
 
 function BlogArchive({
+  id,
   description,
   showDescription,
   showButton,
@@ -30,8 +32,25 @@ function BlogArchive({
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/blog-detail");
+    navigate("/blog-detail/" + id);
   };
+
+  const calculateTimeAgo = (inputDate: string): string => {
+    const currentDate = new Date();
+    const postDate = new Date(inputDate);
+    const timeDifference = currentDate.getTime() - postDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const weeksDifference = Math.floor(daysDifference / 7);
+    let result = "";
+    if (weeksDifference > 0) {
+      result = weeksDifference + "w ago";
+    } else {
+      result = daysDifference + "d ago";
+    }
+
+    return result;
+  };
+
   return (
     <div className="d-flex flex-column px-2 pt-2 pb-4 blog__box mx-2">
       <div className="text-end">
@@ -44,7 +63,7 @@ function BlogArchive({
         <div className="blog__description pb-3">{trimmedDescription}</div>
       )}
       <div className="d-flex align-items-center pb-3">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center" style={{ width: "100%" }}>
           <img src={Calender} alt="Calendar Icon" />
           <span className="blog__date ps-2">{date}</span>
         </div>

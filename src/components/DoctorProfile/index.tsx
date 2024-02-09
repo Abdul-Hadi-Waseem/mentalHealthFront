@@ -28,8 +28,7 @@ const DoctorProfile = ({
     setIsInsured(!isInsured);
   };
   let { details } = doctorDetails;
-  // let {date, time , slot_duration} = details;
-  // console.log("doctorDetails user", doctorDetails)
+  
 
   const handlePatientDetails = () => {
     navigate("/patient-details");
@@ -81,7 +80,7 @@ const DoctorProfile = ({
           </Row>
           {schedule.map((item, index) => {
             return (
-              <Row className="px-1">
+              <Row className="px-1" id={index}>
                 <Col xs={4}>
                   <div className="pt-1">Date</div>
                   {/* <div className="fw-light text-muted py-1">{Date}</div> */}
@@ -109,20 +108,14 @@ const DoctorProfile = ({
               </Row>
             );
           })}
-
-          {/* <Row>
-            <Col xs={12} className="pt-2">
-              <Button variant="primary" className="w-100 py-2" onClick={handlePatientDetails} title="Patient Details"/>
-            </Col>
-          </Row> */}
         </Container>
 
         {/* <div className="d-flex justify-content-between">
           <div className="side_w_input">
-            <Input label="State" placeholder="State" />
+            <Input label="State" placeholder="State/Province" />
           </div>
           <div className="side_w_input">
-            <Input label="Zip Code" placeholder="Zip Code" />
+            <Input label="Zip Code" placeholder="Zip/POBox Code" />
           </div>
         </div>
         <div
@@ -138,19 +131,6 @@ const DoctorProfile = ({
             onChange={handleSwitchChange}
           />
         </div> */}
-
-        {/* Render the last three fields conditionally based on the switch value */}
-        {/* {isInsured && (
-          <>
-            <Input label="Insurance Company" placeholder="ABC Company" />
-            <Input label="Insurance Number" placeholder="0 123 456 789" />
-            <Input
-              label="Expiry Date"
-              placeholder="12-12-23"
-              className={"calendar_input"}
-            />
-          </>
-        )} */}
       </Container>
     </>
   );

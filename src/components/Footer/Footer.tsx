@@ -7,10 +7,13 @@ import Copyright from "./Copyright";
 import arrowImage from "../../assets/icons/footer_icon.svg";
 
 function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   return (
     <div className="footer">
       <Container className="d-flex flex-column align-items-center footer__top">
-        <img src={arrowImage} alt="arrow" className="footer__arrow" />
+        <img src={arrowImage} alt="arrow" className="footer__arrow" onClick={scrollToTop}/>
         <div>
           <Link to="/">
             <img alt="logo" src={logo} />
@@ -24,6 +27,7 @@ function Footer() {
                   key={route.id}
                   to={route.path}
                   className={useMatch(route.path) ? "active" : ""}
+                  onClick={scrollToTop}
                 >
                   {route.name}
                 </Link>
@@ -35,7 +39,7 @@ function Footer() {
         <div className="social__icons d-flex">
           {socialIcons.map((socialIcon) => {
             return (
-              <a key={socialIcon.id} href={socialIcon.link}>
+              <a key={socialIcon.id} href={socialIcon.link} target="_blank" rel="noopener noreferrer">
                 <img src={socialIcon.src} alt={socialIcon.name} />
               </a>
             );

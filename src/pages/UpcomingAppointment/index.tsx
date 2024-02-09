@@ -36,16 +36,25 @@ function UpcomingAppointment() {
   // const [btnTitle, setBtnTitle] = useState("Login / Register");
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion
   const [scrolEnd, setscrolEnd] = useState(false); // For detecting end of scrolling
-  // const [userProfiles, setUserProfiles] = useState(JSON.parse(localStorage.getItem("patients")));
   const [userProfiles, setUserProfiles] = useState([]);
-
   const [loader, setLoader] = useState(true);
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const [currentPatient, setCurrentPatient] = useState<any>({});
+  const [pdfData , setPDFData] = useState(null)
+
 
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
-  const handleShowOffCanvas = (item: any) => {
-    console.log("item", item);
+  const handleShowOffCanvas = async (item: any) => {
+    try {
+      let response = await axios.get(
+        `${config.base_url}/patient/get_patient_psc_record/${item?.patient_id}`
+      );
+      console.log("response?.data?.data" , response?.data?.data)
+      localStorage.setItem("current_doctor_details", JSON.stringify(item));
+      setPDFData(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
     setShowOffCanvas(true);
     setCurrentPatient(item);
     localStorage.setItem("user", JSON.stringify(item));
@@ -55,55 +64,12 @@ function UpcomingAppointment() {
   const navigate = useNavigate();
   const location = useLocation();
   const myLocations = location.pathname;
-  let currentLocation = location.pathname.split("/").slice(-1).toString();
-  // let currentLocation = "fayyaz";
-  console.log("location ", myLocations);
-
-  const handleHorizantalScroll = (element, speed, distance, step) => {
-    element.scrollLeft += step;
-    setscrollX(scrollX + step);
-    console.log("scroll", element.scrollLeft);
-
-    //For checking if the scroll has ended
-    if (
-      Math.floor(
-        elementRef.current.scrollWidth - elementRef.current.scrollLeft
-      ) <= elementRef.current.offsetWidth
-    ) {
-      setscrolEnd(true);
-    } else {
-      setscrolEnd(false);
-    }
-
-    // let whereScroll = leftArroDisable;
-    // let minusScroll = leftArroDisable;
-    //  whereScroll += step;
-    // setLeftArroDisable(whereScroll)
-    // if(leftArroDisable  >= 0){
-    //   element.scrollRight += whereScroll;
-    // }else{
-    //   element.scrollLeft += whereScroll;
-    // }
-  };
+  let currentLocation = location.pathname.split("/").slice(-1).toString();  
 
   const goBack = () => {
     navigate(-1);
   };
-
-  //This will check scroll event and checks for scroll end
-  const scrollCheck = () => {
-    setscrollX(elementRef.current.scrollLeft);
-    if (
-      Math.floor(
-        elementRef.current.scrollWidth - elementRef.current.scrollLeft
-      ) <= elementRef.current.offsetWidth
-    ) {
-      setscrolEnd(true);
-    } else {
-      setscrolEnd(false);
-    }
-  };
-
+ 
   useEffect(() => {
     //Check width of the scollings
     if (
@@ -173,24 +139,6 @@ function UpcomingAppointment() {
                   )}
               </span>
             </div>
-            {/* <div className="d-flex flex-row justify-content-start">
-              <BackButton
-
-              //  onClick={goBack}
-              />
-              <span className="ps-2">
-                {" "}
-                |{" "}
-                {currentLocation
-                  .split("-")
-                  .map(
-                    (item, index) =>
-                      item.charAt(0).toUpperCase() +
-                      item.slice(1).toString() +
-                      "  "
-                  )}
-              </span>
-            </div> */}
           </Col>
         </Row>
         <Container
@@ -269,7 +217,6 @@ function UpcomingAppointment() {
                     sm={2}
                   >
                     {formatted_Date(item.date)}
-                    {/* <p>Appointment Date</p> */}
                   </Col>
                   <Col
                     className="d-flex align-items-center justify-content-center"
@@ -301,23 +248,19 @@ function UpcomingAppointment() {
           placement={"end"}
           name={"end"}
           show={showOffCanvas}
+          pdfData={pdfData}
           onHide={handleCloseOffCanvas}
           img={doctor_img}
           userDetails={{
-            // name: "John Smith",
-            // treat: "Mild Anxiety",
             name: currentPatient.name,
             treat: "Patient condition",
             details: currentPatient,
           }}
-          // userDetails={currentPatient}
+          // userDetails={currentPatient}          
           appointmentDetails={{
-            Date: "Jan 1 2022",
-            Time: "02:00 pm",
-            Duration: "01 hour",
-            // Date: currentPatient.date,
-            // Time: currentPatient.time,
-            // Duration: currentPatient.slot_duration,
+            Date: currentPatient.date,
+            Time: currentPatient.time,
+            Duration: currentPatient.slot_duration,
           }}
           downloadForms={"Downloadable Forms"}
         />

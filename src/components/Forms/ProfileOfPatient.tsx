@@ -102,7 +102,7 @@ const ProfileOfPatient: React.FC = () => {
       try {
         let { email, phone } = updatedData;
         const isRegisteredResponse = await axios.get(
-          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}`, {
+          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/13`, {
             headers: {
               'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
             }
@@ -298,7 +298,7 @@ const ProfileOfPatient: React.FC = () => {
         <Form.Group as={Col} lg={6} sm={12}>
           <Form.Control
             type="text"
-            placeholder="State"
+            placeholder="State/Province"
             id="state"
             name="state"
             value={formik.values.state}
@@ -315,7 +315,7 @@ const ProfileOfPatient: React.FC = () => {
         <Form.Group as={Col} lg={6} sm={12}>
           <Form.Control
             type="text"
-            placeholder="Zip Code"
+            placeholder="Zip/POBox Code"
             id="zip_code"
             name="zip_code"
             value={formik.values.zip_code}

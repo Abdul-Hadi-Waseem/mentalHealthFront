@@ -8,9 +8,23 @@ interface propsType {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
 }
-const Button = ({ onClick, title, className, variant, disabled, type }: propsType) => {
+const Button = ({
+  onClick,
+  title,
+  className,
+  variant,
+  disabled,
+  type,
+}: propsType) => {
   return (
-    <button onClick={onClick} className = {`${variant === 'secondary' ? 'secondary-btn' : 'primary-btn'} ${className} ${disabled ? 'disabled-btn' : ''}`} disabled={disabled} type={type}>
+    <button
+      onClick={onClick}
+      className={`${
+        variant === "secondary" ? "secondary-btn" : variant === "danger" ? "danger-btn" : "primary-btn"
+      } ${className} ${disabled ? "disabled-btn" : ""}`}
+      disabled={disabled}
+      type={type}
+    >
       {title}
     </button>
   );

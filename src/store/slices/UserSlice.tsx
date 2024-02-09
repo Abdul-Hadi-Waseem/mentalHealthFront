@@ -6,7 +6,8 @@ const userSlice = createSlice({
     users: [{ name: "ansari" }],
     currentUserInformation: {},
     patient:{current_doctor_details: {}},
-    doctor:{}
+    doctor:{},
+    pscOrScreen: "PSC"
   },
   reducers: {
     setUserInformation(state, action) {
@@ -14,6 +15,9 @@ const userSlice = createSlice({
     },
     setcurrent_doctor_details(state, action) {
       state.patient.current_doctor_details = action.payload;
+    },
+    setPscOrScreen(state,action){
+      state.pscOrScreen = action.payload;
     },
     addUser(state, action) {
       state.users = action.payload;
@@ -23,6 +27,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserInformation,setcurrent_doctor_details, addUser, removeUser, deleteUsers } =
+export const { setUserInformation,setcurrent_doctor_details,setPscOrScreen, addUser, removeUser, deleteUsers } =
   userSlice.actions;
 export default userSlice.reducer;

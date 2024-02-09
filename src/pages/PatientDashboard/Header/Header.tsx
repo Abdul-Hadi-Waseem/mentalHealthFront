@@ -151,7 +151,7 @@ function Header({ children }) {
                         <small className="text-light p-0">
                           {/* <strong className="text-light">Bessie Cooper</strong> */}
                           <strong className="text-light text-capitalize">
-                            Mr {currentPatient.name}
+                            {currentPatient.name}
                           </strong>
                         </small>
                         {/* <small className="text-light  p-0">
@@ -282,7 +282,7 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={myVisitsIcon} alt="dashboardIcon" />
               </div>
-              <div>Doctors</div>
+              <div>Clinics</div>
             </div>
             {/* <div className="patient-nav" onClick={"/patient-prescriptions"}> */}
             <div
@@ -298,7 +298,7 @@ function Header({ children }) {
               <div className="patient-nav-img">
                 <img src={prcsiptionIcon} alt="dashboardIcon" />
               </div>
-              <div>Prescriptions</div>
+              <div>Clinical Feedback</div>
             </div>
             <div
               className={`cursor-pointer ${

@@ -18,10 +18,10 @@ const PaymentForm = ({handleSecondForm} : any) => {
       </div>
       <div className="d-flex justify-content-between">
         <div className="side_w_input">
-          <Input label="State" placeholder="State" />
+          <Input label="State" placeholder="State/Province" />
         </div>
         <div className="side_w_input">
-          <Input label="Zip Code" placeholder="Zip Code" />
+          <Input label="Zip Code" placeholder="Zip/POBox Code" />
         </div>
       </div>
       <div

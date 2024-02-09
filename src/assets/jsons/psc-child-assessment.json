@@ -1,285 +1,124 @@
- 
 {
   "questions": [
     {
-      "questions": "Complains of aches and pains",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "How often do you feel sad or down without any clear reason?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Spends more time alone",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you enjoy the activities that you used to find fun?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Tires easily, has little energy",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often feel tired or have little energy?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Fidgety, unable to sit still",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "How often do you feel hopeless about the future?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Has trouble with teacher",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel worthless or guilty without a real reason?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Less interested in school",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often feel nervous, anxious, or on edge?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Acts as if driven by a motor",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Are you constantly worrying about different things?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Daydreams too much",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you have trouble relaxing?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Distracted easily",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel afraid as if something awful might happen?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Is afraid of new situations",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you avoid certain places or activities due to fear or anxiety?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Feels sad, unhappy",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you find it hard to stay focused on tasks or activities?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Is irritable, angry",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often forget to do things like homework or chores?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Feels hopeless",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Are you often fidgety or can't sit still?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Has trouble concentrating",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you interrupt others while they're speaking?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Less interested in friends",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you act without thinking about the consequences?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Fights with other children",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you find it hard to make friends?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Absent from school",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often feel left out or bullied?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "School grades dropping",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Are you comfortable speaking in a group?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Is down on him or herself",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you prefer to be alone rather than with others?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Visits the doctor with doctor finding nothing wrong",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you find it hard to understand other people's feelings?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Has trouble sleeping",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Are you worried about your weight or body shape?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Worries a lot",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often eat in secret?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Wants to be with you more than before",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel guilty after eating?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Feels he or she is bad",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you avoid eating even when you're hungry?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Takes unnecessary risks",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Have you been dieting or exercising excessively to lose weight?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Gets hurt frequently",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you have trouble falling or staying asleep?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Seems to be having less fun",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often feel tired or lack energy?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Acts younger than children his or her age",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you experience frequent headaches or stomachaches?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Does not listen to rules",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you often feel restless or unable to relax?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     },
     {
-      "questions": "Does not show feelings",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Does not understand other people’s feelings",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Teases others",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Blames others for his or her troubles",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Takes things that do not belong to him or her",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Refuses to share",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Have you experienced a significant change in appetite?",
+      "options": ["Never", "Sometimes", "Often", "Always"]
     }
   ],
   "emotional_behavioral_problems": false,

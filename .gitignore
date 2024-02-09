@@ -22,4 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+package-lock.json
 *.zip
+
+node_modules/
+.cache/
+dist/
+.env
+.DS_Store
+coverage/
+.vscode/

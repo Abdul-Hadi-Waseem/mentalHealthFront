@@ -1,0 +1,45 @@
+.user__box {
+  border-radius: 24px;
+  background: linear-gradient(134deg, #5e9cd3 0%, #3773a9 100%);
+  position: relative;
+  height: 500px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.user__box:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: 0.3s;
+  border: 1px solid #00000048;
+}
+
+.user__section {
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.user__image {
+  position: absolute;
+  bottom: 0px;
+  right: 13%;
+}
+
+.select__user__section .copyright {
+  color: #243d4c;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-top: none !important;
+  padding: 0px !important;
+}
+
+@media screen and (max-width: 767px) {
+  .user__section {
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+}

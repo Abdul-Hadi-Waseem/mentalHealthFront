@@ -4,20 +4,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "../../Common/Buttons/Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { BsCalendar } from "react-icons/bs";
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import the styles for the date picker
 import { Link, useNavigate } from "react-router-dom";
-// import { useActionsUsersRegistrationMutation } from "../../gql/generated"
-// import { usePatientRegistrationMutation } from "../../../gql/generated";
 import { useDoctorRegistrationMutation } from "../../../gql/generated";
-// import Tooltips from "../Common/Tooltips";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import doctor_heart from "./../../../assets/images/doctor_heart.png";
 import axios from "axios";
 import config from "../../../configs/config";
-
 
 import moment from "moment";
 import { getToken } from "../../../utils";
@@ -93,7 +86,8 @@ const DoctorRegistrationForm: React.FC = () => {
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      console.log( "Values ",values);
+      console.log("Values ", values);
+      console.log("Values ", values);
       event.preventDefault();
       values.gender = Number(values.gender);
 
@@ -105,26 +99,52 @@ const DoctorRegistrationForm: React.FC = () => {
       const { confirmPassword, ...dataToSend } = values;
 
       try {
-        let {email, phone} = dataToSend;
+        let { email, phone, level } = dataToSend;
         // const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/uzair123@yopmail.com/03432345671`)
-        const isRegisteredResponse = await axios.get(`${config.base_url}/user/isAlreadyRegister/${email}/${phone}`, {
-          headers: {
-            'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
+        const isRegisteredResponse = await axios.get(
+          `${config.base_url}/user/isAlreadyRegister/${email}/${phone}/${level}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+            },
           }
-        })
-        console.log("isRegisteredResponse", isRegisteredResponse?.data?.isRegistered)
-        if(isRegisteredResponse?.data?.isRegistered){
+        );
+        console.log(
+          "isRegisteredResponse",
+          isRegisteredResponse?.data?.isRegistered
+        );
+        if(values.dob == new Date("2004-06-30T19:00:00.000Z").toString()){
+          return toast.error("Date of Birth is required");
+        }
+        if (isRegisteredResponse?.data?.isRegistered) {
           return toast.error("Email Or Phone is already registered");
-        }else{
-          await executeMutation({ Data: dataToSend });
-        console.log("signup result", result)
-        toast.success("Registration Successful"); // Show the success toast
-        
-        setTimeout(() => {
-          // navigate("/doctor-login"); // Navigate after 5 seconds
-          navigate("/login"); // Navigate after 5 seconds
-        }, 5000);
-        }        
+        } else {
+          //   await executeMutation({ Data: dataToSend });
+          // console.log("signup result", result)
+          const result = await axios.post(
+            `${config.base_url}/user/register`,
+            dataToSend,
+            {
+              headers: {
+                Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
+              },
+            }
+          );
+          console.log("Registration response", result?.data?.message);
+          localStorage.setItem("registeredEmail", values.email)
+					localStorage.setItem("registeredpassword", values.password)
+          toast.success("Registration Successful"); // Show the success toast
+
+          // setTimeout(() => {
+          //   // navigate("/doctor-login"); // Navigate after 5 seconds
+          //   navigate("/login"); // Navigate after 5 seconds
+          // }, 5000);
+
+          setTimeout(() => {
+						// navigate("/doctor-login"); // Navigate after 5 seconds
+						navigate("/otp-verification") // Navigate after 5 seconds
+					}, 5000)
+        }
       } catch (error) {
         toast.error("Registration not successful");
         console.error(error);
@@ -280,7 +300,7 @@ const DoctorRegistrationForm: React.FC = () => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="State"
+              placeholder="State/Province"
               id="state"
               name="state"
               value={formik.values.state}
@@ -297,7 +317,7 @@ const DoctorRegistrationForm: React.FC = () => {
           <Form.Group as={Col} lg={6} sm={12}>
             <Form.Control
               type="text"
-              placeholder="Zip Code"
+              placeholder="Zip/POBox Code"
               id="zip_code"
               name="zip_code"
               value={formik.values.zip_code}

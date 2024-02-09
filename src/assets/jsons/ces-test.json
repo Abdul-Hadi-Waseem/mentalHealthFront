@@ -1,0 +1,94 @@
+{
+    "questions": [
+      {
+        "questions": "I was bothered by things that usually don't bother me.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I did not feel like eating, I wasn't very hungry.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I wasn't able to feel happy, even when my family or friends tried to help me feel better.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt like I was just as good as other kids.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt like I couldn’t pay attention to what I was doing.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt down and unhappy.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt like I was too tired to do things.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt like something good was going to happen.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt like things I did before didn't work out right.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      },
+      {
+        "questions": "I felt scared.",
+        "options": [
+          "Not at all",
+          "A little",
+          "Quite a bit",
+          "Very much"
+        ]
+      }
+    ]
+  }

@@ -21,13 +21,6 @@ const AppointmentScheduler = () => {
   console.log("selectedTime >>", selectedTime);
   const navigate = useNavigate();
   const [showOffCanvas, setShowOffCanvas] = useState(false);
-  // let start_time = moment(selectedTime).format()
-
-  // const date = moment(selectedTime);
-  // const updatedDate = date.add(1, 'hour');
-  // console.log("selectedDate ", selectedDate)
-  // console.log("selectedTime ", selectedTime)
-  // console.log("updatedDate ", updatedDate)
 
   const selectTime = selectedTime;
   const selectDate = selectedDate;
@@ -60,12 +53,8 @@ const AppointmentScheduler = () => {
     .add(1, "hour")
     .toISOString(); // Assuming 1 hour duration
 
-  // Extract the day from the selectDate
   const day = parsedDate.format("dddd");
-  // const day = moment(selectDate).format("dddd");
-  // Extract the day from the selectDate
   let formattedStartTime = moment(startTime).format("HH:mm:ss ZZ");
-  // let formattedStartTime = moment.utc(startTime, "HH:mm:ss ZZ").format("HH:mm:ss ZZ");
   let formattedEndTime = moment(endTime).format("HH:mm:ss ZZ");
   let formattedDate = moment(selectedDate).format("YYYY-MM-DDTHH:mm:ss");
   formattedStartTime = moment
@@ -80,10 +69,7 @@ const AppointmentScheduler = () => {
     JSON.stringify({
       day: day,
       start_time: formattedStartTime,
-      // start_time: startTime,
-      // end_time: formattedEndTime,
       end_time: formattedEndTime,
-      // selectDate: selectDate
       selectDate: formattedDate,
     })
   );

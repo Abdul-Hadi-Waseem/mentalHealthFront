@@ -2,284 +2,66 @@
 {
   "questions": [
     {
-      "questions": "Complain of aches or pains",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Have you been feeling down, depressed, or hopeless often in the past two weeks?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Spend more time alone",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Have you lost interest or pleasure in doing things you normally enjoy?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Tire easily, little energy",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel tired or have little energy nearly every day?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Fidgety, unable to sit still",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel bad about yourself - or that you are a failure or have let yourself or your family down?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Have trouble with teacher",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you have trouble concentrating on things, like reading the newspaper or watching television?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Less interested in school",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel nervous, anxious, or on edge nearly every day?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Act as if driven by motor",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Are you unable to stop or control worrying?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Daydream too much",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you have trouble relaxing?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Distract easily",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you become easily annoyed or irritable?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Are afraid of new situations",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel afraid as if something awful might happen?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Feel sad, unhappy",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you find it hard to focus on your work or daily activities?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Are irritable, angry",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you engage in activities that are risky or harmful to yourself or others?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Feel hopeless",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you have any eating habits that concern you (like eating too much, too little, or purging)?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Have trouble concentrating",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you have trouble sleeping, either too much or too little?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     },
     {
-      "questions": "Less interested in friends",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Fight with other children",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Absent from school",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "School grades dropping",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Down on yourself",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Visit doctor with doctor finding nothing wrong",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Have trouble sleeping",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Worry a lot",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Want to be with parent more than before",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Feel that you are bad",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Take unnecessary risks",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Get hurt frequently",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Seem to be having less fun",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Act younger than children your age",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Do not listen to rules",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Do not show feelings",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Do not understand other people’s feelings",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Tease others",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Blame others for your troubles",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Take things that do not belong to you",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
-    },
-    {
-      "questions": "Refuse to share",
-      "options": [
-        "Never",
-        "Sometimes",
-        "Often"
-      ]
+      "questions": "Do you feel isolated or disconnected from other people?",
+      "options": ["Never", "Sometimes", "Often","Always"]
     }
   ]
 }
+
+
