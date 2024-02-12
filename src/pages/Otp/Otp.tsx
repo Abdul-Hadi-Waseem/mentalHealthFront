@@ -79,9 +79,9 @@ const PersonalizedOtp: React.FC = () => {
 			localStorage.setItem("registeredEmail", registeredEmail)
 			console.log("resultOfLogin ", response)
 
-			if (response?.data?.status===200){
+			if (response?.data?.status === 200) {
 				toast.success("OTP Verified")
-			} 
+			}
 
 			// THIS IS FOR PATIENT
 			if (
@@ -230,6 +230,40 @@ const PersonalizedOtp: React.FC = () => {
 
 				navigate("/teacher-dashboard")
 
+				// `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
+			}
+
+			//FOR INSTITUTE LOGIN
+			else if (
+				response?.data?.accessToken &&
+				response?.data?.data?.role === "institute"
+			) {
+				toast.success("Login Successful")
+				Cookies.set("token", response?.data?.accessToken)
+				localStorage.setItem(
+					"institute_information",
+					JSON.stringify(response?.data?.data)
+				)
+				setTimeout(() => {
+					navigate("/institute-dashboard")
+				}, 3000)
+				// `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
+			}
+
+			// FOR STUDENT LOGIN
+			else if (
+				response?.data?.accessToken &&
+				response?.data?.data?.role === "student"
+			) {
+				toast.success("Login Successful")
+				Cookies.set("token", response?.data?.accessToken)
+				localStorage.setItem(
+					"student_information",
+					JSON.stringify(response?.data?.data)
+				)
+				setTimeout(() => {
+					navigate("/student-dashboard")
+				}, 3000)
 				// `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
 			} else {
 				setVerificationError("Invalid OTP. Please try again.")

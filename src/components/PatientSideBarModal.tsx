@@ -29,6 +29,7 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
   downloadForms,
   heading,
 }) => {
+  
   const currentdate = new Date();
   const currenttime = new Date();
   const appointmentdate = new Date(appointmentDetails.date);

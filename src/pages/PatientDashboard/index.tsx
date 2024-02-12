@@ -20,6 +20,12 @@ import { getToken } from "../../utils"
 import { useDispatch, useSelector } from "react-redux"
 import { addUser, setUserInformation } from "./../../store/slices/UserSlice"
 
+import {
+	change_date_format,
+	change_duration_format,
+	change_time_format,
+} from "../../global_func"
+
 function PatientDashBoard() {
 	const [scrollX, setscrollX] = useState(0) // For detecting start scroll postion
 	const [scrolEnd, setscrolEnd] = useState(false) // For detecting end of scrolling
@@ -28,31 +34,57 @@ function PatientDashBoard() {
 	)
 	const [doctorsProfile, setDoctorsProfile] = useState([])
 	const [patientHealthDetail, setPatientHealthDetail] = useState(null)
-	// const [doctorsProfile, setDoctorsProfile] = useState([
-	//   {
-	//     name: "Dr. Bessie Copper",
-	//   },
-	//   {
-	//     name: "Dr. Arlene McCoy",
-	//   },
-	//   {
-	//     name: "Dr. Darlena Roberston",
-	//   },
-	//   {
-	//     name: "Dr. Bessie Copper",
-	//   },
-	// ]);
+
 	const [loader, setLoader] = useState(false)
 	const [show, setShow] = useState(false)
 	const [pscQuestions, setPscQuestion] = useState([])
 	const [pscCurrentQuestions, setPscCurrentQuestions] = useState(null)
 	const [currentQuestionIndex, SetCurrentQuestionIndex] = useState(0)
+	const [hasUpcomingAppointment, setHasUpcomingAppointment] = useState(false)
+	const [upcomingAppointmentTime, setUpcomingAppointmentTime] = useState(null)
+	const [upcomingAppointmentendTime, setUpcomingAppointmentendTime] =
+		useState(null)
+	const [upcomingAppointmentDate, setUpcomingAppointmentDate] = useState(null)
+
+	const patientId = currentUserInformation ? currentUserInformation.id : null
 
 	const elementRef = useRef(null)
 	const navigate = useNavigate()
 
 	const age = localStorage.getItem("age")
 	const ageNumber = age ? parseInt(age, 10) : null
+
+	useEffect(() => {
+		const fetchUpcomingAppointment = async () => {
+			try {
+				const response = await fetch(
+					`${config.base_url}/patient/get_patient_upcoming_appointment/${patientId}`
+				)
+				const data = await response.json()
+				console.log("Fetch Upcoming appointment", data)
+
+				if (data.message === "success" && data.data.length > 0) {
+					// If there is an upcoming appointment, set state and extract time
+					setHasUpcomingAppointment(true)
+					setUpcomingAppointmentTime(data.data[0].schedule[0].time)
+					setUpcomingAppointmentendTime(
+						data.data[0].schedule[0].end_time
+					)
+					setUpcomingAppointmentDate(data.data[0].schedule[0].date)
+				} else {
+					// No upcoming appointment
+					setHasUpcomingAppointment(false)
+				}
+			} catch (error) {
+				console.error("Error fetching upcoming appointment:", error)
+				// Handle error if necessary
+			}
+		}
+
+		if (patientId) {
+			fetchUpcomingAppointment()
+		}
+	}, [patientId])
 
 	const handleHorizantalScroll = (element, speed, distance, step) => {
 		element.scrollLeft += step
@@ -216,7 +248,7 @@ function PatientDashBoard() {
 								Welcome {currentUserInformation.name}
 							</h4>
 						</Col>
-						<Col
+						{/* <Col
 							className="d-flex justify-content-end align-items-center"
 							xs={12}
 							md={6}>
@@ -228,6 +260,36 @@ function PatientDashBoard() {
 									8:00 AM - 4:00 PM
 								</small>
 							</button>
+						</Col> */}
+						<Col
+							className="d-flex justify-content-end align-items-center"
+							xs={12}
+							md={6}>
+							{hasUpcomingAppointment ? (
+								<button className="d-flex flex-column p-2 pm-green-btn border-0 align-items-center">
+									<small className="text-light fw-bold fs-6">
+										Upcoming Appointment
+									</small>
+									<small className="text-xs text-light">
+										{change_time_format(
+											upcomingAppointmentTime
+										)}{" "}
+										-{" "}
+										{change_time_format(
+											upcomingAppointmentendTime
+										)}
+									</small>
+									<small className="text-xs text-light">
+										{change_date_format(
+											upcomingAppointmentDate
+										)}
+									</small>
+								</button>
+							) : (
+								<p className="text-light d-flex flex-column p-2 pm-green-btn border-0">
+									No Appointment
+								</p>
+							)}
 						</Col>
 					</Row>
 					<Row className="d-flex justify-content-between">
@@ -242,14 +304,6 @@ function PatientDashBoard() {
 									<p className="single_doctor_card_name">
 										{reduxUserState?.name}
 									</p>
-
-									{/* <p className="single_doctor_card_designation">Psychiatrist</p> */}
-									{/* <p className="single_doctor_card_designation">
-                    {reduxUserState?.psc_test_result?.condition.replace(
-                      /[()]/g,
-                      ""
-                    )}
-                  </p> */}
 								</div>
 								<hr
 									className="form_separator"
