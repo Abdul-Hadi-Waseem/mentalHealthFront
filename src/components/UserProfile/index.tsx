@@ -105,7 +105,7 @@ const UserProfile = ({
             textAlign: "center",
           }}
         >
-          <Text>PSC Question and Answere</Text>
+          <Text>PSC Question and Answer</Text>
         </View>
         <View style={{ display: "flex", flexDirection: "column" }}>
           {pdfData.questions.map((el, index) => (

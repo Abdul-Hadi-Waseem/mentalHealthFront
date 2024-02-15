@@ -154,7 +154,8 @@ const Doctordetail = () => {
         </div>
         <hr className="form_separator" />
         <div className="detail_about">
-          <h4 className="box_heading">About Doctor</h4>
+          {/* <h4 className="box_heading">About Doctor</h4> */}
+          <h4 className="box_heading">About clinician</h4>
           <p>{description}</p>
         </div>
         <hr className="form_separator" />

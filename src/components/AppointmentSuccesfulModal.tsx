@@ -25,7 +25,7 @@ export default function AppointmentSuccessfulModal(
       <Modal.Body style={{ border: "none", paddingBottom: "0px" }}>
         <p className="modal_p_text">
           Appointment Successfully Booked. You will receive a notification and
-          the doctor you selected will contact you.
+          the clinician you selected will contact you.
         </p>
       </Modal.Body>
       <Modal.Footer style={{ border: "none", paddingTop: "0px" }}>

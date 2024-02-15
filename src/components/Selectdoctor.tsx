@@ -55,7 +55,7 @@ const Selectdoctor = () => {
         </div>
       ) : doctorProfiles.length == 0 ? (
         <div className="d-flex justify-content-center">
-          No Doctors found in Your time range
+          No Clinician found in Your time range 
         </div>
       ) : (
         <div className="select_doctorContainer">

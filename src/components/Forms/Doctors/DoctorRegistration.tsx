@@ -115,7 +115,24 @@ const DoctorRegistrationForm: React.FC = () => {
         );
         if(values.dob == new Date("2004-06-30T19:00:00.000Z").toString()){
           return toast.error("Date of Birth is required");
+          
         }
+
+        const selectedDate = new Date(values.dob)
+        const currentDate = new Date()
+  
+        // Calculate age difference in milliseconds
+        const ageDifferenceInMilliseconds = (currentDate as any) - (selectedDate as any)
+        // Calculate age difference in years
+        const ageDifferenceInYears =
+          ageDifferenceInMilliseconds / (365.25 * 24 * 60 * 60 * 1000)
+  
+        if (ageDifferenceInYears < 22) {
+          return toast.error(
+            "You must be at least 22 years old to register"
+          )
+        }
+  
         if (isRegisteredResponse?.data?.isRegistered) {
           return toast.error("Email Or Phone is already registered");
         } else {

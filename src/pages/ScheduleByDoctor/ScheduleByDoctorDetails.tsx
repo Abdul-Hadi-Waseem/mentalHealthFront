@@ -202,7 +202,7 @@ function ScheduleByDoctorDetails() {
         </div>
         <hr className="form_separator" />
         <div className="detail_about">
-          <h4 className="box_heading">About Doctor</h4>
+          <h4 className="box_heading">About Clinician</h4>
           {/* <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
@@ -246,7 +246,7 @@ function ScheduleByDoctorDetails() {
           ) : (
             <Row>
               <Col xs={12} className="text-center">
-                No Doctors Availability Found
+                No clinician Availability Found
               </Col>
             </Row>
           )}

@@ -126,8 +126,11 @@ const TeachersRegistrationForm: React.FC = () => {
           toast.success("Registration Successful", {
             hideProgressBar: true,
           });
+          localStorage.setItem("registeredEmail", values.email)
+					localStorage.setItem("registeredpassword", values.password)
           setTimeout(() => {
-            navigate("/login");
+            // navigate("/login");
+            navigate("/otp-verification")
           }, 3000);
         }
         if (res?.data?.status !== 200) {

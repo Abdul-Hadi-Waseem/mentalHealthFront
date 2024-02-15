@@ -73,7 +73,7 @@ console.log("currentPrescription",currentPrescription)
                   <hr style={{ width: "100%" }} />
                 </Col>
                 <Col xs={12} md={12} className="doctor-about">
-                  <h3>About Doctor</h3>
+                  <h3>About Clinician</h3>
                   {/* <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Eius dolore quia saepe deleniti. Reprehenderit ab, ad cumque

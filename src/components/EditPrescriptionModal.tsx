@@ -132,7 +132,7 @@ export default function EditPrescriptionModal(
         } catch (error) {
           toast.error("Prescription creation not successful");
           formik.isSubmitting = false;
-          console.log(`error in doctor registration`, error.message);
+          console.log(`error in clinician registration`, error.message);
         }
       })();
     },

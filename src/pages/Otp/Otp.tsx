@@ -266,14 +266,20 @@ const PersonalizedOtp: React.FC = () => {
 				}, 3000)
 				// `${config.base_url}/doctor/is_doctor_registered/pathan/c26fbc47-fb8e-4255-91a2-32d5eee81470`
 			} else {
+				if (response.data.status === 401) {
+					toast.error("invalid OTP")
+				}
 				setVerificationError("Invalid OTP. Please try again.")
 				toast.error("Invalid OTP. Please try again.")
 			}
 		} catch (error) {
 			console.error("Error verifying OTP:", error)
+			// if (error.response.data.status===401){
+			// 	toast.error("error.response.data.message")
+			// }
 			toast.error(error.response.data.message)
-			navigate("/login")
-			setVerificationError("An error occurred while verifying OTP.")
+			// navigate("/login")
+			setVerificationError("Invalid OTP.")
 		}
 	}
 
@@ -374,9 +380,7 @@ const PersonalizedOtp: React.FC = () => {
 									placeholder="Enter OTP"
 								/>
 								{verificationError && (
-									<div className="invalid-feedback">
-										{verificationError}
-									</div>
+										<small className="text-danger">{verificationError}</small>
 								)}
 							</div>
 

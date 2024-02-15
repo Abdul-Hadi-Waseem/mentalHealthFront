@@ -302,7 +302,10 @@ function PatientDashBoard() {
 									{/* <p className="doctor_name">Dr. Bessie Cooper</p> */}
 									{/* <p className="single_doctor_card_name">Dr Bessie Copper</p> */}
 									<p className="single_doctor_card_name">
-										{reduxUserState?.name}
+										{reduxUserState?.name
+											.charAt(0)
+											.toUpperCase() +
+											reduxUserState?.name.slice(1)}
 									</p>
 								</div>
 								<hr
@@ -400,7 +403,7 @@ function PatientDashBoard() {
 									<div>
 										<p>
 											{/* <strong>Patients History</strong> */}
-											<strong>All Doctors</strong>
+											<strong>All Clinician</strong>
 										</p>
 										<Link
 											style={{
@@ -512,7 +515,7 @@ function PatientDashBoard() {
 													}}
 													userDetails={{
 														name: item.name,
-														treat: "Doctor Details",
+														treat: "Clinician  Details",
 													}}
 
 													// userDetails={{

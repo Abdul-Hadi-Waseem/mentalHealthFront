@@ -83,7 +83,8 @@ function PatientPrescriptions() {
                   color: "#243D4C",
                 }}
               >
-                All Prescriped Doctors
+                {/* All Prescriped Doctors */}
+                All Prescriped Clinicians
                 {/* {currentLocation
             .split("-")
             .map(

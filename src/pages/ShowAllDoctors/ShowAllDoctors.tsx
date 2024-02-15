@@ -118,7 +118,7 @@ function ShowAllDoctors() {
                   color: "#243D4C",
                 }}
               >
-                All Doctors
+                All Clinician
                 {/* {currentLocation
                     .split("-")
                     .map(
