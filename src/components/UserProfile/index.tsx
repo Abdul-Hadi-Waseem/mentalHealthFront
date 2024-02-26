@@ -244,10 +244,12 @@ const UserProfile = ({
               <div className="flex-center">
                 <Button
                   variant="success"
-                  title="SCHEDULED APPOINTMENT"
+                  title="SCHEDULED APPOINTMENT12"
                   className="w-100 py-2"
                   type="submit"
-                  disabled={true}
+                  // FOR TESTING CAN REMOVE onClickBelow
+                  onClick={handleAgoraMeeting}
+                  // disabled={true}
                 />
               </div>
             ) : (

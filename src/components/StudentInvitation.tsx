@@ -7,7 +7,9 @@ import { useQuery } from "react-query";
 import { inviteStudent } from "./Forms/Institutes/InstituteAPIs";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import config from "../configs/config";
+import { getToken } from "../utils";
 interface StudentInvitationProps {
   show: boolean;
   onHide: () => void;
@@ -74,7 +76,7 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
     }
   );
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: {
       name: string;
       class: string;
@@ -86,25 +88,49 @@ const StudentInvitation: React.FC<StudentInvitationProps> = ({
     },
     { resetForm }
   ) => {
-    // Handle form submission here, e.g., send data to the server
     console.log("Form submitted with values dedit:", values);
     inputValues.current = values;
-    refetch().then((res) => {
-      if (res?.data?.data?.status === 200) {
-        console.log("dedit result register", res);
-        localStorage.setItem("age", values?.age);
-        localStorage.setItem("student", JSON.stringify(values));
-        toast.success(`${res?.data?.data?.message}`);
-        resetForm();
-        onHide();
-        refetchStudents();
+    const res = await axios.post(
+      `${config.base_url}/teacher/student/add`,
+      {
+        ...values
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`, // replace with your actual token key
+        },
       }
-      if (res?.data?.data?.status !== 200) {
-        toast.error(res?.data?.data?.message, {
-          hideProgressBar: true,
-        });
-      }
-    });
+    );
+
+    if (res.data.status === 200) {
+      console.log("Result from server:", res.data);
+      localStorage.setItem("age", values?.age);
+      localStorage.setItem("student", JSON.stringify(values));
+      toast.success(`${res.data.message}`);
+      resetForm();
+      onHide();
+      refetchStudents();
+    } else {
+      toast.error(res.data.message, {
+        hideProgressBar: true,
+      });
+    }
+    // refetch().then((res) => {
+    //   if (res?.data?.data?.status === 200) {
+    //     console.log("dedit result register", res);
+    //     localStorage.setItem("age", values?.age);
+    //     localStorage.setItem("student", JSON.stringify(values));
+    //     toast.success(`${res?.data?.data?.message}`);
+    //     resetForm();
+    //     onHide();
+    //     refetchStudents();
+    //   }
+    //   if (res?.data?.data?.status !== 200) {
+    //     toast.error(res?.data?.data?.message, {
+    //       hideProgressBar: true,
+    //     });
+    //   }
+    // });
   };
 
   return (

@@ -54,6 +54,8 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
     } else if (currentdate > appointmentdate) {
       setAppointmentbtnTitle("Expired");
     }
+    // FOR TESTING
+    setAppointmentbtnDisabled(false);
   }, [currentdate, currenttime, appointmentdate, appointmentDetails]);
   const [secondForm, setSecondForm] = useState(false);
   const navigate = useNavigate();
