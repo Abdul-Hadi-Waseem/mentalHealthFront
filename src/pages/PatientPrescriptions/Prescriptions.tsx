@@ -82,6 +82,9 @@ console.log("currentPrescription",currentPrescription)
                   </p> */}
                   <p>
                     {currentPrescription?.description}
+                  </p> */}
+                  <p>
+                    {currentPrescription?.description}
                   </p>
                 </Col>
               </Row>

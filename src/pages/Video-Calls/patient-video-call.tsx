@@ -4,6 +4,10 @@ import videoOnIcon from "../../assets/icons/video-on-icon.svg";
 import videoOffIcon from "../../assets/icons/video-off-icon.svg";
 import micOffIcon from "../../assets/icons/mic-off-icon.svg";
 import micOnIcon from "../../assets/icons/mic-on-icon.svg";
+import leaveMeetingIcon from "../../assets/icons/leave-meeting.svg";
+import joinMeetingIcon from "../../assets/icons/join-meeting.svg";
+import chatIcon from "../../assets/icons/comments.svg";
+import { ToastContainer, toast } from "react-toastify";
 import "./videos.css";
 let channelParameters = {
   localAudioTrack: null,
@@ -13,7 +17,10 @@ let channelParameters = {
   remoteUid: null,
   channelName: null,
   token: null,
+  chatToken: null,
   uid: null,
+  peerId: null,
+  chatUId: null,
 };
 const PatientVideoCall: React.FC = () => {
   const [channelParams, setChannelParams] = useState(channelParameters);
@@ -21,9 +28,21 @@ const PatientVideoCall: React.FC = () => {
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isMicOn, setIsMicOn] = useState(false);
   const [channelName, setChannelName] = useState("");
+  const [isInChat, setIsInChat] = useState(false);
   const [patientId, setPatientId] = useState("");
   const [role, setRole] = useState("");
   const [meetingToken, setMeetingToken] = useState("");
+  const openChat = () => {    
+    var chatContainer = document.getElementById("chat-container");
+    if(chatContainer.style.right == "10px")
+      chatContainer.style.right = "-500px";
+    else
+      chatContainer.style.right = "10px";
+  };
+  const closeChat = () => {
+    var chatContainer = document.getElementById("chat-container");
+    chatContainer.style.right = "-500px";
+  };
   useEffect(() => {
     const meetingCredentials = localStorage.getItem("creds");
     const info = meetingCredentials.split("@");
@@ -54,24 +73,64 @@ const PatientVideoCall: React.FC = () => {
         }
       };
 
-      const { join, leave, rejoinVideo, rejoinAudio, leaveVideo ,leaveAudio} =
-        await AgoraGetStarted(handleVSDKEvents);
+      const {
+        join,
+        leave,
+        rejoinVideo,
+        rejoinAudio,
+        leaveVideo,
+        leaveAudio,
+        handleLogin,
+        handleLogout,
+        handleSendPeerMessage,
+        closeChat,
+      } = await AgoraGetStarted(handleVSDKEvents);
 
-      const remotePlayerContainer = document.createElement("div");
+      const remotePlayerContainer = document.createElement("div");      
       const localPlayerContainer = document.createElement("div");
-
-      localPlayerContainer.style.width = "100vw";
-      localPlayerContainer.style.height = "100vh";
-      remotePlayerContainer.style.width = "100vw";
-      remotePlayerContainer.style.height = "100vh";
+      localPlayerContainer.id = "local-player";
+      document.getElementById("sendMessage").onclick = async function () {
+        handleSendPeerMessage(channelParameters);
+      };
 
       // Listen to the Join button click event.
+      document.getElementById("chat").onclick = async function () {
+        channelParameters.chatToken = info[4];
+        channelParameters.peerId = info[5];
+        channelParameters.chatUId = info[3];
+        try {
+          if (isInChat) {
+            return;
+          }
+          handleLogin(channelParameters);
+          setIsInChat(true);
+        } catch (e) {
+          if (e.message.includes("4096")) {
+            toast.error("Meeting expired or not started yet");
+          } else {
+            toast.error("Error joining Chat");
+          }
+          return;
+        }
+      };
       document.getElementById("join").onclick = async function () {
         channelParams.channelName = info[0];
         channelParams.token = info[2];
         channelParams.uid = parseInt(info[3]);
-        // setIsInMeeting(true);
-        setChannelParams(await join(localPlayerContainer, channelParams));
+        // channelParameters.chatToken = info[4];
+        // channelParameters.peerId = info[5];
+        // channelParameters.chatUId = info[3];
+        try {
+          setChannelParams(await join(localPlayerContainer, channelParameters));
+          // handleLogin(channelParameters);
+        } catch (e) {
+          if (e.message.includes("4096")) {
+            toast.error("Meeting expired or not started yet");
+          } else {
+            toast.error("Error joining the meeting");
+          }
+          return;
+        }
         setIsInMeeting(true);
         setIsVideoOn(true);
         setIsMicOn(true);
@@ -84,57 +143,50 @@ const PatientVideoCall: React.FC = () => {
       };
       document.getElementById("stopVideo").onclick = async function () {
         setIsVideoOn(false);
-        setChannelParams(await leaveVideo(channelParams));        
+        setChannelParams(await leaveVideo(channelParams));
       };
-      document.getElementById("startVideo").onclick = async function () {        
+      document.getElementById("startVideo").onclick = async function () {
         setIsVideoOn(true);
         setChannelParams(
           await rejoinVideo(localPlayerContainer, channelParams)
-        );    
+        );
       };
-      document.getElementById("startMic").onclick = async function () {        
+      document.getElementById("startMic").onclick = async function () {
         setIsMicOn(true);
-        setChannelParams(await rejoinAudio(localPlayerContainer, channelParams));    
+        setChannelParams(
+          await rejoinAudio(localPlayerContainer, channelParams)
+        );
       };
       document.getElementById("stopMic").onclick = async function () {
         setIsMicOn(false);
-        setChannelParams(await leaveAudio(channelParams));        
+        setChannelParams(await leaveAudio(channelParams));
       };
     };
 
     initializeVideoCall();
   }, []);
-  function removeVideoDiv(elementId) {
-    console.log("Removing " + elementId + "Div");
-    let Div = document.getElementById(elementId);
-    if (Div) {
-      Div.remove();
+  function handleKeyPress(event) {
+    if (event.keyCode === 13) {
+      document.getElementById("sendMessage").click();
     }
   }
+  window.onload = function () {
+    const chatElement = document.getElementById("chat");
+    chatElement.click();
+    chatElement.click();
+  };
   return (
-    <div id="projectSelector">
-      <h1>{channelName.replace(/([A-Z])/g, ' $1').trim() + " Appointment"}</h1>
+    <div id="projectSelector" style={{ padding: "10px" }}>
+      <ToastContainer />
+      <h1>{channelName.replace(/([A-Z])/g, " $1").trim() + " Appointment"}</h1>
       <h2>User: {role}</h2>
-      <div style={{ display: "flex","justifyContent": "space-evenly" }}>
-        <button
-          id="leave"
-          className="danger-btn"
-          style={{ display: isInMeeting ? "block" : "none" }}
-        >
-          LEAVE MEETING
-        </button>
-        <button
-          id="join"
-          className="primary-btn"
-          style={{ display: isInMeeting ? "none" : "block" }}
-        >
-          JOIN MEETING
-        </button>
+      <div className="video-controls">
         <div className="video-panel">
           <img
             id="stopVideo"
             src={videoOnIcon}
             width={"50px"}
+            className="video-control-btn"
             style={{
               display: isInMeeting ? (isVideoOn ? "block" : "none") : "none",
             }}
@@ -143,6 +195,7 @@ const PatientVideoCall: React.FC = () => {
             id="startVideo"
             src={videoOffIcon}
             width={"50px"}
+            className="video-control-btn"
             style={{
               display: isInMeeting ? (isVideoOn ? "none" : "block") : "none",
             }}
@@ -163,9 +216,44 @@ const PatientVideoCall: React.FC = () => {
               display: isInMeeting ? (isMicOn ? "none" : "block") : "none",
             }}
           ></img>
+          <img
+            src={leaveMeetingIcon}
+            id="leave"
+            className="video-control-btn"
+            style={{ display: isInMeeting ? "block" : "none" }}
+          />
+          <img
+            src={joinMeetingIcon}
+            id="join"
+            className="video-control-btn"
+            style={{ display: isInMeeting ? "none" : "block" }}
+          />
+          <div className="video-control-btn-chat">
+            <img
+              src={chatIcon}
+              id="chat"
+              onClick={openChat}
+              style={{ width: "50%" }}
+            />
+          </div>
         </div>
       </div>
-      <div id="video-container" className="video-container"></div>
+      <div id="chat-container">
+        <div id="chat-controls">
+          <button onClick={closeChat}>&#62;</button>
+        </div>
+        <div id="chat-box"></div>
+        <div id="chat-message" className="flex">
+          <input
+            type="text"
+            id="message-to-send"
+            placeholder="Message..."
+            onKeyDown={handleKeyPress}
+          />
+          <button id="sendMessage">Submit</button>
+        </div>
+      </div>
+      <div id="video-container"></div>
     </div>
   );
 };

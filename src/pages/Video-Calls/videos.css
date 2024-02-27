@@ -1,14 +1,170 @@
-#projectSelector{
-    padding-left: 10px;
+#projectSelector h1 {
+  font-size: 1.5rem !important;
+  line-height: normal;
 }
-#stopVideo,
-#startVideo {
-    cursor: pointer;
-    margin: 0px 20px;
+#projectSelector h2 {
+  font-size: 1rem !important;
+  line-height: normal;
 }
-.video-panel{
-    display: flex;
-    padding: 25px 25vw;
-    border: 2px solid #3773A9;
-    border-radius: 10px;
+.video-panel {
+  display: flex;
+  gap: 20px;
+  padding: 10px 5vw;
+  background-color: #000000a1;
+  border-radius: 10px;
+  opacity: 0.5;
+  transition: 1.5s ease opacity;
+}
+.video-panel:hover {
+  opacity: 1;
+}
+.video-controls {
+  display: flex;
+  justify-content: space-around;
+  bottom: 2vh;
+  width: 40%;
+  margin: 0% 30%;
+  z-index: 1;
+  position: fixed;
+}
+.my-video {
+  width: 30vw !important;
+  height: 40vh !important;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.video-player {
+  /* position: absolute; */
+  width: 95%;
+  height: 95%;
+  object-fit: cover;
+  bottom: 10px;
+}
+#video-container {
+  width: 100%;
+  height: 66vh;
+  display: flex;
+  justify-content: center;
+}
+.video-control-btn {
+  cursor: pointer;
+  width: 50px;
+}
+.video-control-btn-chat {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #000000a1;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#local-player {
+  position: absolute;
+  z-index: 1;
+  width: 20vw;
+  height: 25vh;
+  object-fit: cover;
+  top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+#local-player > div {
+  background-color: transparent !important;
+}
+#local-player .agora_video_player {
+  border-radius: 10px;
+}
+#chat-controls {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+}
+#chat-controls button {
+  border: none;
+  background-color: transparent;
+}
+#chat-box {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  width: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.587);
+  border-radius: 15px 15px 0px 0px;
+  padding: 15px;
+  overflow-y: scroll;
+}
+#chat-message {
+  width: 100%;
+  height: 10%;
+}
+#chat-message > input {
+  width: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.587);
+  padding: 0px 10px;
+  font-size: 0.8rem;
+}
+#chat-message > button {
+  border: none;
+}
+#chat-container {
+  opacity: 0.8;
+  padding: 10px;
+  position: fixed;
+  right: -500px;
+  height: 60vh;
+  width: 40vw;
+  bottom: 2vh;
+  z-index: 2;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0px 16px 39px 0px rgba(55, 84, 113, 0.08);
+  transition: right 0.3s ease; /* Add transition for smooth movement */
+}
+.chat-incoming-message {
+  margin: 2px 0px;
+  padding: 5px;
+  background-color: #3773a9;
+  border-radius: 10px 10px 10px 0px;
+  color: white;
+  align-self: start;
+}
+.chat-outgoing-message {
+  margin: 2px 0px;
+  padding: 5px;
+  background-color: #77ac28;
+  border-radius: 10px 10px 0px 10px;
+  color: white;
+  align-self: end;
+}
+.message-time {
+  font-size: 6px;
+  color: #dadada;
+  padding: 0px 0px 0px 10px;
+}
+@media (max-width: 500px) {
+  .video-panel {
+    padding: 10px 5vw;
+  }
+  .video-controls {
+    width: 100%;
+    margin: 0;
+  }
+  .my-video {
+    width: 90vw !important;
+    height: 40vh !important;
+  }
+  #local-player {
+    width: 20vw;
+    height: 15vh;
+    top: 80%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+  }
+  #chat-container {
+    height: 50vh;
+    width: 90vw;
+  }
 }
