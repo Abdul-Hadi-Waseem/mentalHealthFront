@@ -42,14 +42,16 @@ const UserProfile = ({
   const handleAgoraMeeting = async () => {
     const channelName = doctorDetails.channel_name || "Appointment";
     const doctor_id = doctorDetails.doctor_id || "123456";
-    const role = "Doctor";
+    const role = "Doctor";    
     let response = await axios.get(
-      `${config.base_url}/patient/get_meeting_token/${doctor_id}/${channelName}`
+      `${config.base_url}/patient/get_meeting_token/${doctor_id}d/${channelName}`
     );
+    let user = JSON.parse(localStorage.getItem("user"));
     localStorage.setItem(
       "creds",
-      channelName + "@" + role + "@" + response.data.data + "@" + doctor_id
+      channelName + "@" + role + "@" + response.data.data + "@" + doctor_id + 'd' + "@" + response.data.rtmToken + "@" + user.patient_id + 'p'
     );
+    
     navigate("/doctor-video-call");
   };
   const PSCDocs = () => (
@@ -255,6 +257,15 @@ const UserProfile = ({
             ) : (
               <div className="flex-center">
                 <p>Expired</p>
+                <Button
+                  variant="success"
+                  title="SCHEDULED APPOINTMENT"
+                  className="w-100 py-2"
+                  type="submit"
+                  // FOR TESTING CAN REMOVE onClickBelow
+                  onClick={handleAgoraMeeting}
+                  // disabled={true}
+                />
               </div>
             )}
           </Row>

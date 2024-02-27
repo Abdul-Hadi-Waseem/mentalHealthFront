@@ -7,6 +7,7 @@ import DoctorProfile from "./DoctorProfile";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../configs/config";
 import axios from "axios";
+const ws = new window.WebSocket(config.webSocket);
 
 interface DoctorSideBarProps {
   show: boolean;
@@ -78,15 +79,35 @@ const PatientSideBarModal: React.FC<DoctorSideBarProps> = ({
         "123456";
       const role = "patient";
       let response = await axios.get(
-        `${config.base_url}/patient/get_meeting_token/${patientId}/${channelName}`
+        `${config.base_url}/patient/get_meeting_token/${patientId}p/${channelName}`
       );
+      let user = JSON.parse(localStorage.getItem("current_doctor_details"));
+      console.log(user)
       localStorage.setItem(
         "creds",
-        channelName + "@" + role + "@" + response.data.data + "@" + patientId
+        channelName + "@" + role + "@" + response.data.data + "@" + patientId + 'p' + "@" + response.data.rtmToken + "@" + user.doctor_id + 'd'
       );
+
       navigate("/patient-video-call");
     }
-  };
+  };    
+  useEffect(() => {
+    ws.onopen = () => {
+        console.log('WebSocket connected');
+        // Perform actions upon WebSocket connection
+    };
+
+    ws.onmessage = (event) => {
+        console.log('received:', event.data);
+        // Handle incoming WebSocket messages (e.g., call invitations)
+    };
+
+    return () => {
+        ws.close();
+        console.log('WebSocket disconnected');
+        // Clean up WebSocket connection upon component unmount
+    };
+}, []);
   return (
     <>
       <Offcanvas show={show} onHide={onHide} placement={placement}>

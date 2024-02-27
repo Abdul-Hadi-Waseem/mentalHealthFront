@@ -1,5 +1,6 @@
 interface config {
   base_url: string;
+  webSocket: string;
 }
 
 const config: config = {
@@ -12,6 +13,7 @@ const config: config = {
 
   // local
   base_url: "http://localhost:5000",
+  webSocket:"ws://localhost:8989",
 
   //   # local domain
   // DOMAIN=localhost:5000
