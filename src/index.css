@@ -80,7 +80,7 @@ h1,
 h2 {
   font-size: 50px !important;
   font-weight: 600 !important;
-  line-height: 67px !important;
+  line-height: 67px;
   text-transform: capitalize !important;
   color: #243d4c;
 }
