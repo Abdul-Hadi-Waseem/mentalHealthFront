@@ -326,7 +326,7 @@ function PatientDashBoard() {
                 </Col>
               </Row>
               <Row
-                className={"d-flex flex-nowrap ps-2 pt-3 mb-4"}
+                className={"d-flex flex-nowrap ps-2 pt-3 mb-4 mobile-flex"}
                 style={{
                   overflowX: "scroll",
                   scrollBehavior: "smooth",

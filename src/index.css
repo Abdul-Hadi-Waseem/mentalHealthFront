@@ -172,21 +172,16 @@ body {
   align-items: center;  
   margin-top: 20px;
 }
-.video-container{
+/* .video-container{
   display: flex;
   justify-content: center;
   align-items: center;  
   width: 100vw;
   padding: 30px 0px;
-}
-.video-player{
-  display: flex;
-  justify-content: center;
-  align-items: center;  
-  width: 50vw !important;
-  height: 70vh !important;  
-}
-.video-player > div{
-  width: 80% !important;
-  height: 100% !important;
+} */
+
+@media screen and (max-width: 756px) {
+  .mobile-flex{
+    flex-direction: column;
+  }
 }

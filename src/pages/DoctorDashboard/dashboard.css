@@ -9,3 +9,23 @@
 .chats-section-heading{
   background: linear-gradient(134deg, #A0D256 0%, #77AC28 100%);
 }
+.select_doctor_card{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 347px;
+  padding: 30px 10%;
+  border-radius: 17px;
+  border: 1px solid rgba(174, 176, 208, 0.5);
+}
+.doctor_card_btn {
+  width: 100%;
+  border: none;
+  background-color: #fff;
+  color: rgba(55, 115, 169, 1);
+  border-radius: 12px;
+  border: 1px solid rgba(55, 115, 169, 1);
+  padding: 18px 35px;
+}

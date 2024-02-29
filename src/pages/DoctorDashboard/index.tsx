@@ -337,9 +337,9 @@ function DoctorDashBoard() {
 								</Col>
 							</Row>
 							<Row
-								className={"d-flex flex-nowrap ps-2 pt-3 mb-4"}
+								className={"d-flex flex-nowrap ps-2 pt-3 mb-4 mobile-flex"}
 								style={{
-									overflowX: "scroll",
+									// overflowX: "scroll",
 									scrollBehavior: "smooth",
 								}}
 								ref={elementRef}
@@ -409,11 +409,6 @@ function DoctorDashBoard() {
 														name: item.name,
 														treat: "Patient Condition",
 													}}
-
-													// userDetails={{
-													//   name: "John Smith",
-													//   treat: "Mild Anxiety",
-													// }}
 												/>
 											</Col>
 										)

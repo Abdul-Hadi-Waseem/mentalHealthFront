@@ -121,9 +121,13 @@ const PatientVideoCall: React.FC = () => {
         // channelParameters.peerId = info[5];
         // channelParameters.chatUId = info[3];
         try {
-          setChannelParams(await join(localPlayerContainer, channelParameters));
+          setChannelParams(await join(localPlayerContainer, channelParameters));          
           // handleLogin(channelParameters);
         } catch (e) {
+          if (e.message.includes("key expired")) {
+            toast.error("Meeting has ended");
+            return;
+          }
           if (e.message.includes("4096")) {
             toast.error("Meeting expired or not started yet");
           } else {
@@ -154,7 +158,7 @@ const PatientVideoCall: React.FC = () => {
       document.getElementById("startMic").onclick = async function () {
         setIsMicOn(true);
         setChannelParams(
-          await rejoinAudio(localPlayerContainer, channelParams)
+          await rejoinAudio(channelParams)
         );
       };
       document.getElementById("stopMic").onclick = async function () {
@@ -178,8 +182,6 @@ const PatientVideoCall: React.FC = () => {
   return (
     <div id="projectSelector" style={{ padding: "10px" }}>
       <ToastContainer />
-      <h1>{channelName.replace(/([A-Z])/g, " $1").trim() + " Appointment"}</h1>
-      <h2>User: {role}</h2>
       <div className="video-controls">
         <div className="video-panel">
           <img

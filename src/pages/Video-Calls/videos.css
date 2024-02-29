@@ -6,6 +6,9 @@
   font-size: 1rem !important;
   line-height: normal;
 }
+video{
+  object-fit: contain !important;
+}
 .video-panel {
   display: flex;
   gap: 20px;
@@ -30,14 +33,14 @@
 .my-video {
   width: 30vw !important;
   height: 40vh !important;
-  object-fit: cover;
+  /* object-fit: cover; */
   border-radius: 10px;
 }
 .video-player {
   /* position: absolute; */
   width: 95%;
   height: 95%;
-  object-fit: cover;
+  /* object-fit: cover; */
   bottom: 10px;
 }
 #video-container {
@@ -65,13 +68,14 @@
   z-index: 1;
   width: 20vw;
   height: 25vh;
-  object-fit: cover;
+  /* object-fit: cover; */
   top: 80%;
   left: 80%;
   transform: translate(-50%, -50%);
 }
 #local-player > div {
   background-color: transparent !important;
+  border-radius: 15% !important;
 }
 #local-player .agora_video_player {
   border-radius: 10px;

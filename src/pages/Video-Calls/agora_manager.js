@@ -92,13 +92,16 @@ const AgoraManager = async (eventsCallback) => {
     return channelParameters;
   };
   const rejoinAudio = async (channelParameters) => {
-    return channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+    channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+    agoraEngine.publish(channelParameters.localAudioTrack);
+    return channelParameters;
   };
   const leaveVideo = async (channelParameters) => {
     agoraEngine.unpublish(channelParameters.localVideoTrack);
     return channelParameters.localVideoTrack.close();
   };
   const leaveAudio = async (channelParameters) => {
+    agoraEngine.unpublish(channelParameters.localAudioTrack);
     return channelParameters.localAudioTrack.close();
   };
   const leave = async (channelParameters) => {
