@@ -7,7 +7,6 @@
     "token": "",
     "proxyUrl": "https://mentalsupport.ca:6060/",
     "serverUrl": "",
-    
     "tokenExpiryTime": "600",
     "encryptionMode": "aes-256-gcm2",
     "salt": "",

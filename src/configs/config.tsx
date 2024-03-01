@@ -11,11 +11,12 @@ const config: config = {
 
   // amazon server
   //base_url: "http://139.99.28.47:5000",
-  // base_url: "https://mentalsupport.ca:6060",
+  base_url: "https://mentalsupport.ca:6060",
+  webSocket:"wss://mentalsupport.ca:8989",
 
   // local
-  base_url: "http://localhost:5000",
-  webSocket:"ws://localhost:8989",
+//   base_url: "http://localhost:5000",
+//   webSocket:"ws://localhost:8989",
 
   //   # local domain
   // DOMAIN=localhost:5000
