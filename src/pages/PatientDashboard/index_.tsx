@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
-import { appRoutes } from "./../../constants/constants";
 import Header from "./Header/Header";
 import { Container, Row, Col, Modal } from "react-bootstrap";
 import d_db_male from "../../assets/images/d_db_male.png";
@@ -15,8 +14,8 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import config from "./../../configs/config";
 import { getToken } from "../../utils";
+import "../PatientVisits/PatientVisits.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, setUserInformation } from "./../../store/slices/UserSlice";
 
 function PatientDashBoard() {
   const [scrollX, setscrollX] = useState(0); // For detecting start scroll postion

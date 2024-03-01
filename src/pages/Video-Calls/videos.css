@@ -105,13 +105,14 @@ video{
   height: 10%;
 }
 #chat-message > input {
-  width: 100%;
+  width: 80%;
   border: 1px solid rgba(128, 128, 128, 0.587);
   padding: 0px 10px;
   font-size: 0.8rem;
 }
 #chat-message > button {
   border: none;
+  width: 20%;
 }
 #chat-container {
   opacity: 0.8;
