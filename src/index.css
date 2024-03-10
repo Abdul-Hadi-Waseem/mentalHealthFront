@@ -24,9 +24,9 @@ a {
 }
 textarea {
   resize: none;
- }
+}
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
@@ -38,7 +38,7 @@ textarea {
   letter-spacing: 0em;
   text-align: left;
 }
-.files-input-label{
+.files-input-label {
   display: flex !important;
   flex-direction: column;
   justify-content: center;
@@ -48,16 +48,15 @@ textarea {
   height: 100%;
   width: 100%;
   /* FiUpload */
-
 }
 
 .txt__blue {
   color: #243d4c;
 }
-.txt__red{
-  color: red
+.txt__red {
+  color: red;
 }
-.react-datepicker-wrapper{
+.react-datepicker-wrapper {
   display: block !important;
   cursor: pointer !important;
 }
@@ -100,7 +99,94 @@ h5 {
   font-weight: 500;
   text-transform: capitalize;
 }
-
+.select_doctor_card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 347px;
+  padding: 10% 20%;
+  border-radius: 17px;
+  border: 1px solid rgba(174, 176, 208, 0.5);
+}
+.doctor_card_btn {
+  width: 100%;
+  border: none;
+  background-color: #fff;
+  color: rgba(55, 115, 169, 1);
+  border-radius: 12px;
+  border: 1px solid rgba(55, 115, 169, 1);
+  padding: 18px 35px;
+}
+.header_section_1 {
+  display: flex;
+  justify-content: space-between;
+}
+.header_section_2 {
+  display: flex;
+  gap: 20px;
+}
+.detail_btn {
+  background: linear-gradient(167.39deg, #5e9cd3 0%, #3773a9 100.87%);
+  padding: 19px 25px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+.header_card {
+  height: 81px;
+  border-radius: 10px;
+  box-shadow: 0px -24.75px 48.375px 0px rgba(154, 178, 194, 0.06);
+  background: rgba(36, 61, 76, 0.2);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.b_text {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(36, 61, 76, 1);
+}
+.n_text {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(36, 61, 76, 1);
+}
+.detail_info {
+  display: flex;
+  gap: 40px;
+}
+.box_heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(36, 61, 76, 1);
+}
+.info_img {
+  height: 40px;
+  width: 40px;
+  padding: 10px;
+  background: rgba(55, 115, 169, 0.1);
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.light_text {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(36, 61, 76, 0.6);
+}
+.certificate_box {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.cer_img {
+  height: 126px;
+  width: 160px;
+  border-radius: 15px;
+}
 p {
   font-size: 16px;
   font-style: normal;
@@ -144,7 +230,6 @@ body {
 
 /* Medium devices (tablets, 768px and up) */
 @media screen and (max-width: 767px) {
-
   h1,
   h2 {
     font-size: 30px !important;
@@ -166,18 +251,18 @@ body {
   }
 }
 
-.flex-center{
+.flex-center {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   margin-top: 20px;
 }
-.flex{
+.flex {
   display: flex;
 }
 
 @media screen and (max-width: 756px) {
-  .mobile-flex{
+  .mobile-flex {
     flex-direction: column;
   }
 }

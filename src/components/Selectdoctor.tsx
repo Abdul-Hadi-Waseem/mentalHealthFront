@@ -8,11 +8,6 @@ import config from "../configs/config";
 import { Col, Row, Container } from "react-bootstrap";
 import { getToken } from "../utils";
 const Selectdoctor = () => {
-  // const [doctorProfiles, setdoctorProfiles] = useState([
-  //   { name: "Bessie Cooper", designation: "Psychiatrist" },
-  //   { name: "John Smith", designation: "Psychiatrist" },
-  //   { name: "Shaen Watson", designation: "Psychiatrist" },
-  // ]);
   const [doctorProfiles, setdoctorProfiles] = useState([]);
   const [loader, setLoader] = useState(true);
 
@@ -27,6 +22,7 @@ const Selectdoctor = () => {
             data,
           }
         );
+        console.log("setdoctorProfiles", res.data.data);
         setdoctorProfiles(res.data.data);
         setLoader(!loader);
       } catch (error) {

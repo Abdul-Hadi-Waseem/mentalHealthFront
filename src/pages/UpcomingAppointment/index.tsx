@@ -13,15 +13,12 @@ import d_db_female from "../../assets/images/d_db_female.png";
 import d_db_male from "../../assets/images/d_db_male.png";
 
 import doctor_img from "../../assets/images/doctor.svg";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 // // import Button from "../Common/Buttons/Button";
 // import Button from "./../../components/Common/Buttons/Button";
 // import Cookies from "js-cookie";
 // import { getToken } from "./../../utils";
 // FaArrowRight
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
-import DoctorCard from "../../components/Common/DoctorCard";
 import BackButton from "../../components/Common/Buttons/BackButton";
 import "./upcomingApp.css";
 import DoctorSideBar from "../../components/DoctorSideBar";

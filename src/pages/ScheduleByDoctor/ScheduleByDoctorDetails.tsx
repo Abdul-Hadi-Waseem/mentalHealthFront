@@ -40,77 +40,6 @@ function ScheduleByDoctorDetails() {
     },
   });
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const doctorProfile = JSON.parse(
-  //     sessionStorage.getItem("currentDoctorDetails")
-  //   );
-
-  //   console.log("doctor", doctorProfile);
-  //   setDoctorDetails(doctorProfile);
-  // }, []);
-
-  // const { name, specialities, clinic_experience, description } = doctorDetails;
-  // const dataToSend = {
-  //   appointment_date: JSON.parse(localStorage.getItem("appointment_date")),
-  //   patient: JSON.parse(localStorage.getItem("user_information")),
-  //   doctor_details: JSON.parse(sessionStorage.getItem("currentDoctorDetails")),
-  // }
-
-  // const bookAppointment = async ()=>{
-  //   setAppointmentDisable(false);
-  //   try {
-  //     // http://localhost:5000/patient/create_appointment
-  //     const res = await axios.post(
-  //       `${config.base_url}/patient/create_appointment`,
-  //       {
-  //         data: dataToSend
-  //       }
-  //     );
-  //     toast.success("Appointment Successfully created");
-  //     console.log("res", res.data);
-  //     // setAppointmentDetails()
-  //     // setLoader(!loader);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-
-  //   // useEffect(() => {
-  //   //   (async () => {
-  //   //     try {
-  //   //       const res = await axios.post(
-  //   //         `${config.base_url}/doctor/get_doctors_for_appointment`,
-  //   //         {
-  //   //           data,
-  //   //         }
-  //   //       );
-  //   //       // console.log("res", res.data.data[0]);
-  //   //       setdoctorProfiles(res.data.data);
-  //   //       setLoader(!loader);
-  //   //     } catch (error) {
-  //   //       console.log("error", error);
-  //   //     }
-  //   //   })();
-  //   // }, []);
-
-  // }
-  // const handleSchedule = () => {
-  //   let clinicDays = [];
-  //   let updateSchedule = [];
-  //   for (let i = 0; i < current_doctor_details.clinic_schedule.length; i++) {
-  //     let item = current_doctor_details.clinic_schedule[i];
-  //     clinicDays.push(item.day);
-  //     updateSchedule.push(item);
-  //   }
-  //   console.log(
-  //     "current_Doctor_details clinicDays",current_doctor_details.clinic_schedule
-  //   );
-  //   console.log("current_Doctor_details", updateSchedule);
-
-  // };
-  // useEffect(() => {
-  //   handleSchedule();
-  //   // setcurrent_doctor_details(updateSchedule)
-  // }, []);
 
   useEffect(() => {
     (async () => {
@@ -150,7 +79,6 @@ function ScheduleByDoctorDetails() {
                   {/* Richard Muldoone */}
                   {current_doctor_details.name}
                 </h4>
-                {/* <span>Speciality : Heart Surgeon </span> */}
                 <span>
                   Speciality :{" "}
                   {
@@ -179,7 +107,10 @@ function ScheduleByDoctorDetails() {
               <div className="header_card">
                 {/* <p className="b_text">$250</p> */}
                 <p className="b_text">
-                  ${doctor_complete_details?.doctor_details?.appointment_fees}
+                  $
+                  {doctor_complete_details?.doctor_details?.appointment_fees
+                    ? doctor_complete_details?.doctor_details?.appointment_fees
+                    : "Not Set Yet"}
                 </p>
                 <span className="n_text">Appointment Fee</span>
               </div>

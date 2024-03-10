@@ -1,10 +1,11 @@
-import Doctordetail from '../../components/Doctordetail'
-import Header from '../PatientDashboard/Header/Header'
+import Header from "../PatientDashboard/Header/Header"
+import Doctordetail from "../../components/Doctordetail"
+// import StripeContainer from "../ScheduleByDoctor/StripeContainer"
 const DoctorDetails = () => {
   return (
-    <Header
-     >
-      <Doctordetail/>
+    // <StripeContainer />
+    <Header>
+      <Doctordetail />
     </Header>
   )
 }

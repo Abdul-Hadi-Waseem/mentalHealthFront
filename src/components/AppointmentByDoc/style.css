@@ -1,0 +1,72 @@
+.custom-border-light {
+  border: 2px solid #bcbcbc;
+  border-radius: 10px;
+}
+.form-control:focus {
+  box-shadow: 0;
+}
+.isDate.is-invalid {
+  background-image: none !important;
+}
+.bg-custom {
+  background-color: rgba(246, 247, 249, 1);
+}
+
+.hide-scrollbar {
+  -webkit-overflow-scrolling: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* overflow: hidden; */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+:root {
+  --scrollbar-color: rgba(0, 0, 255, 0.5); /* Blue color with 50% opacity */
+}
+
+/* Hide the scrollbar track */
+.slim-scrollbar {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--scrollbar-color) transparent; /* For Firefox */
+  scrollbar-width: 0.5;
+  -ms-overflow-style: none;
+}
+
+/* Hide the scrollbar track for WebKit browsers (Chrome, Safari, Opera) */
+.slim-scrollbar::-webkit-scrollbar {
+  width: 2px; /* Set scrollbar width */
+}
+
+/* Define the scrollbar thumb */
+.slim-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color); /* Set thumb color */
+  border-radius: 50px;
+  width: 2px;
+  height: 2px; /* Round the corners of the thumb */
+}
+/* .slim-scrollbar {
+  scrollbar-width: 0.5;
+  -ms-overflow-style: none;
+}
+
+.slim-scrollbar::-webkit-scrollbar {
+  height: 2px;
+}
+
+.slim-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 3px;
+  opacity: 0.3;
+}
+*/
+.slim-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.credit-card-input {
+  border: 1px solid #d0d5e3;
+  padding: 10px;
+  margin: 5px 0px;
+  border-radius: 5px;
+}

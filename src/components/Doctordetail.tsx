@@ -1,39 +1,38 @@
-import doc_img from "../assets/images/Doctor_detail.svg";
-import call from "../assets/icons/call.svg";
-import location from "../assets/icons/loc.svg";
-import Certificate from "../assets/images/certificate.png";
-import { useNavigate } from "react-router-dom";
-import SideBar from "./SideBar";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import config from "../configs/config";
-import { toast, ToastContainer } from "react-toastify";
-import { getToken } from "../utils";
-import { useSelector } from "react-redux";
+import doc_img from "../assets/images/Doctor_detail.svg"
+import call from "../assets/icons/call.svg"
+import location from "../assets/icons/loc.svg"
+// import Certificate from "../assets/images/certificate.png"
+import { useNavigate } from "react-router-dom"
+import SideBar from "./SideBar"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import config from "../configs/config"
+import { toast, ToastContainer } from "react-toastify"
+import { getToken } from "../utils"
+import { useSelector } from "react-redux"
+// import PaymentModal from "./AppointmentByDoc/PaymentModal"
 
 const Doctordetail = () => {
-  const navigate = useNavigate();
-  const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const navigate = useNavigate()
+  const [showOffCanvas, setShowOffCanvas] = useState(false)
   const [doctorDetails, setDoctorDetails] = useState(
     JSON.parse(sessionStorage.getItem("currentDoctorDetails"))
-  );
+  )
   const reduxcurrent_doctor_details = useSelector(
     (state: any) => state.patient.current_doctor_details
-  );
-  const [appointmentDetails, setAppointmentDetails] = useState({});
+  )
+  const [appointmentDetails, setAppointmentDetails] = useState({})
 
-  const [appointmentDisable, setAppointmentDisable] = useState(false);
+  const [appointmentDisable, setAppointmentDisable] = useState(false)
 
-  const handleCloseOffCanvas = () => setShowOffCanvas(false);
-  const handleShowOffCanvas = () => setShowOffCanvas(true);
+  const handleCloseOffCanvas = () => setShowOffCanvas(false)
+  const handleShowOffCanvas = () => setShowOffCanvas(true)
   useEffect(() => {
     const doctorProfile = JSON.parse(
       sessionStorage.getItem("currentDoctorDetails")
-    );
-
-    console.log("doctor", doctorProfile);
-    setDoctorDetails(doctorProfile);
-  }, []);
+    )
+    setDoctorDetails(doctorProfile)
+  }, [])
 
   const {
     appointment_fees,
@@ -56,17 +55,32 @@ const Doctordetail = () => {
     zip_code,
     phone,
     certificates,
-  } = doctorDetails;
+  } = doctorDetails
+  const patient_uid = JSON.parse(localStorage.getItem("user_information")).uid
+  console.log(JSON.parse(localStorage.getItem("user_information")))
   const dataToSend = {
     appointment_date: JSON.parse(localStorage.getItem("appointment_date")),
     patient: JSON.parse(localStorage.getItem("user_information")),
     doctor_details: JSON.parse(sessionStorage.getItem("currentDoctorDetails")),
-  };
+    payment_details: {},
+  }
 
   const bookAppointment = async () => {
-    setAppointmentDisable(true);
+    console.log(dataToSend)
 
-    try {    
+    dataToSend.payment_details = {
+      amount: 20,
+      payment_status: "paid",
+      payment_method: "card",
+      card_holder: "Mukesh Ambani",
+      card_number: "2342342342342342",
+      isInsured: false,
+      insuranceCompany: "",
+      insuranceNumber: "",
+      insuranceExpiry: "",
+    }
+    setAppointmentDisable(true)
+    try {
       const res = await axios.post(
         `${config.base_url}/patient/create_appointment`,
         {
@@ -77,40 +91,17 @@ const Doctordetail = () => {
             Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
           },
         }
-      );
-      toast.success("Appointment Successfully created");
-      setTimeout(() => {
-        navigate("/patient-dashboard"); // Navigate after 5 seconds
-      }, 2000);
+      )
+      toast.success("Appointment Successfully created")
+      // setTimeout(() => {
+      //   navigate("/patient-dashboard"); // Navigate after 5 seconds
+      // }, 2000);
 
-      console.log("res", res.data);
+      console.log("res", res.data)
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error)
     }
-
-    // useEffect(() => {
-    //   (async () => {
-    //     try {
-    //       const res = await axios.post(
-    //         `${config.base_url}/doctor/get_doctors_for_appointment`,
-    //         {
-    //           data,
-    //         },
-    // {
-    //   headers: {
-    //     'Authorization': `Bearer ${getToken()}` // Add the authorization token here with the "Bearer" prefix
-    //   }
-    // }
-    //       );
-    //       // console.log("res", res.data.data[0]);
-    //       setdoctorProfiles(res.data.data);
-    //       setLoader(!loader);
-    //     } catch (error) {
-    //       console.log("error", error);
-    //     }
-    //   })();
-    // }, []);
-  };
+  }
 
   return (
     <>
@@ -124,6 +115,8 @@ const Doctordetail = () => {
                   {name}
                 </h4>
                 <span>Speciality : {specialities} </span>
+                <p>{patient_uid}</p>
+                <p>{uid}</p>
               </div>
               <button
                 className="detail_btn"
@@ -132,13 +125,20 @@ const Doctordetail = () => {
               >
                 Book Appointment
               </button>
+              {/* <PaymentModal
+                key={"end"}
+                placement={"end"}
+                name={"Book Appointment"}
+              /> */}
             </div>
             <div style={{ paddingLeft: "50px" }}>
               <hr className="form_separator" />
             </div>
             <div className="header_section_2">
               <div className="header_card">
-                <p className="b_text">${appointment_fees}</p>
+                <p className="b_text">
+                  ${appointment_fees ? appointment_fees : 10}
+                </p>
                 <span className="n_text">Appointment Fee</span>
               </div>
               <div className="header_card">
@@ -152,7 +152,6 @@ const Doctordetail = () => {
         </div>
         <hr className="form_separator" />
         <div className="detail_about">
-          {/* <h4 className="box_heading">About Doctor</h4> */}
           <h4 className="box_heading">About clinician</h4>
           <p>{description}</p>
         </div>
@@ -201,21 +200,14 @@ const Doctordetail = () => {
           <div className="certificate_box">
             {certificates?.length > 0 ? (
               certificates.map((imageName, index) => {
-                const imageUrl = `${config.base_url}/certificates/${imageName}`;
-                return <img src={imageUrl} alt="" className="cer_img" />;
+                const imageUrl = `${config.base_url}/certificates/${imageName}`
+                return <img src={imageUrl} alt="" className="cer_img" />
               })
             ) : (
               <div className="d-flex justify-content-center py-2 w-100">
                 No certificate found
               </div>
             )}
-
-            {/* <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" />
-            <img src={Certificate} alt="" className="cer_img" /> */}
           </div>
         </div>
       </div>
@@ -227,7 +219,7 @@ const Doctordetail = () => {
       />
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default Doctordetail;
+export default Doctordetail

@@ -62,7 +62,7 @@ function PatientDashBoard() {
 					`${config.base_url}/patient/get_patient_upcoming_appointment/${patientId}`
 				)
 				const data = await response.json()
-				console.log("Fetch Upcoming appointment", data)
+				// console.log("Fetch Upcoming appointment", data)
 
 				if (data.message === "success" && data.data.length > 0) {
 					// If there is an upcoming appointment, set state and extract time

@@ -1,13 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-
-import { appRoutes } from "./constants/constants";
-import AppLayout from "./Layout/AppLayout";
-import ProtectedRoute from "../src/components/ProtectedRoute"; // Import your ProtectedRoute component
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { QueryClient, QueryClientProvider } from "react-query"
+import "react-toastify/dist/ReactToastify.css"
+import { appRoutes } from "./constants/constants"
+import AppLayout from "./Layout/AppLayout"
+import ProtectedRoute from "../src/components/ProtectedRoute" // Import your ProtectedRoute component
 //import { Suspense } from "react";
 
 const App = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient()
 
   return (
     <Router>
@@ -23,7 +23,7 @@ const App = () => {
                     path={route.path}
                     element={<ProtectedRoute element={route.Component} />}
                   />
-                );
+                )
               } else {
                 return (
                   <Route
@@ -31,14 +31,14 @@ const App = () => {
                     path={route.path}
                     element={route.Component}
                   />
-                );
+                )
               }
             })}
           </Routes>
         </AppLayout>
       </QueryClientProvider>
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App
