@@ -21,7 +21,7 @@ import { loadStripe } from "@stripe/stripe-js"
 const stripePromise = await loadStripe(config.STRIPE_PUBLISHABLE_KEY)
 import PaymentModal from "../../components/AppointmentByDoc/PaymentModal"
 import { Elements } from "@stripe/react-stripe-js"
-import StripeContainer from "./StripeContainer"
+import StripeContainer from "../../components/AppointmentByDoc/StripeContainer"
 
 const AppoinmentByDoctor = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)

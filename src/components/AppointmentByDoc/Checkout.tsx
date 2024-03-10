@@ -1,6 +1,6 @@
 // import { Dispatch, SetStateAction } from "react"
 
-function Checkout({ handlePopup }: { handlePopup: () => void }) {
+function Checkout({ setFormState }: { setFormState: () => void }) {
   return (
     <div className="">
       {" "}
@@ -81,7 +81,7 @@ function Checkout({ handlePopup }: { handlePopup: () => void }) {
           type="submit"
           //   disabled={formik.isSubmitting}
           // onClick={onSubmitHandler}
-          onClick={handlePopup}
+          onClick={setFormState}
           className="btn btn-primary align-self-end py-3 w-100  mt-3"
         >
           Continue

@@ -40,8 +40,18 @@ const validationSchema = Yup.object().shape({
 })
 
 function PaymentModal({ ...props }) {
-  const [show, setShow] = useState(false)
-  const [formState, setFormState] = useState("addDetails")
+  const [formState, setFormState] = useState({
+    show: false,
+    formState: "",
+  })
+  const resetState = () => {
+    setFormState({
+      show: false,
+      formState: "",
+    })
+    // Reset form values
+    formik.resetForm()
+  }
   const [userInformation, setUserInfo] = useState({
     amount: 0,
     payment_status: "paid",
@@ -54,8 +64,21 @@ function PaymentModal({ ...props }) {
     insuranceExpiry: "",
   })
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const handleClose = () => {
+    setFormState({
+      ...formState,
+      show: false,
+    })
+    // Reset form values
+    formik.resetForm()
+  }
+
+  const handleShow = () => {
+    setFormState({
+      ...formState,
+      show: true,
+    })
+  }
   const stripe = useStripe()
 
   const elements = useElements()
@@ -97,7 +120,7 @@ function PaymentModal({ ...props }) {
           const { id } = paymentMethod
           // console.log(id, "Token Id")
           const paymentData = {
-            amount: 1000,
+            amount: 70000,
             id,
             currency: config.currency,
             tax: config.tax_amount,
@@ -113,11 +136,14 @@ function PaymentModal({ ...props }) {
               },
             }
           )
-
-          if (response.data.success) {
+          console.log(response)
+          if (response?.status === 200) {
             console.log("Payment Success")
             toast.success("Payment Success")
-            setFormState("proceedToCheckout")
+            setFormState({
+              ...formState,
+              formState: "proceedToCheckout",
+            })
           }
         } catch (error) {
           toast.error("Error", error)
@@ -172,7 +198,7 @@ function PaymentModal({ ...props }) {
         }
       }
     }
-  }, [show, elements])
+  }, [formState, elements])
   return (
     <div className="width">
       <button
@@ -184,7 +210,7 @@ function PaymentModal({ ...props }) {
       {/* <div onClick={handleShow}>{payButton}</div> */}
 
       <Offcanvas
-        show={show}
+        show={formState.show}
         onHide={handleClose}
         {...props}
         scroll={false}
@@ -206,7 +232,7 @@ function PaymentModal({ ...props }) {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="slim-scrollbar overflow-auto ">
-          {formState === "addDetails" && (
+          {formState.formState === "" && (
             <Form
               className="flex justify-content-between  flex-column ga h-100 "
               onSubmit={formik.handleSubmit}
@@ -389,8 +415,12 @@ function PaymentModal({ ...props }) {
             </Form>
           )}
 
-          {formState === "proceedToCheckout" && (
-            <Checkout handlePopup={handleClose} />
+          {formState.formState === "proceedToCheckout" && (
+            <Checkout
+              setFormState={() => {
+                resetState()
+              }}
+            />
           )}
         </Offcanvas.Body>
       </Offcanvas>
