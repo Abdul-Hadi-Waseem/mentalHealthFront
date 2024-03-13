@@ -1,15 +1,20 @@
-import React from "react"
 import config from "../../configs/config"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
-// import PayFrom from "./PayFrom"
-import PaymentModal from "./PaymentModal"
+
+import { DoctorDetails } from "../types"
+// import PaymentModal from "./PaymentModal"
+import PaymentModal2 from "./PaymentModal2"
 const PUBLIC_KEY = config.STRIPE_PUBLISHABLE_KEY
 const stripePromise = loadStripe(PUBLIC_KEY)
-export default function StripeContainer() {
+export default function StripeContainer({
+  doctorDetails,
+}: {
+  doctorDetails: DoctorDetails
+}) {
   return (
     <Elements stripe={stripePromise}>
-      <PaymentModal />
+      <PaymentModal2 doctorDetails={doctorDetails} />
     </Elements>
   )
 }

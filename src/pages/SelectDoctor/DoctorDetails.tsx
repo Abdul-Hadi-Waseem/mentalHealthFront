@@ -1,9 +1,7 @@
-import Header from "../PatientDashboard/Header/Header"
 import Doctordetail from "../../components/Doctordetail"
-// import StripeContainer from "../ScheduleByDoctor/StripeContainer"
+import Header from "../PatientDashboard/Header/Header"
 const DoctorDetails = () => {
   return (
-    // <StripeContainer />
     <Header>
       <Doctordetail />
     </Header>

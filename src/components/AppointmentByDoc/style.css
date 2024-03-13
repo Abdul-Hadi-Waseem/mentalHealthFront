@@ -18,6 +18,11 @@
   -ms-overflow-style: none;
   /* overflow: hidden; */
 }
+.remove-input[type="number"]::-webkit-inner-spin-button,
+.remove-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

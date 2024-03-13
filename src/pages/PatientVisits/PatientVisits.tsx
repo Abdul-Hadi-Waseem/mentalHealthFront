@@ -1,68 +1,65 @@
-import { json, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Selectdoctor from "../../components/Selectdoctor";
-import "./PatientVisits.css";
+import { json, useLocation, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import Selectdoctor from "../../components/Selectdoctor"
+// import "./PatientVisits.css";
 // import Header from "../DoctorDashboard/Header/Header";
-import { Container, Row, Col } from "react-bootstrap";
-import BackButton from "../../components/Common/Buttons/BackButton";
-import UserCard from "../../components/Common/UserCard";
-import doctor_img from "./../../assets/images/doctor.svg";
-import axios from "axios";
-import Spinner from "react-bootstrap/Spinner";
-import config from "../../configs/config";
-import Header from "../PatientDashboard/Header/Header";
-import PatientSideBarModal from "../../components/PatientSideBarModal";
-import { getToken } from "../../utils";
+import { Container, Row, Col } from "react-bootstrap"
+import BackButton from "../../components/Common/Buttons/BackButton"
+import UserCard from "../../components/Common/UserCard"
+import doctor_img from "./../../assets/images/doctor.svg"
+import axios from "axios"
+import Spinner from "react-bootstrap/Spinner"
+import config from "../../configs/config"
+import Header from "../PatientDashboard/Header/Header"
+import PatientSideBarModal from "../../components/PatientSideBarModal"
+import { getToken } from "../../utils"
 
 function PatientVisits() {
   // const location = useLocation();
   // const navigate = useNavigate();
   // let currentLocation = location.pathname.split("/").slice(-1).toString();
-  const [doctorProfiles, setDoctorProfiles] = useState([]);
-  const [bookedAppointments, setBookedAppointments] = useState([]);
-  const [conductedAppointments, setConductedAppointments] = useState([]);
-  const [currentDoctorDetails, setCurrentDoctorDeatils] = useState<any>();
-  const [showOffCanvas, setShowOffCanvas] = useState(false);
-  
-  const handleCloseOffCanvas = () => setShowOffCanvas(false);
+  const [doctorProfiles, setDoctorProfiles] = useState([])
+  const [bookedAppointments, setBookedAppointments] = useState([])
+  const [conductedAppointments, setConductedAppointments] = useState([])
+  const [currentDoctorDetails, setCurrentDoctorDeatils] = useState<any>()
+  const [showOffCanvas, setShowOffCanvas] = useState(false)
+
+  const handleCloseOffCanvas = () => setShowOffCanvas(false)
   const handleShowOffCanvas = (item: any) => {
-    setShowOffCanvas(true);
-    setCurrentDoctorDeatils(item);
-    localStorage.setItem("current_doctor_details", JSON.stringify(item));
-  };
-  const [loader, setLoader] = useState(true);
-  let booked = [];
-  let conducted = [];
+    setShowOffCanvas(true)
+    setCurrentDoctorDeatils(item)
+    localStorage.setItem("current_doctor_details", JSON.stringify(item))
+  }
+  const [loader, setLoader] = useState(true)
+  let booked = []
+  let conducted = []
   const handleBookedAndConducted = (profiles: any) => {
-    let data = [...profiles];
+    let data = [...profiles]
     data.forEach((data_item, index) => {
-      let { schedule, ...res } = data_item;
-      let conductedObj = { ...res, schedule: [] };
-      let bookedObj = { ...res, schedule: [] };
-      schedule.forEach((item, index) => {     
-        if(item.appointment_status === "conducted")
-        {          
+      let { schedule, ...res } = data_item
+      let conductedObj = { ...res, schedule: [] }
+      let bookedObj = { ...res, schedule: [] }
+      schedule.forEach((item, index) => {
+        if (item.appointment_status === "conducted") {
           return conductedObj.schedule.push(item)
-        }
-        else{
-          data_item.meeting_id? item.meeting_id = data_item.meeting_id: null;
+        } else {
+          data_item.meeting_id ? (item.meeting_id = data_item.meeting_id) : null
           return bookedObj.schedule.push(item)
         }
-      });
+      })
       if (conductedObj.schedule.length > 0) {
-        conducted.push(conductedObj);
+        conducted.push(conductedObj)
       }
       if (bookedObj.schedule.length > 0) {
-        booked.push(bookedObj);
+        booked.push(bookedObj)
       }
-    });
-    setBookedAppointments(booked);
-    setConductedAppointments(conducted);
-
-  };
+    })
+    setBookedAppointments(booked)
+    setConductedAppointments(conducted)
+  }
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
         const res = await axios.get(
           `${config.base_url}/patient/get_patient_upcoming_appointment/${
@@ -73,24 +70,24 @@ function PatientVisits() {
               Authorization: `Bearer ${getToken()}`, // Add the authorization token here with the "Bearer" prefix
             },
           }
-        );
-        console.log("get_patient_upcoming_appointment res", res);
+        )
+        console.log("get_patient_upcoming_appointment res", res)
         if (res?.data?.data) {
           localStorage.setItem(
             "current_doctor_details",
             JSON.stringify(res?.data?.data[0])
-          );
-          setDoctorProfiles(res?.data?.data);
-          setLoader(!loader);
+          )
+          setDoctorProfiles(res?.data?.data)
+          setLoader(!loader)
         }
       } catch (error) {
-        console.log("get_patient_upcoming_appointment error", error);
+        console.log("get_patient_upcoming_appointment error", error)
       }
-    })();
-  }, []);
+    })()
+  }, [])
   useEffect(() => {
-    handleBookedAndConducted(doctorProfiles);
-  }, [doctorProfiles]);
+    handleBookedAndConducted(doctorProfiles)
+  }, [doctorProfiles])
 
   return (
     <Header>
@@ -167,13 +164,16 @@ function PatientVisits() {
                           btnTitle="View Details"
                           key={"abcd" + index.toString()}
                           img={doctor_img}
-                          userDetails={{ ...item, treat: item?.schedule[0]?.specialities }}
+                          userDetails={{
+                            ...item,
+                            treat: item?.schedule[0]?.specialities,
+                          }}
                           handleUserProfile={() => {
-                            handleShowOffCanvas(item);
+                            handleShowOffCanvas(item)
                           }}
                         />
                       </Col>
-                    );
+                    )
                   })}
                 </Row>
               )}
@@ -191,11 +191,11 @@ function PatientVisits() {
                           img={doctor_img}
                           userDetails={{ ...item, treat: "Psychiatrist" }}
                           handleUserProfile={() => {
-                            handleShowOffCanvas(item);
+                            handleShowOffCanvas(item)
                           }}
                         />
                       </Col>
-                    );
+                    )
                   })}
                 </Row>
               )}
@@ -221,7 +221,7 @@ function PatientVisits() {
         )}
       </div>
     </Header>
-  );
+  )
 }
 
-export default PatientVisits;
+export default PatientVisits

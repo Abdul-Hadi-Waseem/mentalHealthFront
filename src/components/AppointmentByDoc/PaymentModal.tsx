@@ -7,61 +7,44 @@ import Checkout from "./Checkout"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import axios from "axios"
-import config from "../../configs/config"
+
 import { getToken } from "../../utils"
 import { toast } from "react-toastify"
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
-import { Col, Form, Row } from "react-bootstrap"
+// import { Col, Form, Row } from "react-bootstrap"
+import { InsuranceInformation, paymentApiParams } from "../types"
+import config from "../../configs/config"
+import moment from "moment"
+import "./style.css"
+// import CardDetails from "./CardDetails"
+// import { useNavigate } from "react-router-dom"
+// import { Col, Form, Row } from "react-bootstrap"
+import CardDetails from "./CardDetails"
+// import CardDetails from "./CardDetails"
 
 const validationSchema = Yup.object().shape({
   cardHolderName: Yup.string().required("Name is required"),
   isInsured: Yup.boolean().optional(),
-  insuranceCompany: Yup.string().when("isInsured", (isInsured, schema) => {
-    if (isInsured) {
-      return schema
-    } else {
-      return schema
-    }
-  }),
-  insuranceNumber: Yup.string().when("isInsured", (isInsured, schema) => {
-    if (isInsured) {
-      return schema
-    } else {
-      return schema
-    }
-  }),
-  insuranceExpiry: Yup.date().when("isInsured", (isInsured, schema) => {
-    if (isInsured) {
-      return schema
-    } else {
-      return schema
-    }
-  }),
+  useCard: Yup.boolean().optional(),
+  insuranceCompany: Yup.string(),
+  insuranceNumber: Yup.number().positive().integer(),
+  insuranceExpiry: Yup.date(),
 })
 
-function PaymentModal({ ...props }) {
+export enum PaymentProcess {
+  PROCEED_TO_CHECKOUT = "proceedToCheckout",
+  CARD_DETAILS = "cardDetails",
+}
+export default function PaymentModal({ doctorDetails, ...props }) {
   const [formState, setFormState] = useState({
     show: false,
-    formState: "",
+    formState: PaymentProcess.PROCEED_TO_CHECKOUT,
   })
-  const resetState = () => {
-    setFormState({
-      show: false,
-      formState: "",
-    })
-    // Reset form values
-    formik.resetForm()
-  }
-  const [userInformation, setUserInfo] = useState({
-    amount: 0,
-    payment_status: "paid",
-    payment_method: "card",
-    card_holder: "",
 
-    isInsured: false,
+  const [insuranceInfo, setInsuranceInfo] = useState<InsuranceInformation>({
     insuranceCompany: "",
     insuranceNumber: "",
-    insuranceExpiry: "",
+    expiryDate: "",
   })
 
   const handleClose = () => {
@@ -69,7 +52,7 @@ function PaymentModal({ ...props }) {
       ...formState,
       show: false,
     })
-    // Reset form values
+
     formik.resetForm()
   }
 
@@ -79,81 +62,6 @@ function PaymentModal({ ...props }) {
       show: true,
     })
   }
-  const stripe = useStripe()
-
-  const elements = useElements()
-
-  // const onSubmitHandler = async (e) => {
-
-  // }
-  const formik = useFormik({
-    initialValues: {
-      cardHolderName: "",
-      isInsured: false,
-      insuranceCompany: "",
-      insuranceNumber: "",
-      insuranceExpiry: "",
-    },
-    validationSchema,
-    onSubmit: async (values) => {
-      setUserInfo({
-        amount: 0,
-        card_holder: values.cardHolderName,
-        insuranceCompany: values.insuranceCompany,
-        insuranceExpiry: values.insuranceExpiry,
-        insuranceNumber: values.insuranceNumber,
-        isInsured: values.isInsured,
-        payment_method: "card",
-        payment_status: "paid",
-      })
-      // e.preventDefault()
-
-      if (!stripe || !elements) {
-        return
-      }
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: "card",
-        card: elements.getElement(CardElement),
-      })
-      if (!error) {
-        try {
-          const { id } = paymentMethod
-          // console.log(id, "Token Id")
-          const paymentData = {
-            amount: 70000,
-            id,
-            currency: config.currency,
-            tax: config.tax_amount,
-            userInfo: { ...userInformation },
-          }
-          const response = await axios.post(
-            `${config.base_url}/user/payment_intent`,
-            paymentData,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${getToken()}`,
-              },
-            }
-          )
-          console.log(response)
-          if (response?.status === 200) {
-            console.log("Payment Success")
-            toast.success("Payment Success")
-            setFormState({
-              ...formState,
-              formState: "proceedToCheckout",
-            })
-          }
-        } catch (error) {
-          toast.error("Error", error)
-        }
-      } else {
-        console.log(error.message)
-      }
-      // onSubmitHandler()
-    },
-  })
   const cardElementOptions = {
     style: {
       base: {
@@ -164,29 +72,57 @@ function PaymentModal({ ...props }) {
       },
     },
   }
+  const stripe = useStripe()
 
-  // const CARD_OPTIONS = {
-  //   // iconStyle: "solid",
-  //   style: {
-  //     base: {
-  //       // fontSize: "16px",
+  const elements = useElements()
 
-  //       // fontFamily: "Poppins",
-  //       iconColor: "#c4f0ff",
-  //       color: "#32325d",
-  //       fontWeight: 500,
-  //       fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-  //       fontSize: "16px",
-  //       fontSmoothing: "antialiased",
-  //       ":-webkit-autofill": { color: "#fce883" },
-  //       "::placeholder": { color: "#87bbfd" },
-  //     },
-  //     invalid: {
-  //       iconColor: "#ffc7ee",
-  //       color: "#ffc7ee",
-  //     },
-  //   },
-  // }
+  // const [stripeId, setStripeId] = useState("")
+
+  const minDate = moment().startOf("day").toDate()
+  // const [destroyCard, setDestroyCard] = useState(false)
+  const formik = useFormik({
+    initialValues: {
+      cardHolderName: "",
+      isInsured: false,
+      insuranceCompany: "",
+      insuranceNumber: "",
+      insuranceExpiry: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      setInsuranceInfo({
+        ...insuranceInfo,
+        expiryDate: values?.insuranceExpiry,
+        insuranceCompany: values?.insuranceCompany,
+        insuranceNumber: values?.insuranceNumber,
+      })
+      const paymentData: paymentApiParams = {
+        amount: doctorDetails.appointment_fees
+          ? doctorDetails.appointment_fees
+          : 100,
+        patient_uid: JSON.parse(localStorage.getItem("user_information")).uid,
+        doctor_uid: doctorDetails.uid,
+        isInsured: values.isInsured,
+        currency: config.currency,
+      }
+      // const paymentIntentData = {
+      //   amount: 1000,
+      //   patient_uid: "aee3032c-90a0-410a-8122-e6d8cbc6725f",
+      //   doctor_uid: "cc4a7a84-82b2-4bba-b211-dd24689be854",
+      //   isInsured: values.isInsured,
+      //   currency: config.currency,
+      // }
+
+      const paymentIntentResponse = await createPaymentIntent(paymentData)
+
+      const bookAppointmentResponse = await bookAppointment(
+        paymentIntentResponse.stripeId,
+        paymentIntentResponse.response.data.clientSecret
+      )
+      console.log(bookAppointmentResponse, "Book Appointment")
+    },
+  })
+
   useEffect(() => {
     return () => {
       if (elements) {
@@ -198,16 +134,125 @@ function PaymentModal({ ...props }) {
         }
       }
     }
-  }, [formState, elements])
+  }, [elements, formState.show])
+  // const navigate = useNavigate()
+  // const dataToSend = {
+  //   appointment_date: JSON.parse(localStorage.getItem("appointment_date")),
+  //   patient: JSON.parse(localStorage.getItem("user_information")),
+  //   doctor_details: JSON.parse(sessionStorage.getItem("currentDoctorDetails")),
+  //   payment_details: {},
+  // }
+  // const paymentIntentData = {
+  //   amount: 1000,
+  //   patient_uid: "aee3032c-90a0-410a-8122-e6d8cbc6725f",
+  //   doctor_uid: "cc4a7a84-82b2-4bba-b211-dd24689be854",
+  //   isInsured: values.isInsured,
+  //   currency: config.currency,
+  // }
+  const createPaymentIntent = async (paymentInfo: paymentApiParams) => {
+    if (!stripe || !elements) {
+      return
+    }
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    })
+    if (!error) {
+      try {
+        const { id } = paymentMethod
+        // console.log(id, "Token Id")
+        // setStripeId(id)
+        // console.log(stripeId, "stripe id")
+        console.log(id, "stripe id 2")
+        const response = await axios.post(
+          `${config.base_url}/user/payment_intent`,
+          paymentInfo,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getToken()}`,
+            },
+          }
+        )
+        // console.log(response)
+        // if (response?.status === 200) {
+        // console.log("Payment Success")
+        // toast.success("Payment Success")
+        // }
+        return {
+          response,
+          stripeId: id,
+        }
+      } catch (error) {
+        toast.error("Error", error)
+        handleClose()
+      }
+    } else {
+      console.log(error.message)
+    }
+  }
+  const bookAppointment = async (stripeId, clientSecret) => {
+    try {
+      // dataToSend.payment_details = {
+      //   isInsured: !!(
+      //     insuranceInfo?.insuranceCompany &&
+      //     insuranceInfo?.insuranceNumber &&
+      //     insuranceInfo?.expiryDate
+      //   ),
+      //   stripe_payment_id: stripeId,
+      //   insuranceCompany: insuranceInfo?.insuranceCompany ?? "",
+      //   insuranceNumber: insuranceInfo?.insuranceNumber ?? "",
+      //   insuranceExpiry: insuranceInfo?.expiryDate ?? "",
+      // }
+      // console.log(stripeId, "ID FROM BOOK APPP")
+      const dataToSend = {
+        appointment_date: JSON.parse(localStorage.getItem("appointment_date")),
+        patient: JSON.parse(localStorage.getItem("user_information")),
+        doctor_details: JSON.parse(
+          sessionStorage.getItem("currentDoctorDetails")
+        ),
+        payment_details: {},
+      }
+      dataToSend.payment_details = {
+        isInsured: !!(
+          insuranceInfo?.insuranceCompany &&
+          insuranceInfo?.insuranceNumber &&
+          insuranceInfo?.expiryDate
+        ),
+        stripe_payment_id: stripeId,
+        insuranceCompany: insuranceInfo?.insuranceCompany ?? "",
+        insuranceNumber: insuranceInfo?.insuranceNumber ?? "",
+        insuranceExpiry: insuranceInfo?.expiryDate ?? "",
+        secret: clientSecret,
+      }
+
+      const res = await axios.post(
+        `${config.base_url}/patient/create_appointment`,
+        { data: dataToSend },
+        { headers: { Authorization: `Bearer ${getToken()}` } }
+      )
+
+      if (res?.request?.status === 200) {
+        toast.success("Appointment Successfully created")
+        // setTimeout(() => {
+        //   navigate("/patient-dashboard") // Navigate after 5 seconds
+        // }, 2000)
+        setFormState({
+          ...formState,
+          show: false,
+        })
+      }
+    } catch (error) {
+      console.log("error", error)
+      toast.error("Failed to create appointment. Please try again later.")
+    }
+  }
+
   return (
     <div className="width">
-      <button
-        onClick={handleShow}
-        className="btn btn-primary align-self-end py-3 w-100 "
-      >
-        Proceed To Pay
+      <button onClick={handleShow} className="detail_btn">
+        Book Appointment
       </button>
-      {/* <div onClick={handleShow}>{payButton}</div> */}
 
       <Offcanvas
         show={formState.show}
@@ -232,194 +277,22 @@ function PaymentModal({ ...props }) {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="slim-scrollbar overflow-auto ">
-          {formState.formState === "" && (
-            <Form
-              className="flex justify-content-between  flex-column ga h-100 "
-              onSubmit={formik.handleSubmit}
-            >
-              <div className="d-flex flex-column gap-3">
-                <p className="fw-bold mb-2">Card Details</p>
-
-                <Form.Group className="mb-3 position-relative">
-                  <Form.Label
-                    htmlFor="cardHolderName"
-                    className="position-absolute badge fw-light text-black start-0 bg-white "
-                    style={{
-                      top: "-0.5rem",
-                      zIndex: 1,
-                      width: "auto",
-                      margin: "0 0  0 10px",
-                    }}
-                  >
-                    Card Holder Name
-                  </Form.Label>
-                  <Form.Control
-                    id="cardHolderName"
-                    placeholder="John Doe"
-                    type="text"
-                    name="cardHolderName"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.cardHolderName}
-                    className={`p-3  custom-border-light ${
-                      formik.touched.cardHolderName &&
-                      formik.errors.cardHolderName
-                        ? "is-invalid"
-                        : ""
-                    }`}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3 position-relative border rounded">
-                  <Form.Label
-                    htmlFor="cardNumber"
-                    className="position-absolute badge fw-light text-black start-0 bg-white "
-                    style={{
-                      top: "-0.5rem",
-                      zIndex: 1,
-                      width: "auto",
-                      margin: "0 0  0 10px",
-                    }}
-                  >
-                    Card Number
-                  </Form.Label>
-
-                  <CardElement options={cardElementOptions} className={`p-3`} />
-                </Form.Group>
-
-                <Row className="justify-content-md-center">
-                  <Col>
-                    <p className="fw-bold mb-2">Is It Covered By Insurance?</p>
-                  </Col>
-                  <Col xs lg="2">
-                    <Form.Check
-                      className=""
-                      onChange={(e) =>
-                        formik.setFieldValue("isInsured", e.target.checked)
-                      }
-                      onBlur={formik.handleBlur}
-                      type="switch"
-                      id="custom-switch"
-                    />
-                  </Col>
-                </Row>
-                {formik.values.isInsured === true && (
-                  <div>
-                    <Form.Group className="mb-3 position-relative">
-                      <Form.Label
-                        htmlFor="insuranceCompany"
-                        className="position-absolute badge fw-light text-black start-0 bg-white "
-                        style={{
-                          top: "-0.5rem",
-                          zIndex: 1,
-                          width: "auto",
-                          margin: "0 0  0 10px",
-                        }}
-                      >
-                        Insurance Company
-                      </Form.Label>
-                      <Form.Control
-                        id="insuranceCompany"
-                        placeholder="Abc Company"
-                        type="text"
-                        name="insuranceCompany"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.insuranceCompany}
-                        className={`p-3  custom-border-light ${
-                          formik.touched.insuranceCompany &&
-                          formik.errors.insuranceCompany
-                            ? "is-invalid"
-                            : ""
-                        }`}
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3 position-relative">
-                      <Form.Label
-                        htmlFor="insuranceNumber"
-                        className="position-absolute badge fw-light text-black start-0 bg-white "
-                        style={{
-                          top: "-0.5rem",
-                          zIndex: 1,
-                          width: "auto",
-                          margin: "0 0  0 10px",
-                        }}
-                      >
-                        Insurance Number
-                      </Form.Label>
-                      <Form.Control
-                        id="insuranceNumber"
-                        placeholder="228856896789"
-                        type="number"
-                        name="insuranceNumber"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.insuranceNumber}
-                        className={`p-3  custom-border-light ${
-                          formik.touched.insuranceNumber &&
-                          formik.errors.insuranceNumber
-                            ? "is-invalid"
-                            : ""
-                        }`}
-                      />
-                    </Form.Group>
-                    <Form.Group className="mb-3 position-relative">
-                      <Form.Label
-                        htmlFor="insuranceExpiry"
-                        className="position-absolute badge fw-light text-black start-0 bg-white "
-                        style={{
-                          top: "-0.5rem",
-                          zIndex: 1,
-                          width: "auto",
-                          margin: "0 0  0 10px",
-                        }}
-                      >
-                        Expiry
-                      </Form.Label>
-                      <Form.Control
-                        id="insuranceExpiry"
-                        placeholder="12-12-2005"
-                        type="date"
-                        name="insuranceExpiry"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.insuranceExpiry}
-                        className={`p-3 isDate custom-border-light ${
-                          formik.touched.insuranceExpiry &&
-                          formik.errors.insuranceExpiry
-                            ? "is-invalid"
-                            : ""
-                        }`}
-                      />
-                    </Form.Group>
-                  </div>
-                )}
-              </div>
-
-              <div className="d-flex gap-2">
-                {/* <button
-                  disabled={formik.isSubmitting}
-                  onClick={() => setShow(false)}
-                  className="btn  align-self-end py-3 w-100  "
-                >
-                  Cancel
-                </button> */}
-                <button
-                  type="submit"
-                  disabled={formik.isSubmitting}
-                  // onClick={() => setFormState("proceedToCheckout")}
-                  className="btn btn-primary align-self-end py-3 w-100  "
-                >
-                  Pay From Card
-                </button>
-              </div>
-            </Form>
-          )}
-
-          {formState.formState === "proceedToCheckout" && (
+          {formState.formState === PaymentProcess.PROCEED_TO_CHECKOUT && (
             <Checkout
               setFormState={() => {
-                resetState()
+                setFormState({
+                  ...formState,
+                  formState: PaymentProcess.CARD_DETAILS,
+                })
               }}
+              doctorDetails={doctorDetails}
+            />
+          )}
+          {formState.formState === PaymentProcess.CARD_DETAILS && (
+            <CardDetails
+              cardElementOptions={cardElementOptions}
+              formik={formik}
+              minDate={minDate}
             />
           )}
         </Offcanvas.Body>
@@ -427,4 +300,3 @@ function PaymentModal({ ...props }) {
     </div>
   )
 }
-export default PaymentModal
